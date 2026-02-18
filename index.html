@@ -1,0 +1,2026 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title id="page-title">Bison Fellowship</title>
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="favicon-192.png">
+  <link rel="apple-touch-icon" href="favicon-192.png">
+  <meta id="meta-description" name="description" content="Bison Fellowship builds founding engineers for exceptional startups.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&family=Geist+Mono:wght@100..900&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg-primary: #F9F6F0;
+      --bg-warm: #F2EEE6;
+      --bg-muted: #E5E2DA;
+      --bg-card: #f9f6f0;
+      --text-primary: #212C33;
+      --text-secondary: #333334;
+      --text-muted: rgba(51, 51, 52, 0.5);
+      --text-faint: #9e9e9e;
+      --border-light: rgba(51, 51, 52, 0.1);
+      --border-mid: rgba(51, 51, 52, 0.15);
+      --accent-forest: #2b5e49;
+      --accent-amber: #c8956c;
+      --radius-card: 32px;
+      --radius-pill: 999px;
+      --container-max: 1296px;
+      --font-serif: "Instrument Serif", Georgia, serif;
+      --font-sans: "Geist", system-ui, -apple-system, sans-serif;
+      --font-mono: "Geist Mono", monospace;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; background: var(--bg-primary); }
+
+    body {
+      font-family: var(--font-sans);
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      text-rendering: optimizeLegibility;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    .skip-link { position: absolute; left: -999px; top: auto; }
+    .skip-link:focus { left: 16px; top: 16px; z-index: 1000; padding: 8px 12px; border-radius: 6px; background: #fff; color: var(--text-primary); border: 1px solid var(--text-primary); }
+
+    /* ── 1. OFFICIAL BANNER ── */
+    .gov-banner {
+      width: 100%;
+      border-bottom: 1px solid var(--border-light);
+      background: var(--bg-warm);
+      padding: 12px 0;
+      color: rgba(51, 51, 52, 0.8);
+    }
+    .gov-banner-inner {
+      max-width: var(--container-max);
+      margin: 0 auto;
+      padding: 0 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      gap: 8px;
+      position: relative;
+    }
+    .gov-banner-inner svg { flex-shrink: 0; }
+    .gov-banner-inner span { font-weight: 500; }
+
+    /* ── LANG SWITCH ── */
+    .lang-switch {
+      display: flex;
+      align-items: center;
+      gap: 2px;
+      position: absolute;
+      right: 24px;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+    .lang-switch button {
+      all: unset;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: 0.04em;
+      padding: 3px 7px;
+      border-radius: 4px;
+      color: var(--text-muted);
+      cursor: pointer;
+      transition: color 0.2s, background 0.2s;
+      line-height: 1;
+    }
+    .lang-switch button:hover {
+      color: var(--text-primary);
+    }
+    .lang-switch button.active {
+      color: var(--text-primary);
+      background: rgba(51, 51, 52, 0.08);
+      font-weight: 600;
+    }
+    .lang-switch-divider {
+      color: var(--border-mid);
+      font-size: 10px;
+      user-select: none;
+    }
+
+    /* ── 2. STICKY HEADER ── */
+    .sticky-header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      background: rgba(249, 246, 240, 0.85);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border-light);
+      transform: translateY(-100%);
+      transition: transform 0.3s ease;
+    }
+    .sticky-header.visible {
+      transform: translateY(0);
+    }
+    .sticky-header-inner {
+      max-width: var(--container-max);
+      margin: 0 auto;
+      padding: 0 24px;
+      height: 56px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .sticky-header-inner .lang-switch {
+      position: static;
+      transform: none;
+      margin-left: auto;
+    }
+    .sticky-header-logo {
+      width: 32px;
+      height: auto;
+    }
+    .sticky-header-text {
+      font-family: var(--font-serif);
+      font-size: 20px;
+      letter-spacing: -0.02em;
+      color: var(--text-primary);
+    }
+
+    /* ── 3. HERO ── */
+    .hero {
+      background: var(--bg-warm);
+      min-height: calc(100vh - 41px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-container {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 48px 24px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+    .hero-icon {
+      width: 120px;
+      height: 80px;
+      object-fit: contain;
+      object-position: center;
+      margin-bottom: 28px;
+      display: block;
+      scale: 1.55;
+    }
+    .hero-unicorn {
+      display: inline-block;
+      height: 0.92em;
+      width: auto;
+      vertical-align: -0.18em;
+      margin: 0 -0.12em 0 0.03em;
+    }
+    .hero-title {
+      font-family: var(--font-serif);
+      font-weight: 400;
+      font-size: clamp(48px, 8vw, 96px);
+      line-height: 1.2;
+      letter-spacing: -0.03em;
+      color: var(--text-primary);
+      margin: 0 0 32px;
+      max-width: 900px;
+      position: relative;
+      z-index: 1;
+    }
+    .hero-title em {
+      font-style: normal;
+      position: relative;
+      display: inline-block;
+    }
+    .hero-title em .kreska-underline {
+      position: absolute;
+      left: 0%;
+      width: 100%;
+      bottom: -8px;
+      height: 18px;
+      object-fit: cover;
+      object-position: center 46%;
+      pointer-events: none;
+      z-index: 2;
+    }
+    .hero-subtitle {
+      font-size: clamp(17px, 2vw, 21px);
+      line-height: 1.55;
+      color: var(--text-secondary);
+      max-width: 600px;
+      opacity: 0.8;
+      margin: 0 0 40px;
+    }
+    .btn-cta {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      height: 52px;
+      padding: 0 32px;
+      background: var(--text-primary);
+      color: #fff;
+      border: none;
+      border-radius: var(--radius-pill);
+      font-family: var(--font-sans);
+      font-size: 16px;
+      font-weight: 500;
+      text-decoration: none;
+      cursor: pointer;
+      transition: 0.25s ease;
+      white-space: nowrap;
+    }
+    .btn-cta:hover { background: #1a2328; transform: translateY(-1px); }
+    .btn-cta-outline {
+      background: transparent;
+      color: var(--text-primary);
+      border: 1.5px solid var(--border-mid);
+    }
+    .btn-cta-outline:hover { background: rgba(51,51,52,0.05); transform: translateY(-1px); }
+
+    @media (max-width: 900px) {
+      .hero { padding: 48px 0 64px; }
+      .hero-icon { width: 100px; height: 66px; margin-bottom: 24px; }
+      .hero-title { font-size: clamp(36px, 9vw, 64px); }
+    }
+    @media (max-width: 480px) {
+      .hero-icon { width: 90px; height: 60px; margin-bottom: 20px; }
+      .hero-title { font-size: clamp(32px, 10vw, 48px); }
+      .gov-banner-inner .lang-switch { position: static; transform: none; margin-left: 8px; }
+      .gov-banner-inner { justify-content: space-between; }
+    }
+
+    /* ── PROGRAM DETAILS ── */
+    .program-section {
+      background: var(--bg-warm);
+      padding: 120px 0 104px;
+      position: relative;
+    }
+    .program-container {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+    .section-tag {
+      display: inline-block;
+      font-family: var(--font-mono);
+      font-size: 12px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: rgba(33, 44, 51, 0.65);
+      margin-bottom: 16px;
+    }
+    .program-heading {
+      font-family: var(--font-serif);
+      font-size: clamp(36px, 5vw, 56px);
+      font-weight: 400;
+      line-height: 1.08;
+      letter-spacing: -0.02em;
+      color: var(--text-primary);
+      margin-bottom: 16px;
+      max-width: 760px;
+    }
+    .program-subtitle {
+      font-size: clamp(17px, 1.8vw, 20px);
+      line-height: 1.5;
+      color: rgba(33, 44, 51, 0.78);
+      max-width: 760px;
+      margin-bottom: 48px;
+    }
+    .program-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 22px;
+    }
+    .program-block {
+      display: flex;
+      gap: 18px;
+      align-items: flex-start;
+      background: rgba(249, 246, 240, 0.78);
+      border: 1px solid rgba(26, 36, 86, 0.14);
+      border-radius: 24px;
+      padding: 24px 24px 22px;
+      min-height: 178px;
+      box-shadow: 0 8px 30px rgba(26, 36, 86, 0.04);
+    }
+    .program-block-icon {
+      width: 56px;
+      height: 56px;
+      flex-shrink: 0;
+    }
+    .program-block-icon img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+    .program-block-content {
+      flex: 1;
+    }
+    .program-block-title {
+      font-family: var(--font-serif);
+      font-size: clamp(22px, 2.2vw, 30px);
+      font-weight: 400;
+      line-height: 1.15;
+      letter-spacing: -0.015em;
+      color: var(--text-primary);
+      margin-bottom: 8px;
+    }
+    .program-block-desc {
+      font-size: 15px;
+      line-height: 1.55;
+      color: rgba(33, 44, 51, 0.8);
+      max-width: 34ch;
+    }
+
+    /* ── DLA KOGO ── */
+    .dlakogo-section {
+      background: var(--bg-primary);
+      padding: 104px 0;
+    }
+    .dlakogo-container {
+      max-width: 980px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+    .dlakogo-frame {
+      background: rgba(249, 246, 240, 0.72);
+      border: 1px solid var(--border-mid);
+      border-radius: 30px;
+      padding: 44px;
+    }
+    .dlakogo-heading {
+      font-family: var(--font-serif);
+      font-size: clamp(34px, 5vw, 52px);
+      font-weight: 400;
+      line-height: 1.08;
+      letter-spacing: -0.02em;
+      color: var(--text-primary);
+      margin-bottom: 12px;
+    }
+    .dlakogo-subtitle {
+      font-size: clamp(16px, 1.6vw, 19px);
+      line-height: 1.5;
+      color: rgba(33, 44, 51, 0.74);
+      margin-bottom: 30px;
+      max-width: 64ch;
+    }
+    .dlakogo-list {
+      list-style: none;
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px 24px;
+    }
+    .dlakogo-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      padding: 14px 0;
+      border-bottom: 1px solid var(--border-light);
+    }
+    .dlakogo-bullet {
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      background: #1a2456;
+      margin-top: 8px;
+      flex-shrink: 0;
+    }
+    .dlakogo-text {
+      font-size: 17px;
+      line-height: 1.45;
+      color: var(--text-primary);
+    }
+    .dlakogo-text strong {
+      font-weight: 600;
+    }
+
+    /* ── FAQ ── */
+    .faq-section {
+      background: var(--bg-muted);
+      padding: 104px 0;
+    }
+    .faq-container {
+      max-width: 940px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+    .faq-heading {
+      font-family: var(--font-serif);
+      font-size: clamp(40px, 6vw, 64px);
+      font-weight: 400;
+      line-height: 1.04;
+      letter-spacing: -0.02em;
+      color: var(--text-primary);
+      margin-bottom: 12px;
+    }
+    .faq-subtitle {
+      font-size: 17px;
+      line-height: 1.5;
+      color: rgba(33, 44, 51, 0.74);
+      margin-bottom: 28px;
+    }
+    .faq-list {
+      border-top: 1px solid var(--border-mid);
+      border-bottom: 1px solid var(--border-mid);
+    }
+    .faq-item {
+      border-top: 1px solid var(--border-light);
+    }
+    .faq-item:first-child {
+      border-top: 0;
+    }
+    .faq-question {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      border: 0;
+      background: transparent;
+      padding: 22px 4px;
+      text-align: left;
+      font-family: var(--font-sans);
+      font-size: clamp(18px, 2vw, 23px);
+      font-weight: 500;
+      line-height: 1.3;
+      color: var(--text-primary);
+      cursor: pointer;
+    }
+    .faq-question:hover {
+      opacity: 0.76;
+    }
+    .faq-question svg {
+      flex-shrink: 0;
+      transition: transform 0.28s ease;
+    }
+    .faq-item.open .faq-question svg {
+      transform: rotate(45deg);
+    }
+    .faq-answer {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.33s ease;
+    }
+    .faq-item.open .faq-answer {
+      max-height: 240px;
+    }
+    .faq-answer-inner {
+      padding: 0 4px 20px;
+      max-width: 70ch;
+      font-size: 15px;
+      line-height: 1.6;
+      color: rgba(33, 44, 51, 0.78);
+    }
+
+    /* ── CTA CLOSING ── */
+    .cta-closing {
+      background: var(--bg-warm);
+      padding: 120px 0 80px;
+      text-align: center;
+    }
+    .cta-closing-content {
+      max-width: 640px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+    .cta-closing-deadline {
+      font-family: var(--font-mono);
+      font-size: 14px;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 20px;
+    }
+    .cta-closing-title {
+      font-family: var(--font-serif);
+      font-size: clamp(36px, 5vw, 56px);
+      font-weight: 400;
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+      color: var(--text-primary);
+      margin-bottom: 36px;
+    }
+    .cta-closing-title em {
+      font-style: italic;
+    }
+    .cta-colophon {
+      margin-top: 80px;
+      opacity: 0.2;
+    }
+    .cta-bison-shield {
+      width: 64px;
+      height: auto;
+    }
+
+    /* ── SITE FOOTER ── */
+    .site-footer {
+      background: var(--bg-primary);
+      border-top: 1px solid var(--border-light);
+      padding: 24px 0;
+      text-align: center;
+    }
+    .site-footer .footer-bottom-text {
+      font-size: 13px;
+      color: var(--text-faint);
+      letter-spacing: 0.02em;
+    }
+
+    @media (max-width: 900px) {
+      .program-section {
+        padding: 84px 0 72px;
+      }
+      .program-grid {
+        grid-template-columns: 1fr;
+      }
+      .program-block {
+        min-height: 0;
+      }
+      .dlakogo-section,
+      .faq-section {
+        padding: 84px 0;
+      }
+      .dlakogo-list {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* ── GLOBAL ANIMATIONS ── */
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .animate-on-scroll {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    .animate-on-scroll.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ── ASTERISK TOOLTIP ── */
+    .asterisk {
+      color: #1a2456;
+      font-size: 1.15em;
+      vertical-align: super;
+      font-weight: 600;
+      cursor: pointer;
+      line-height: 0;
+      transition: color 0.2s ease;
+    }
+    .asterisk:hover {
+      color: #2a3a7a;
+    }
+    .asterisk-tooltip {
+      position: fixed;
+      z-index: 9999;
+      width: max-content;
+      max-width: 320px;
+      background: #FFFFFF;
+      border: 1px solid rgba(139, 26, 26, 0.12);
+      border-radius: 14px;
+      padding: 22px 24px;
+      font-family: var(--font-serif);
+      font-size: 14.5px;
+      line-height: 1.55;
+      color: var(--text-secondary);
+      box-shadow: 0 8px 32px rgba(0,0,0,0.12), 0 2px 8px rgba(0,0,0,0.06);
+      opacity: 0;
+      pointer-events: none;
+      transform: translateY(4px);
+      transition: opacity 0.15s ease-out, transform 0.15s ease-out;
+      text-align: left;
+    }
+    .asterisk-tooltip.visible {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateY(0);
+      transition: opacity 0.2s ease-out, transform 0.2s ease-out;
+    }
+    .asterisk-tooltip i {
+      font-style: italic;
+    }
+    .tooltip-arrow {
+      position: absolute;
+      bottom: -7px;
+      left: 50%;
+      transform: translateX(-50%) rotate(45deg);
+      width: 12px;
+      height: 12px;
+      background: #FFFFFF;
+      border-right: 1px solid rgba(139, 26, 26, 0.15);
+      border-bottom: 1px solid rgba(139, 26, 26, 0.15);
+    }
+
+    @media (max-width: 768px) {
+      .asterisk-tooltip {
+        max-width: min(320px, calc(100vw - 32px));
+        padding: 18px 20px;
+        font-size: 13.5px;
+      }
+    }
+
+    /* ── TIMELINE / JAK WYGLĄDA DROGA ── */
+    .timeline-section {
+      background: var(--bg-primary);
+      padding: 120px 0 140px;
+      position: relative;
+      overflow-x: clip;
+    }
+    .timeline-container {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+    .timeline-heading {
+      font-family: var(--font-serif);
+      font-size: clamp(36px, 5vw, 64px);
+      font-weight: 400;
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+      text-align: center;
+      margin-bottom: 80px;
+      color: var(--text-primary);
+    }
+    .timeline-list {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 56px;
+    }
+    .timeline-step {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      max-width: 720px;
+    }
+    .timeline-step-number {
+      width: 120px;
+      height: 120px;
+      margin-bottom: 28px;
+    }
+    .timeline-step-number img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+    .timeline-step-title {
+      font-family: var(--font-serif);
+      font-size: clamp(32px, 5.5vw, 60px);
+      font-weight: 400;
+      line-height: 1.15;
+      letter-spacing: -0.025em;
+      color: var(--text-primary);
+    }
+    .timeline-step-date {
+      font-family: var(--font-mono);
+      font-size: 16px;
+      letter-spacing: 0.04em;
+      color: var(--text-faint);
+      margin-top: 14px;
+    }
+
+    .timeline-step {
+      z-index: 2;
+      position: relative;
+    }
+    .timeline-arrow-anchor {
+      position: relative;
+      height: 0;
+      width: 100%;
+    }
+    .timeline-step-arrow {
+      position: absolute;
+      height: 180px;
+      width: auto;
+      top: -90px;
+      pointer-events: none;
+      z-index: 1;
+    }
+    .timeline-step-arrow-left {
+      left: 20px;
+    }
+    .timeline-step-arrow-right {
+      right: 20px;
+      top: -40px;
+      transform: scaleX(-1);
+    }
+
+    @media (max-width: 1024px) {
+      .timeline-arrow-anchor { display: none; }
+      .timeline-list { gap: 56px; }
+    }
+    @media (max-width: 600px) {
+      .timeline-section { padding: 80px 0 100px; }
+      .timeline-heading { margin-bottom: 56px; }
+      .timeline-step-number { width: 52px; height: 52px; margin-bottom: 16px; }
+    }
+
+    /* ── ABOUT / EVENT SLIDESHOW ── */
+    .slideshow {
+      position: relative;
+    }
+    .slideshow-frame {
+      width: 100vw;
+      height: 100vh;
+      position: relative;
+      overflow: hidden;
+      background: var(--slideshow-bg, #1a1a1a);
+    }
+    .slideshow-frame img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      display: block;
+      will-change: transform, opacity;
+    }
+    /* Photo 1: Ken Burns zoom */
+    .slideshow-photo1 img {
+      transform: scale(var(--ss-zoom-start, 1.05));
+      transition: none;
+    }
+    .slideshow-photo1.zooming img {
+      transform: scale(var(--ss-zoom-end, 1.0));
+      transition: transform var(--ss-zoom-dur, 3s) cubic-bezier(0.25, 0.1, 0.25, 1);
+    }
+    /* Photo 2: Fade + subtle zoom */
+    .slideshow-photo2 img {
+      opacity: 0;
+      transform: scale(var(--ss-fade-zoom-start, 1.03));
+      transition: none;
+    }
+    .slideshow-photo2.revealed img {
+      opacity: 1;
+      transform: scale(var(--ss-fade-zoom-end, 1.0));
+      transition: opacity var(--ss-fade-dur, 1.2s) cubic-bezier(0.25, 0.1, 0.25, 1),
+                  transform var(--ss-fade-dur, 1.2s) cubic-bezier(0.25, 0.1, 0.25, 1);
+    }
+
+    /* ── DIALKIT PANEL ── */
+    .dialkit-panel {
+      position: fixed;
+      top: 16px;
+      right: 16px;
+      z-index: 9999;
+      width: 280px;
+      background: rgba(255,255,255,0.97);
+      backdrop-filter: blur(12px);
+      border: 1px solid var(--border-light);
+      border-radius: 16px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+      font-family: var(--font-mono);
+      font-size: 11px;
+      overflow: hidden;
+      display: none;
+    }
+    .dialkit-panel.open { display: block; }
+    .dialkit-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 16px;
+      border-bottom: 1px solid var(--border-light);
+      font-weight: 600;
+      font-size: 11px;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--text-secondary);
+    }
+    .dialkit-close {
+      all: unset;
+      cursor: pointer;
+      font-size: 16px;
+      line-height: 1;
+      color: var(--text-faint);
+    }
+    .dialkit-close:hover { color: var(--text-primary); }
+    .dialkit-body { padding: 12px 16px 16px; }
+    .dialkit-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 10px;
+    }
+    .dialkit-row:last-child { margin-bottom: 0; }
+    .dialkit-label {
+      color: var(--text-secondary);
+      flex-shrink: 0;
+      width: 110px;
+    }
+    .dialkit-value {
+      color: var(--text-faint);
+      width: 42px;
+      text-align: right;
+      flex-shrink: 0;
+      font-variant-numeric: tabular-nums;
+    }
+    .dialkit-slider {
+      flex: 1;
+      margin: 0 8px;
+      -webkit-appearance: none;
+      appearance: none;
+      height: 4px;
+      border-radius: 2px;
+      background: var(--border-mid);
+      outline: none;
+    }
+    .dialkit-slider::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      background: var(--text-primary);
+      cursor: pointer;
+    }
+    .dialkit-actions {
+      display: flex;
+      gap: 6px;
+      margin-top: 12px;
+      padding-top: 10px;
+      border-top: 1px solid var(--border-light);
+    }
+    .dialkit-btn {
+      all: unset;
+      flex: 1;
+      text-align: center;
+      padding: 6px 0;
+      border-radius: 6px;
+      cursor: pointer;
+      font-family: var(--font-mono);
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      background: var(--bg-warm);
+      color: var(--text-secondary);
+      border: 1px solid var(--border-light);
+      transition: background 0.15s;
+    }
+    .dialkit-btn:hover { background: var(--bg-muted); }
+    .dialkit-toggle {
+      position: fixed;
+      bottom: 16px;
+      right: 16px;
+      z-index: 9998;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: var(--text-primary);
+      color: #fff;
+      border: none;
+      cursor: pointer;
+      font-size: 18px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+      transition: transform 0.2s;
+    }
+    .dialkit-toggle:hover { transform: scale(1.08); }
+    .dialkit-select {
+      flex: 1;
+      margin: 0 8px;
+      font-family: var(--font-mono);
+      font-size: 10px;
+      padding: 3px 6px;
+      border-radius: 4px;
+      border: 1px solid var(--border-mid);
+      background: #fff;
+      color: var(--text-secondary);
+    }
+
+    .about-story {
+      background: var(--bg-primary);
+      padding: 100px 24px;
+    }
+    .about-story-inner {
+      max-width: var(--container-max);
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 56px;
+      align-items: center;
+    }
+    .about-story-photo {
+      width: 100%;
+      aspect-ratio: 1 / 1;
+      object-fit: cover;
+      border-radius: 10px;
+    }
+    .about-story-text {
+      font-family: var(--font-serif);
+      font-size: clamp(17px, 1.8vw, 20px);
+      line-height: 1.65;
+      color: var(--text-secondary);
+    }
+    .about-story-text p + p {
+      margin-top: 1.2em;
+    }
+
+    .about-manifesto {
+      background: var(--bg-primary);
+      padding: 80px 24px;
+      text-align: center;
+    }
+    .about-manifesto-text {
+      max-width: 800px;
+      margin: 0 auto;
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-size: clamp(22px, 3.2vw, 32px);
+      line-height: 1.45;
+      letter-spacing: -0.01em;
+      color: var(--text-primary);
+    }
+
+    /* ── TEAM: FOUNDERS + MENTORS ── */
+    .team-section {
+      background: var(--bg-primary);
+      padding: 120px 0 100px;
+      position: relative;
+    }
+    .team-container {
+      max-width: var(--container-max);
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+    .team-heading {
+      font-family: var(--font-serif);
+      font-size: clamp(36px, 5vw, 56px);
+      font-weight: 400;
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+      text-align: center;
+      color: var(--text-primary);
+      margin-bottom: 56px;
+    }
+
+    /* Founders — larger cards, always 3 columns */
+    .founders-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 32px;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    .founder-card {
+      display: flex;
+      flex-direction: column;
+    }
+    .founder-card-photo {
+      width: 100%;
+      aspect-ratio: 3 / 4;
+      object-fit: cover;
+      border-radius: 16px;
+      margin-bottom: 20px;
+      background: linear-gradient(135deg, var(--bg-muted), #d0cbbf);
+    }
+    .founder-card-name {
+      font-family: var(--font-serif);
+      font-size: clamp(18px, 2vw, 22px);
+      font-weight: 600;
+      color: var(--text-primary);
+      letter-spacing: -0.01em;
+      margin-bottom: 4px;
+    }
+    .founder-card-role {
+      font-size: clamp(13px, 1.2vw, 15px);
+      color: var(--text-faint);
+      margin-bottom: 12px;
+    }
+    .founder-card-bio {
+      font-size: clamp(14px, 1.3vw, 16px);
+      line-height: 1.6;
+      color: var(--text-secondary);
+    }
+
+    /* Separator between founders and mentors */
+    .team-separator {
+      display: flex;
+      justify-content: center;
+      padding: 90px 0;
+    }
+    .team-separator img {
+      width: 100px;
+      height: auto;
+      opacity: 0.5;
+    }
+
+    /* Mentors heading — one step smaller */
+    .mentors-heading {
+      font-family: var(--font-serif);
+      font-size: clamp(30px, 4vw, 48px);
+      font-weight: 400;
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+      text-align: center;
+      color: var(--text-primary);
+      margin-bottom: 48px;
+    }
+
+    /* Mentors — smaller cards, 4 columns */
+    .mentors-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 28px;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    .mentor-card {
+      display: flex;
+      flex-direction: column;
+    }
+    .mentor-card-photo {
+      width: 100%;
+      aspect-ratio: 3 / 4;
+      object-fit: cover;
+      border-radius: 12px;
+      margin-bottom: 14px;
+      background: linear-gradient(135deg, var(--bg-muted), #d0cbbf);
+    }
+    .mentor-card-name {
+      font-family: var(--font-serif);
+      font-size: clamp(15px, 1.5vw, 18px);
+      font-weight: 600;
+      color: var(--text-primary);
+      letter-spacing: -0.01em;
+      margin-bottom: 3px;
+    }
+    .mentor-card-role {
+      font-size: clamp(12px, 1vw, 13px);
+      color: var(--text-faint);
+      margin-bottom: 8px;
+    }
+    .mentor-card-bio {
+      font-size: clamp(13px, 1.1vw, 14px);
+      line-height: 1.55;
+      color: var(--text-secondary);
+    }
+
+    /* Staggered entrance for team cards */
+    .team-card-anim {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    .team-card-anim.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .team-card-anim:nth-child(2) { transition-delay: 0.12s; }
+    .team-card-anim:nth-child(3) { transition-delay: 0.24s; }
+    .team-card-anim:nth-child(4) { transition-delay: 0.36s; }
+
+    @media (max-width: 768px) {
+      .slideshow-frame { height: 70vh; }
+      .dialkit-panel { width: 260px; top: 8px; right: 8px; }
+      .about-story { padding: 64px 24px; }
+      .about-story-inner { grid-template-columns: 1fr; gap: 36px; }
+      .about-manifesto { padding: 56px 24px; }
+      .team-section { padding: 80px 0 70px; }
+      .founders-grid { grid-template-columns: 1fr; gap: 40px; max-width: 400px; }
+      .mentors-grid { grid-template-columns: 1fr; gap: 32px; max-width: 360px; }
+      .team-separator { padding: 60px 0; }
+      .founder-card-photo { border-radius: 12px; }
+    }
+    @media (min-width: 769px) and (max-width: 1024px) {
+      .founders-grid { gap: 24px; }
+      .mentors-grid { grid-template-columns: repeat(2, 1fr); gap: 24px; }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#main" data-i18n="skipLink">Skip to main content</a>
+
+  <!-- 1. OFFICIAL BANNER -->
+  <div class="gov-banner">
+    <div class="gov-banner-inner">
+      <span data-i18n="govBanner">Program mentoringowy autorstwa This is IT & This is the World.</span>
+      <div class="lang-switch" role="group" aria-label="Language switcher">
+        <button data-lang="en" aria-pressed="true">EN</button>
+        <span class="lang-switch-divider">/</span>
+        <button data-lang="pl" aria-pressed="false">PL</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 2. STICKY HEADER -->
+  <header class="sticky-header" id="sticky-header">
+    <div class="sticky-header-inner">
+      <img src="zubr-2.png" alt="Bison" class="sticky-header-logo">
+      <span class="sticky-header-text">Bison Fellowship</span>
+      <div class="lang-switch" role="group" aria-label="Language switcher">
+        <button data-lang="en" aria-pressed="true">EN</button>
+        <span class="lang-switch-divider">/</span>
+        <button data-lang="pl" aria-pressed="false">PL</button>
+      </div>
+    </div>
+  </header>
+
+  <main id="main">
+
+    <!-- 3. HERO -->
+    <section class="hero">
+      <div class="hero-container">
+        <img src="zubr-2.png" alt="Bison Fellowship" class="hero-icon">
+        <h1 class="hero-title" data-i18n-html="heroTitle">Bison Fellowship pomaga najlepszym <em>inżynierom<img src="kreska-dluga-niebieska.png" class="kreska-underline" alt=""></em> budować <img src="unicorn-bison.png" alt="unicorn" class="hero-unicorn"> startupy.</h1>
+        <p class="hero-subtitle" data-i18n-html="heroSubtitle">Przejdź z nami ścieżkę do zostania inżynierem-założycielem.<span class="asterisk" id="asterisk-trigger">*</span> Program dedykowany najambitniejszym uczniom, studentom i&nbsp;absolwentom od 16 do 26 roku życia.</p>
+        <a class="btn-cta" href="#apply" data-i18n="heroGetStarted">Aplikuj do 28 lutego</a>
+      </div>
+    </section>
+
+    <!-- ASTERISK TOOLTIP (outside flow, positioned by JS) -->
+    <div class="asterisk-tooltip" id="asterisk-tooltip">
+      <span class="tooltip-arrow" id="tooltip-arrow"></span>
+      <b>Inżynier-założyciel</b> (ang. <i>founding engineer</i>) to jedna z pierwszych osób, która buduje startup. Jest kluczowym ogniwem zespołu. Najlepsi tacy inżynierowie pochodzą z naszego kraju.
+    </div>
+
+    <!-- ABOUT: SLIDESHOW -->
+    <section class="slideshow" id="slideshow">
+      <div class="slideshow-frame slideshow-photo1" id="slideshow-photo1">
+        <img src="krakow-zdj-slideshow-1.jpg" alt="Being Human in the Age of AI — Kraków">
+      </div>
+      <div class="slideshow-frame slideshow-photo2" id="slideshow-photo2">
+        <img src="krakow-zdj-slideshow-2.jpg" alt="Being Human in the Age of AI — panel">
+      </div>
+    </section>
+
+    <!-- DIALKIT: Slideshow Controls -->
+    <button class="dialkit-toggle" id="dialkit-toggle" aria-label="Toggle animation controls">&#9881;</button>
+    <div class="dialkit-panel" id="dialkit-panel">
+      <div class="dialkit-header">
+        <span>Slideshow Tuning</span>
+        <button class="dialkit-close" id="dialkit-close">&times;</button>
+      </div>
+      <div class="dialkit-body">
+        <div class="dialkit-row">
+          <span class="dialkit-label">Zoom start</span>
+          <input type="range" class="dialkit-slider" id="dk-zoom-start" min="1.0" max="1.2" step="0.01" value="1.05">
+          <span class="dialkit-value" id="dk-zoom-start-val">1.05</span>
+        </div>
+        <div class="dialkit-row">
+          <span class="dialkit-label">Zoom end</span>
+          <input type="range" class="dialkit-slider" id="dk-zoom-end" min="0.95" max="1.1" step="0.01" value="1.0">
+          <span class="dialkit-value" id="dk-zoom-end-val">1.00</span>
+        </div>
+        <div class="dialkit-row">
+          <span class="dialkit-label">Zoom duration</span>
+          <input type="range" class="dialkit-slider" id="dk-zoom-dur" min="0.5" max="6" step="0.1" value="3.0">
+          <span class="dialkit-value" id="dk-zoom-dur-val">3.0s</span>
+        </div>
+        <div class="dialkit-row">
+          <span class="dialkit-label">Scroll lock</span>
+          <input type="range" class="dialkit-slider" id="dk-lock-dur" min="0" max="3" step="0.1" value="2.0">
+          <span class="dialkit-value" id="dk-lock-dur-val">2.0s</span>
+        </div>
+        <div class="dialkit-row">
+          <span class="dialkit-label">Fade duration</span>
+          <input type="range" class="dialkit-slider" id="dk-fade-dur" min="0.2" max="3" step="0.1" value="1.2">
+          <span class="dialkit-value" id="dk-fade-dur-val">1.2s</span>
+        </div>
+        <div class="dialkit-row">
+          <span class="dialkit-label">Fade zoom</span>
+          <input type="range" class="dialkit-slider" id="dk-fade-zoom" min="1.0" max="1.15" step="0.01" value="1.03">
+          <span class="dialkit-value" id="dk-fade-zoom-val">1.03</span>
+        </div>
+        <div class="dialkit-row">
+          <span class="dialkit-label">Ease curve</span>
+          <select class="dialkit-select" id="dk-ease">
+            <option value="cubic-bezier(0.25, 0.1, 0.25, 1)" selected>ease-out (default)</option>
+            <option value="cubic-bezier(0.33, 0, 0.67, 1)">ease-in-out</option>
+            <option value="cubic-bezier(0, 0, 0.58, 1)">ease-out-quad</option>
+            <option value="linear">linear</option>
+          </select>
+        </div>
+        <div class="dialkit-actions">
+          <button class="dialkit-btn" id="dk-replay">Replay</button>
+          <button class="dialkit-btn" id="dk-reset">Reset</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ABOUT: STORY -->
+    <section class="about-story">
+      <div class="about-story-inner">
+        <img src="krakow-zdj-1.jpeg" alt="Being Human in the Age of AI — grupa" class="about-story-photo animate-on-scroll">
+        <div class="about-story-text animate-on-scroll">
+          <p>Zorganizowaliśmy w&nbsp;lipcu zeszłego roku wydarzenie dla olimpijczyków, inżynierów i&nbsp;budowniczych startupów, które za namową Wojtka Zaremby nazwaliśmy <i>Being Human in the Age of&nbsp;AI</i>.</p>
+          <p>Bison Fellowship powstał właśnie dlatego. Chcemy pomóc Wam wytyczyć ścieżkę, którą podążyli wcześniej Wojtek, Piotr czy Rafał, budując startupy, które dzisiaj zmieniają świat — poprzez LLMy, modele głosowe czy mikrosatelity.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ABOUT: MANIFESTO -->
+    <section class="about-manifesto">
+      <p class="about-manifesto-text animate-on-scroll">Wierzymy, że dzisiaj nastała era talentu. Mała grupa osób, z&nbsp;odpowiednim wsparciem i&nbsp;narzędziami AI, jest w&nbsp;stanie zbudować produkty zmieniające świat. Najlepsi inżynierowie są właśnie z&nbsp;Polski. Dzisiaj jak nigdy mamy potencjał zbudować 10x więcej unicornów.</p>
+    </section>
+
+    <!-- TEAM: FOUNDERS + MENTORS -->
+    <section class="team-section">
+      <div class="team-container">
+
+        <!-- Part A: Założyciele -->
+        <h2 class="team-heading animate-on-scroll" data-i18n="teamFoundersHeading">Założyciele</h2>
+        <div class="founders-grid">
+
+          <div class="founder-card team-card-anim">
+            <div class="founder-card-photo" aria-label="Michał Wyrebkowski"></div>
+            <div class="founder-card-name">Michał Wyrebkowski</div>
+            <div class="founder-card-role" data-i18n="founderMichalRole">Co-founder &amp; CEO</div>
+            <p class="founder-card-bio" data-i18n="founderMichalBio">Buduje organizacje od ponad 10 lat. Stworzył This is IT i&nbsp;This is the World — platformy łączące tysiące inżynierów z&nbsp;wizjonerskimi founderami. Wierzy, że Polska ma potencjał na 10x więcej unicornów.</p>
+          </div>
+
+          <div class="founder-card team-card-anim">
+            <div class="founder-card-photo" aria-label="Maciej"></div>
+            <div class="founder-card-name">Maciej</div>
+            <div class="founder-card-role" data-i18n="founderMaciejRole">Co-founder &amp; COO</div>
+            <p class="founder-card-bio" data-i18n="founderMaciejBio">Operacyjny kręgosłup programu. Odpowiada za to, żeby każdy element Bison Fellowship działał jak dobrze naoliwiona maszyna — od selekcji uczestników po logistykę wydarzeń.</p>
+          </div>
+
+          <div class="founder-card team-card-anim">
+            <div class="founder-card-photo" aria-label="Jakub"></div>
+            <div class="founder-card-name">Jakub</div>
+            <div class="founder-card-role" data-i18n="founderJakubRole">Co-founder &amp; CTO</div>
+            <p class="founder-card-bio" data-i18n="founderJakubBio">Inżynier z&nbsp;doświadczeniem w&nbsp;budowaniu produktów technologicznych od zera. Projektuje techniczny fundament programu i&nbsp;dba o&nbsp;to, żeby uczestnicy uczyli się od najlepszych praktyków.</p>
+          </div>
+
+        </div>
+
+        <!-- Separator -->
+        <div class="team-separator" aria-hidden="true">
+          <img src="kreska-dluga-niebieska.png" alt="">
+        </div>
+
+        <!-- Part B: Mentorzy -->
+        <h2 class="mentors-heading animate-on-scroll" data-i18n="teamMentorsHeading">Mentorzy</h2>
+        <div class="mentors-grid">
+
+          <div class="mentor-card team-card-anim">
+            <div class="mentor-card-photo" aria-label="Mentor 1"></div>
+            <div class="mentor-card-name">Wojciech Zaremba</div>
+            <div class="mentor-card-role">Co-founder, OpenAI</div>
+            <p class="mentor-card-bio" data-i18n="mentorWZBio">Współzałożyciel OpenAI. Jeden z&nbsp;najważniejszych badaczy AI na świecie, z&nbsp;korzeniami w&nbsp;Polsce.</p>
+          </div>
+
+          <div class="mentor-card team-card-anim">
+            <div class="mentor-card-photo" aria-label="Mentor 2"></div>
+            <div class="mentor-card-name">Piotr Musiałowski</div>
+            <div class="mentor-card-role">Founder &amp; CEO</div>
+            <p class="mentor-card-bio" data-i18n="mentorPMBio">Buduje startupy od lat. Dzieli się doświadczeniem z&nbsp;pierwszej linii frontu budowania firmy technologicznej.</p>
+          </div>
+
+          <div class="mentor-card team-card-anim">
+            <div class="mentor-card-photo" aria-label="Mentor 3"></div>
+            <div class="mentor-card-name">Rafał Modrzewski</div>
+            <div class="mentor-card-role">Co-founder, ICEYE</div>
+            <p class="mentor-card-bio" data-i18n="mentorRMBio">Zbudował ICEYE — firmę mikrosatelitarną wartą ponad miliard dolarów. Dowód, że Polacy budują rzeczy kosmiczne.</p>
+          </div>
+
+          <div class="mentor-card team-card-anim">
+            <div class="mentor-card-photo" aria-label="Mentor 4"></div>
+            <div class="mentor-card-name">Anna Nowak</div>
+            <div class="mentor-card-role">VP Engineering</div>
+            <p class="mentor-card-bio" data-i18n="mentorANBio">Liderka inżynierii z&nbsp;doświadczeniem w&nbsp;skalowaniu zespołów od 5 do 200+ inżynierów w&nbsp;Europie.</p>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- TIMELINE: JAK WYGLĄDA DROGA -->
+    <section class="timeline-section">
+      <div class="timeline-container">
+        <div class="timeline-list">
+
+          <div class="timeline-step animate-on-scroll">
+            <div class="timeline-step-number"><img src="1.png" alt="1"></div>
+            <div class="timeline-step-title" data-i18n="ts1">Złóż krótką aplikację</div>
+            <div class="timeline-step-date" data-i18n="ts1date">do 28 lutego</div>
+          </div>
+
+          <div class="timeline-arrow-anchor" aria-hidden="true">
+            <img src="strzalka-left.png" alt="" class="timeline-step-arrow timeline-step-arrow-left">
+          </div>
+
+          <div class="timeline-step animate-on-scroll">
+            <div class="timeline-step-number"><img src="2.png" alt="2"></div>
+            <div class="timeline-step-title" data-i18n="ts2">Wybrane osoby zaprosimy na rozmowę o&nbsp;ich pasji do budowania software'u lub hardware'u</div>
+          </div>
+
+          <div class="timeline-arrow-anchor" aria-hidden="true">
+            <img src="strzalka-left.png" alt="" class="timeline-step-arrow timeline-step-arrow-right">
+          </div>
+
+          <div class="timeline-step animate-on-scroll">
+            <div class="timeline-step-number"><img src="3.png" alt="3"></div>
+            <div class="timeline-step-title" data-i18n="ts3">Kick-off programu</div>
+            <div class="timeline-step-date" data-i18n="ts3date">13 marca — Warszawa</div>
+          </div>
+
+          <div class="timeline-arrow-anchor" aria-hidden="true">
+            <img src="strzalka-left.png" alt="" class="timeline-step-arrow timeline-step-arrow-left">
+          </div>
+
+          <div class="timeline-step animate-on-scroll">
+            <div class="timeline-step-number"><img src="4.png" alt="4"></div>
+            <div class="timeline-step-title" data-i18n="ts4">8 tygodni intensywnego mentoringu oraz budowania projektów</div>
+          </div>
+
+          <div class="timeline-arrow-anchor" aria-hidden="true">
+            <img src="strzalka-left.png" alt="" class="timeline-step-arrow timeline-step-arrow-right">
+          </div>
+
+          <div class="timeline-step animate-on-scroll">
+            <div class="timeline-step-number"><img src="5.png" alt="5"></div>
+            <div class="timeline-step-title" data-i18n="ts5">Demo day</div>
+            <div class="timeline-step-date" data-i18n="ts5date">czerwiec 2026</div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- 4. CO DOSTAJESZ -->
+    <section class="program-section">
+      <div class="program-container">
+        <h2 class="program-heading" data-i18n-html="programHeading">Co dostajesz jako <em>fellow?</em></h2>
+        <div class="program-grid">
+          <div class="program-block animate-on-scroll">
+            <div class="program-block-icon"><img src="1.png" alt="1"></div>
+            <div class="program-block-content">
+              <div class="program-block-title" data-i18n="progTitle1">Mentoring 1:1</div>
+              <div class="program-block-desc" data-i18n="progDesc1">Dedykowany mentor z branży — senior engineer lub founder. Cotygodniowe spotkania, code review i wsparcie w podejmowaniu decyzji technicznych.</div>
+            </div>
+          </div>
+          <div class="program-block animate-on-scroll">
+            <div class="program-block-icon"><img src="2.png" alt="2"></div>
+            <div class="program-block-content">
+              <div class="program-block-title" data-i18n="progTitle2">Sieć kontaktów</div>
+              <div class="program-block-desc" data-i18n="progDesc2">Dołączasz do społeczności wyjątkowych inżynierów i founderów. Relacje, które budujesz w programie, zostają na lata.</div>
+            </div>
+          </div>
+          <div class="program-block animate-on-scroll">
+            <div class="program-block-icon"><img src="3.png" alt="3"></div>
+            <div class="program-block-content">
+              <div class="program-block-title" data-i18n="progTitle3">Dostęp do eventów</div>
+              <div class="program-block-desc" data-i18n="progDesc3">Warsztaty, hackathony, demo days i spotkania z inwestorami. Uczysz się od ludzi, którzy budują najciekawsze firmy w Europie.</div>
+            </div>
+          </div>
+          <div class="program-block animate-on-scroll">
+            <div class="program-block-icon"><img src="4.png" alt="4"></div>
+            <div class="program-block-content">
+              <div class="program-block-title" data-i18n="progTitle4">Placement do startupów</div>
+              <div class="program-block-desc" data-i18n="progDesc4">Dopasowujemy Cię do startupu, który pasuje do Twoich umiejętności i ambicji. Budujesz produkcyjny software od pierwszego dnia.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 5. DLA KOGO TO JEST -->
+    <section class="dlakogo-section">
+      <div class="dlakogo-container">
+        <h2 class="dlakogo-heading" data-i18n="dlakogoHeading">Dla kogo to jest</h2>
+        <p class="dlakogo-subtitle" data-i18n="dlakogoSubtitle">Szukamy ludzi, którzy już budują — i chcą robić to szybciej, lepiej, z większym wsparciem.</p>
+        <div class="dlakogo-list">
+          <div class="dlakogo-item animate-on-scroll">
+            <div class="dlakogo-bullet"></div>
+            <div class="dlakogo-text" data-i18n-html="dlakogo1"><strong>Olimpijczycy i finaliści konkursów</strong> — matematycznych, informatycznych, naukowych. Udowodniona zdolność do rozwiązywania trudnych problemów.</div>
+          </div>
+          <div class="dlakogo-item animate-on-scroll">
+            <div class="dlakogo-bullet"></div>
+            <div class="dlakogo-text" data-i18n-html="dlakogo2"><strong>Studenci informatyki i pokrewnych kierunków</strong> — którzy nie czekają na dyplom, żeby zacząć budować.</div>
+          </div>
+          <div class="dlakogo-item animate-on-scroll">
+            <div class="dlakogo-bullet"></div>
+            <div class="dlakogo-text" data-i18n-html="dlakogo3"><strong>Builderzy z portfolio</strong> — masz projekty na GitHubie, shipped apps, open source contributions? To jest Twoje miejsce.</div>
+          </div>
+          <div class="dlakogo-item animate-on-scroll">
+            <div class="dlakogo-bullet"></div>
+            <div class="dlakogo-text" data-i18n-html="dlakogo4"><strong>Osoby z high agency</strong> — nie czekasz na pozwolenie. Widzisz problem, budujesz rozwiązanie. Wiek 16–26 lat.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 6. FAQ -->
+    <section class="faq-section" id="faq">
+      <div class="faq-container">
+        <h2 class="faq-heading" data-i18n="faqHeading">FAQ</h2>
+        <div class="faq-list">
+          <div class="faq-item">
+            <button class="faq-question" type="button">
+              <span data-i18n="faqQ1">Kiedy startuje program?</span>
+              <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="9" y1="3" x2="9" y2="15"/><line x1="3" y1="9" x2="15" y2="9"/></svg>
+            </button>
+            <div class="faq-answer"><div class="faq-answer-inner" data-i18n="faqA1">Kick-off odbędzie się 13 marca 2026 w Warszawie. Aplikacje przyjmujemy do 28 lutego.</div></div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-question" type="button">
+              <span data-i18n="faqQ2">Ile trwa fellowship?</span>
+              <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="9" y1="3" x2="9" y2="15"/><line x1="3" y1="9" x2="15" y2="9"/></svg>
+            </button>
+            <div class="faq-answer"><div class="faq-answer-inner" data-i18n="faqA2">8 tygodni intensywnego mentoringu i budowania projektów, zakończone demo day w czerwcu 2026.</div></div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-question" type="button">
+              <span data-i18n="faqQ3">Czy fellowship jest płatny?</span>
+              <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="9" y1="3" x2="9" y2="15"/><line x1="3" y1="9" x2="15" y2="9"/></svg>
+            </button>
+            <div class="faq-answer"><div class="faq-answer-inner" data-i18n="faqA3">Program jest bezpłatny dla uczestników. Fellowsi otrzymują wsparcie mentorskie, dostęp do eventów i placement do startupów bez żadnych opłat.</div></div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-question" type="button">
+              <span data-i18n="faqQ4">Czy muszę być w Warszawie?</span>
+              <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="9" y1="3" x2="9" y2="15"/><line x1="3" y1="9" x2="15" y2="9"/></svg>
+            </button>
+            <div class="faq-answer"><div class="faq-answer-inner" data-i18n="faqA4">Kick-off i demo day są stacjonarne w Warszawie. Reszta programu działa w modelu hybrydowym — spotkania z mentorem i praca nad projektem mogą odbywać się zdalnie.</div></div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-question" type="button">
+              <span data-i18n="faqQ5">Kto może aplikować?</span>
+              <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="9" y1="3" x2="9" y2="15"/><line x1="3" y1="9" x2="15" y2="9"/></svg>
+            </button>
+            <div class="faq-answer"><div class="faq-answer-inner" data-i18n="faqA5">Osoby w wieku 16–26 lat z pasją do budowania software'u lub hardware'u. Szukamy builderów — liczy się portfolio i projekty, nie CV.</div></div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-question" type="button">
+              <span data-i18n="faqQ6">Jak wygląda proces rekrutacji?</span>
+              <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="9" y1="3" x2="9" y2="15"/><line x1="3" y1="9" x2="15" y2="9"/></svg>
+            </button>
+            <div class="faq-answer"><div class="faq-answer-inner" data-i18n="faqA6">Krótka aplikacja online, a następnie rozmowa z naszym zespołem o Twojej pasji do budowania. Cały proces trwa około 2 tygodni.</div></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 7. CTA CLOSING -->
+    <section class="cta-closing" id="apply">
+      <div class="cta-closing-content">
+        <p class="cta-closing-deadline" data-i18n="ctaDeadline">Termin zgłoszeń: 28 lutego</p>
+        <h2 class="cta-closing-title" data-i18n-html="ctaTitle">Gotowy, żeby <em>budować?</em></h2>
+        <a class="btn-cta" href="#" data-i18n="ctaButton">Aplikuj teraz</a>
+        <div class="cta-colophon">
+          <img src="zubr-2.png" alt="Bison Fellowship" class="cta-bison-shield">
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <span class="footer-bottom-text" data-i18n="footerCredit">Zaprojektowane w Warszawie przez Bison Fellowship</span>
+  </footer>
+
+  <script>
+    (function () {
+      /* ── STICKY HEADER ON SCROLL ── */
+      var stickyHeader = document.getElementById('sticky-header');
+      var hero = document.querySelector('.hero');
+      function checkSticky() {
+        if (!stickyHeader || !hero) return;
+        stickyHeader.classList.toggle('visible', hero.getBoundingClientRect().bottom < 0);
+      }
+      window.addEventListener('scroll', checkSticky, { passive: true });
+      checkSticky();
+
+      /* ── TRANSLATIONS ── */
+      const translations = {
+        en: {
+          pageTitle: "Bison Fellowship",
+          metaDescription: "Bison Fellowship builds founding engineers for exceptional startups.",
+          primaryNavAria: "Primary",
+          langSwitcherAria: "Language switcher",
+          skipLink: "Skip to main content",
+          govBanner: "Program mentoringowy autorstwa This is IT & This is the World.",
+          navStatFellows: "Active Fellows",
+          navStatCohorts: "Cohorts",
+          heroTitle: "Bison Fellowship empowers the best <em>engineers<img src=\"kreska-dluga-niebieska.png\" class=\"kreska-underline\" alt=\"\"></em><br>to build <img src=\"unicorn-bison.png\" alt=\"unicorn\" class=\"hero-unicorn\"> startups.",
+          heroSubtitle: "Walk with us the path to becoming a founding engineer.<span class=\"asterisk\" id=\"asterisk-trigger\">*</span> A program for the most ambitious students and graduates aged 16 to 26.",
+          heroGetStarted: "Apply by February 28",
+          programHeading: "What you get as a <em>fellow</em>",
+          progTitle1: "1:1 Mentoring",
+          progDesc1: "A dedicated mentor from the industry — senior engineer or founder. Weekly sessions, code review, and support in making technical decisions.",
+          progTitle2: "Network",
+          progDesc2: "Join a community of exceptional engineers and founders. Relationships built in the program last for years.",
+          progTitle3: "Access to events",
+          progDesc3: "Workshops, hackathons, demo days and investor meetings. Learn from people building the most exciting companies in Europe.",
+          progTitle4: "Startup placement",
+          progDesc4: "We match you with a startup that fits your skills and ambitions. You build production software from day one.",
+          dlakogoHeading: "Who is this for",
+          dlakogoSubtitle: "We're looking for people who are already building — and want to do it faster, better, with more support.",
+          dlakogo1: "<strong>Olympiad winners and competition finalists</strong> — math, computer science, science. Proven ability to solve hard problems.",
+          dlakogo2: "<strong>CS students and related fields</strong> — who don't wait for a diploma to start building.",
+          dlakogo3: "<strong>Builders with a portfolio</strong> — GitHub projects, shipped apps, open source contributions? This is your place.",
+          dlakogo4: "<strong>High-agency individuals</strong> — you don't wait for permission. You see a problem, you build a solution. Ages 16–26.",
+          faqHeading: "FAQ",
+          faqQ1: "When does the program start?",
+          faqA1: "Kick-off takes place on March 13, 2026 in Warsaw. Applications are open until February 28.",
+          faqQ2: "How long is the fellowship?",
+          faqA2: "8 weeks of intensive mentoring and project building, ending with a demo day in June 2026.",
+          faqQ3: "Is the fellowship paid?",
+          faqA3: "The program is free for participants. Fellows receive mentoring support, access to events, and startup placement at no cost.",
+          faqQ4: "Do I need to be in Warsaw?",
+          faqA4: "Kick-off and demo day are in-person in Warsaw. The rest of the program runs in a hybrid model — mentor meetings and project work can be remote.",
+          faqQ5: "Who can apply?",
+          faqA5: "People aged 16–26 with a passion for building software or hardware. We look for builders — portfolio and projects matter, not CVs.",
+          faqQ6: "What does the recruitment process look like?",
+          faqA6: "A short online application, followed by a conversation with our team about your passion for building. The whole process takes about 2 weeks.",
+          ctaDeadline: "Application deadline: February 28",
+          ctaTitle: "Ready to <em>build?</em>",
+          ctaButton: "Apply now",
+          footerCredit: "Designed in Warsaw by Bison Fellowship"
+        },
+        pl: {
+          pageTitle: "Bison Fellowship",
+          metaDescription: "Bison Fellowship buduje founding engineers dla wyjatkowych startupow.",
+          primaryNavAria: "Nawigacja glowna",
+          langSwitcherAria: "Przelacznik jezyka",
+          skipLink: "Przejdz do tresci glownej",
+          govBanner: "Program mentoringowy autorstwa This is IT & This is the World.",
+          navStatFellows: "Aktywni",
+          navStatCohorts: "Kohorty",
+          heroTitle: "Bison Fellowship pomaga najlepszym <em>inżynierom<img src=\"kreska-dluga-niebieska.png\" class=\"kreska-underline\" alt=\"\"></em> budować <img src=\"unicorn-bison.png\" alt=\"unicorn\" class=\"hero-unicorn\"> startupy.",
+          heroSubtitle: "Przejdź z nami ścieżkę do zostania inżynierem-założycielem.<span class=\"asterisk\" id=\"asterisk-trigger\">*</span> Program dedykowany najambitniejszym uczniom, studentom i\u00a0absolwentom od 16 do 26 roku życia.",
+          heroGetStarted: "Aplikuj do 28 lutego",
+          programHeading: "Co dostajesz jako <em>fellow?</em>",
+          progTitle1: "Mentoring 1:1",
+          progDesc1: "Dedykowany mentor z branży — senior engineer lub founder. Cotygodniowe spotkania, code review i wsparcie w podejmowaniu decyzji technicznych.",
+          progTitle2: "Sieć kontaktów",
+          progDesc2: "Dołączasz do społeczności wyjątkowych inżynierów i founderów. Relacje, które budujesz w programie, zostają na lata.",
+          progTitle3: "Dostęp do eventów",
+          progDesc3: "Warsztaty, hackathony, demo days i spotkania z inwestorami. Uczysz się od ludzi, którzy budują najciekawsze firmy w Europie.",
+          progTitle4: "Placement do startupów",
+          progDesc4: "Dopasowujemy Cię do startupu, który pasuje do Twoich umiejętności i ambicji. Budujesz produkcyjny software od pierwszego dnia.",
+          dlakogoHeading: "Dla kogo to jest",
+          dlakogoSubtitle: "Szukamy ludzi, którzy już budują — i chcą robić to szybciej, lepiej, z większym wsparciem.",
+          dlakogo1: "<strong>Olimpijczycy i finaliści konkursów</strong> — matematycznych, informatycznych, naukowych. Udowodniona zdolność do rozwiązywania trudnych problemów.",
+          dlakogo2: "<strong>Studenci informatyki i pokrewnych kierunków</strong> — którzy nie czekają na dyplom, żeby zacząć budować.",
+          dlakogo3: "<strong>Builderzy z portfolio</strong> — masz projekty na GitHubie, shipped apps, open source contributions? To jest Twoje miejsce.",
+          dlakogo4: "<strong>Osoby z high agency</strong> — nie czekasz na pozwolenie. Widzisz problem, budujesz rozwiązanie. Wiek 16–26 lat.",
+          faqHeading: "FAQ",
+          faqQ1: "Kiedy startuje program?",
+          faqA1: "Kick-off odbędzie się 13 marca 2026 w Warszawie. Aplikacje przyjmujemy do 28 lutego.",
+          faqQ2: "Ile trwa fellowship?",
+          faqA2: "8 tygodni intensywnego mentoringu i budowania projektów, zakończone demo day w czerwcu 2026.",
+          faqQ3: "Czy fellowship jest płatny?",
+          faqA3: "Program jest bezpłatny dla uczestników. Fellowsi otrzymują wsparcie mentorskie, dostęp do eventów i placement do startupów bez żadnych opłat.",
+          faqQ4: "Czy muszę być w Warszawie?",
+          faqA4: "Kick-off i demo day są stacjonarne w Warszawie. Reszta programu działa w modelu hybrydowym — spotkania z mentorem i praca nad projektem mogą odbywać się zdalnie.",
+          faqQ5: "Kto może aplikować?",
+          faqA5: "Osoby w wieku 16–26 lat z pasją do budowania software'u lub hardware'u. Szukamy builderów — liczy się portfolio i projekty, nie CV.",
+          faqQ6: "Jak wygląda proces rekrutacji?",
+          faqA6: "Krótka aplikacja online, a następnie rozmowa z naszym zespołem o Twojej pasji do budowania. Cały proces trwa około 2 tygodni.",
+          ctaDeadline: "Termin zgłoszeń: 28 lutego",
+          ctaTitle: "Gotowy, żeby <em>budować?</em>",
+          ctaButton: "Aplikuj teraz",
+          footerCredit: "Zaprojektowane w Warszawie przez Bison Fellowship"
+        }
+      };
+
+      /* ── I18N ENGINE ── */
+      const textNodes = document.querySelectorAll("[data-i18n]");
+      const htmlNodes = document.querySelectorAll("[data-i18n-html]");
+      const attrNodes = document.querySelectorAll("[data-i18n-attr]");
+      const langButtons = document.querySelectorAll("[data-lang]");
+      const pageTitle = document.getElementById("page-title");
+      const metaDescription = document.getElementById("meta-description");
+
+      function setLanguage(lang) {
+        const dict = translations[lang] || translations.en;
+        document.documentElement.lang = lang;
+        pageTitle.textContent = dict.pageTitle;
+        metaDescription.setAttribute("content", dict.metaDescription);
+
+        textNodes.forEach(function (node) {
+          const key = node.getAttribute("data-i18n");
+          if (dict[key]) node.textContent = dict[key];
+        });
+        htmlNodes.forEach(function (node) {
+          const key = node.getAttribute("data-i18n-html");
+          if (dict[key]) node.innerHTML = dict[key];
+        });
+        attrNodes.forEach(function (node) {
+          const raw = node.getAttribute("data-i18n-attr");
+          const parts = raw.split(":");
+          if (parts[0] && parts[1] && dict[parts[1]]) node.setAttribute(parts[0], dict[parts[1]]);
+        });
+        langButtons.forEach(function (button) {
+          const isActive = button.getAttribute("data-lang") === lang;
+          button.classList.toggle("active", isActive);
+          button.setAttribute("aria-pressed", isActive ? "true" : "false");
+        });
+        window.localStorage.setItem("site-language", lang);
+      }
+
+      langButtons.forEach(function (button) {
+        button.addEventListener("click", function () { setLanguage(button.getAttribute("data-lang")); });
+      });
+
+      var storedLang = window.localStorage.getItem("site-language");
+      var browserLang = (navigator.language || "en").toLowerCase().indexOf("pl") === 0 ? "pl" : "en";
+      setLanguage(storedLang || browserLang);
+
+      /* ── FAQ ACCORDION ── */
+      document.querySelectorAll(".faq-question").forEach(function (btn) {
+        btn.addEventListener("click", function () {
+          var item = btn.closest(".faq-item");
+          var wasOpen = item.classList.contains("open");
+          var list = item.closest(".faq-list");
+          if (list) list.querySelectorAll(".faq-item").forEach(function (i) { i.classList.remove("open"); });
+          if (!wasOpen) item.classList.add("open");
+        });
+      });
+
+      /* ── SCROLL ANIMATIONS ── */
+      var animElements = document.querySelectorAll(".animate-on-scroll");
+      if (animElements.length > 0 && "IntersectionObserver" in window) {
+        var observer = new IntersectionObserver(function (entries) {
+          entries.forEach(function (entry) {
+            if (entry.isIntersecting) {
+              entry.target.classList.add("visible");
+              observer.unobserve(entry.target);
+            }
+          });
+        }, { threshold: 0.1 });
+        animElements.forEach(function (el) { observer.observe(el); });
+      }
+
+      /* ── TEAM CARD STAGGER ANIMATIONS ── */
+      var teamCards = document.querySelectorAll(".team-card-anim");
+      if (teamCards.length > 0 && "IntersectionObserver" in window) {
+        var teamObs = new IntersectionObserver(function (entries) {
+          entries.forEach(function (entry) {
+            if (entry.isIntersecting) {
+              entry.target.classList.add("visible");
+              teamObs.unobserve(entry.target);
+            }
+          });
+        }, { threshold: 0.15 });
+        teamCards.forEach(function (el) { teamObs.observe(el); });
+      }
+
+      /* ─────────────────────────────────────────────────────────
+       * SLIDESHOW STORYBOARD
+       *
+       * Read top-to-bottom. Each line is a timing event.
+       *
+       *    0ms   Photo 1 enters viewport, zoom starts (1.05 → 1.0)
+       * 3000ms   Zoom complete, scroll locked
+       * 5000ms   Scroll unlocks, user scrolls naturally
+       *  scroll  Photo 2 enters viewport
+       *  enter   Photo 2 fades in (0 → 1) + zoom (1.03 → 1.0)
+       * +1200ms  Photo 2 settled, user continues to text
+       * ───────────────────────────────────────────────────────── */
+
+      /* TIMING — all stage delays (ms after trigger) */
+      var SS_TIMING = {
+        zoomDuration:  3000,   // Ken Burns zoom on photo 1
+        scrollLock:    2000,   // pause scroll after zoom completes
+        fadeDuration:  1200,   // photo 2 fade + zoom-in
+      };
+
+      /* PHOTO 1 CONFIG — Ken Burns zoom */
+      var PHOTO1 = {
+        zoomStart: 1.05,       // initial scale
+        zoomEnd:   1.0,        // resting scale
+        bgColor:   '#1a1a1a',  // dark to match auditorium
+      };
+
+      /* PHOTO 2 CONFIG — fade-in + subtle zoom */
+      var PHOTO2 = {
+        fadeZoomStart: 1.03,   // initial scale during fade
+        fadeZoomEnd:   1.0,    // resting scale
+        bgColor:       '#1a1a1a',
+      };
+
+      /* EASE */
+      var SS_EASE = 'cubic-bezier(0.25, 0.1, 0.25, 1)';
+
+      (function() {
+        var photo1 = document.getElementById('slideshow-photo1');
+        var photo2 = document.getElementById('slideshow-photo2');
+        if (!photo1 || !photo2) return;
+
+        var scrollLocked = false;
+        var photo1Animated = false;
+        var photo2Animated = false;
+        var timers = [];
+
+        /* Apply CSS custom properties from config */
+        function applyConfig() {
+          var root = document.documentElement;
+          root.style.setProperty('--ss-zoom-start', PHOTO1.zoomStart);
+          root.style.setProperty('--ss-zoom-end', PHOTO1.zoomEnd);
+          root.style.setProperty('--ss-zoom-dur', SS_TIMING.zoomDuration + 'ms');
+          root.style.setProperty('--ss-fade-dur', SS_TIMING.fadeDuration + 'ms');
+          root.style.setProperty('--ss-fade-zoom-start', PHOTO2.fadeZoomStart);
+          root.style.setProperty('--ss-fade-zoom-end', PHOTO2.fadeZoomEnd);
+          root.style.setProperty('--slideshow-bg', PHOTO1.bgColor);
+
+          /* Update transition easing */
+          var img1 = photo1.querySelector('img');
+          var img2 = photo2.querySelector('img');
+          if (photo1.classList.contains('zooming') && img1) {
+            img1.style.transition = 'transform ' + SS_TIMING.zoomDuration + 'ms ' + SS_EASE;
+          }
+          if (photo2.classList.contains('revealed') && img2) {
+            img2.style.transition = 'opacity ' + SS_TIMING.fadeDuration + 'ms ' + SS_EASE + ', transform ' + SS_TIMING.fadeDuration + 'ms ' + SS_EASE;
+          }
+        }
+
+        /* Lock scroll by preventing scroll events */
+        function lockScroll() {
+          scrollLocked = true;
+          document.body.style.overflow = 'hidden';
+        }
+        function unlockScroll() {
+          scrollLocked = false;
+          document.body.style.overflow = '';
+        }
+
+        /* Photo 1 animation sequence */
+        function animatePhoto1() {
+          if (photo1Animated) return;
+          photo1Animated = true;
+
+          /* Clear old timers */
+          timers.forEach(clearTimeout);
+          timers = [];
+
+          /* Stage 0 → 1: Start zoom */
+          photo1.classList.add('zooming');
+
+          /* Stage 1 → 2: Zoom complete, lock scroll */
+          timers.push(setTimeout(function() {
+            lockScroll();
+
+            /* Stage 2 → 3: Unlock scroll */
+            timers.push(setTimeout(function() {
+              unlockScroll();
+            }, SS_TIMING.scrollLock));
+          }, SS_TIMING.zoomDuration));
+        }
+
+        /* Photo 2 animation */
+        function animatePhoto2() {
+          if (photo2Animated) return;
+          photo2Animated = true;
+          photo2.classList.add('revealed');
+        }
+
+        /* Observe photo 1 entering viewport */
+        if ('IntersectionObserver' in window) {
+          var obs1 = new IntersectionObserver(function(entries) {
+            entries.forEach(function(entry) {
+              if (entry.isIntersecting) {
+                animatePhoto1();
+                obs1.unobserve(entry.target);
+              }
+            });
+          }, { threshold: 0.3 });
+          obs1.observe(photo1);
+
+          /* Observe photo 2 entering viewport */
+          var obs2 = new IntersectionObserver(function(entries) {
+            entries.forEach(function(entry) {
+              if (entry.isIntersecting) {
+                animatePhoto2();
+                obs2.unobserve(entry.target);
+              }
+            });
+          }, { threshold: 0.15 });
+          obs2.observe(photo2);
+        }
+
+        /* Replay function for DialKit */
+        function replay() {
+          timers.forEach(clearTimeout);
+          timers = [];
+          unlockScroll();
+
+          photo1.classList.remove('zooming');
+          photo2.classList.remove('revealed');
+          photo1Animated = false;
+          photo2Animated = false;
+
+          applyConfig();
+
+          /* Force reflow then re-trigger */
+          void photo1.offsetHeight;
+          requestAnimationFrame(function() {
+            animatePhoto1();
+            /* Also replay photo 2 after a beat */
+            timers.push(setTimeout(function() {
+              animatePhoto2();
+            }, SS_TIMING.zoomDuration + SS_TIMING.scrollLock + 300));
+          });
+        }
+
+        applyConfig();
+
+        /* ── DIALKIT CONTROLS ── */
+        var panel = document.getElementById('dialkit-panel');
+        var toggle = document.getElementById('dialkit-toggle');
+        var closeBtn = document.getElementById('dialkit-close');
+        var replayBtn = document.getElementById('dk-replay');
+        var resetBtn = document.getElementById('dk-reset');
+
+        if (toggle) toggle.addEventListener('click', function() {
+          panel.classList.toggle('open');
+        });
+        if (closeBtn) closeBtn.addEventListener('click', function() {
+          panel.classList.remove('open');
+        });
+
+        /* Slider bindings */
+        var sliders = {
+          'dk-zoom-start':  { config: PHOTO1, key: 'zoomStart',     suffix: '',  decimals: 2 },
+          'dk-zoom-end':    { config: PHOTO1, key: 'zoomEnd',       suffix: '',  decimals: 2 },
+          'dk-zoom-dur':    { config: SS_TIMING, key: 'zoomDuration', suffix: 's', decimals: 1, multiply: 1000 },
+          'dk-lock-dur':    { config: SS_TIMING, key: 'scrollLock',  suffix: 's', decimals: 1, multiply: 1000 },
+          'dk-fade-dur':    { config: SS_TIMING, key: 'fadeDuration', suffix: 's', decimals: 1, multiply: 1000 },
+          'dk-fade-zoom':   { config: PHOTO2, key: 'fadeZoomStart', suffix: '',  decimals: 2 },
+        };
+
+        /* Default values for reset */
+        var defaults = {
+          'dk-zoom-start': '1.05',
+          'dk-zoom-end': '1.0',
+          'dk-zoom-dur': '3.0',
+          'dk-lock-dur': '2.0',
+          'dk-fade-dur': '1.2',
+          'dk-fade-zoom': '1.03',
+          'dk-ease': 'cubic-bezier(0.25, 0.1, 0.25, 1)',
+        };
+
+        Object.keys(sliders).forEach(function(id) {
+          var slider = document.getElementById(id);
+          var valEl = document.getElementById(id + '-val');
+          var def = sliders[id];
+          if (!slider) return;
+
+          slider.addEventListener('input', function() {
+            var v = parseFloat(slider.value);
+            if (def.multiply) {
+              def.config[def.key] = v * def.multiply;
+            } else {
+              def.config[def.key] = v;
+            }
+            if (valEl) valEl.textContent = v.toFixed(def.decimals) + def.suffix;
+            applyConfig();
+          });
+        });
+
+        /* Ease curve select */
+        var easeSelect = document.getElementById('dk-ease');
+        if (easeSelect) easeSelect.addEventListener('change', function() {
+          SS_EASE = easeSelect.value;
+          applyConfig();
+        });
+
+        /* Action buttons */
+        if (replayBtn) replayBtn.addEventListener('click', function() {
+          window.scrollTo({ top: photo1.offsetTop - 50, behavior: 'smooth' });
+          setTimeout(replay, 400);
+        });
+
+        if (resetBtn) resetBtn.addEventListener('click', function() {
+          /* Restore defaults */
+          PHOTO1.zoomStart = 1.05;
+          PHOTO1.zoomEnd = 1.0;
+          SS_TIMING.zoomDuration = 3000;
+          SS_TIMING.scrollLock = 2000;
+          SS_TIMING.fadeDuration = 1200;
+          PHOTO2.fadeZoomStart = 1.03;
+          SS_EASE = 'cubic-bezier(0.25, 0.1, 0.25, 1)';
+
+          /* Reset slider/select UI */
+          Object.keys(defaults).forEach(function(id) {
+            var el = document.getElementById(id);
+            var valEl = document.getElementById(id + '-val');
+            if (el) el.value = defaults[id];
+            if (valEl) {
+              var def = sliders[id];
+              if (def) valEl.textContent = parseFloat(defaults[id]).toFixed(def.decimals) + def.suffix;
+            }
+          });
+          if (easeSelect) easeSelect.value = defaults['dk-ease'];
+          applyConfig();
+        });
+      })();
+
+      /* ── ASTERISK TOOLTIP ── */
+      (function() {
+        var trigger = document.getElementById("asterisk-trigger");
+        var tooltip = document.getElementById("asterisk-tooltip");
+        var arrow = document.getElementById("tooltip-arrow");
+        if (!trigger || !tooltip) return;
+
+        var showTimeout, hideTimeout;
+
+        function positionTooltip() {
+          var rect = trigger.getBoundingClientRect();
+          var tw = tooltip.offsetWidth;
+          var th = tooltip.offsetHeight;
+          var cx = rect.left + rect.width / 2;
+
+          // Position above asterisk
+          var top = rect.top - th - 12;
+          var left = cx - tw / 2;
+
+          // Clamp to viewport edges (16px margin)
+          if (left < 16) left = 16;
+          if (left + tw > window.innerWidth - 16) left = window.innerWidth - 16 - tw;
+
+          // If no room above, show below
+          if (top < 8) {
+            top = rect.bottom + 12;
+            arrow.style.bottom = '';
+            arrow.style.top = '-7px';
+            arrow.style.borderRight = 'none';
+            arrow.style.borderBottom = 'none';
+            arrow.style.borderTop = '1px solid rgba(139,26,26,0.15)';
+            arrow.style.borderLeft = '1px solid rgba(139,26,26,0.15)';
+          } else {
+            arrow.style.top = '';
+            arrow.style.bottom = '-7px';
+            arrow.style.borderTop = 'none';
+            arrow.style.borderLeft = 'none';
+            arrow.style.borderRight = '1px solid rgba(139,26,26,0.15)';
+            arrow.style.borderBottom = '1px solid rgba(139,26,26,0.15)';
+          }
+
+          // Arrow follows asterisk position
+          arrow.style.left = Math.max(20, Math.min(tw - 20, cx - left)) + 'px';
+
+          tooltip.style.top = top + 'px';
+          tooltip.style.left = left + 'px';
+        }
+
+        function show() {
+          clearTimeout(hideTimeout);
+          positionTooltip();
+          tooltip.classList.add("visible");
+        }
+        function hide() {
+          tooltip.classList.remove("visible");
+        }
+
+        // Desktop: hover
+        trigger.addEventListener("mouseenter", function() {
+          showTimeout = setTimeout(show, 80);
+        });
+        trigger.addEventListener("mouseleave", function() {
+          clearTimeout(showTimeout);
+          hideTimeout = setTimeout(hide, 100);
+        });
+        tooltip.addEventListener("mouseenter", function() {
+          clearTimeout(hideTimeout);
+        });
+        tooltip.addEventListener("mouseleave", function() {
+          hideTimeout = setTimeout(hide, 100);
+        });
+
+        // Mobile: tap toggle
+        trigger.addEventListener("click", function(e) {
+          e.preventDefault();
+          e.stopPropagation();
+          if (tooltip.classList.contains("visible")) {
+            hide();
+          } else {
+            show();
+          }
+        });
+
+        // Close on tap outside
+        document.addEventListener("click", function(e) {
+          if (!trigger.contains(e.target) && !tooltip.contains(e.target)) {
+            hide();
+          }
+        });
+
+        // Reposition on scroll/resize
+        window.addEventListener("scroll", function() {
+          if (tooltip.classList.contains("visible")) positionTooltip();
+        }, { passive: true });
+        window.addEventListener("resize", function() {
+          if (tooltip.classList.contains("visible")) positionTooltip();
+        });
+      })();
+
+    })();
+  </script>
+</body>
+</html>
