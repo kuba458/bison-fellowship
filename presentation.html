@@ -783,38 +783,50 @@
        SLIDE 7: ROLE OF PSE
        ══════════════════════════════════════════ */
     .slide-pse {
-      background: var(--bg-dark);
+      background: var(--bg-warm);
+      overflow: visible;
     }
-    .pse-bg-illustration {
+    .slide-pse .slide-inner {
+      position: relative;
+      overflow: visible;
+    }
+    .pse-header-illustration {
       position: absolute;
-      bottom: 0;
-      right: 0;
-      width: 55%;
-      max-height: 60%;
+      right: -40px;
+      top: -115px;
+      height: 380px;
+      width: auto;
       object-fit: contain;
-      object-position: right bottom;
-      filter: invert(1);
-      opacity: 0.07;
-      pointer-events: none;
       z-index: 0;
+      pointer-events: none;
+    }
+    .slide-pse .section-tag,
+    .slide-pse .slide-heading,
+    .slide-pse .slide-subheading {
+      position: relative;
+      z-index: 1;
+      max-width: 60%;
     }
     .pse-content {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 48px;
+      gap: 32px;
       margin-top: 48px;
       align-items: start;
+      position: relative;
+      z-index: 1;
     }
     .pse-challenge {
       padding: 36px;
       border-radius: var(--radius-card);
-      background: rgba(255,255,255,0.05);
-      border: 1px solid rgba(255,255,255,0.1);
+      background: #fff;
+      border: 1px solid var(--border-light);
+      box-shadow: 0 8px 32px rgba(26,36,86,0.04);
     }
     .pse-challenge-title {
       font-family: var(--font-serif);
       font-size: 24px;
-      color: var(--text-on-dark);
+      color: var(--text-primary);
       margin-bottom: 20px;
     }
     .pse-challenge-items {
@@ -828,13 +840,13 @@
       gap: 14px;
       font-size: 15px;
       line-height: 1.55;
-      color: rgba(240,237,231,0.8);
+      color: var(--text-secondary);
     }
     .pse-item-num {
       width: 32px;
       height: 32px;
       border-radius: 10px;
-      background: linear-gradient(135deg, var(--accent-gold), var(--accent-amber));
+      background: linear-gradient(135deg, var(--accent-navy), var(--accent-blue));
       display: flex;
       align-items: center;
       justify-content: center;
@@ -842,18 +854,19 @@
       font-family: var(--font-mono);
       font-size: 14px;
       font-weight: 700;
-      color: var(--bg-dark-deep);
+      color: #fff;
     }
     .pse-timeline {
       padding: 36px;
       border-radius: var(--radius-card);
-      background: rgba(255,255,255,0.05);
-      border: 1px solid rgba(255,255,255,0.1);
+      background: #fff;
+      border: 1px solid var(--border-light);
+      box-shadow: 0 8px 32px rgba(26,36,86,0.04);
     }
     .pse-timeline-title {
       font-family: var(--font-serif);
       font-size: 24px;
-      color: var(--text-on-dark);
+      color: var(--text-primary);
       margin-bottom: 24px;
     }
     .pse-timeline-items {
@@ -869,7 +882,7 @@
     .pse-timeline-week {
       font-family: var(--font-mono);
       font-size: 12px;
-      color: var(--accent-gold);
+      color: var(--accent-navy);
       font-weight: 600;
       min-width: 60px;
       padding-top: 2px;
@@ -877,7 +890,33 @@
     .pse-timeline-text {
       font-size: 14px;
       line-height: 1.5;
-      color: rgba(240,237,231,0.7);
+      color: var(--text-secondary);
+    }
+    .pse-contribution {
+      margin-top: 32px;
+      padding: 24px 32px;
+      background: #fff;
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius-card);
+      box-shadow: 0 8px 32px rgba(26,36,86,0.04);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: relative;
+      z-index: 1;
+    }
+    .pse-contribution-label {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
+    .pse-contribution-value {
+      font-family: var(--font-serif);
+      font-size: 36px;
+      color: var(--accent-navy);
+      letter-spacing: -0.02em;
     }
 
     /* ══════════════════════════════════════════
@@ -1296,6 +1335,10 @@
       .origin-video-overlay { width: 100%; padding: 32px 24px; background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.4) 60%, transparent 100%); justify-content: flex-end; }
       .mentors-grid { grid-template-columns: repeat(2, 1fr); }
       .how-pillars { grid-template-columns: 1fr; }
+      .pse-header-illustration { display: none; }
+      .slide-pse .section-tag,
+      .slide-pse .slide-heading,
+      .slide-pse .slide-subheading { max-width: 100%; }
       .pse-content { grid-template-columns: 1fr; }
       .offer-grid { grid-template-columns: 1fr; }
       .promo-grid { grid-template-columns: 1fr; }
@@ -1606,30 +1649,30 @@
        SLIDE 7: ROLE OF PSE — CHALLENGE
        ══════════════════════════════════════════ -->
   <section class="slide slide-pse" id="slide-7">
-    <img src="pse-slide-background-navy.png" alt="" class="pse-bg-illustration">
     <div class="slide-inner">
-      <span class="section-tag section-tag-light animate">Rola Partnera</span>
-      <h2 class="slide-heading slide-heading-light animate animate-delay-1">PSE × Bison Fellowship</h2>
-      <p class="slide-subheading slide-subheading-light animate animate-delay-2">PSE stawia wyzwanie technologiczne — nasi uczestnicy je rozwiązują</p>
+      <img src="pse-slide-background-navy.png" alt="" class="pse-header-illustration animate animate-delay-2">
+      <span class="section-tag animate">Rola Partnera</span>
+      <h2 class="slide-heading animate animate-delay-1">PSE × Bison Fellowship</h2>
+      <p class="slide-subheading animate animate-delay-2">PSE stawia wyzwanie technologiczne — nasi uczestnicy je rozwiązują</p>
       <div class="pse-content">
         <div class="pse-challenge animate animate-delay-3">
           <div class="pse-challenge-title">Jak to działa?</div>
           <div class="pse-challenge-items">
             <div class="pse-challenge-item">
               <div class="pse-item-num">1</div>
-              <span>PSE definiuje wyzwanie technologiczne z obszaru AI — np. optymalizacja sieci, prognozowanie, analiza danych</span>
+              <span>PSE definiuje wyzwania technologiczne — np. analiza przyłączeń, optymalizacja sieci, analiza danych</span>
             </div>
             <div class="pse-challenge-item">
               <div class="pse-item-num">2</div>
-              <span>Dedykowany 3-osobowy zespół najzdolniejszych polskich studentów pracuje nad rozwiązaniem przez 8 tygodni</span>
+              <span>Dedykowany 3-osobowy zespół najzdolniejszych polskich olimpijczyków i studentów pracuje nad rozwiązaniem przez 8 tygodni</span>
             </div>
             <div class="pse-challenge-item">
               <div class="pse-item-num">3</div>
-              <span>Opiekun techniczny ze strony PSE spotyka się z zespołem co 2 tygodnie (łącznie ~3-4h zaangażowania)</span>
+              <span>Opiekun techniczny ze strony PSE spotyka się z zespołem co 2 tygodnie</span>
             </div>
             <div class="pse-challenge-item">
               <div class="pse-item-num">4</div>
-              <span>Zespół prezentuje gotowe rozwiązanie na Demo Day przed jury i gośćmi</span>
+              <span>Zespół prezentuje gotowe rozwiązanie na wydarzeniu Demo Day przed jury, gośćmi i innymi zespołami</span>
             </div>
           </div>
         </div>
@@ -1656,8 +1699,16 @@
               <span class="pse-timeline-week">Czerwiec</span>
               <span class="pse-timeline-text">Demo Day — prezentacja wyników przed jury</span>
             </div>
+            <div class="pse-timeline-item">
+              <span class="pse-timeline-week">Sierpień</span>
+              <span class="pse-timeline-text">Najlepsze zespoły zostaną wybrane na 2-tygodniowy wyjazd studyjny do Doliny Krzemowej</span>
+            </div>
           </div>
         </div>
+      </div>
+      <div class="pse-contribution animate animate-delay-5">
+        <span class="pse-contribution-label">Wkład partnerski</span>
+        <span class="pse-contribution-value">180 000 PLN</span>
       </div>
     </div>
   </section>
@@ -1728,13 +1779,12 @@
           <div class="promo-card-icon">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
           </div>
-          <div class="promo-card-title">Social Media</div>
-          <p class="promo-card-desc">Promocja PSE jako partnera Bison Fellowship na wszystkich naszych kanałach:</p>
+          <div class="promo-card-title">Kanały promocji</div>
           <ul class="promo-items">
-            <li>Posty i stories na LinkedIn (310k+ obserwujących)</li>
-            <li>Materiały na YouTube — This is IT i This is World</li>
-            <li>Posty na TikTok (310k+ obserwujących, &gt;29M wyświetleń/mies.)</li>
+            <li>Posty na LinkedIn (310,000+ obserwujących)</li>
+            <li>Materiały na YouTube — This is IT</li>
             <li>Logo PSE w materiałach programu i na stronie wydarzenia</li>
+            <li>Panel dyskusyjny na otwarciu programu</li>
           </ul>
         </div>
         <div class="promo-card animate animate-delay-4">
@@ -1836,24 +1886,25 @@
   <section class="slide slide-demoday" id="slide-11">
     <div class="slide-inner">
       <span class="section-tag animate">Wydarzenie</span>
-      <h2 class="slide-heading animate animate-delay-1">Demo Day — Gala Bison Fellowship</h2>
+      <h2 class="slide-heading animate animate-delay-1">Gala Bison Fellowship</h2>
+      <p class="slide-subheading animate animate-delay-2">24 marca — Rotunda PKO BP</p>
       <div class="demoday-content">
         <div class="demoday-quote animate animate-delay-2">
-          Partnerstwo w Bison Fellowship to nie tylko CSR — to bezpośredni dostęp do najlepszego polskiego talentu AI i realne rozwiązanie dla Twojej organizacji.
+          Partnerstwo w ramach Bison Fellowship to nie tylko CSR i wsparcie najzdolniejszych młodych Polaków, ale również bezpośredni dostęp do nich w celu rekrutacji i gotowe rozwiązanie AI dla zaproponowanego wyzwania.
         </div>
         <div class="demoday-details">
           <div class="demoday-program animate animate-delay-3">
-            <h3>Program wieczoru</h3>
-            <div class="demoday-program-item">
-              <span class="demoday-program-time">2h</span>
-              <span class="demoday-program-text">Przygotowanie i część techniczna</span>
-            </div>
-            <div class="demoday-program-item">
-              <span class="demoday-program-time">2h</span>
-              <span class="demoday-program-text">Rozmowy panelowe z założycielami największych polskich firm tech + rozdanie nagród</span>
-            </div>
+            <h3>Program</h3>
             <div class="demoday-program-item">
               <span class="demoday-program-time">1.5h</span>
+              <span class="demoday-program-text">Rozmowy panelowe z partnerami programu</span>
+            </div>
+            <div class="demoday-program-item">
+              <span class="demoday-program-time">1h</span>
+              <span class="demoday-program-text">Rozdanie nagród uczestnikom</span>
+            </div>
+            <div class="demoday-program-item">
+              <span class="demoday-program-time">2h</span>
               <span class="demoday-program-text">Networking</span>
             </div>
           </div>
@@ -1913,7 +1964,7 @@
       var allSlides = document.querySelectorAll('.slide');
       var nav = document.getElementById('slideNav');
       var clickHint = document.getElementById('clickHint');
-      var darkSlides = ['slide-4', 'slide-7', 'slide-8', 'slide-12'];
+      var darkSlides = ['slide-4', 'slide-8', 'slide-12'];
       var currentSlideIdx = 0;
       var isAnimating = false;
 
