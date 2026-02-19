@@ -260,15 +260,17 @@
       flex-shrink: 0;
     }
 
-    /* ── PARTNER LOGO IMG ── */
-    .partner-card img {
+    /* ── PARTNER LOGO IMG & SVG ── */
+    .partner-card img,
+    .partner-card svg {
       max-height: 36px;
-      max-width: 120px;
+      max-width: 140px;
       object-fit: contain;
       filter: grayscale(100%) opacity(0.6);
       transition: filter 0.3s ease;
     }
-    .partner-card:hover img {
+    .partner-card:hover img,
+    .partner-card:hover svg {
       filter: grayscale(0%) opacity(1);
     }
 
@@ -408,6 +410,11 @@
       display: flex;
       align-items: center;
       gap: 10px;
+    }
+    .brand-card-logo img {
+      height: 32px;
+      width: auto;
+      object-fit: contain;
     }
     .brand-card-logo .icon-wrapper {
       width: 36px;
@@ -1339,10 +1346,7 @@
         <!-- This is IT -->
         <div class="brand-card animate animate-delay-2">
           <div class="brand-card-logo">
-            <div class="icon-wrapper">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg>
-            </div>
-            This is IT
+            <img src="thisisit.png" alt="This is IT" style="height:32px;width:auto;object-fit:contain;">
           </div>
           <div class="brand-stat-row">
             <div class="brand-stat">
@@ -1366,10 +1370,7 @@
         <!-- This is World -->
         <div class="brand-card animate animate-delay-3">
           <div class="brand-card-logo">
-            <div class="icon-wrapper">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
-            </div>
-            This is World
+            <svg viewBox="0 0 320 44" width="240" height="36" fill="none"><text x="0" y="34" font-family="'Geist', system-ui, -apple-system, sans-serif" font-size="32" font-weight="900" fill="#1a1a1a" letter-spacing="-0.5">THIS IS WORLD</text></svg>
           </div>
           <div class="brand-stat-row">
             <div class="brand-stat">
@@ -1574,10 +1575,22 @@
           <svg width="130" height="28" viewBox="0 0 130 28" fill="none"><circle cx="14" cy="14" r="11" stroke="#333" stroke-width="2" fill="none"/><circle cx="14" cy="14" r="4" fill="#333"/><text x="32" y="20" font-family="'Geist', system-ui, sans-serif" font-size="17" font-weight="500" fill="#333">Worldcoin</text></svg>
         </div>
         <div class="partner-card animate animate-delay-4">
-          <svg width="90" height="28" viewBox="0 0 90 28" fill="none"><text x="0" y="22" font-family="'Geist', system-ui, sans-serif" font-size="22" font-weight="700" font-style="italic" fill="#333">Nature</text></svg>
+          <svg width="100" height="32" viewBox="0 0 100 32" fill="none"><text x="0" y="26" font-family="Georgia, 'Times New Roman', serif" font-size="28" font-weight="700" font-style="italic" fill="#C62828">nature</text></svg>
         </div>
         <div class="partner-card animate animate-delay-4">
-          <svg width="80" height="28" viewBox="0 0 80 28" fill="none"><text x="0" y="22" font-family="'Geist', system-ui, sans-serif" font-size="22" font-weight="700" fill="#333">GITEX</text></svg>
+          <svg width="160" height="32" viewBox="0 0 160 32" fill="none">
+            <defs>
+              <linearGradient id="gitex-g1" x1="0%" y1="0%" x2="100%" y2="0%">
+                <stop offset="0%" style="stop-color:#E91E63"/>
+                <stop offset="25%" style="stop-color:#FF5722"/>
+                <stop offset="50%" style="stop-color:#FF9800"/>
+                <stop offset="75%" style="stop-color:#4CAF50"/>
+                <stop offset="100%" style="stop-color:#2196F3"/>
+              </linearGradient>
+            </defs>
+            <text x="0" y="24" font-family="'Geist', system-ui, sans-serif" font-size="22" font-weight="800" fill="url(#gitex-g1)" letter-spacing="1">GITEX</text>
+            <text x="74" y="24" font-family="'Geist', system-ui, sans-serif" font-size="22" font-weight="400" fill="#555" letter-spacing="0.5">Global</text>
+          </svg>
         </div>
         <div class="partner-card animate animate-delay-5" style="font-size:13px; font-weight:500; color: var(--text-secondary);">
           Uniwersytet<br>Jagielloński
@@ -1750,8 +1763,11 @@
           </div>
         </div>
       </div>
+      <div class="offer-cta-message animate animate-delay-4" style="max-width:720px;margin:24px auto 18px;padding:20px 28px;background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.15);border-radius:12px;text-align:center;">
+        <p style="margin:0;font-size:15px;line-height:1.7;color:rgba(255,255,255,0.85);font-family:var(--font-sans);">To nie tylko CSR — jako Partner otrzymujesz <strong style="color:#fff;">dedykowany zespół AI</strong>, który przez 8 tygodni buduje rozwiązanie dopasowane do Twojej firmy, <strong style="color:#fff;">widoczność medialną</strong> na kanałach z łącznym zasięgiem ~1M, oraz <strong style="color:#fff;">prestiżową obecność</strong> na Demo Day obok liderów polskiego biznesu i technologii.</p>
+      </div>
       <div class="offer-price animate animate-delay-5">
-        <p class="offer-price-label">Inwestycja</p>
+        <p class="offer-price-label">Wkład Partnerski</p>
         <p class="offer-price-value">160 000 PLN</p>
       </div>
     </div>
