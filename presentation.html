@@ -77,6 +77,15 @@
       pointer-events: auto;
       z-index: 2;
     }
+    .slide.fade-enter {
+      transform: translateY(0) !important;
+      transition: opacity 0.9s ease-out !important;
+    }
+    .slide.fade-enter .animate {
+      opacity: 1 !important;
+      transform: translateY(0) !important;
+      transition: none !important;
+    }
     .slide.exit-up {
       opacity: 0;
       transform: translateY(-40px);
@@ -191,9 +200,6 @@
     /* ── DONUT ANIMATION ── */
     @keyframes donutDraw {
       from { stroke-dasharray: 0 314; }
-    }
-    @keyframes donutDrawSecondary {
-      from { stroke-dasharray: 0 314; stroke-dashoffset: 0; }
     }
     @keyframes countUp {
       from { opacity: 0; transform: translate(-50%, -50%) scale(0.7); }
@@ -372,27 +378,29 @@
     }
 
     /* ══════════════════════════════════════════
-       SLIDE 2: WHO WE ARE
+       SLIDE 2: FOUNDERS / TEAM
        ══════════════════════════════════════════ */
-    .slide-whoweare {
+    .slide-founders {
       background: var(--bg-primary);
     }
-    .whoweare-grid {
+    .founders-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 64px;
+      gap: 40px;
       margin-top: 48px;
     }
-    .brand-card {
+    .founder-card {
       background: #fff;
       border: 1px solid var(--border-light);
       border-radius: var(--radius-card);
-      padding: 36px;
+      padding: 40px 36px;
       position: relative;
       overflow: hidden;
       box-shadow: 0 8px 40px rgba(26, 36, 86, 0.04);
+      display: flex;
+      flex-direction: column;
     }
-    .brand-card::after {
+    .founder-card::after {
       content: '';
       position: absolute;
       top: 0;
@@ -401,434 +409,68 @@
       height: 3px;
       background: linear-gradient(90deg, var(--accent-navy), var(--accent-blue));
     }
-    .brand-card-logo {
-      font-family: var(--font-serif);
-      font-size: 28px;
-      font-weight: 400;
-      color: var(--text-primary);
-      margin-bottom: 20px;
+    .founder-card.highlight::after {
+      background: linear-gradient(90deg, var(--accent-gold), var(--accent-amber));
+    }
+    .founder-header {
       display: flex;
       align-items: center;
-      gap: 10px;
-    }
-    .brand-card-logo img {
-      height: 32px;
-      width: auto;
-      object-fit: contain;
-    }
-    .brand-card-logo .icon-wrapper {
-      width: 36px;
-      height: 36px;
-      border-radius: 10px;
-      background: var(--accent-navy);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-    .brand-card-logo .icon-wrapper svg {
-      width: 20px;
-      height: 20px;
-      color: #fff;
-    }
-    .brand-stat-row {
-      display: flex;
       gap: 24px;
-      margin-bottom: 20px;
+      margin-bottom: 28px;
     }
-    .brand-stat {
-      display: flex;
-      flex-direction: column;
+    .founder-avatar {
+      width: 110px;
+      height: 110px;
+      border-radius: 22px;
+      object-fit: cover;
+      box-shadow: 0 8px 28px rgba(26,36,86,0.14);
+      flex-shrink: 0;
     }
-    .brand-stat-value {
+    .founder-name {
       font-family: var(--font-serif);
       font-size: 32px;
       font-weight: 400;
-      color: var(--accent-navy);
-      letter-spacing: -0.02em;
+      color: var(--text-primary);
+      line-height: 1.15;
     }
-    .brand-stat-label {
-      font-size: 12px;
-      color: var(--text-muted);
+    .founder-role {
       font-family: var(--font-mono);
-      letter-spacing: 0.04em;
+      font-size: 11px;
+      letter-spacing: 0.08em;
       text-transform: uppercase;
-      margin-top: 2px;
+      color: var(--accent-navy);
+      margin-top: 5px;
     }
-    .brand-highlights {
-      list-style: none;
+    .founder-credentials {
       display: flex;
       flex-direction: column;
-      gap: 10px;
+      gap: 14px;
+      flex: 1;
     }
-    .brand-highlights li {
-      font-size: 14px;
-      line-height: 1.5;
+    .founder-credential {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      font-size: 15.5px;
+      line-height: 1.55;
       color: var(--text-secondary);
-      padding-left: 20px;
-      position: relative;
     }
-    .brand-highlights li::before {
-      content: '';
-      position: absolute;
-      left: 0;
-      top: 8px;
+    .founder-credential-dot {
       width: 8px;
       height: 8px;
       border-radius: 50%;
       background: var(--accent-navy);
-      opacity: 0.3;
-    }
-    .awards-row {
-      margin-top: 32px;
-      padding-top: 20px;
-      border-top: 1px solid var(--border-light);
-    }
-    .awards-label {
-      font-family: var(--font-mono);
-      font-size: 10px;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--text-faint);
-      margin-bottom: 10px;
-    }
-    .awards-badges {
-      display: flex;
-      gap: 8px;
-      flex-wrap: wrap;
-    }
-    .award-badge {
-      font-size: 11px;
-      padding: 5px 12px;
-      border-radius: var(--radius-pill);
-      background: var(--bg-warm);
-      color: var(--text-secondary);
-      border: 1px solid var(--border-light);
-      font-weight: 500;
-    }
-
-    /* ══════════════════════════════════════════
-       SLIDE 3: HOST / MACIEJ KAWECKI
-       ══════════════════════════════════════════ */
-    .slide-host {
-      background: var(--bg-dark);
-      overflow: hidden;
-    }
-    .host-grid {
-      display: grid;
-      grid-template-columns: 380px 1fr;
-      gap: 64px;
-      align-items: center;
-    }
-    .host-photo-wrap {
-      position: relative;
-    }
-    .host-photo {
-      width: 100%;
-      aspect-ratio: 3/4;
-      object-fit: cover;
-      border-radius: 20px;
-      box-shadow: 0 24px 60px rgba(0,0,0,0.3);
-    }
-    .host-photo-glow {
-      position: absolute;
-      bottom: -30px;
-      left: 20%;
-      right: 20%;
-      height: 60px;
-      background: radial-gradient(ellipse, rgba(26,36,86,0.5) 0%, transparent 70%);
-      filter: blur(20px);
-      pointer-events: none;
-    }
-    .host-content {
-      color: var(--text-on-dark);
-    }
-    .host-name {
-      font-family: var(--font-serif);
-      font-size: clamp(36px, 4.5vw, 56px);
-      font-weight: 400;
-      line-height: 1.1;
-      letter-spacing: -0.02em;
-      margin-bottom: 8px;
-    }
-    .host-role {
-      font-family: var(--font-mono);
-      font-size: 13px;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      color: var(--accent-gold);
-      margin-bottom: 32px;
-    }
-    .host-credentials {
-      display: flex;
-      flex-direction: column;
-      gap: 14px;
-    }
-    .host-credential {
-      display: flex;
-      align-items: flex-start;
-      gap: 14px;
-      font-size: 15px;
-      line-height: 1.5;
-      color: rgba(240, 237, 231, 0.8);
-    }
-    .host-credential-icon {
-      width: 32px;
-      height: 32px;
-      border-radius: 10px;
-      background: rgba(255,255,255,0.08);
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      opacity: 0.25;
       flex-shrink: 0;
-      margin-top: 1px;
+      margin-top: 7px;
     }
-    .host-credential-icon svg {
-      width: 16px;
-      height: 16px;
-      color: var(--accent-gold);
-    }
-
-    /* ══════════════════════════════════════════
-       SLIDE 4: REACH / STATS
-       ══════════════════════════════════════════ */
-    .slide-reach {
-      background: var(--bg-primary);
-    }
-    .reach-table {
-      width: 100%;
-      margin-top: 48px;
-      border-collapse: separate;
-      border-spacing: 0;
-      border-radius: 20px;
-      overflow: hidden;
-      box-shadow: 0 8px 40px rgba(26,36,86,0.06);
-    }
-    .reach-table thead th {
-      background: var(--accent-navy);
-      color: rgba(255,255,255,0.9);
-      font-family: var(--font-mono);
-      font-size: 11px;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      padding: 16px 24px;
-      text-align: left;
-      font-weight: 500;
-    }
-    .reach-table thead th:first-child {
-      text-align: left;
-    }
-    .reach-table thead th:not(:first-child) {
-      text-align: center;
-    }
-    .reach-table tbody td {
-      padding: 20px 24px;
-      background: #fff;
-      border-bottom: 1px solid var(--border-light);
-      font-size: 15px;
-      color: var(--text-secondary);
-    }
-    .reach-table tbody tr:last-child td {
-      border-bottom: none;
-    }
-    .reach-table tbody td:first-child {
-      font-weight: 600;
-      color: var(--text-primary);
-      font-size: 16px;
-    }
-    .reach-table tbody td:not(:first-child) {
-      text-align: center;
-      font-family: var(--font-serif);
-      font-size: 24px;
-      color: var(--accent-navy);
-    }
-    .reach-note {
-      margin-top: 16px;
-      font-size: 12px;
-      color: var(--text-faint);
-      font-family: var(--font-mono);
-      text-align: right;
+    .founder-card.highlight .founder-credential-dot {
+      background: var(--accent-gold);
+      opacity: 0.5;
     }
 
     /* ══════════════════════════════════════════
-       SLIDE 5: AUDIENCE
-       ══════════════════════════════════════════ */
-    .slide-audience {
-      background: var(--bg-warm);
-    }
-    .audience-content {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 64px;
-      margin-top: 48px;
-      align-items: center;
-    }
-    .audience-visual {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 24px;
-    }
-    .audience-donut {
-      width: 240px;
-      height: 240px;
-      position: relative;
-    }
-    .audience-donut svg {
-      width: 100%;
-      height: 100%;
-      transform: rotate(-90deg);
-    }
-    .audience-donut-center {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      text-align: center;
-    }
-    .audience-donut-value {
-      font-family: var(--font-serif);
-      font-size: 40px;
-      color: var(--accent-navy);
-    }
-    .audience-donut-label {
-      font-family: var(--font-mono);
-      font-size: 10px;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      color: var(--text-faint);
-    }
-    .audience-traits {
-      display: flex;
-      flex-direction: column;
-      gap: 16px;
-    }
-    .audience-trait {
-      display: flex;
-      align-items: center;
-      gap: 16px;
-      padding: 18px 24px;
-      background: #fff;
-      border-radius: 16px;
-      border: 1px solid var(--border-light);
-      box-shadow: 0 4px 16px rgba(26,36,86,0.03);
-    }
-    .audience-trait-icon {
-      width: 44px;
-      height: 44px;
-      border-radius: 12px;
-      background: linear-gradient(135deg, var(--accent-navy), var(--accent-blue));
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-shrink: 0;
-    }
-    .audience-trait-icon svg {
-      width: 22px;
-      height: 22px;
-      color: #fff;
-    }
-    .audience-trait-text {
-      font-size: 16px;
-      font-weight: 500;
-      color: var(--text-primary);
-      line-height: 1.4;
-    }
-    .audience-trait-sub {
-      font-size: 13px;
-      color: var(--text-muted);
-      margin-top: 2px;
-    }
-
-    /* ══════════════════════════════════════════
-       SLIDE 6: PARTNERS
-       ══════════════════════════════════════════ */
-    .slide-partners {
-      background: var(--bg-primary);
-      text-align: center;
-    }
-    .partners-note {
-      font-size: 16px;
-      color: var(--text-muted);
-      margin-top: 12px;
-      margin-bottom: 48px;
-    }
-    .partners-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 20px;
-      max-width: 900px;
-      margin: 0 auto;
-    }
-    .partner-card {
-      background: #fff;
-      border: 1px solid var(--border-light);
-      border-radius: 16px;
-      padding: 32px 20px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      min-height: 100px;
-      font-family: var(--font-serif);
-      font-size: 18px;
-      color: var(--text-secondary);
-      box-shadow: 0 4px 16px rgba(26,36,86,0.03);
-      transition: transform 0.2s, box-shadow 0.2s;
-    }
-    .partner-card:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 8px 24px rgba(26,36,86,0.08);
-    }
-
-    /* ══════════════════════════════════════════
-       SLIDE 7: GUESTS
-       ══════════════════════════════════════════ */
-    .slide-guests {
-      background: var(--bg-dark-deep);
-      text-align: center;
-    }
-    .guests-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 32px;
-      max-width: 900px;
-      margin: 48px auto 0;
-    }
-    .guest-card {
-      padding: 28px 20px;
-      border-radius: 20px;
-      background: rgba(255,255,255,0.04);
-      border: 1px solid rgba(255,255,255,0.08);
-      backdrop-filter: blur(8px);
-      transition: background 0.3s;
-    }
-    .guest-card:hover {
-      background: rgba(255,255,255,0.08);
-    }
-    .guest-avatar {
-      width: 72px;
-      height: 72px;
-      border-radius: 50%;
-      background: linear-gradient(135deg, rgba(212,168,83,0.3), rgba(45,74,138,0.3));
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin: 0 auto 16px;
-      font-size: 28px;
-    }
-    .guest-name {
-      font-family: var(--font-serif);
-      font-size: 20px;
-      color: var(--text-on-dark);
-      margin-bottom: 6px;
-    }
-    .guest-role {
-      font-size: 13px;
-      color: rgba(240,237,231,0.45);
-      line-height: 1.4;
-    }
-
-    /* ══════════════════════════════════════════
-       SLIDE 8: WHAT IS BISON
+       SLIDE 3: WHAT IS BISON FELLOWSHIP
        ══════════════════════════════════════════ */
     .slide-bison {
       background: var(--bg-warm);
@@ -905,7 +547,170 @@
     }
 
     /* ══════════════════════════════════════════
-       SLIDE 9: HOW IT WORKS
+       SLIDE 4: ORIGIN STORY — FULLSCREEN VIDEO
+       ══════════════════════════════════════════ */
+    .slide-origin {
+      background: #000;
+      padding: 0 !important;
+      overflow: hidden;
+    }
+    .slide-origin .slide-inner {
+      width: 100%;
+      height: 100%;
+      max-width: 100%;
+      padding: 0;
+      position: relative;
+    }
+    .origin-video-wrap {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+    }
+    .origin-video-wrap iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+    .origin-video-fadeout {
+      position: absolute;
+      inset: 0;
+      background: #000;
+      opacity: 0;
+      z-index: 3;
+      pointer-events: none;
+      transition: opacity 1.2s ease-in;
+    }
+    .origin-video-fadeout.active {
+      opacity: 1;
+    }
+    .origin-video-overlay {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      width: 45%;
+      padding: 0 64px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      background: linear-gradient(to right, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0.45) 70%, transparent 100%);
+      z-index: 4;
+      pointer-events: none;
+      transition: opacity 1s ease-in;
+    }
+    .origin-video-fadeout.active ~ .origin-video-overlay {
+      opacity: 0;
+    }
+    .origin-video-overlay .section-tag-light {
+      pointer-events: none;
+    }
+    .origin-video-title {
+      font-family: var(--font-serif);
+      font-size: clamp(28px, 3.5vw, 48px);
+      color: #fff;
+      margin-top: 12px;
+      line-height: 1.2;
+    }
+    .origin-video-stats {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      margin-top: 20px;
+    }
+    .origin-video-stat-value {
+      font-family: var(--font-serif);
+      font-size: 28px;
+      color: #fff;
+      display: block;
+      line-height: 1.1;
+    }
+    .origin-video-stat-label {
+      font-size: 13px;
+      color: rgba(255,255,255,0.5);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      display: block;
+      margin-top: 2px;
+    }
+    .origin-video-stat-divider {
+      width: 1px;
+      height: 36px;
+      background: rgba(255,255,255,0.2);
+    }
+    .origin-video-subtitle {
+      font-size: 16px;
+      color: rgba(255,255,255,0.6);
+      margin-top: 10px;
+      max-width: 600px;
+      line-height: 1.5;
+    }
+
+    /* ══════════════════════════════════════════
+       SLIDE 5: MENTORS
+       ══════════════════════════════════════════ */
+    .slide-mentors {
+      background: var(--bg-primary);
+    }
+    .mentors-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 16px;
+      margin-top: 48px;
+      max-width: 1100px;
+    }
+    .mentor-card {
+      padding: 24px 16px;
+      border-radius: 20px;
+      background: #fff;
+      border: 1px solid var(--border-light);
+      box-shadow: 0 4px 20px rgba(26,36,86,0.04);
+      text-align: center;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .mentor-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 32px rgba(26,36,86,0.08);
+    }
+    .mentor-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 14px;
+      background: linear-gradient(135deg, var(--accent-navy), var(--accent-blue));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 14px;
+    }
+    .mentor-icon svg {
+      width: 22px;
+      height: 22px;
+      color: #fff;
+    }
+    .mentor-name {
+      font-family: var(--font-serif);
+      font-size: 16px;
+      color: var(--text-primary);
+      margin-bottom: 4px;
+      line-height: 1.25;
+    }
+    .mentor-affiliation {
+      font-size: 11px;
+      color: var(--text-faint);
+      font-family: var(--font-mono);
+      letter-spacing: 0.02em;
+      line-height: 1.4;
+    }
+    .mentors-note {
+      margin-top: 24px;
+      font-size: 14px;
+      color: var(--text-muted);
+      text-align: center;
+      font-style: italic;
+    }
+
+    /* ══════════════════════════════════════════
+       SLIDE 6: HOW IT WORKS
        ══════════════════════════════════════════ */
     .slide-how {
       background: var(--bg-primary);
@@ -920,11 +725,13 @@
       background: #fff;
       border: 1px solid var(--border-light);
       border-radius: var(--radius-card);
-      padding: 40px 32px;
+      padding: 0;
       text-align: center;
       box-shadow: 0 8px 32px rgba(26,36,86,0.04);
       position: relative;
       overflow: hidden;
+      display: flex;
+      flex-direction: column;
     }
     .how-pillar::before {
       content: '';
@@ -934,22 +741,31 @@
       right: 0;
       height: 4px;
       background: linear-gradient(90deg, var(--accent-navy), var(--accent-blue));
+      z-index: 1;
     }
-    .how-pillar-icon {
-      width: 64px;
-      height: 64px;
-      border-radius: 18px;
-      background: linear-gradient(135deg, var(--accent-navy), var(--accent-blue));
+    .how-pillar.highlight-pillar::before {
+      background: linear-gradient(90deg, var(--accent-gold), var(--accent-amber));
+    }
+    .how-pillar-illustration {
+      width: 100%;
+      aspect-ratio: 4 / 3;
       display: flex;
       align-items: center;
       justify-content: center;
-      margin: 0 auto 24px;
-      box-shadow: 0 6px 20px rgba(26,36,86,0.15);
+      background: var(--bg-warm);
+      border-bottom: 1px solid var(--border-light);
+      padding: 16px;
     }
-    .how-pillar-icon svg {
-      width: 28px;
-      height: 28px;
-      color: #fff;
+    .how-pillar-illustration img {
+      max-width: 85%;
+      max-height: 90%;
+      object-fit: contain;
+    }
+    .how-pillar-body {
+      padding: 28px 32px 36px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
     }
     .how-pillar-title {
       font-family: var(--font-serif);
@@ -964,7 +780,147 @@
     }
 
     /* ══════════════════════════════════════════
-       SLIDE 10: WHAT PARTNER GETS
+       SLIDE 7: ROLE OF PSE
+       ══════════════════════════════════════════ */
+    .slide-pse {
+      background: var(--bg-warm);
+      overflow: visible;
+    }
+    .slide-pse .slide-inner {
+      position: relative;
+      overflow: visible;
+    }
+    .pse-header-illustration {
+      position: absolute;
+      right: -40px;
+      top: -115px;
+      height: 380px;
+      width: auto;
+      object-fit: contain;
+      z-index: 0;
+      pointer-events: none;
+    }
+    .slide-pse .section-tag,
+    .slide-pse .slide-heading,
+    .slide-pse .slide-subheading {
+      position: relative;
+      z-index: 1;
+      max-width: 60%;
+    }
+    .pse-content {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 32px;
+      margin-top: 48px;
+      align-items: start;
+      position: relative;
+      z-index: 1;
+    }
+    .pse-challenge {
+      padding: 36px;
+      border-radius: var(--radius-card);
+      background: #fff;
+      border: 1px solid var(--border-light);
+      box-shadow: 0 8px 32px rgba(26,36,86,0.04);
+    }
+    .pse-challenge-title {
+      font-family: var(--font-serif);
+      font-size: 24px;
+      color: var(--text-primary);
+      margin-bottom: 20px;
+    }
+    .pse-challenge-items {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .pse-challenge-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      font-size: 15px;
+      line-height: 1.55;
+      color: var(--text-secondary);
+    }
+    .pse-item-num {
+      width: 32px;
+      height: 32px;
+      border-radius: 10px;
+      background: linear-gradient(135deg, var(--accent-navy), var(--accent-blue));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      font-family: var(--font-mono);
+      font-size: 14px;
+      font-weight: 700;
+      color: #fff;
+    }
+    .pse-timeline {
+      padding: 36px;
+      border-radius: var(--radius-card);
+      background: #fff;
+      border: 1px solid var(--border-light);
+      box-shadow: 0 8px 32px rgba(26,36,86,0.04);
+    }
+    .pse-timeline-title {
+      font-family: var(--font-serif);
+      font-size: 24px;
+      color: var(--text-primary);
+      margin-bottom: 24px;
+    }
+    .pse-timeline-items {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+    .pse-timeline-item {
+      display: flex;
+      gap: 16px;
+      align-items: flex-start;
+    }
+    .pse-timeline-week {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      color: var(--accent-navy);
+      font-weight: 600;
+      min-width: 60px;
+      padding-top: 2px;
+    }
+    .pse-timeline-text {
+      font-size: 14px;
+      line-height: 1.5;
+      color: var(--text-secondary);
+    }
+    .pse-contribution {
+      margin-top: 32px;
+      padding: 24px 32px;
+      background: #fff;
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius-card);
+      box-shadow: 0 8px 32px rgba(26,36,86,0.04);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: relative;
+      z-index: 1;
+    }
+    .pse-contribution-label {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
+    .pse-contribution-value {
+      font-family: var(--font-serif);
+      font-size: 36px;
+      color: var(--accent-navy);
+      letter-spacing: -0.02em;
+    }
+
+    /* ══════════════════════════════════════════
+       SLIDE 8: PARTNER OFFER
        ══════════════════════════════════════════ */
     .slide-partner-offer {
       background: var(--bg-dark);
@@ -1031,6 +987,178 @@
       font-size: clamp(36px, 4vw, 52px);
       color: var(--text-on-dark);
       letter-spacing: -0.02em;
+    }
+
+    /* ══════════════════════════════════════════
+       SLIDE 9: MEDIA PROMOTION
+       ══════════════════════════════════════════ */
+    .slide-promo {
+      background: var(--bg-warm);
+    }
+    .promo-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+      margin-top: 48px;
+    }
+    .promo-card {
+      background: #fff;
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius-card);
+      padding: 36px;
+      box-shadow: 0 8px 32px rgba(26,36,86,0.04);
+    }
+    .promo-card-icon {
+      width: 52px;
+      height: 52px;
+      border-radius: 16px;
+      background: linear-gradient(135deg, var(--accent-navy), var(--accent-blue));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 20px;
+    }
+    .promo-card-icon svg {
+      width: 26px;
+      height: 26px;
+      color: #fff;
+    }
+    .promo-card-title {
+      font-family: var(--font-serif);
+      font-size: 22px;
+      color: var(--text-primary);
+      margin-bottom: 12px;
+    }
+    .promo-card-desc {
+      font-size: 15px;
+      line-height: 1.6;
+      color: var(--text-secondary);
+    }
+    .promo-items {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-top: 16px;
+    }
+    .promo-items li {
+      font-size: 14px;
+      line-height: 1.5;
+      color: var(--text-secondary);
+      padding-left: 20px;
+      position: relative;
+    }
+    .promo-items li::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 7px;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--accent-navy);
+      opacity: 0.25;
+    }
+
+    /* ══════════════════════════════════════════
+       SLIDE 10: REACH / STATS
+       ══════════════════════════════════════════ */
+    .slide-reach {
+      background: var(--bg-primary);
+    }
+    .reach-table {
+      width: 100%;
+      margin-top: 48px;
+      border-collapse: separate;
+      border-spacing: 0;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 8px 40px rgba(26,36,86,0.06);
+    }
+    .reach-table thead th {
+      background: var(--accent-navy);
+      color: rgba(255,255,255,0.9);
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 16px 24px;
+      text-align: left;
+      font-weight: 500;
+    }
+    .reach-table thead th:first-child {
+      text-align: left;
+    }
+    .reach-table thead th:not(:first-child) {
+      text-align: center;
+    }
+    .reach-table tbody td {
+      padding: 20px 24px;
+      background: #fff;
+      border-bottom: 1px solid var(--border-light);
+      font-size: 15px;
+      color: var(--text-secondary);
+    }
+    .reach-table tbody tr:last-child td {
+      border-bottom: none;
+    }
+    .reach-table tbody td:first-child {
+      font-weight: 600;
+      color: var(--text-primary);
+      font-size: 16px;
+    }
+    .reach-table tbody td:not(:first-child) {
+      text-align: center;
+      font-family: var(--font-serif);
+      font-size: 24px;
+      color: var(--accent-navy);
+    }
+    .reach-note {
+      margin-top: 16px;
+      font-size: 12px;
+      color: var(--text-faint);
+      font-family: var(--font-mono);
+      text-align: right;
+    }
+    .reach-audience-row {
+      display: flex;
+      gap: 20px;
+      margin-top: 32px;
+    }
+    .reach-audience-pill {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 16px 20px;
+      background: #fff;
+      border-radius: 16px;
+      border: 1px solid var(--border-light);
+      box-shadow: 0 4px 16px rgba(26,36,86,0.03);
+    }
+    .reach-audience-pill-icon {
+      width: 36px;
+      height: 36px;
+      border-radius: 10px;
+      background: linear-gradient(135deg, var(--accent-navy), var(--accent-blue));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .reach-audience-pill-icon svg {
+      width: 18px;
+      height: 18px;
+      color: #fff;
+    }
+    .reach-audience-pill-text {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--text-primary);
+    }
+    .reach-audience-pill-sub {
+      font-size: 12px;
+      color: var(--text-muted);
     }
 
     /* ══════════════════════════════════════════
@@ -1139,68 +1267,7 @@
     }
 
     /* ══════════════════════════════════════════
-       SLIDE 12: TEAM
-       ══════════════════════════════════════════ */
-    .slide-team {
-      background: var(--bg-primary);
-      text-align: center;
-    }
-    .team-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 20px;
-      margin-top: 48px;
-      max-width: 1000px;
-      margin-left: auto;
-      margin-right: auto;
-    }
-    .team-member {
-      padding: 28px 16px;
-      border-radius: 20px;
-      background: #fff;
-      border: 1px solid var(--border-light);
-      box-shadow: 0 4px 20px rgba(26,36,86,0.04);
-      transition: transform 0.2s, box-shadow 0.2s;
-    }
-    .team-member:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 12px 32px rgba(26,36,86,0.08);
-    }
-    .team-member-icon {
-      width: 56px;
-      height: 56px;
-      border-radius: 16px;
-      background: linear-gradient(135deg, var(--accent-navy), var(--accent-blue));
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin: 0 auto 16px;
-      box-shadow: 0 4px 12px rgba(26,36,86,0.15);
-    }
-    .team-member-icon svg {
-      width: 26px;
-      height: 26px;
-      color: #fff;
-    }
-    .team-member-icon.ceo-highlight {
-      background: linear-gradient(135deg, var(--accent-gold), var(--accent-amber));
-      box-shadow: 0 4px 12px rgba(212,168,83,0.3);
-    }
-    .team-member-name {
-      font-family: var(--font-serif);
-      font-size: 17px;
-      color: var(--text-primary);
-      margin-bottom: 4px;
-    }
-    .team-member-role {
-      font-size: 12px;
-      color: var(--text-faint);
-      font-family: var(--font-mono);
-      letter-spacing: 0.04em;
-    }
-
-    /* ══════════════════════════════════════════
-       SLIDE 13: CLOSING / CONTACT
+       SLIDE 12: CLOSING / CONTACT
        ══════════════════════════════════════════ */
     .slide-closing {
       background: var(--bg-dark);
@@ -1263,27 +1330,30 @@
        ══════════════════════════════════════════ */
     @media (max-width: 900px) {
       .slide { padding: 60px 24px; }
-      .whoweare-grid { grid-template-columns: 1fr; gap: 32px; }
-      .host-grid { grid-template-columns: 1fr; gap: 40px; }
-      .host-photo-wrap { max-width: 300px; margin: 0 auto; }
-      .audience-content { grid-template-columns: 1fr; gap: 40px; }
-      .partners-grid { grid-template-columns: repeat(2, 1fr); }
-      .guests-grid { grid-template-columns: 1fr; }
+      .founders-grid { grid-template-columns: 1fr; gap: 32px; }
       .bison-content { grid-template-columns: 1fr; }
+      .origin-video-overlay { width: 100%; padding: 32px 24px; background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.4) 60%, transparent 100%); justify-content: flex-end; }
+      .mentors-grid { grid-template-columns: repeat(2, 1fr); }
       .how-pillars { grid-template-columns: 1fr; }
+      .pse-header-illustration { display: none; }
+      .slide-pse .section-tag,
+      .slide-pse .slide-heading,
+      .slide-pse .slide-subheading { max-width: 100%; }
+      .pse-content { grid-template-columns: 1fr; }
       .offer-grid { grid-template-columns: 1fr; }
+      .promo-grid { grid-template-columns: 1fr; }
       .demoday-details { grid-template-columns: 1fr; }
-      .team-grid { grid-template-columns: repeat(2, 1fr); }
+      .reach-audience-row { flex-direction: column; }
       .slide-nav { display: none; }
     }
     @media (max-width: 480px) {
       .slide { padding: 48px 16px; }
-      .brand-stat-row { flex-direction: column; gap: 12px; }
       .bison-stats-row { flex-direction: column; gap: 16px; width: 100%; }
       .bison-stat-pill { width: 100%; }
       .reach-table { font-size: 13px; }
       .reach-table thead th,
       .reach-table tbody td { padding: 12px 12px; }
+      .mentors-grid { grid-template-columns: 1fr; }
     }
 
     /* ── PRINT / PDF ── */
@@ -1329,64 +1399,73 @@
     <div class="slide-inner" style="display:flex;flex-direction:column;align-items:center;">
       <img src="zubr-2.png" alt="Bison Fellowship" class="cover-logo animate">
       <h1 class="cover-title animate animate-delay-1">Bison Fellowship</h1>
-      <p class="cover-subtitle animate animate-delay-2">Oferta Współpracy</p>
-      <p class="cover-meta animate animate-delay-3">Marzec 2026</p>
+      <p class="cover-subtitle animate animate-delay-2">Oferta Współpracy × PSE</p>
+      <p class="cover-meta animate animate-delay-3">Luty 2026</p>
       <img src="kreska-dluga-niebieska.png" alt="" class="cover-kreska animate animate-delay-4">
     </div>
   </section>
 
   <!-- ══════════════════════════════════════════
-       SLIDE 2: WHO WE ARE
+       SLIDE 2: FOUNDERS — Michał & Maciej
        ══════════════════════════════════════════ -->
-  <section class="slide slide-whoweare" id="slide-2">
+  <section class="slide slide-founders" id="slide-2">
     <div class="slide-inner">
-      <span class="section-tag animate">O nas</span>
-      <h2 class="slide-heading animate animate-delay-1">Kim jesteśmy?</h2>
-      <div class="whoweare-grid">
-        <!-- This is IT -->
-        <div class="brand-card animate animate-delay-2">
-          <div class="brand-card-logo">
-            <img src="thisisit.png" alt="This is IT" style="height:32px;width:auto;object-fit:contain;">
-          </div>
-          <div class="brand-stat-row">
-            <div class="brand-stat">
-              <span class="brand-stat-value">310k+</span>
-              <span class="brand-stat-label">Obserwujących</span>
+      <span class="section-tag animate">Zespół Bison Fellowship</span>
+      <h2 class="slide-heading animate animate-delay-1">Pomysłodawcy</h2>
+      <div class="founders-grid">
+        <!-- Michał Wyrębkowski -->
+        <div class="founder-card animate animate-delay-2">
+          <div class="founder-header">
+            <img src="michalwyrebkowski_kolor.jpeg" alt="Michał Wyrębkowski" class="founder-avatar">
+            <div>
+              <div class="founder-name">Michał Wyrębkowski</div>
+              <div class="founder-role">Co-founder</div>
             </div>
           </div>
-          <ul class="brand-highlights">
-            <li>Największy kanał popularyzujący naukę w Polsce</li>
-            <li>11 laureatów Nobla oraz goście tacy jak Sir Roger Penrose, Sam Altman, Wojciech Zaremba czy Michio Kaku</li>
-          </ul>
-          <div class="awards-row">
-            <p class="awards-label">Nagrodzeni przez</p>
-            <div class="awards-badges">
-              <span class="award-badge">Forbes</span>
-              <span class="award-badge">Rzeczpospolita</span>
-              <span class="award-badge">Polityka</span>
+          <div class="founder-credentials">
+            <div class="founder-credential">
+              <div class="founder-credential-dot"></div>
+              <span>Absolwent ekonomii na Wharton School w Filadelfii</span>
+            </div>
+            <div class="founder-credential">
+              <div class="founder-credential-dot"></div>
+              <span>Dyrektor ds. europejskich na Uniwersytecie Yale, gdzie prowadził badania dot. energetyki i sztucznej inteligencji</span>
+            </div>
+            <div class="founder-credential">
+              <div class="founder-credential-dot"></div>
+              <span>Współtwórca podcastu This is the World, gdzie prowadzi rozmowy dot. geopolityki i ekonomii</span>
+            </div>
+            <div class="founder-credential">
+              <div class="founder-credential-dot"></div>
+              <span>Najlepszy maturzysta w Polsce (8 matur na 100%)</span>
             </div>
           </div>
         </div>
-        <!-- This is World -->
-        <div class="brand-card animate animate-delay-3">
-          <div class="brand-card-logo">
-            <svg viewBox="0 0 320 44" width="240" height="36" fill="none"><text x="0" y="34" font-family="'Geist', system-ui, -apple-system, sans-serif" font-size="32" font-weight="900" fill="#1a1a1a" letter-spacing="-0.5">THIS IS WORLD</text></svg>
-          </div>
-          <div class="brand-stat-row">
-            <div class="brand-stat">
-              <span class="brand-stat-value">~30k</span>
-              <span class="brand-stat-label">Subskrybentów</span>
+        <!-- dr Maciej Kawecki -->
+        <div class="founder-card highlight animate animate-delay-3">
+          <div class="founder-header">
+            <img src="Maciej%20Kawecki.png" alt="dr Maciej Kawecki" class="founder-avatar">
+            <div>
+              <div class="founder-name">dr Maciej Kawecki</div>
+              <div class="founder-role">CEO</div>
             </div>
           </div>
-          <ul class="brand-highlights">
-            <li>Globalna, szybko rozwijająca się marka z siedzibą w Bay Area</li>
-            <li>Oficjalny partner medialny GITEX (największa konferencja technologiczna na świecie)</li>
-          </ul>
-          <div class="awards-row">
-            <p class="awards-label">Oficjalny partner ekosystemu</p>
-            <div class="awards-badges">
-              <span class="award-badge">GITEX</span>
-              <span class="award-badge">Bay Area</span>
+          <div class="founder-credentials">
+            <div class="founder-credential">
+              <div class="founder-credential-dot"></div>
+              <span>Top 3 największy profil na LinkedIn w Polsce (&gt;310 tys. obserwujących)</span>
+            </div>
+            <div class="founder-credential">
+              <div class="founder-credential-dot"></div>
+              <span>CEO This is IT — największego kanału popularyzującego naukę w Polsce, który gościł już 11 laureatów nagrody Nobla</span>
+            </div>
+            <div class="founder-credential">
+              <div class="founder-credential-dot"></div>
+              <span>Laureat Nagrody EKG 2024 i Fintech Awards 2022</span>
+            </div>
+            <div class="founder-credential">
+              <div class="founder-credential-dot"></div>
+              <span>Ambasador Cyfrowy Unii Europejskiej</span>
             </div>
           </div>
         </div>
@@ -1395,43 +1474,34 @@
   </section>
 
   <!-- ══════════════════════════════════════════
-       SLIDE 3: HOST — DR MACIEJ KAWECKI
+       SLIDE 3: WHAT IS BISON FELLOWSHIP
        ══════════════════════════════════════════ -->
-  <section class="slide slide-host" id="slide-3">
+  <section class="slide slide-bison" id="slide-3">
     <div class="slide-inner">
-      <div class="host-grid">
-        <div class="host-photo-wrap animate">
-          <img src="Maciej%20Kawecki.png" alt="dr Maciej Kawecki" class="host-photo">
-          <div class="host-photo-glow"></div>
+      <span class="section-tag animate">Program</span>
+      <h2 class="slide-heading animate animate-delay-1">Czym jest Bison Fellowship?</h2>
+      <div class="bison-content">
+        <div class="bison-text-block animate animate-delay-2">
+          <p><strong>Bison Fellowship</strong> to 8-tygodniowy program mentoringowy dla wybitnej polskiej młodzieży (18–26 lat) z pasją do AI i jej praktycznego zastosowania w <strong>biznesie</strong> i <strong>nauce</strong>.</p>
+          <p>W programie bierze udział <strong>15–20 uczestników</strong> wyłonionych w procesie rekrutacyjnym — olimpijczycy, zwycięzcy hackathonów i najlepsi studenci kierunków technicznych.</p>
+          <div class="bison-quote">
+            <p>Żubr — symbol dumy i odwagi. Chcemy zatrzymać najlepszy technologiczny talent w Polsce i dać mu odwagę budować samodzielnie przełomowe rozwiązania naszych największych problemów z wykorzystaniem AI.</p>
+          </div>
         </div>
-        <div class="host-content">
-          <span class="section-tag section-tag-light animate">Główny prowadzący</span>
-          <h2 class="host-name animate animate-delay-1">dr Maciej Kawecki</h2>
-          <p class="host-role animate animate-delay-2">Główny prowadzący oraz CEO</p>
-          <div class="host-credentials">
-            <div class="host-credential animate animate-delay-2">
-              <div class="host-credential-icon">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
-              </div>
-              <span>Top 3 największy profil LinkedIn w Polsce</span>
+        <div class="bison-visual animate animate-delay-3">
+          <img src="zubr-2.png" alt="Bison" class="bison-shield">
+          <div class="bison-stats-row">
+            <div class="bison-stat-pill">
+              <span class="value">8</span>
+              <span class="label">Tygodni</span>
             </div>
-            <div class="host-credential animate animate-delay-3">
-              <div class="host-credential-icon">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="7"/><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"/></svg>
-              </div>
-              <span>Laureat Nagrody Europejskiego Kongresu Gospodarczego 2024 i Fintech Awards 2022</span>
+            <div class="bison-stat-pill">
+              <span class="value">15–20</span>
+              <span class="label">Uczestników</span>
             </div>
-            <div class="host-credential animate animate-delay-4">
-              <div class="host-credential-icon">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><line x1="4" y1="22" x2="4" y2="15"/></svg>
-              </div>
-              <span>Ambasador Cyfrowy UE</span>
-            </div>
-            <div class="host-credential animate animate-delay-5">
-              <div class="host-credential-icon">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
-              </div>
-              <span>Dyrektor Centrum Innowacji WSB Merito &amp; Prezes Instytutu Lema</span>
+            <div class="bison-stat-pill">
+              <span class="value">18–26</span>
+              <span class="label">Lat</span>
             </div>
           </div>
         </div>
@@ -1440,9 +1510,300 @@
   </section>
 
   <!-- ══════════════════════════════════════════
-       SLIDE 4: REACH / STATS
+       SLIDE 4: ORIGIN — Being Human in the Age of AI
        ══════════════════════════════════════════ -->
-  <section class="slide slide-reach" id="slide-4">
+  <section class="slide slide-origin" id="slide-4">
+    <div class="slide-inner">
+      <div class="origin-video-fadeout" id="videoFadeout"></div>
+      <div class="origin-video-wrap">
+        <iframe
+          id="origin-yt"
+          src="https://www.youtube.com/embed/yPZMNXqNdvc?start=0&end=37&autoplay=0&mute=1&controls=0&modestbranding=1&rel=0&showinfo=0&iv_load_policy=3&disablekb=1&playsinline=1&enablejsapi=1"
+          allow="autoplay; encrypted-media"
+          allowfullscreen
+        ></iframe>
+      </div>
+      <div class="origin-video-overlay">
+        <span class="section-tag section-tag-light animate">Geneza</span>
+        <div class="origin-video-title animate animate-delay-1">Being Human in the Age of AI</div>
+        <p class="origin-video-subtitle animate animate-delay-2">Cykl spotkań z najwybitniejszymi naukowcami świata — inspiracja do stworzenia Bison Fellowship.</p>
+        <div class="origin-video-stats animate animate-delay-3">
+          <div class="origin-video-stat">
+            <span class="origin-video-stat-value">400+</span>
+            <span class="origin-video-stat-label">uczestników</span>
+          </div>
+          <div class="origin-video-stat-divider"></div>
+          <div class="origin-video-stat">
+            <span class="origin-video-stat-value">200+</span>
+            <span class="origin-video-stat-label">olimpijczyków</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════
+       SLIDE 5: MENTORS
+       ══════════════════════════════════════════ -->
+  <section class="slide slide-mentors" id="slide-5">
+    <div class="slide-inner">
+      <span class="section-tag animate">Mentorzy</span>
+      <h2 class="slide-heading animate animate-delay-1">Nasi mentorzy</h2>
+      <p class="slide-subheading animate animate-delay-2">Polacy z sukcesem na skalę światową, którzy osobiście prowadzą uczestników</p>
+      <div class="mentors-grid">
+        <div class="mentor-card animate animate-delay-2">
+          <div class="mentor-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg></div>
+          <div class="mentor-name">prof. Artur Dubrawski</div>
+          <div class="mentor-affiliation">Carnegie Mellon University</div>
+        </div>
+        <div class="mentor-card animate animate-delay-2">
+          <div class="mentor-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg></div>
+          <div class="mentor-name">prof. Piotr Sankowski</div>
+          <div class="mentor-affiliation">IDEAS NCBR / UW</div>
+        </div>
+        <div class="mentor-card animate animate-delay-3">
+          <div class="mentor-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg></div>
+          <div class="mentor-name">Marek Cygan</div>
+          <div class="mentor-affiliation">Nomagic / UW</div>
+        </div>
+        <div class="mentor-card animate animate-delay-3">
+          <div class="mentor-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg></div>
+          <div class="mentor-name">Zuzanna Stamirowska</div>
+          <div class="mentor-affiliation">Founder & CEO</div>
+        </div>
+        <div class="mentor-card animate animate-delay-3">
+          <div class="mentor-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg></div>
+          <div class="mentor-name">Jan Witowski</div>
+          <div class="mentor-affiliation">AI in Medicine</div>
+        </div>
+        <div class="mentor-card animate animate-delay-4">
+          <div class="mentor-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg></div>
+          <div class="mentor-name">Marcin Markiewicz</div>
+          <div class="mentor-affiliation">Tech Leader</div>
+        </div>
+        <div class="mentor-card animate animate-delay-4">
+          <div class="mentor-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg></div>
+          <div class="mentor-name">Marcin Koziorowski</div>
+          <div class="mentor-affiliation">AI / ML</div>
+        </div>
+        <div class="mentor-card animate animate-delay-4">
+          <div class="mentor-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg></div>
+          <div class="mentor-name">Dawid Kielak</div>
+          <div class="mentor-affiliation">Matematyk</div>
+        </div>
+        <div class="mentor-card animate animate-delay-5">
+          <div class="mentor-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg></div>
+          <div class="mentor-name">prof. Włodzisław Duch</div>
+          <div class="mentor-affiliation">Neurokognitywistyka</div>
+        </div>
+        <div class="mentor-card animate animate-delay-5">
+          <div class="mentor-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg></div>
+          <div class="mentor-name">Marcin Ratajczak</div>
+          <div class="mentor-affiliation">Biznes & Tech</div>
+        </div>
+      </div>
+      <p class="mentors-note animate animate-delay-5">…i kolejni — lista mentorów rośnie</p>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════
+       SLIDE 6: HOW IT WORKS
+       ══════════════════════════════════════════ -->
+  <section class="slide slide-how" id="slide-6">
+    <div class="slide-inner">
+      <span class="section-tag animate" style="text-align:center;display:block;">Struktura</span>
+      <h2 class="slide-heading animate animate-delay-1" style="text-align:center;">Jak działa program?</h2>
+      <div class="how-pillars">
+        <div class="how-pillar animate animate-delay-2">
+          <div class="how-pillar-illustration">
+            <img src="mentoring.png" alt="Mentoring">
+          </div>
+          <div class="how-pillar-body">
+            <h3 class="how-pillar-title">Mentoring</h3>
+            <p class="how-pillar-desc">Każdy uczestnik otrzymuje dedykowanego mentora: Polaka z sukcesem na skalę światową, który wspiera go na ścieżce badawczej, biznesowej i życiowej.</p>
+          </div>
+        </div>
+        <div class="how-pillar highlight-pillar animate animate-delay-3">
+          <div class="how-pillar-illustration">
+            <img src="wyzwanie-od-partnera.png" alt="Wyzwanie od Partnera">
+          </div>
+          <div class="how-pillar-body">
+            <h3 class="how-pillar-title">Wyzwanie od Partnera</h3>
+            <p class="how-pillar-desc">3-osobowe zespoły przez 8 tygodni pracują nad realnym wyzwaniem technologicznym wyznaczonym przez partnera, z opiekunem technicznym spotykającym się co dwa tygodnie.</p>
+          </div>
+        </div>
+        <div class="how-pillar animate animate-delay-4">
+          <div class="how-pillar-illustration">
+            <img src="wyjazd-do-doliny.png" alt="Wyjazd do Doliny Krzemowej">
+          </div>
+          <div class="how-pillar-body">
+            <h3 class="how-pillar-title">Wyjazd do Doliny Krzemowej</h3>
+            <p class="how-pillar-desc">Najlepsze zespoły zapraszamy na 2-tygodniowy pobyt w San Francisco, na granicy nauki i technologii.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════
+       SLIDE 7: ROLE OF PSE — CHALLENGE
+       ══════════════════════════════════════════ -->
+  <section class="slide slide-pse" id="slide-7">
+    <div class="slide-inner">
+      <img src="pse-slide-background-navy.png" alt="" class="pse-header-illustration animate animate-delay-2">
+      <span class="section-tag animate">Rola Partnera</span>
+      <h2 class="slide-heading animate animate-delay-1">PSE × Bison Fellowship</h2>
+      <p class="slide-subheading animate animate-delay-2">PSE stawia wyzwanie technologiczne — nasi uczestnicy je rozwiązują</p>
+      <div class="pse-content">
+        <div class="pse-challenge animate animate-delay-3">
+          <div class="pse-challenge-title">Jak to działa?</div>
+          <div class="pse-challenge-items">
+            <div class="pse-challenge-item">
+              <div class="pse-item-num">1</div>
+              <span>PSE definiuje wyzwania technologiczne — np. analiza przyłączeń, optymalizacja sieci, analiza danych</span>
+            </div>
+            <div class="pse-challenge-item">
+              <div class="pse-item-num">2</div>
+              <span>Dedykowany 3-osobowy zespół najzdolniejszych polskich olimpijczyków i studentów pracuje nad rozwiązaniem przez 8 tygodni</span>
+            </div>
+            <div class="pse-challenge-item">
+              <div class="pse-item-num">3</div>
+              <span>Opiekun techniczny ze strony PSE spotyka się z zespołem co 2 tygodnie</span>
+            </div>
+            <div class="pse-challenge-item">
+              <div class="pse-item-num">4</div>
+              <span>Zespół prezentuje gotowe rozwiązanie na wydarzeniu Demo Day przed jury, gośćmi i innymi zespołami</span>
+            </div>
+          </div>
+        </div>
+        <div class="pse-timeline animate animate-delay-4">
+          <div class="pse-timeline-title">Harmonogram</div>
+          <div class="pse-timeline-items">
+            <div class="pse-timeline-item">
+              <span class="pse-timeline-week">Marzec</span>
+              <span class="pse-timeline-text">Kick-off — inauguracja programu, poznanie uczestników</span>
+            </div>
+            <div class="pse-timeline-item">
+              <span class="pse-timeline-week">Tyg. 1–2</span>
+              <span class="pse-timeline-text">Briefing wyzwania PSE, formowanie zespołów</span>
+            </div>
+            <div class="pse-timeline-item">
+              <span class="pse-timeline-week">Tyg. 3–6</span>
+              <span class="pse-timeline-text">Praca nad rozwiązaniem z mentorem i opiekunem technicznym</span>
+            </div>
+            <div class="pse-timeline-item">
+              <span class="pse-timeline-week">Tyg. 7–8</span>
+              <span class="pse-timeline-text">Finalizacja i przygotowanie prezentacji</span>
+            </div>
+            <div class="pse-timeline-item">
+              <span class="pse-timeline-week">Czerwiec</span>
+              <span class="pse-timeline-text">Demo Day — prezentacja wyników przed jury</span>
+            </div>
+            <div class="pse-timeline-item">
+              <span class="pse-timeline-week">Sierpień</span>
+              <span class="pse-timeline-text">Najlepsze zespoły zostaną wybrane na 2-tygodniowy wyjazd studyjny do Doliny Krzemowej</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════
+       SLIDE 8: WHAT THE PARTNER GETS
+       ══════════════════════════════════════════ -->
+  <section class="slide slide-partner-offer" id="slide-8">
+    <div class="slide-inner">
+      <span class="section-tag section-tag-light animate">Oferta</span>
+      <h2 class="slide-heading slide-heading-light animate animate-delay-1">Propozycja współpracy</h2>
+      <p class="slide-subheading slide-subheading-light animate animate-delay-2">Sponsorując udział w programie, PSE otrzymuje:</p>
+      <div class="offer-grid">
+        <div class="offer-card animate animate-delay-2">
+          <div class="offer-card-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          </div>
+          <div>
+            <h3 class="offer-card-title">Dedykowany zespół AI</h3>
+            <p class="offer-card-desc">3-osobowy team buduje dla PSE rozwiązanie AI przez 8 tygodni, pod opieką mentora.</p>
+          </div>
+        </div>
+        <div class="offer-card animate animate-delay-3">
+          <div class="offer-card-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/><path d="M4 22h16"/><path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"/><path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"/><path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"/></svg>
+          </div>
+          <div>
+            <h3 class="offer-card-title">Prezentacja na Demo Day</h3>
+            <p class="offer-card-desc">Wyniki zaprezentowane przed wicepremierem Gawkowskim, Rafałem Brzoską i liderami polskiej technologii.</p>
+          </div>
+        </div>
+        <div class="offer-card animate animate-delay-3">
+          <div class="offer-card-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+          </div>
+          <div>
+            <h3 class="offer-card-title">Widoczność medialna</h3>
+            <p class="offer-card-desc">Logo i obecność PSE na kanałach z łącznym zasięgiem ~1M obserwujących.</p>
+          </div>
+        </div>
+        <div class="offer-card animate animate-delay-4">
+          <div class="offer-card-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+          </div>
+          <div>
+            <h3 class="offer-card-title">Dostęp do talentów</h3>
+            <p class="offer-card-desc">Bezpośredni kontakt z najzdolniejszymi polskimi studentami i możliwość rekrutacji.</p>
+          </div>
+        </div>
+      </div>
+      <div class="offer-price animate animate-delay-5">
+        <p class="offer-price-label">Wkład Partnerski</p>
+        <p class="offer-price-value">180 000 PLN</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════
+       SLIDE 9: MEDIA PROMOTION
+       ══════════════════════════════════════════ -->
+  <section class="slide slide-promo" id="slide-9">
+    <div class="slide-inner">
+      <span class="section-tag animate">Promocja</span>
+      <h2 class="slide-heading animate animate-delay-1">Promocja Partnera w mediach</h2>
+      <p class="slide-subheading animate animate-delay-2">PSE zyska widoczność na naszych kanałach społecznościowych oraz dedykowane materiały</p>
+      <div class="promo-grid">
+        <div class="promo-card animate animate-delay-3">
+          <div class="promo-card-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+          </div>
+          <div class="promo-card-title">Kanały promocji</div>
+          <ul class="promo-items">
+            <li>Posty na LinkedIn (310,000+ obserwujących)</li>
+            <li>Materiały na YouTube — This is IT</li>
+            <li>Logo PSE w materiałach programu i na stronie wydarzenia</li>
+            <li>Panel dyskusyjny na otwarciu programu</li>
+          </ul>
+        </div>
+        <div class="promo-card animate animate-delay-4">
+          <div class="promo-card-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
+          </div>
+          <div class="promo-card-title">Dedykowany materiał wideo</div>
+          <p class="promo-card-desc">Możliwość stworzenia profesjonalnego materiału z wizyty laureatów Bison Fellowship w siedzibie PSE:</p>
+          <ul class="promo-items">
+            <li>Wizyta najlepszych uczestników w PSE — materiał employer branding</li>
+            <li>Rozmowa z zespołem o wyzwaniu i rozwiązaniu</li>
+            <li>Publikacja na kanałach Macieja Kaweckiego i This is IT</li>
+            <li>Materiał do wykorzystania przez PSE na własnych kanałach</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════
+       SLIDE 10: REACH / STATS
+       ══════════════════════════════════════════ -->
+  <section class="slide slide-reach" id="slide-10">
     <div class="slide-inner">
       <span class="section-tag animate">Zasięgi</span>
       <h2 class="slide-heading animate animate-delay-1">Nasze zasięgi</h2>
@@ -1483,292 +1844,34 @@
         </tbody>
       </table>
       <p class="reach-note animate animate-delay-3">Stan na Luty 2026</p>
-    </div>
-  </section>
-
-  <!-- ══════════════════════════════════════════
-       SLIDE 5: AUDIENCE
-       ══════════════════════════════════════════ -->
-  <section class="slide slide-audience" id="slide-5">
-    <div class="slide-inner">
-      <span class="section-tag animate">Widownia</span>
-      <h2 class="slide-heading animate animate-delay-1">Nasza widownia</h2>
-      <p class="slide-subheading animate animate-delay-2">Do kogo docieramy?</p>
-      <div class="audience-content">
-        <div class="audience-visual animate animate-delay-3">
-          <div class="audience-donut" id="audienceDonut">
-            <svg viewBox="0 0 120 120">
-              <circle cx="60" cy="60" r="50" fill="none" stroke="rgba(26,36,86,0.08)" stroke-width="16"/>
-              <circle class="donut-ring-main" cx="60" cy="60" r="50" fill="none" stroke="var(--accent-navy)" stroke-width="16" stroke-dasharray="235 79" stroke-linecap="round"/>
-              <circle class="donut-ring-secondary" cx="60" cy="60" r="50" fill="none" stroke="var(--accent-blue)" stroke-width="16" stroke-dasharray="55 259" stroke-dashoffset="-235" stroke-linecap="round"/>
-            </svg>
-            <div class="audience-donut-center">
-              <div class="audience-donut-value" id="donutValue">30+</div>
-              <div class="audience-donut-label">Wiek</div>
-            </div>
-          </div>
-        </div>
-        <div class="audience-traits">
-          <div class="audience-trait animate animate-delay-2">
-            <div class="audience-trait-icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-            </div>
-            <div>
-              <div class="audience-trait-text">Pracujące osoby 30+</div>
-              <div class="audience-trait-sub">Główna grupa docelowa naszych treści</div>
-            </div>
-          </div>
-          <div class="audience-trait animate animate-delay-3">
-            <div class="audience-trait-icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
-            </div>
-            <div>
-              <div class="audience-trait-text">Zainteresowani technologią</div>
-              <div class="audience-trait-sub">AI, software, innowacje</div>
-            </div>
-          </div>
-          <div class="audience-trait animate animate-delay-4">
-            <div class="audience-trait-icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
-            </div>
-            <div>
-              <div class="audience-trait-text">Zainteresowani biznesem</div>
-              <div class="audience-trait-sub">Startupy, inwestycje, przedsiębiorczość</div>
-            </div>
-          </div>
-          <div class="audience-trait animate animate-delay-5">
-            <div class="audience-trait-icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
-            </div>
-            <div>
-              <div class="audience-trait-text">Zainteresowani nauką</div>
-              <div class="audience-trait-sub">Fizyka, matematyka, badania naukowe</div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ══════════════════════════════════════════
-       SLIDE 6: PARTNERS
-       ══════════════════════════════════════════ -->
-  <section class="slide slide-partners" id="slide-6">
-    <div class="slide-inner">
-      <span class="section-tag animate">Zaufali nam</span>
-      <h2 class="slide-heading animate animate-delay-1">Nasi dotychczasowi partnerzy</h2>
-      <p class="partners-note animate animate-delay-2">Firmy i instytucje, które nam zaufały</p>
-      <div class="partners-grid">
-        <div class="partner-card animate animate-delay-2">
-          <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/7b/Meta_Platforms_Inc._logo.svg/200px-Meta_Platforms_Inc._logo.svg.png" alt="Meta">
-        </div>
-        <div class="partner-card animate animate-delay-2">
-          <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2f/Google_2015_logo.svg/200px-Google_2015_logo.svg.png" alt="Google">
-        </div>
-        <div class="partner-card animate animate-delay-3">
-          <img src="https://upload.wikimedia.org/wikipedia/sco/thumb/2/21/Nvidia_logo.svg/200px-Nvidia_logo.svg.png" alt="Nvidia">
-        </div>
-        <div class="partner-card animate animate-delay-3">
-          <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/48/Dell_Logo.svg/200px-Dell_Logo.svg.png" alt="Dell">
-        </div>
-        <div class="partner-card animate animate-delay-3">
-          <svg width="130" height="28" viewBox="0 0 130 28" fill="none"><circle cx="14" cy="14" r="11" stroke="#333" stroke-width="2" fill="none"/><circle cx="14" cy="14" r="4" fill="#333"/><text x="32" y="20" font-family="'Geist', system-ui, sans-serif" font-size="17" font-weight="500" fill="#333">Worldcoin</text></svg>
-        </div>
-        <div class="partner-card animate animate-delay-4">
-          <svg width="100" height="32" viewBox="0 0 100 32" fill="none"><text x="0" y="26" font-family="Georgia, 'Times New Roman', serif" font-size="28" font-weight="700" font-style="italic" fill="#C62828">nature</text></svg>
-        </div>
-        <div class="partner-card animate animate-delay-4">
-          <svg width="160" height="32" viewBox="0 0 160 32" fill="none">
-            <defs>
-              <linearGradient id="gitex-g1" x1="0%" y1="0%" x2="100%" y2="0%">
-                <stop offset="0%" style="stop-color:#E91E63"/>
-                <stop offset="25%" style="stop-color:#FF5722"/>
-                <stop offset="50%" style="stop-color:#FF9800"/>
-                <stop offset="75%" style="stop-color:#4CAF50"/>
-                <stop offset="100%" style="stop-color:#2196F3"/>
-              </linearGradient>
-            </defs>
-            <text x="0" y="24" font-family="'Geist', system-ui, sans-serif" font-size="22" font-weight="800" fill="url(#gitex-g1)" letter-spacing="1">GITEX</text>
-            <text x="74" y="24" font-family="'Geist', system-ui, sans-serif" font-size="22" font-weight="400" fill="#555" letter-spacing="0.5">Global</text>
-          </svg>
-        </div>
-        <div class="partner-card animate animate-delay-5" style="font-size:13px; font-weight:500; color: var(--text-secondary);">
-          Uniwersytet<br>Jagielloński
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ══════════════════════════════════════════
-       SLIDE 7: SELECTED GUESTS
-       ══════════════════════════════════════════ -->
-  <section class="slide slide-guests" id="slide-7">
-    <div class="slide-inner">
-      <span class="section-tag section-tag-light animate">Goście</span>
-      <h2 class="slide-heading slide-heading-light animate animate-delay-1">Nasi wybrani goście</h2>
-      <div class="guests-grid">
-        <div class="guest-card animate animate-delay-2">
-          <img class="guest-photo" src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/dc/Professor_Brian_Cox_OBE_FRS_%28cropped%29.jpg/500px-Professor_Brian_Cox_OBE_FRS_%28cropped%29.jpg" alt="Brian Cox">
-          <div class="guest-name">Brian Cox</div>
-          <div class="guest-role">Physicist &amp; Science Communicator</div>
-        </div>
-        <div class="guest-card animate animate-delay-2">
-          <img class="guest-photo" src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/8e/Laura_Chaubard_%26_Yann_Le_Cun_-_2024_%2853814052697%29_%28cropped%29.jpg/500px-Laura_Chaubard_%26_Yann_Le_Cun_-_2024_%2853814052697%29_%28cropped%29.jpg" alt="Yann LeCun">
-          <div class="guest-name">Yann LeCun</div>
-          <div class="guest-role">Head of AI @ Meta</div>
-        </div>
-        <div class="guest-card animate animate-delay-3">
-          <img class="guest-photo" src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d5/Roger_Penrose_at_Festival_della_Scienza_Oct_29_2011.jpg/500px-Roger_Penrose_at_Festival_della_Scienza_Oct_29_2011.jpg" alt="Sir Roger Penrose">
-          <div class="guest-name">Sir Roger Penrose</div>
-          <div class="guest-role">Nobel Laureate in Physics</div>
-        </div>
-        <div class="guest-card animate animate-delay-3">
-          <img class="guest-photo" src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f3/Michio_Kaku_at_Miami_University_in_2020_%28cropped%29.jpg/500px-Michio_Kaku_at_Miami_University_in_2020_%28cropped%29.jpg" alt="Michio Kaku">
-          <div class="guest-name">Michio Kaku</div>
-          <div class="guest-role">Theoretical Physicist</div>
-        </div>
-        <div class="guest-card animate animate-delay-4">
-          <img class="guest-photo" src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/17/Robert_Sapolsky_in_2023_A_16.jpg/500px-Robert_Sapolsky_in_2023_A_16.jpg" alt="Robert Sapolsky">
-          <div class="guest-name">Robert Sapolsky</div>
-          <div class="guest-role">Neuroscientist &amp; Author</div>
-        </div>
-        <div class="guest-card animate animate-delay-4">
-          <img class="guest-photo" src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/08/Brian_Greene%2C_February_28%2C_2012.jpg/500px-Brian_Greene%2C_February_28%2C_2012.jpg" alt="Brian Greene">
-          <div class="guest-name">Brian Greene</div>
-          <div class="guest-role">Theoretical Physicist</div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ══════════════════════════════════════════
-       SLIDE 8: WHAT IS BISON FELLOWSHIP
-       ══════════════════════════════════════════ -->
-  <section class="slide slide-bison" id="slide-8">
-    <div class="slide-inner">
-      <span class="section-tag animate">Program</span>
-      <h2 class="slide-heading animate animate-delay-1">Czym jest Bison Fellowship?</h2>
-      <div class="bison-content">
-        <div class="bison-text-block animate animate-delay-2">
-          <p><strong>Bison Fellowship</strong> to 8-tygodniowy program mentoringowy dla wybitnej polskiej młodzieży (18-26 lat) z pasją do AI i jej praktycznego zastosowania w <strong>biznesie</strong> i <strong>nauce</strong>.</p>
-          <p>W programie bierze udział 15-20 uczestników wyłonionych w procesie rekrutacyjnym.</p>
-          <div class="bison-quote">
-            <p>Żubr — symbol dumy i odwagi. Chcemy zatrzymać najlepszy technologiczny talent w Polsce i dać mu odwagę stawiać pierwsze kroki w startupach.</p>
-          </div>
-        </div>
-        <div class="bison-visual animate animate-delay-3">
-          <img src="zubr-2.png" alt="Bison" class="bison-shield">
-          <div class="bison-stats-row">
-            <div class="bison-stat-pill">
-              <span class="value">8</span>
-              <span class="label">Tygodni</span>
-            </div>
-            <div class="bison-stat-pill">
-              <span class="value">15-20</span>
-              <span class="label">Uczestników</span>
-            </div>
-            <div class="bison-stat-pill">
-              <span class="value">18-26</span>
-              <span class="label">Lat</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ══════════════════════════════════════════
-       SLIDE 9: HOW IT WORKS
-       ══════════════════════════════════════════ -->
-  <section class="slide slide-how" id="slide-9">
-    <div class="slide-inner">
-      <span class="section-tag animate" style="text-align:center;display:block;">Struktura</span>
-      <h2 class="slide-heading animate animate-delay-1" style="text-align:center;">Jak działa program?</h2>
-      <div class="how-pillars">
-        <div class="how-pillar animate animate-delay-2">
-          <div class="how-pillar-icon">
-            <!-- Brain icon -->
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9.5 2A2.5 2.5 0 0 1 12 4.5v15a2.5 2.5 0 0 1-4.96.44A2.5 2.5 0 0 1 5.5 17a2.5 2.5 0 0 1 0-5A2.5 2.5 0 0 1 7 7.5 2.5 2.5 0 0 1 9.5 2z"/><path d="M14.5 2A2.5 2.5 0 0 0 12 4.5v15a2.5 2.5 0 0 0 4.96.44A2.5 2.5 0 0 0 18.5 17a2.5 2.5 0 0 0 0-5A2.5 2.5 0 0 0 17 7.5 2.5 2.5 0 0 0 14.5 2z"/></svg>
-          </div>
-          <h3 class="how-pillar-title">Mentoring</h3>
-          <p class="how-pillar-desc">Każdy uczestnik otrzymuje dedykowanego mentora: Polaka z sukcesem na skalę światową, który wspiera go na ścieżce badawczej, biznesowej i życiowej.</p>
-        </div>
-        <div class="how-pillar animate animate-delay-3">
-          <div class="how-pillar-icon">
-            <!-- Gear icon -->
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
-          </div>
-          <h3 class="how-pillar-title">Wyzwanie AI</h3>
-          <p class="how-pillar-desc">3-osobowe zespoły przez 8 tygodni pracują nad realnym, technicznym wyzwaniem wyznaczonym przez partnera programu, z opiekunem technicznym spotykającym się co dwa tygodnie.</p>
-        </div>
-        <div class="how-pillar animate animate-delay-4">
-          <div class="how-pillar-icon">
-            <!-- Globe / Bridge icon -->
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
-          </div>
-          <h3 class="how-pillar-title">Wyjazd do Doliny Krzemowej</h3>
-          <p class="how-pillar-desc">Najlepsze zespoły zapraszamy na 2-tygodniowy pobyt w San Francisco, na granicy nauki i technologii.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ══════════════════════════════════════════
-       SLIDE 10: WHAT THE PARTNER GETS
-       ══════════════════════════════════════════ -->
-  <section class="slide slide-partner-offer" id="slide-10">
-    <div class="slide-inner">
-      <span class="section-tag section-tag-light animate">Oferta</span>
-      <h2 class="slide-heading slide-heading-light animate animate-delay-1">Co zyskuje Partner?</h2>
-      <p class="slide-subheading slide-subheading-light animate animate-delay-2">Za udział w programie jako partner-sponsor otrzymujesz:</p>
-      <div class="offer-grid">
-        <div class="offer-card animate animate-delay-2">
-          <div class="offer-card-icon">
-            <!-- Team icon -->
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+      <div class="reach-audience-row animate animate-delay-4">
+        <div class="reach-audience-pill">
+          <div class="reach-audience-pill-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
           </div>
           <div>
-            <h3 class="offer-card-title">Dedykowany zespół AI</h3>
-            <p class="offer-card-desc">3-osobowy team buduje dla Ciebie wybrane rozwiązanie AI przez 8 tygodni.</p>
+            <div class="reach-audience-pill-text">Pracujące osoby 30+</div>
+            <div class="reach-audience-pill-sub">Główna grupa docelowa</div>
           </div>
         </div>
-        <div class="offer-card animate animate-delay-3">
-          <div class="offer-card-icon">
-            <!-- Megaphone icon -->
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+        <div class="reach-audience-pill">
+          <div class="reach-audience-pill-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
           </div>
           <div>
-            <h3 class="offer-card-title">Widoczność medialna</h3>
-            <p class="offer-card-desc">Logo i obecność na kanałach Macieja Kaweckiego (łącznie ~1M obserwujących).</p>
+            <div class="reach-audience-pill-text">Technologia & AI</div>
+            <div class="reach-audience-pill-sub">Software, innowacje, startupy</div>
           </div>
         </div>
-        <div class="offer-card animate animate-delay-3">
-          <div class="offer-card-icon">
-            <!-- Trophy icon -->
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/><path d="M4 22h16"/><path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"/><path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"/><path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"/></svg>
+        <div class="reach-audience-pill">
+          <div class="reach-audience-pill-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
           </div>
           <div>
-            <h3 class="offer-card-title">Demo Day</h3>
-            <p class="offer-card-desc">Prezentacja wyników przed wicepremierem Gawkowskim i Rafałem Brzoską.</p>
+            <div class="reach-audience-pill-text">Biznes & nauka</div>
+            <div class="reach-audience-pill-sub">Inwestycje, badania, przedsiębiorczość</div>
           </div>
         </div>
-        <div class="offer-card animate animate-delay-4">
-          <div class="offer-card-icon">
-            <!-- Globe icon -->
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
-          </div>
-          <div>
-            <h3 class="offer-card-title">Logo na stronie wydarzenia</h3>
-            <p class="offer-card-desc">Prestiżowe umiejscowienie obok partnerów programu.</p>
-          </div>
-        </div>
-      </div>
-      <div class="offer-cta-message animate animate-delay-4" style="max-width:720px;margin:24px auto 18px;padding:20px 28px;background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.15);border-radius:12px;text-align:center;">
-        <p style="margin:0;font-size:15px;line-height:1.7;color:rgba(255,255,255,0.85);font-family:var(--font-sans);">To nie tylko CSR — jako Partner otrzymujesz <strong style="color:#fff;">dedykowany zespół AI</strong>, który przez 8 tygodni buduje rozwiązanie dopasowane do Twojej firmy, <strong style="color:#fff;">widoczność medialną</strong> na kanałach z łącznym zasięgiem ~1M, oraz <strong style="color:#fff;">prestiżową obecność</strong> na Demo Day obok liderów polskiego biznesu i technologii.</p>
-      </div>
-      <div class="offer-price animate animate-delay-5">
-        <p class="offer-price-label">Wkład Partnerski</p>
-        <p class="offer-price-value">160 000 PLN</p>
       </div>
     </div>
   </section>
@@ -1779,24 +1882,25 @@
   <section class="slide slide-demoday" id="slide-11">
     <div class="slide-inner">
       <span class="section-tag animate">Wydarzenie</span>
-      <h2 class="slide-heading animate animate-delay-1">Demo Day — Gala Bison Fellowship</h2>
+      <h2 class="slide-heading animate animate-delay-1">Gala Bison Fellowship</h2>
+      <p class="slide-subheading animate animate-delay-2">24 marca — Rotunda PKO BP</p>
       <div class="demoday-content">
         <div class="demoday-quote animate animate-delay-2">
-          Partnerstwo w Bison Fellowship to nie tylko CSR — to bezpośredni dostęp do najlepszego polskiego talentu AI i realne rozwiązanie dla Twojej organizacji.
+          Partnerstwo w ramach Bison Fellowship to nie tylko CSR i wsparcie najzdolniejszych młodych Polaków, ale również bezpośredni dostęp do nich w celu rekrutacji i gotowe rozwiązanie AI dla zaproponowanego wyzwania.
         </div>
         <div class="demoday-details">
           <div class="demoday-program animate animate-delay-3">
-            <h3>Program wieczoru</h3>
-            <div class="demoday-program-item">
-              <span class="demoday-program-time">2h</span>
-              <span class="demoday-program-text">Przygotowanie i część techniczna</span>
-            </div>
-            <div class="demoday-program-item">
-              <span class="demoday-program-time">2h</span>
-              <span class="demoday-program-text">Rozmowy panelowe z założycielami największych polskich firm tech + rozdanie nagród</span>
-            </div>
+            <h3>Program</h3>
             <div class="demoday-program-item">
               <span class="demoday-program-time">1.5h</span>
+              <span class="demoday-program-text">Rozmowy panelowe z partnerami programu</span>
+            </div>
+            <div class="demoday-program-item">
+              <span class="demoday-program-time">1h</span>
+              <span class="demoday-program-text">Rozdanie nagród uczestnikom</span>
+            </div>
+            <div class="demoday-program-item">
+              <span class="demoday-program-time">2h</span>
               <span class="demoday-program-text">Networking</span>
             </div>
           </div>
@@ -1832,90 +1936,15 @@
   </section>
 
   <!-- ══════════════════════════════════════════
-       SLIDE 12: TEAM
+       SLIDE 12: CLOSING
        ══════════════════════════════════════════ -->
-  <section class="slide slide-team" id="slide-12">
-    <div class="slide-inner">
-      <span class="section-tag animate">Zespół</span>
-      <h2 class="slide-heading animate animate-delay-1">Kim jesteśmy?</h2>
-      <div class="team-grid">
-        <!-- Maciej Kawecki - CEO highlight -->
-        <div class="team-member animate animate-delay-2">
-          <div class="team-member-icon ceo-highlight">
-            <!-- Crown / Star icon -->
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-          </div>
-          <div class="team-member-name">dr Maciej Kawecki</div>
-          <div class="team-member-role">Co-founder &amp; CEO</div>
-        </div>
-        <!-- Michal -->
-        <div class="team-member animate animate-delay-2">
-          <div class="team-member-icon">
-            <!-- Code icon -->
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
-          </div>
-          <div class="team-member-name">Michał Wyrębkowski</div>
-          <div class="team-member-role">Co-founder</div>
-        </div>
-        <!-- Jaroslaw -->
-        <div class="team-member animate animate-delay-3">
-          <div class="team-member-icon">
-            <!-- Layers icon -->
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>
-          </div>
-          <div class="team-member-name">Jarosław Bielski</div>
-          <div class="team-member-role">Co-founder</div>
-        </div>
-        <!-- Jakub -->
-        <div class="team-member animate animate-delay-3">
-          <div class="team-member-icon">
-            <!-- Trending up icon -->
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
-          </div>
-          <div class="team-member-name">Jakub Penkala</div>
-          <div class="team-member-role">Head of BD</div>
-        </div>
-        <!-- Wojciech -->
-        <div class="team-member animate animate-delay-4">
-          <div class="team-member-icon">
-            <!-- DollarSign icon -->
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
-          </div>
-          <div class="team-member-name">Wojciech Magdziarz</div>
-          <div class="team-member-role">CFO</div>
-        </div>
-        <!-- Dawid -->
-        <div class="team-member animate animate-delay-4">
-          <div class="team-member-icon">
-            <!-- Film icon -->
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="2.18" ry="2.18"/><line x1="7" y1="2" x2="7" y2="22"/><line x1="17" y1="2" x2="17" y2="22"/><line x1="2" y1="12" x2="22" y2="12"/><line x1="2" y1="7" x2="7" y2="7"/><line x1="2" y1="17" x2="7" y2="17"/><line x1="17" y1="7" x2="22" y2="7"/><line x1="17" y1="17" x2="22" y2="17"/></svg>
-          </div>
-          <div class="team-member-name">Dawid Bonk</div>
-          <div class="team-member-role">Executive Producer</div>
-        </div>
-        <!-- Lukasz -->
-        <div class="team-member animate animate-delay-5">
-          <div class="team-member-icon">
-            <!-- Camera icon -->
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
-          </div>
-          <div class="team-member-name">Łukasz Bernaś</div>
-          <div class="team-member-role">Operator</div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ══════════════════════════════════════════
-       SLIDE 13: CLOSING
-       ══════════════════════════════════════════ -->
-  <section class="slide slide-closing" id="slide-13">
+  <section class="slide slide-closing" id="slide-12">
     <div class="slide-inner" style="display:flex;flex-direction:column;align-items:center;">
       <img src="zubr-2.png" alt="Bison Fellowship" class="closing-logo animate">
-      <h2 class="closing-title animate animate-delay-1">Bison Fellowship</h2>
-      <p class="closing-subtitle animate animate-delay-2">Marzec 2026</p>
+      <h2 class="closing-title animate animate-delay-1">Bison Fellowship × PSE</h2>
+      <p class="closing-subtitle animate animate-delay-2">Razem kształtujemy przyszłość polskiej technologii</p>
       <img src="kreska-dluga-niebieska.png" alt="" class="closing-kreska animate animate-delay-3">
-      <p class="closing-footer animate animate-delay-4">Zaprojektowane w Warszawie</p>
+      <p class="closing-footer animate animate-delay-4">Luty 2026</p>
     </div>
   </section>
   </div><!-- /.slides-wrapper -->
@@ -1931,7 +1960,7 @@
       var allSlides = document.querySelectorAll('.slide');
       var nav = document.getElementById('slideNav');
       var clickHint = document.getElementById('clickHint');
-      var darkSlides = ['slide-3', 'slide-7', 'slide-10', 'slide-13'];
+      var darkSlides = ['slide-4', 'slide-8', 'slide-12'];
       var currentSlideIdx = 0;
       var isAnimating = false;
 
@@ -1946,38 +1975,47 @@
         var newSlide = allSlides[targetIdx];
         var goingDown = targetIdx > currentSlideIdx;
 
-        /* Remove old classes from previous slide */
+        // Leaving video slide — pure fade, no vertical motion
+        var fromVideo = currentSlideIdx === videoSlideIdx && videoEnding;
+
         oldSlide.classList.remove('active-slide');
-        oldSlide.classList.add(goingDown ? 'exit-up' : 'exit-down');
+        if (!fromVideo) {
+          oldSlide.classList.add(goingDown ? 'exit-up' : 'exit-down');
+        }
 
-        /* Prepare new slide: start from opposite direction */
-        newSlide.classList.remove('exit-up', 'exit-down');
-        newSlide.style.transition = 'none';
-        newSlide.style.transform = goingDown ? 'translateY(40px)' : 'translateY(-40px)';
-        newSlide.style.opacity = '0';
+        newSlide.classList.remove('exit-up', 'exit-down', 'fade-enter');
 
-        /* Force reflow so the starting position is applied */
-        void newSlide.offsetWidth;
-
-        /* Now animate in */
-        newSlide.style.transition = '';
-        newSlide.classList.add('active-slide');
-        newSlide.style.transform = '';
-        newSlide.style.opacity = '';
+        if (fromVideo) {
+          // Pure fade-in: no vertical movement
+          newSlide.classList.add('fade-enter');
+          newSlide.style.opacity = '0';
+          void newSlide.offsetWidth;
+          newSlide.classList.add('active-slide');
+          newSlide.style.opacity = '';
+        } else {
+          newSlide.style.transition = 'none';
+          newSlide.style.transform = goingDown ? 'translateY(40px)' : 'translateY(-40px)';
+          newSlide.style.opacity = '0';
+          void newSlide.offsetWidth;
+          newSlide.style.transition = '';
+          newSlide.classList.add('active-slide');
+          newSlide.style.transform = '';
+          newSlide.style.opacity = '';
+        }
 
         currentSlideIdx = targetIdx;
         updateNav();
+        handleVideoSlide(targetIdx);
 
-        /* Trigger animations on the new slide */
         setTimeout(function() {
           activateSlide(newSlide);
         }, 100);
 
-        /* Clean up old slide after transition */
         setTimeout(function() {
           oldSlide.classList.remove('exit-up', 'exit-down');
+          newSlide.classList.remove('fade-enter');
           isAnimating = false;
-        }, 700);
+        }, fromVideo ? 1000 : 700);
       }
 
       /* ── ACTIVATE SLIDE ANIMATIONS ── */
@@ -1986,11 +2024,6 @@
         slide.querySelectorAll('.animate').forEach(function(el) {
           el.classList.add('visible');
         });
-        /* Trigger donut animation on slide 5 */
-        var donut = slide.querySelector('#audienceDonut');
-        if (donut && !donut.classList.contains('donut-animated')) {
-          donut.classList.add('donut-animated');
-        }
       }
 
       /* ── CLICK TO NAVIGATE ── */
@@ -2056,12 +2089,80 @@
           dot.classList.toggle('light', isDark);
         });
 
-        /* Update click hint style */
         if (clickHint) {
           clickHint.classList.toggle('on-dark', isDark);
           clickHint.style.opacity = currentSlideIdx >= allSlides.length - 1 ? '0' : '0.6';
         }
       }
+
+      /* ── YOUTUBE VIDEO CONTROL (Slide 4) ── */
+      var ytPlayer = null;
+      var ytReady = false;
+      var videoSlideIdx = 3; // slide-4 is index 3
+      var videoFadeout = document.getElementById('videoFadeout');
+      var videoEnding = false;
+
+      function fadeOutAndAdvance() {
+        if (videoEnding) return;
+        videoEnding = true;
+        // Activate fade-to-black overlay
+        videoFadeout.classList.add('active');
+        // Wait for fade to complete, then advance
+        setTimeout(function() {
+          goToSlide(videoSlideIdx + 1);
+        }, 1300);
+      }
+
+      function handleVideoSlide(targetIdx) {
+        if (targetIdx === videoSlideIdx) {
+          // Reset fade overlay and state when entering slide
+          videoFadeout.classList.remove('active');
+          videoEnding = false;
+          if (ytReady && ytPlayer) {
+            ytPlayer.seekTo(0, true);
+            ytPlayer.playVideo();
+          }
+        } else {
+          if (ytReady && ytPlayer) {
+            ytPlayer.pauseVideo();
+          }
+        }
+      }
+
+      // Load YouTube IFrame API
+      var tag = document.createElement('script');
+      tag.src = 'https://www.youtube.com/iframe_api';
+      document.head.appendChild(tag);
+
+      window.onYouTubeIframeAPIReady = function() {
+        ytPlayer = new YT.Player('origin-yt', {
+          events: {
+            onReady: function() {
+              ytReady = true;
+              ytPlayer.mute();
+              if (currentSlideIdx === videoSlideIdx) {
+                ytPlayer.seekTo(0, true);
+                ytPlayer.playVideo();
+              }
+            },
+            onStateChange: function(event) {
+              if (event.data === YT.PlayerState.ENDED && currentSlideIdx === videoSlideIdx) {
+                fadeOutAndAdvance();
+              }
+            }
+          }
+        });
+
+        // Start fade ~2s before 37s mark for smooth exit
+        setInterval(function() {
+          if (ytReady && ytPlayer && ytPlayer.getCurrentTime && currentSlideIdx === videoSlideIdx) {
+            var t = ytPlayer.getCurrentTime();
+            if (t >= 35 && !videoEnding) {
+              fadeOutAndAdvance();
+            }
+          }
+        }, 400);
+      };
 
       /* ── INITIAL STATE ── */
       activateSlide(allSlides[0]);
