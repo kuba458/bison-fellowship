@@ -247,6 +247,8 @@
     .slide-active .reach-table tbody tr:nth-child(2) { animation-delay: 0.35s; }
     .slide-active .reach-table tbody tr:nth-child(3) { animation-delay: 0.5s; }
     .slide-active .reach-table tbody tr:nth-child(4) { animation-delay: 0.65s; }
+    .slide-active .reach-table tbody tr:nth-child(5) { animation-delay: 0.8s; }
+    .slide-active .reach-table tbody tr:nth-child(6) { animation-delay: 0.95s; }
 
     /* ── GUEST PHOTO STYLES ── */
     .guest-photo {
@@ -923,70 +925,60 @@
        SLIDE 8: PARTNER OFFER
        ══════════════════════════════════════════ */
     .slide-partner-offer {
-      background: var(--bg-dark);
+      background: var(--bg-primary);
     }
     .offer-grid {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
-      gap: 20px;
+      gap: 24px;
       margin-top: 48px;
     }
     .offer-card {
-      display: flex;
-      gap: 18px;
-      padding: 28px;
-      border-radius: 20px;
-      background: rgba(255,255,255,0.05);
-      border: 1px solid rgba(255,255,255,0.08);
-      backdrop-filter: blur(8px);
-    }
-    .offer-card-icon {
-      width: 48px;
-      height: 48px;
-      border-radius: 14px;
-      background: linear-gradient(135deg, var(--accent-gold), var(--accent-amber));
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-shrink: 0;
-    }
-    .offer-card-icon svg {
-      width: 24px;
-      height: 24px;
-      color: var(--bg-dark-deep);
+      padding: 32px;
+      border-radius: 12px;
+      background: #fff;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.06);
     }
     .offer-card-title {
       font-family: var(--font-serif);
-      font-size: 20px;
-      color: var(--text-on-dark);
-      margin-bottom: 8px;
+      font-size: 18px;
+      color: var(--accent-navy);
+      margin-bottom: 10px;
+      font-weight: 700;
     }
     .offer-card-desc {
-      font-size: 14px;
-      line-height: 1.55;
-      color: rgba(240,237,231,0.6);
+      font-size: 15px;
+      line-height: 1.6;
+      color: var(--text-secondary);
     }
-    .offer-price {
-      margin-top: 40px;
-      text-align: center;
-      padding: 32px;
-      border-radius: 20px;
-      background: linear-gradient(135deg, rgba(212,168,83,0.12), rgba(200,149,108,0.08));
-      border: 1px solid rgba(212,168,83,0.2);
+
+    /* ── WARUNKI SLIDE ── */
+    .slide-terms {
+      background: var(--bg-primary);
     }
-    .offer-price-label {
-      font-family: var(--font-mono);
-      font-size: 12px;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--accent-gold);
-      margin-bottom: 8px;
-    }
-    .offer-price-value {
+    .terms-amount {
       font-family: var(--font-serif);
-      font-size: clamp(36px, 4vw, 52px);
-      color: var(--text-on-dark);
+      font-size: clamp(28px, 3vw, 32px);
+      color: var(--accent-navy);
       letter-spacing: -0.02em;
+    }
+    .terms-vat {
+      font-size: 16px;
+      color: var(--text-muted);
+      font-family: var(--font-sans);
+    }
+    .terms-separator {
+      width: 60px;
+      height: 3px;
+      background: #c0392b;
+      margin: 28px 0;
+      border-radius: 2px;
+    }
+    .terms-desc {
+      font-size: 16px;
+      line-height: 1.6;
+      color: var(--text-secondary);
+      max-width: 520px;
     }
 
     /* ══════════════════════════════════════════
@@ -1714,54 +1706,33 @@
        ══════════════════════════════════════════ -->
   <section class="slide slide-partner-offer" id="slide-8">
     <div class="slide-inner">
-      <span class="section-tag section-tag-light animate">Oferta</span>
-      <h2 class="slide-heading slide-heading-light animate animate-delay-1">Propozycja współpracy</h2>
-      <p class="slide-subheading slide-subheading-light animate animate-delay-2">Sponsorując udział w programie, PSE otrzymuje:</p>
+      <span class="section-tag animate">Oferta</span>
+      <h2 class="slide-heading animate animate-delay-1">Propozycja współpracy</h2>
+      <p class="slide-subheading animate animate-delay-2">Sponsorując udział w programie, PSE otrzymuje:</p>
       <div class="offer-grid">
         <div class="offer-card animate animate-delay-2">
-          <div class="offer-card-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-          </div>
-          <div>
-            <h3 class="offer-card-title">Dedykowany zespół AI</h3>
-            <p class="offer-card-desc">3-osobowy team buduje dla PSE rozwiązanie AI przez 8 tygodni, pod opieką mentora.</p>
-          </div>
+          <h3 class="offer-card-title">Dedykowany zespół AI i możliwość wdrożenia rozwiązania</h3>
+          <p class="offer-card-desc">3-osobowy team buduje dla PSE rozwiązanie AI przez 8 tygodni, pod opieką mentora.</p>
         </div>
         <div class="offer-card animate animate-delay-3">
-          <div class="offer-card-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/><path d="M4 22h16"/><path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"/><path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"/><path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"/></svg>
-          </div>
-          <div>
-            <h3 class="offer-card-title">Prezentacja na Demo Day</h3>
-            <p class="offer-card-desc">Wyniki zaprezentowane przed wicepremierem Gawkowskim, Rafałem Brzoską i liderami polskiej technologii.</p>
-          </div>
+          <h3 class="offer-card-title">Prezentacja na Demo Day</h3>
+          <p class="offer-card-desc">Wyniki zaprezentowane przed m.in. wicepremierem Krzysztofem Gawkowskim, Rafałem Brzoską i liderami polskiego sektora technologicznego.</p>
         </div>
         <div class="offer-card animate animate-delay-3">
-          <div class="offer-card-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-          </div>
-          <div>
-            <h3 class="offer-card-title">Widoczność medialna</h3>
-            <p class="offer-card-desc">Logo i obecność PSE na kanałach z łącznym zasięgiem ~1M obserwujących.</p>
-          </div>
+          <h3 class="offer-card-title">Partnerstwo medialne</h3>
+          <p class="offer-card-desc">Logo i obecność PSE na kanałach z łącznym zasięgiem ~800 tys. obserwujących.</p>
         </div>
         <div class="offer-card animate animate-delay-4">
-          <div class="offer-card-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
-          </div>
-          <div>
-            <h3 class="offer-card-title">Dostęp do talentów</h3>
-            <p class="offer-card-desc">Bezpośredni kontakt z najzdolniejszymi polskimi studentami i możliwość rekrutacji.</p>
-          </div>
+          <h3 class="offer-card-title">Dostęp do talentów</h3>
+          <p class="offer-card-desc">Bezpośredni kontakt z najzdolniejszymi polskimi studentami i możliwość rekrutacji.</p>
         </div>
-      </div>
-      <div class="offer-price animate animate-delay-5">
-        <p class="offer-price-label">Wkład Partnerski</p>
-        <p class="offer-price-value">180 000 PLN</p>
       </div>
     </div>
   </section>
 
+  <!-- ══════════════════════════════════════════
+       SLIDE 9: WARUNKI WSPÓŁPRACY
+       ══════════════════════════════════════════ -->
   <!-- ══════════════════════════════════════════
        SLIDE 9: MEDIA PROMOTION
        ══════════════════════════════════════════ -->
@@ -1777,8 +1748,7 @@
           </div>
           <div class="promo-card-title">Kanały promocji</div>
           <ul class="promo-items">
-            <li>Posty na LinkedIn (310,000+ obserwujących)</li>
-            <li>Materiały na YouTube — This is IT</li>
+            <li>Posty na LinkedIn oraz innych kanałach społecznościowych dr Macieja Kaweckiego i This is IT (blisko 800 tys. obserwujących)</li>
             <li>Logo PSE w materiałach programu i na stronie wydarzenia</li>
             <li>Panel dyskusyjny na otwarciu programu</li>
           </ul>
@@ -1818,28 +1788,40 @@
         </thead>
         <tbody>
           <tr>
-            <td>This is IT — Maciej Kawecki</td>
-            <td>&gt;310k</td>
-            <td>&gt;1m</td>
-            <td>100k</td>
+            <td>Dr Maciej Kawecki — LinkedIn</td>
+            <td>175 tys.</td>
+            <td>1M</td>
+            <td>100 tys.</td>
           </tr>
           <tr>
-            <td>Dr Maciej Kawecki</td>
-            <td>&gt;175k</td>
-            <td>&gt;2.5m</td>
-            <td>&gt;100k</td>
+            <td>Maciej Kawecki — Facebook</td>
+            <td>310 tys.</td>
+            <td>&gt;29M</td>
+            <td>&gt;1M</td>
           </tr>
           <tr>
-            <td>Maciej Kawecki</td>
-            <td>&gt;310k</td>
-            <td>&gt;29m</td>
-            <td>&gt;1m</td>
+            <td>This is IT</td>
+            <td>315 tys.</td>
+            <td>&gt;1.5M</td>
+            <td>100 tys.</td>
           </tr>
           <tr>
-            <td>This is World</td>
-            <td>&gt;40k</td>
-            <td>&gt;100k</td>
-            <td>10k</td>
+            <td>This is the World — YouTube</td>
+            <td>40 tys.</td>
+            <td>&gt;1M</td>
+            <td>150 tys.</td>
+          </tr>
+          <tr>
+            <td>Maciej Kawecki — Twitter</td>
+            <td>55 tys.</td>
+            <td>&gt;500 tys.</td>
+            <td>&gt;100 tys.</td>
+          </tr>
+          <tr>
+            <td>Maciej Kawecki — TikTok</td>
+            <td>190 tys.</td>
+            <td>&gt;600 tys.</td>
+            <td>80 tys.</td>
           </tr>
         </tbody>
       </table>
@@ -1877,9 +1859,24 @@
   </section>
 
   <!-- ══════════════════════════════════════════
-       SLIDE 11: DEMO DAY
+       SLIDE 11: WARUNKI WSPÓŁPRACY
        ══════════════════════════════════════════ -->
-  <section class="slide slide-demoday" id="slide-11">
+  <section class="slide slide-terms" id="slide-11">
+    <div class="slide-inner">
+      <span class="section-tag animate">Podsumowanie</span>
+      <h2 class="slide-heading animate animate-delay-1">Warunki współpracy</h2>
+      <div style="margin-top: 64px;" class="animate animate-delay-2">
+        <p class="terms-amount">180 000 PLN <span class="terms-vat">+ 23% VAT</span></p>
+        <div class="terms-separator"></div>
+        <p class="terms-desc">Pokrywa koszty organizacji programu stypendialnego oraz wyjazdu wybranych zespołów do Doliny Krzemowej.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════
+       SLIDE 12: DEMO DAY
+       ══════════════════════════════════════════ -->
+  <section class="slide slide-demoday" id="slide-12">
     <div class="slide-inner">
       <span class="section-tag animate">Wydarzenie</span>
       <h2 class="slide-heading animate animate-delay-1">Gala Bison Fellowship</h2>
@@ -1938,7 +1935,7 @@
   <!-- ══════════════════════════════════════════
        SLIDE 12: CLOSING
        ══════════════════════════════════════════ -->
-  <section class="slide slide-closing" id="slide-12">
+  <section class="slide slide-closing" id="slide-13">
     <div class="slide-inner" style="display:flex;flex-direction:column;align-items:center;">
       <img src="zubr-2.png" alt="Bison Fellowship" class="closing-logo animate">
       <h2 class="closing-title animate animate-delay-1">Bison Fellowship × PSE</h2>
@@ -1960,7 +1957,7 @@
       var allSlides = document.querySelectorAll('.slide');
       var nav = document.getElementById('slideNav');
       var clickHint = document.getElementById('clickHint');
-      var darkSlides = ['slide-4', 'slide-8', 'slide-12'];
+      var darkSlides = ['slide-4', 'slide-13'];
       var currentSlideIdx = 0;
       var isAnimating = false;
 
