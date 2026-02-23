@@ -654,15 +654,24 @@
     .slide-mentors {
       background: var(--bg-primary);
     }
+    .slide-mentors .section-tag {
+      margin-bottom: 6px;
+    }
+    .slide-mentors .slide-heading {
+      margin-bottom: 4px;
+    }
+    .slide-mentors .slide-subheading {
+      margin-bottom: 0;
+    }
     .mentors-grid {
       display: grid;
       grid-template-columns: repeat(5, 1fr);
-      gap: 16px;
-      margin-top: 48px;
+      gap: 12px;
+      margin-top: 24px;
       max-width: 1100px;
     }
     .mentor-card {
-      padding: 24px 16px;
+      padding: 16px 12px;
       border-radius: 20px;
       background: #fff;
       border: 1px solid var(--border-light);
@@ -675,11 +684,11 @@
       box-shadow: 0 12px 32px rgba(26,36,86,0.08);
     }
     .mentor-icon {
-      width: 72px;
-      height: 72px;
+      width: 60px;
+      height: 60px;
       border-radius: 50%;
       overflow: hidden;
-      margin: 0 auto 14px;
+      margin: 0 auto 10px;
       box-shadow: 0 4px 16px rgba(26,36,86,0.12);
     }
     .mentor-icon img {
@@ -705,11 +714,45 @@
       line-height: 1.4;
     }
     .mentors-note {
-      margin-top: 24px;
+      margin-top: 12px;
       font-size: 14px;
       color: var(--text-muted);
       text-align: center;
       font-style: italic;
+    }
+    .mentors-universities {
+      margin-top: 16px;
+      text-align: center;
+    }
+    .mentors-universities-label {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 12px;
+    }
+    .mentors-universities-logos {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 32px;
+      flex-wrap: wrap;
+    }
+    .mentors-universities-logos img {
+      height: 80px;
+      width: auto;
+      opacity: 0.55;
+      filter: grayscale(100%);
+      transition: opacity 0.3s ease, filter 0.3s ease;
+    }
+    .mentors-universities-logos img[alt="Carnegie Mellon University"] {
+      margin-left: -16px;
+      margin-right: -16px;
+    }
+    .mentors-universities-logos img:hover {
+      opacity: 1;
+      filter: grayscale(0%);
     }
 
     /* ══════════════════════════════════════════
@@ -1421,6 +1464,8 @@
       pointer-events: auto !important;
       page-break-after: always;
       page-break-inside: avoid;
+      padding-top: 48px !important;
+      padding-bottom: 48px !important;
     }
     body.pdf-mode .slide:last-child {
       page-break-after: auto;
@@ -1627,40 +1672,52 @@
         <div class="mentor-card animate animate-delay-2">
           <div class="mentor-icon"><img src="../../assets/maciej-dunajski.png" alt="prof. Maciej Dunajski"></div>
           <div class="mentor-name">prof. Maciej Dunajski</div>
-          <div class="mentor-affiliation">Profesor matematyki, Cambridge</div>
+          <div class="mentor-affiliation">Profesor matematyki, Uniwersytet Cambridge</div>
         </div>
         <div class="mentor-card animate animate-delay-2">
           <div class="mentor-icon"><img src="../../assets/dawid-kielak.png" alt="prof. Dawid Kielak"></div>
           <div class="mentor-name">prof. Dawid Kielak</div>
-          <div class="mentor-affiliation">Profesor matematyki, Oxford</div>
+          <div class="mentor-affiliation">Profesor matematyki, Uniwersytet Oksfordzki</div>
         </div>
         <div class="mentor-card animate animate-delay-3">
           <div class="mentor-icon"><img src="../../assets/wlodzislaw-duch.png" alt="prof. Włodzisław Duch"></div>
           <div class="mentor-name">prof. Włodzisław Duch</div>
-          <div class="mentor-affiliation">Profesor neuronauk, UMK</div>
+          <div class="mentor-affiliation">Profesor neuronauk, Uniwersytet Mikołaja Kopernika w Toruniu</div>
         </div>
         <div class="mentor-card animate animate-delay-3">
           <div class="mentor-icon"><img src="../../assets/krzysztof-geras.png" alt="dr Krzysztof Geras"></div>
           <div class="mentor-name">dr Krzysztof Geras</div>
-          <div class="mentor-affiliation">Badacz AI, współzałożyciel Ataraxis AI</div>
+          <div class="mentor-affiliation">Współzałożyciel Ataraxis AI, Uniwersytet Nowojorski</div>
         </div>
         <div class="mentor-card animate animate-delay-4">
           <div class="mentor-icon"><img src="../../assets/artur-dubrawski.png" alt="prof. Artur Dubrawski"></div>
           <div class="mentor-name">prof. Artur Dubrawski</div>
-          <div class="mentor-affiliation">Carnegie Mellon University, AI/ML</div>
+          <div class="mentor-affiliation">Badacz AI, Carnegie Mellon University</div>
         </div>
         <div class="mentor-card animate animate-delay-4">
           <div class="mentor-icon"><img src="../../assets/janusz-petkowski.png" alt="dr Janusz Pętkowski"></div>
           <div class="mentor-name">dr Janusz Pętkowski</div>
-          <div class="mentor-affiliation">Politechnika Wrocławska, ekspert AI i astrobiolog</div>
+          <div class="mentor-affiliation">Ekspert ds. AI i astrobiolog, MIT</div>
         </div>
         <div class="mentor-card animate animate-delay-5">
           <div class="mentor-icon"><img src="../../assets/marek-cygan.png" alt="prof. Marek Cygan"></div>
           <div class="mentor-name">prof. Marek Cygan</div>
-          <div class="mentor-affiliation">Profesor UW, algorytmika</div>
+          <div class="mentor-affiliation">Badacz AI, Uniwersytet Warszawski</div>
         </div>
       </div>
       <p class="mentors-note animate animate-delay-5">…i kolejni — lista mentorów rośnie</p>
+      <div class="mentors-universities animate animate-delay-5">
+        <p class="mentors-universities-label">W programie biorą udział mentorzy afiliowani przy:</p>
+        <div class="mentors-universities-logos">
+          <img src="../../assets/cambridge-university-logo.png" alt="Uniwersytet Cambridge">
+          <img src="../../assets/university-oxford-logo.png" alt="Uniwersytet Oksfordzki">
+          <img src="../../assets/uniwersytet-mik-kopernika-logo.png" alt="Uniwersytet Mikołaja Kopernika">
+          <img src="../../assets/nyu-logo.png" alt="Uniwersytet Nowojorski">
+          <img src="../../assets/carnegie-mellon-university-logo.png" alt="Carnegie Mellon University">
+          <img src="../../assets/mit-logo.png" alt="MIT">
+          <img src="../../assets/uw-logo.png" alt="Uniwersytet Warszawski">
+        </div>
+      </div>
     </div>
   </section>
 
@@ -1972,6 +2029,13 @@
           </div>
           <div class="demoday-guests animate animate-delay-4">
             <h3>Wśród gości</h3>
+            <div class="demoday-guest-item">
+              <img class="demoday-guest-photo" src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/9a/Krzysztof_Gawkowski_2022_v2_%28cropped2%29.jpg/500px-Krzysztof_Gawkowski_2022_v2_%28cropped2%29.jpg" alt="Krzysztof Gawkowski">
+              <div>
+                <div class="demoday-guest-name">Wicepremier Krzysztof Gawkowski</div>
+                <div class="demoday-guest-title">Ministerstwo Cyfryzacji</div>
+              </div>
+            </div>
             <div class="demoday-guest-item">
               <img class="demoday-guest-photo" src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a2/Rafa%C5%82_Brzoska.png/500px-Rafa%C5%82_Brzoska.png" alt="Rafał Brzoska">
               <div>

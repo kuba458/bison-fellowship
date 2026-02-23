@@ -1,5 +1,7 @@
 const puppeteer = require('puppeteer');
 const path = require('path');
+const { PDFDocument } = require('pdf-lib');
+const fs = require('fs');
 
 const clients = {
   pse: {
@@ -21,6 +23,9 @@ if (!clientName || !clients[clientName]) {
 
 const config = clients[clientName];
 
+const WIDTH = 1440;
+const HEIGHT = 810;
+
 (async () => {
   const browser = await puppeteer.launch({
     headless: 'new',
@@ -28,17 +33,14 @@ const config = clients[clientName];
   });
 
   const page = await browser.newPage();
+  await page.setViewport({ width: WIDTH, height: HEIGHT, deviceScaleFactor: 2 });
 
-  // Set viewport to 16:9 landscape for presentation feel
-  await page.setViewport({ width: 1440, height: 810 });
-
-  // Navigate to the presentation
   await page.goto(config.url, {
     waitUntil: 'networkidle2',
     timeout: 60000
   });
 
-  // Prepare for PDF: force animations visible, replace video with image
+  // Prepare: force animations visible, replace video with image
   await page.evaluate(() => {
     document.body.classList.add('pdf-mode');
     document.querySelectorAll('.animate').forEach(el => {
@@ -48,15 +50,12 @@ const config = clients[clientName];
       el.style.transition = 'none';
     });
 
-    // Hide nav dots
     const nav = document.getElementById('slideNav');
     if (nav) nav.style.display = 'none';
 
-    // Hide click hint
     const hint = document.getElementById('clickHint');
     if (hint) hint.style.display = 'none';
 
-    // Replace YouTube iframe with static image
     const videoWrap = document.querySelector('.origin-video-wrap');
     if (videoWrap) {
       videoWrap.innerHTML = '';
@@ -70,17 +69,57 @@ const config = clients[clientName];
   // Wait for images/fonts to load
   await new Promise(resolve => setTimeout(resolve, 3000));
 
-  // Generate PDF
-  const outputPath = path.join(__dirname, '..', config.output);
+  // Get slide count
+  const slideCount = await page.evaluate(() => document.querySelectorAll('.slide').length);
+  console.log(`Found ${slideCount} slides`);
 
-  await page.pdf({
-    path: outputPath,
-    width: '1440px',
-    height: '810px',
-    printBackground: true,
-    preferCSSPageSize: false,
-    margin: { top: 0, right: 0, bottom: 0, left: 0 }
-  });
+  // Screenshot each slide individually
+  const screenshots = [];
+  for (let i = 0; i < slideCount; i++) {
+    await page.evaluate((idx) => {
+      const slides = document.querySelectorAll('.slide');
+      slides.forEach((s, j) => {
+        if (j === idx) {
+          s.classList.add('active-slide');
+          s.style.opacity = '1';
+          s.style.transform = 'none';
+          s.style.pointerEvents = 'auto';
+          s.style.position = 'relative';
+          s.style.display = 'flex';
+        } else {
+          s.classList.remove('active-slide');
+          s.style.display = 'none';
+        }
+      });
+    }, i);
+
+    await new Promise(resolve => setTimeout(resolve, 200));
+
+    const screenshotBuffer = await page.screenshot({
+      type: 'png',
+      clip: { x: 0, y: 0, width: WIDTH, height: HEIGHT }
+    });
+    screenshots.push(screenshotBuffer);
+    console.log(`  Captured slide ${i + 1}/${slideCount}`);
+  }
+
+  // Combine screenshots into a single PDF using pdf-lib
+  const pdfDoc = await PDFDocument.create();
+
+  for (const pngBuffer of screenshots) {
+    const pngImage = await pdfDoc.embedPng(pngBuffer);
+    const pdfPage = pdfDoc.addPage([WIDTH, HEIGHT]);
+    pdfPage.drawImage(pngImage, {
+      x: 0,
+      y: 0,
+      width: WIDTH,
+      height: HEIGHT,
+    });
+  }
+
+  const outputPath = path.join(__dirname, '..', config.output);
+  const pdfBytes = await pdfDoc.save();
+  fs.writeFileSync(outputPath, pdfBytes);
 
   console.log('PDF generated: ' + outputPath);
 
