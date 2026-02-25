@@ -1,0 +1,2295 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bison Fellowship — Oferta Współpracy</title>
+  <link rel="icon" type="image/png" sizes="32x32" href="../../assets/favicon-32.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&family=Instrument+Serif:ital@0;1&family=Geist+Mono:wght@100..900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-primary: #F9F6F0;
+      --bg-warm: #F2EEE6;
+      --bg-muted: #E5E2DA;
+      --bg-dark: #1a2456;
+      --bg-dark-deep: #111a3a;
+      --text-primary: #212C33;
+      --text-secondary: #333334;
+      --text-muted: rgba(51, 51, 52, 0.5);
+      --text-faint: #9e9e9e;
+      --text-on-dark: #f0ede7;
+      --border-light: rgba(51, 51, 52, 0.1);
+      --border-mid: rgba(51, 51, 52, 0.15);
+      --accent-navy: #1a2456;
+      --accent-blue: #2d4a8a;
+      --accent-amber: #c8956c;
+      --accent-gold: #d4a853;
+      --radius-card: 24px;
+      --radius-pill: 999px;
+      --font-serif: "Instrument Serif", Georgia, serif;
+      --font-sans: "Geist", system-ui, -apple-system, sans-serif;
+      --font-mono: "Geist Mono", monospace;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html {
+      scroll-behavior: auto;
+      background: var(--bg-primary);
+      overflow: hidden;
+    }
+    body {
+      font-family: var(--font-sans);
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      text-rendering: optimizeLegibility;
+      -webkit-font-smoothing: antialiased;
+      overflow: hidden;
+      height: 100vh;
+    }
+
+    /* ── SLIDE SYSTEM ── */
+    .slides-wrapper {
+      height: 100vh;
+      overflow: hidden;
+      position: relative;
+    }
+    .slide {
+      min-height: 100vh;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      padding: 80px 48px;
+      cursor: pointer;
+      opacity: 0;
+      transform: translateY(40px);
+      transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1), transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+      pointer-events: none;
+      overflow-y: auto;
+    }
+    .slide.active-slide {
+      opacity: 1;
+      transform: translateY(0);
+      pointer-events: auto;
+      z-index: 2;
+    }
+    .slide.fade-enter {
+      transform: translateY(0) !important;
+      transition: opacity 0.9s ease-out !important;
+    }
+    .slide.fade-enter .animate {
+      opacity: 1 !important;
+      transform: translateY(0) !important;
+      transition: none !important;
+    }
+    .slide.exit-up {
+      opacity: 0;
+      transform: translateY(-40px);
+      z-index: 1;
+    }
+    .slide.exit-down {
+      opacity: 0;
+      transform: translateY(40px);
+      z-index: 1;
+    }
+    .slide-inner {
+      max-width: 1100px;
+      width: 100%;
+      margin: 0 auto;
+    }
+
+    /* ── NAVIGATION DOTS ── */
+    .slide-nav {
+      position: fixed;
+      right: 24px;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 100;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .slide-nav a {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: rgba(26, 36, 86, 0.15);
+      transition: all 0.3s ease;
+      display: block;
+    }
+    .slide-nav a.active,
+    .slide-nav a:hover {
+      background: var(--accent-navy);
+      transform: scale(1.3);
+    }
+    .slide-nav a.light {
+      background: rgba(255,255,255,0.25);
+    }
+    .slide-nav a.light.active,
+    .slide-nav a.light:hover {
+      background: #fff;
+    }
+
+    /* ── COMMON TYPOGRAPHY ── */
+    .section-tag {
+      display: inline-block;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: rgba(26, 36, 86, 0.5);
+      margin-bottom: 16px;
+      font-weight: 500;
+    }
+    .section-tag-light {
+      color: rgba(240, 237, 231, 0.45);
+    }
+    .slide-heading {
+      font-family: var(--font-serif);
+      font-size: clamp(42px, 5.5vw, 72px);
+      font-weight: 400;
+      line-height: 1.08;
+      letter-spacing: -0.025em;
+      color: var(--text-primary);
+    }
+    .slide-heading-light {
+      color: var(--text-on-dark);
+    }
+    .slide-subheading {
+      font-size: clamp(17px, 1.8vw, 21px);
+      line-height: 1.55;
+      color: rgba(33, 44, 51, 0.7);
+      max-width: 680px;
+    }
+    .slide-subheading-light {
+      color: rgba(240, 237, 231, 0.6);
+    }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+    @keyframes scaleIn {
+      from { opacity: 0; transform: scale(0.9); }
+      to { opacity: 1; transform: scale(1); }
+    }
+    .animate {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .animate.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .animate-delay-1 { transition-delay: 0.1s; }
+    .animate-delay-2 { transition-delay: 0.2s; }
+    .animate-delay-3 { transition-delay: 0.3s; }
+    .animate-delay-4 { transition-delay: 0.4s; }
+    .animate-delay-5 { transition-delay: 0.5s; }
+
+    /* ── DONUT ANIMATION ── */
+    @keyframes donutDraw {
+      from { stroke-dasharray: 0 314; }
+    }
+    @keyframes countUp {
+      from { opacity: 0; transform: translate(-50%, -50%) scale(0.7); }
+      to { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+    }
+    @keyframes pulseGlow {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(26,36,86,0.1); }
+      50% { box-shadow: 0 0 0 12px rgba(26,36,86,0); }
+    }
+    .donut-animated .donut-ring-main {
+      animation: donutDraw 1.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+    }
+    .donut-animated .donut-ring-secondary {
+      animation: donutDraw 1.2s cubic-bezier(0.4, 0, 0.2, 1) 0.8s forwards;
+      stroke-dasharray: 0 314;
+    }
+    .donut-animated .audience-donut-center {
+      animation: countUp 0.5s ease 0.6s both;
+    }
+
+    /* ── CARD ENTRANCE STAGGER ── */
+    @keyframes cardSlideIn {
+      from { opacity: 0; transform: translateY(32px) scale(0.96); }
+      to { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    /* ── COVER PULSE ── */
+    @keyframes logoPulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+      100% { transform: scale(1); }
+    }
+    .cover-logo { animation: logoPulse 3s ease-in-out infinite; }
+
+    /* ── TABLE ROW SLIDE ── */
+    @keyframes tableRowSlide {
+      from { opacity: 0; transform: translateX(-20px); }
+      to { opacity: 1; transform: translateX(0); }
+    }
+    .slide-active .reach-table tbody tr {
+      animation: tableRowSlide 0.5s ease forwards;
+      opacity: 0;
+    }
+    .slide-active .reach-table tbody tr:nth-child(1) { animation-delay: 0.2s; }
+    .slide-active .reach-table tbody tr:nth-child(2) { animation-delay: 0.35s; }
+    .slide-active .reach-table tbody tr:nth-child(3) { animation-delay: 0.5s; }
+    .slide-active .reach-table tbody tr:nth-child(4) { animation-delay: 0.65s; }
+    .slide-active .reach-table tbody tr:nth-child(5) { animation-delay: 0.8s; }
+    .slide-active .reach-table tbody tr:nth-child(6) { animation-delay: 0.95s; }
+
+    /* ── GUEST PHOTO STYLES ── */
+    .guest-photo {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin: 0 auto 16px;
+      border: 2px solid rgba(255,255,255,0.12);
+      box-shadow: 0 4px 16px rgba(0,0,0,0.3);
+    }
+    .demoday-guest-photo {
+      width: 40px;
+      height: 40px;
+      border-radius: 12px;
+      object-fit: cover;
+      flex-shrink: 0;
+    }
+
+    /* ── PARTNER LOGO IMG & SVG ── */
+    .partner-card img,
+    .partner-card svg {
+      max-height: 36px;
+      max-width: 140px;
+      object-fit: contain;
+      filter: grayscale(100%) opacity(0.6);
+      transition: filter 0.3s ease;
+    }
+    .partner-card:hover img,
+    .partner-card:hover svg {
+      filter: grayscale(0%) opacity(1);
+    }
+
+    /* ── SLIDE CLICK HINT ── */
+    .slide-click-hint {
+      position: fixed;
+      bottom: 28px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 99;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: 0.06em;
+      color: var(--text-faint);
+      opacity: 0.6;
+      transition: opacity 0.3s;
+      pointer-events: none;
+    }
+    .slide-click-hint.on-dark {
+      color: rgba(240,237,231,0.35);
+    }
+    @keyframes bounceArrow {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(4px); }
+    }
+    .slide-click-hint svg {
+      animation: bounceArrow 1.5s ease-in-out infinite;
+    }
+
+    /* ══════════════════════════════════════════
+       SLIDE 1: COVER
+       ══════════════════════════════════════════ */
+    .slide-cover {
+      background: var(--bg-warm);
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .slide-cover::before {
+      content: '';
+      position: absolute;
+      top: -200px;
+      left: -200px;
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, rgba(26,36,86,0.04) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .slide-cover::after {
+      content: '';
+      position: absolute;
+      bottom: -300px;
+      right: -200px;
+      width: 800px;
+      height: 800px;
+      background: radial-gradient(circle, rgba(200,149,108,0.06) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .cover-logo {
+      width: 100px;
+      height: auto;
+      margin-bottom: 32px;
+      filter: drop-shadow(0 4px 12px rgba(26,36,86,0.1));
+    }
+    .cover-title {
+      font-family: var(--font-serif);
+      font-size: clamp(48px, 7vw, 88px);
+      font-weight: 400;
+      line-height: 1.05;
+      letter-spacing: -0.03em;
+      color: var(--text-primary);
+      margin-bottom: 20px;
+    }
+    .cover-subtitle {
+      font-family: var(--font-serif);
+      font-size: clamp(22px, 3vw, 36px);
+      font-weight: 400;
+      line-height: 1.3;
+      color: var(--accent-navy);
+      opacity: 0.7;
+      margin-bottom: 48px;
+    }
+    .cover-meta {
+      font-family: var(--font-mono);
+      font-size: 13px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
+    .cover-kreska {
+      width: 160px;
+      height: auto;
+      margin: 32px auto 0;
+      display: block;
+      opacity: 0.5;
+    }
+
+    /* ══════════════════════════════════════════
+       SLIDE 2: FOUNDERS / TEAM
+       ══════════════════════════════════════════ */
+    .slide-founders {
+      background: var(--bg-primary);
+    }
+    .founders-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+      margin-top: 48px;
+    }
+    .founder-card {
+      background: #fff;
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius-card);
+      padding: 40px 36px;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 8px 40px rgba(26, 36, 86, 0.04);
+      display: flex;
+      flex-direction: column;
+    }
+    .founder-card::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--accent-navy), var(--accent-blue));
+    }
+    .founder-card.highlight::after {
+      background: linear-gradient(90deg, var(--accent-gold), var(--accent-amber));
+    }
+    .founder-header {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      margin-bottom: 28px;
+    }
+    .founder-avatar {
+      width: 110px;
+      height: 110px;
+      border-radius: 22px;
+      object-fit: cover;
+      box-shadow: 0 8px 28px rgba(26,36,86,0.14);
+      flex-shrink: 0;
+    }
+    .founder-name {
+      font-family: var(--font-serif);
+      font-size: 32px;
+      font-weight: 400;
+      color: var(--text-primary);
+      line-height: 1.15;
+    }
+    .founder-role {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--accent-navy);
+      margin-top: 5px;
+    }
+    .founder-credentials {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      flex: 1;
+    }
+    .founder-credential {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      font-size: 15.5px;
+      line-height: 1.55;
+      color: var(--text-secondary);
+    }
+    .founder-credential-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--accent-navy);
+      opacity: 0.25;
+      flex-shrink: 0;
+      margin-top: 7px;
+    }
+    .founder-card.highlight .founder-credential-dot {
+      background: var(--accent-gold);
+      opacity: 0.5;
+    }
+
+    /* ══════════════════════════════════════════
+       SLIDE 3: WHAT IS BISON FELLOWSHIP
+       ══════════════════════════════════════════ */
+    .slide-bison {
+      background: var(--bg-warm);
+    }
+    .bison-content {
+      display: grid;
+      grid-template-columns: 1.1fr 1fr;
+      gap: 64px;
+      margin-top: 40px;
+      align-items: center;
+    }
+    .bison-text-block p {
+      font-size: 17px;
+      line-height: 1.7;
+      color: var(--text-secondary);
+      margin-bottom: 20px;
+    }
+    .bison-text-block p strong {
+      color: var(--text-primary);
+      font-weight: 600;
+    }
+    .bison-quote {
+      margin-top: 32px;
+      padding: 28px 32px;
+      border-left: 3px solid var(--accent-navy);
+      background: rgba(26,36,86,0.03);
+      border-radius: 0 16px 16px 0;
+    }
+    .bison-quote p {
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-size: 18px;
+      line-height: 1.5;
+      color: var(--accent-navy);
+      margin: 0;
+    }
+    .bison-visual {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 24px;
+    }
+    .bison-shield {
+      width: 200px;
+      height: auto;
+      filter: drop-shadow(0 8px 24px rgba(26,36,86,0.15));
+    }
+    .bison-stats-row {
+      display: flex;
+      gap: 32px;
+    }
+    .bison-stat-pill {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 18px 24px;
+      background: #fff;
+      border-radius: 16px;
+      border: 1px solid var(--border-light);
+      box-shadow: 0 4px 16px rgba(26,36,86,0.04);
+    }
+    .bison-stat-pill .value {
+      font-family: var(--font-serif);
+      font-size: 32px;
+      color: var(--accent-navy);
+    }
+    .bison-stat-pill .label {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--text-faint);
+      margin-top: 4px;
+    }
+
+    /* ══════════════════════════════════════════
+       SLIDE 4: ORIGIN STORY — FULLSCREEN VIDEO
+       ══════════════════════════════════════════ */
+    .slide-origin {
+      background: #000;
+      padding: 0 !important;
+      overflow: hidden;
+    }
+    .slide-origin .slide-inner {
+      width: 100%;
+      height: 100%;
+      max-width: 100%;
+      padding: 0;
+      position: relative;
+    }
+    .origin-video-wrap {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+    }
+    .origin-video-wrap iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+    .origin-video-fadeout {
+      position: absolute;
+      inset: 0;
+      background: #000;
+      opacity: 0;
+      z-index: 3;
+      pointer-events: none;
+      transition: opacity 1.2s ease-in;
+    }
+    .origin-video-fadeout.active {
+      opacity: 1;
+    }
+    .origin-video-overlay {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      width: 45%;
+      padding: 0 64px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      background: linear-gradient(to right, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0.45) 70%, transparent 100%);
+      z-index: 4;
+      pointer-events: none;
+      transition: opacity 1s ease-in;
+    }
+    .origin-video-fadeout.active ~ .origin-video-overlay {
+      opacity: 0;
+    }
+    .origin-video-overlay .section-tag-light {
+      pointer-events: none;
+    }
+    .origin-video-title {
+      font-family: var(--font-serif);
+      font-size: clamp(28px, 3.5vw, 48px);
+      color: #fff;
+      margin-top: 12px;
+      line-height: 1.2;
+    }
+    .origin-video-stats {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      margin-top: 20px;
+    }
+    .origin-video-stat-value {
+      font-family: var(--font-serif);
+      font-size: 28px;
+      color: #fff;
+      display: block;
+      line-height: 1.1;
+    }
+    .origin-video-stat-label {
+      font-size: 13px;
+      color: rgba(255,255,255,0.5);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      display: block;
+      margin-top: 2px;
+    }
+    .origin-video-stat-divider {
+      width: 1px;
+      height: 36px;
+      background: rgba(255,255,255,0.2);
+    }
+    .origin-video-subtitle {
+      font-size: 16px;
+      color: rgba(255,255,255,0.6);
+      margin-top: 10px;
+      max-width: 600px;
+      line-height: 1.5;
+    }
+
+    /* ══════════════════════════════════════════
+       SLIDE 5: MENTORS
+       ══════════════════════════════════════════ */
+    .slide-mentors {
+      background: var(--bg-primary);
+    }
+    .mentors-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 16px;
+      margin-top: 48px;
+      max-width: 1100px;
+    }
+    .mentor-card {
+      padding: 16px 12px;
+      border-radius: 20px;
+      background: #fff;
+      border: 1px solid var(--border-light);
+      box-shadow: 0 4px 20px rgba(26,36,86,0.04);
+      text-align: center;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .mentor-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 32px rgba(26,36,86,0.08);
+    }
+    .mentor-icon {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      overflow: hidden;
+      margin: 0 auto 10px;
+      box-shadow: 0 4px 16px rgba(26,36,86,0.12);
+    }
+    .mentor-icon img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .mentor-icon svg {
+      display: none;
+    }
+    .mentor-name {
+      font-family: var(--font-serif);
+      font-size: 16px;
+      color: var(--text-primary);
+      margin-bottom: 4px;
+      line-height: 1.25;
+    }
+    .mentor-affiliation {
+      font-size: 11px;
+      color: var(--text-faint);
+      font-family: var(--font-mono);
+      letter-spacing: 0.02em;
+      line-height: 1.4;
+    }
+    .mentors-note {
+      margin-top: 12px;
+      font-size: 14px;
+      color: var(--text-muted);
+      text-align: center;
+      font-style: italic;
+    }
+    .mentors-universities {
+      margin-top: 16px;
+      text-align: center;
+    }
+    .mentors-universities-label {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 12px;
+    }
+    .mentors-universities-logos {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 32px;
+      flex-wrap: wrap;
+    }
+    .mentors-universities-logos img {
+      height: 80px;
+      width: auto;
+      opacity: 0.55;
+      filter: grayscale(100%);
+      transition: opacity 0.3s ease, filter 0.3s ease;
+    }
+    .mentors-universities-logos img[alt="Carnegie Mellon University"] {
+      margin-left: -16px;
+      margin-right: -16px;
+    }
+    .mentors-universities-logos img:hover {
+      opacity: 1;
+      filter: grayscale(0%);
+    }
+
+    /* ══════════════════════════════════════════
+       SLIDE 6: HOW IT WORKS
+       ══════════════════════════════════════════ */
+    .slide-how {
+      background: var(--bg-primary);
+    }
+    .how-pillars {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 28px;
+      margin-top: 56px;
+    }
+    .how-pillar {
+      background: #fff;
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius-card);
+      padding: 0;
+      text-align: center;
+      box-shadow: 0 8px 32px rgba(26,36,86,0.04);
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+    .how-pillar::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, var(--accent-navy), var(--accent-blue));
+      z-index: 1;
+    }
+    .how-pillar.highlight-pillar::before {
+      background: linear-gradient(90deg, var(--accent-gold), var(--accent-amber));
+    }
+    .how-pillar-illustration {
+      width: 100%;
+      aspect-ratio: 4 / 3;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--bg-warm);
+      border-bottom: 1px solid var(--border-light);
+      padding: 16px;
+    }
+    .how-pillar-illustration img {
+      max-width: 85%;
+      max-height: 90%;
+      object-fit: contain;
+    }
+    .how-pillar-body {
+      padding: 28px 32px 36px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+    .how-pillar-title {
+      font-family: var(--font-serif);
+      font-size: 24px;
+      color: var(--text-primary);
+      margin-bottom: 12px;
+    }
+    .how-pillar-desc {
+      font-size: 14px;
+      line-height: 1.6;
+      color: var(--text-secondary);
+    }
+
+    /* ══════════════════════════════════════════
+       SLIDE 7: ROLE OF XTB
+       ══════════════════════════════════════════ */
+    .slide-pse {
+      background: var(--bg-warm);
+      overflow: visible;
+    }
+    .slide-pse .slide-inner {
+      position: relative;
+      overflow: visible;
+    }
+    .pse-header-illustration {
+      position: absolute;
+      right: -40px;
+      top: -115px;
+      height: 380px;
+      width: auto;
+      object-fit: contain;
+      z-index: 0;
+      pointer-events: none;
+    }
+    .slide-pse .section-tag,
+    .slide-pse .slide-heading,
+    .slide-pse .slide-subheading {
+      position: relative;
+      z-index: 1;
+      max-width: 60%;
+    }
+    .pse-content {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 32px;
+      margin-top: 48px;
+      align-items: start;
+      position: relative;
+      z-index: 1;
+    }
+    .pse-challenge {
+      padding: 36px;
+      border-radius: var(--radius-card);
+      background: #fff;
+      border: 1px solid var(--border-light);
+      box-shadow: 0 8px 32px rgba(26,36,86,0.04);
+    }
+    .pse-challenge-title {
+      font-family: var(--font-serif);
+      font-size: 24px;
+      color: var(--text-primary);
+      margin-bottom: 20px;
+    }
+    .pse-challenge-items {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .pse-challenge-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      font-size: 15px;
+      line-height: 1.55;
+      color: var(--text-secondary);
+    }
+    .pse-item-num {
+      width: 32px;
+      height: 32px;
+      border-radius: 10px;
+      background: linear-gradient(135deg, var(--accent-navy), var(--accent-blue));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      font-family: var(--font-mono);
+      font-size: 14px;
+      font-weight: 700;
+      color: #fff;
+    }
+    .pse-timeline {
+      padding: 36px;
+      border-radius: var(--radius-card);
+      background: #fff;
+      border: 1px solid var(--border-light);
+      box-shadow: 0 8px 32px rgba(26,36,86,0.04);
+    }
+    .pse-timeline-title {
+      font-family: var(--font-serif);
+      font-size: 24px;
+      color: var(--text-primary);
+      margin-bottom: 24px;
+    }
+    .pse-timeline-items {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+    .pse-timeline-item {
+      display: flex;
+      gap: 16px;
+      align-items: flex-start;
+    }
+    .pse-timeline-week {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      color: var(--accent-navy);
+      font-weight: 600;
+      min-width: 60px;
+      padding-top: 2px;
+    }
+    .pse-timeline-text {
+      font-size: 14px;
+      line-height: 1.5;
+      color: var(--text-secondary);
+    }
+    .pse-contribution {
+      margin-top: 32px;
+      padding: 24px 32px;
+      background: #fff;
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius-card);
+      box-shadow: 0 8px 32px rgba(26,36,86,0.04);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: relative;
+      z-index: 1;
+    }
+    .pse-contribution-label {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
+    .pse-contribution-value {
+      font-family: var(--font-serif);
+      font-size: 36px;
+      color: var(--accent-navy);
+      letter-spacing: -0.02em;
+    }
+
+    /* ══════════════════════════════════════════
+       SLIDE 8: PARTNER OFFER
+       ══════════════════════════════════════════ */
+    .slide-partner-offer {
+      background: var(--bg-primary);
+    }
+    .offer-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 24px;
+      margin-top: 48px;
+    }
+    .offer-card {
+      padding: 32px;
+      border-radius: 12px;
+      background: #fff;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.06);
+    }
+    .offer-card-title {
+      font-family: var(--font-serif);
+      font-size: 18px;
+      color: var(--accent-navy);
+      margin-bottom: 10px;
+      font-weight: 700;
+    }
+    .offer-card-desc {
+      font-size: 15px;
+      line-height: 1.6;
+      color: var(--text-secondary);
+    }
+
+    /* ── WARUNKI SLIDE ── */
+    .slide-terms {
+      background: var(--bg-primary);
+    }
+    .terms-amount {
+      font-family: var(--font-serif);
+      font-size: clamp(28px, 3vw, 32px);
+      color: var(--accent-navy);
+      letter-spacing: -0.02em;
+    }
+    .terms-vat {
+      font-size: 16px;
+      color: var(--text-muted);
+      font-family: var(--font-sans);
+    }
+    .terms-separator {
+      width: 60px;
+      height: 3px;
+      background: #c0392b;
+      margin: 28px 0;
+      border-radius: 2px;
+    }
+    .terms-desc {
+      font-size: 16px;
+      line-height: 1.6;
+      color: var(--text-secondary);
+      max-width: 520px;
+    }
+
+    /* ══════════════════════════════════════════
+       SLIDE 9: MEDIA PROMOTION
+       ══════════════════════════════════════════ */
+    .slide-promo {
+      background: var(--bg-dark);
+    }
+    .promo-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 28px;
+      margin-top: 48px;
+    }
+    .promo-card {
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: var(--radius-card);
+      padding: 36px 32px;
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.35s cubic-bezier(0.4,0,0.2,1), box-shadow 0.35s ease, border-color 0.35s ease;
+    }
+    .promo-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--accent-gold), var(--accent-amber));
+      opacity: 0;
+      transition: opacity 0.35s ease;
+    }
+    .promo-card:hover {
+      transform: translateY(-4px);
+      border-color: rgba(255,255,255,0.18);
+      box-shadow: 0 16px 48px rgba(0,0,0,0.25);
+    }
+    .promo-card:hover::before {
+      opacity: 1;
+    }
+    .promo-card-number {
+      font-family: var(--font-serif);
+      font-size: 48px;
+      font-weight: 400;
+      line-height: 1;
+      color: var(--accent-gold);
+      margin-bottom: 8px;
+    }
+    .promo-card-unit {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: rgba(240,237,231,0.4);
+      margin-bottom: 20px;
+    }
+    .promo-card-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 14px;
+      background: rgba(255,255,255,0.08);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 20px;
+    }
+    .promo-card-icon svg {
+      width: 24px;
+      height: 24px;
+      color: var(--accent-gold);
+    }
+    .promo-card-title {
+      font-family: var(--font-serif);
+      font-size: 21px;
+      color: var(--text-on-dark);
+      margin-bottom: 14px;
+      line-height: 1.25;
+    }
+    .promo-card-desc {
+      font-size: 14px;
+      line-height: 1.6;
+      color: rgba(240,237,231,0.55);
+    }
+    .promo-items {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-top: 14px;
+    }
+    .promo-items li {
+      font-size: 14px;
+      line-height: 1.55;
+      color: rgba(240,237,231,0.7);
+      padding-left: 20px;
+      position: relative;
+    }
+    .promo-items li::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 7px;
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--accent-gold);
+      opacity: 0.25;
+    }
+
+    /* ══════════════════════════════════════════
+       SLIDE 10: REACH / STATS
+       ══════════════════════════════════════════ */
+    .slide-reach {
+      background: var(--bg-primary);
+    }
+    .reach-table {
+      width: 100%;
+      margin-top: 48px;
+      border-collapse: separate;
+      border-spacing: 0;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 8px 40px rgba(26,36,86,0.06);
+    }
+    .reach-table thead th {
+      background: var(--accent-navy);
+      color: rgba(255,255,255,0.9);
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 16px 24px;
+      text-align: left;
+      font-weight: 500;
+    }
+    .reach-table thead th:first-child {
+      text-align: left;
+    }
+    .reach-table thead th:not(:first-child) {
+      text-align: center;
+    }
+    .reach-table tbody td {
+      padding: 20px 24px;
+      background: #fff;
+      border-bottom: 1px solid var(--border-light);
+      font-size: 15px;
+      color: var(--text-secondary);
+    }
+    .reach-table tbody tr:last-child td {
+      border-bottom: none;
+    }
+    .reach-table tbody td:first-child {
+      font-weight: 600;
+      color: var(--text-primary);
+      font-size: 16px;
+    }
+    .reach-table tbody td:not(:first-child) {
+      text-align: center;
+      font-family: var(--font-serif);
+      font-size: 24px;
+      color: var(--accent-navy);
+    }
+    .reach-note {
+      margin-top: 16px;
+      font-size: 12px;
+      color: var(--text-faint);
+      font-family: var(--font-mono);
+      text-align: right;
+    }
+    .reach-audience-row {
+      display: flex;
+      gap: 20px;
+      margin-top: 32px;
+    }
+    .reach-audience-pill {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 16px 20px;
+      background: #fff;
+      border-radius: 16px;
+      border: 1px solid var(--border-light);
+      box-shadow: 0 4px 16px rgba(26,36,86,0.03);
+    }
+    .reach-audience-pill-icon {
+      width: 36px;
+      height: 36px;
+      border-radius: 10px;
+      background: linear-gradient(135deg, var(--accent-navy), var(--accent-blue));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .reach-audience-pill-icon svg {
+      width: 18px;
+      height: 18px;
+      color: #fff;
+    }
+    .reach-audience-pill-text {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--text-primary);
+    }
+    .reach-audience-pill-sub {
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    /* ══════════════════════════════════════════
+       SLIDE 11: DEMO DAY
+       ══════════════════════════════════════════ */
+    .slide-demoday {
+      background: var(--bg-warm);
+    }
+    .demoday-content {
+      margin-top: 40px;
+    }
+    .demoday-quote {
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-size: clamp(18px, 2.2vw, 24px);
+      line-height: 1.5;
+      color: var(--accent-navy);
+      max-width: 800px;
+      margin-bottom: 48px;
+      padding: 28px 36px;
+      background: rgba(26,36,86,0.04);
+      border-radius: 20px;
+      border-left: 4px solid var(--accent-navy);
+    }
+    .demoday-details {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+    }
+    .demoday-program {
+      background: #fff;
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius-card);
+      padding: 32px;
+      box-shadow: 0 8px 32px rgba(26,36,86,0.04);
+    }
+    .demoday-program h3 {
+      font-family: var(--font-serif);
+      font-size: 22px;
+      color: var(--text-primary);
+      margin-bottom: 20px;
+    }
+    .demoday-program-item {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 12px 0;
+      border-bottom: 1px solid var(--border-light);
+    }
+    .demoday-program-item:last-child {
+      border-bottom: none;
+    }
+    .demoday-program-time {
+      font-family: var(--font-mono);
+      font-size: 13px;
+      color: var(--accent-navy);
+      font-weight: 600;
+      min-width: 40px;
+    }
+    .demoday-program-text {
+      font-size: 15px;
+      color: var(--text-secondary);
+    }
+    .demoday-guests {
+      background: #fff;
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius-card);
+      padding: 32px;
+      box-shadow: 0 8px 32px rgba(26,36,86,0.04);
+    }
+    .demoday-guests h3 {
+      font-family: var(--font-serif);
+      font-size: 22px;
+      color: var(--text-primary);
+      margin-bottom: 20px;
+    }
+    .demoday-guest-item {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 12px 0;
+      border-bottom: 1px solid var(--border-light);
+    }
+    .demoday-guest-item:last-child {
+      border-bottom: none;
+    }
+    .demoday-guest-avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, var(--bg-muted), #d0cbbf);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      font-size: 16px;
+    }
+    .demoday-guest-name {
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+    .demoday-guest-title {
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+
+    /* ══════════════════════════════════════════
+       SLIDE 12: CLOSING / CONTACT
+       ══════════════════════════════════════════ */
+    .slide-closing {
+      background: var(--bg-dark);
+      text-align: center;
+    }
+    .closing-logo {
+      width: 80px;
+      height: auto;
+      margin-bottom: 32px;
+      filter: brightness(0) invert(1) drop-shadow(0 4px 16px rgba(255,255,255,0.1));
+    }
+    .closing-title {
+      font-family: var(--font-serif);
+      font-size: clamp(36px, 5vw, 64px);
+      color: var(--text-on-dark);
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+      margin-bottom: 16px;
+    }
+    .closing-subtitle {
+      font-size: 18px;
+      color: rgba(240,237,231,0.5);
+      margin-bottom: 40px;
+    }
+    .closing-contact {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 14px 28px;
+      border-radius: var(--radius-pill);
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.12);
+      color: var(--text-on-dark);
+      font-family: var(--font-mono);
+      font-size: 14px;
+      text-decoration: none;
+      transition: background 0.2s;
+    }
+    .closing-contact:hover {
+      background: rgba(255,255,255,0.14);
+    }
+    .closing-kreska {
+      width: 120px;
+      height: auto;
+      margin: 48px auto 0;
+      display: block;
+      opacity: 0.2;
+      filter: brightness(0) invert(1);
+    }
+    .closing-footer {
+      margin-top: 40px;
+      font-size: 12px;
+      color: rgba(240,237,231,0.25);
+      font-family: var(--font-mono);
+      letter-spacing: 0.06em;
+    }
+
+    /* ══════════════════════════════════════════
+       RESPONSIVE
+       ══════════════════════════════════════════ */
+    @media (max-width: 900px) {
+      .slide { padding: 60px 24px; }
+      .founders-grid { grid-template-columns: 1fr; gap: 32px; }
+      .bison-content { grid-template-columns: 1fr; }
+      .origin-video-overlay { width: 100%; padding: 32px 24px; background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.4) 60%, transparent 100%); justify-content: flex-end; }
+      .mentors-grid { grid-template-columns: repeat(2, 1fr); }
+      .how-pillars { grid-template-columns: 1fr; }
+      .pse-header-illustration { display: none; }
+      .slide-pse .section-tag,
+      .slide-pse .slide-heading,
+      .slide-pse .slide-subheading { max-width: 100%; }
+      .pse-content { grid-template-columns: 1fr; }
+      .offer-grid { grid-template-columns: 1fr; }
+      .promo-grid { grid-template-columns: 1fr; }
+      .promo-card-number { font-size: 36px; }
+      .demoday-details { grid-template-columns: 1fr; }
+      .reach-audience-row { flex-direction: column; }
+      .slide-nav { display: none; }
+    }
+    @media (max-width: 480px) {
+      .slide { padding: 48px 16px; }
+      .bison-stats-row { flex-direction: column; gap: 16px; width: 100%; }
+      .bison-stat-pill { width: 100%; }
+      .reach-table { font-size: 13px; }
+      .reach-table thead th,
+      .reach-table tbody td { padding: 12px 12px; }
+      .mentors-grid { grid-template-columns: 1fr; }
+    }
+
+    /* ── PRINT / PDF ── */
+    @media print {
+      html, body { background: #fff !important; }
+      .slide {
+        page-break-after: always;
+        page-break-inside: avoid;
+        min-height: 100vh;
+        height: 100vh;
+        overflow: hidden;
+      }
+      .slide:last-child { page-break-after: auto; }
+      .slide-nav { display: none !important; }
+      .animate, .animate.visible {
+        opacity: 1 !important;
+        transform: none !important;
+        transition: none !important;
+      }
+    }
+
+    /* Force-show all for PDF rendering mode */
+    body.pdf-mode {
+      overflow: visible !important;
+      height: auto !important;
+    }
+    body.pdf-mode .slides-wrapper {
+      overflow: visible !important;
+      height: auto !important;
+    }
+    body.pdf-mode .slide {
+      position: relative !important;
+      opacity: 1 !important;
+      transform: none !important;
+      pointer-events: auto !important;
+      page-break-after: always;
+      page-break-inside: avoid;
+    }
+    body.pdf-mode .slide:last-child {
+      page-break-after: auto;
+    }
+    body.pdf-mode .animate {
+      opacity: 1 !important;
+      transform: none !important;
+      transition: none !important;
+    }
+    body.pdf-mode .slide-nav {
+      display: none !important;
+    }
+    body.pdf-mode * {
+      box-shadow: none !important;
+      text-shadow: none !important;
+      -webkit-print-color-adjust: exact !important;
+      print-color-adjust: exact !important;
+    }
+    body.pdf-mode .founder-card,
+    body.pdf-mode .offer-card,
+    body.pdf-mode .promo-card,
+    body.pdf-mode .how-pillar,
+    body.pdf-mode .pse-card,
+    body.pdf-mode .pse-step,
+    body.pdf-mode .pse-timeline-row,
+    body.pdf-mode .demoday-card,
+    body.pdf-mode .demoday-program-row,
+    body.pdf-mode .demoday-guest-row,
+    body.pdf-mode .mentor-card,
+    body.pdf-mode .reach-audience-card,
+    body.pdf-mode .reach-table,
+    body.pdf-mode .bison-stat-pill,
+    body.pdf-mode .bison-quote,
+    body.pdf-mode .summary-card,
+    body.pdf-mode .cover-logo {
+      border: none !important;
+    }
+    body.pdf-mode .slide-hint,
+    body.pdf-mode .slide-click-hint {
+      display: none !important;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAVIGATION DOTS -->
+  <nav class="slide-nav" id="slideNav" aria-label="Slide navigation"></nav>
+
+  <div class="slides-wrapper">
+  <!-- ══════════════════════════════════════════
+       SLIDE 1: COVER
+       ══════════════════════════════════════════ -->
+  <section class="slide slide-cover active-slide" id="slide-1">
+    <div class="slide-inner" style="display:flex;flex-direction:column;align-items:center;">
+      <img src="../../assets/zubr-2.png" alt="Bison Fellowship" class="cover-logo animate">
+      <h1 class="cover-title animate animate-delay-1">Bison Fellowship</h1>
+      <p class="cover-subtitle animate animate-delay-2">Oferta Współpracy × XTB</p>
+      <p class="cover-meta animate animate-delay-3">Luty 2026</p>
+      <img src="../../assets/kreska-dluga-niebieska.png" alt="" class="cover-kreska animate animate-delay-4">
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════
+       SLIDE 2: FOUNDERS — Michał & Maciej
+       ══════════════════════════════════════════ -->
+  <section class="slide slide-founders" id="slide-2">
+    <div class="slide-inner">
+      <span class="section-tag animate">Zespół Bison Fellowship</span>
+      <h2 class="slide-heading animate animate-delay-1">Pomysłodawcy</h2>
+      <div class="founders-grid">
+        <!-- Michał Wyrębkowski -->
+        <div class="founder-card animate animate-delay-2">
+          <div class="founder-header">
+            <img src="../../assets/michalwyrebkowski_kolor.jpeg" alt="Michał Wyrębkowski" class="founder-avatar">
+            <div>
+              <div class="founder-name">Michał Wyrębkowski</div>
+              <div class="founder-role">Co-founder</div>
+            </div>
+          </div>
+          <div class="founder-credentials">
+            <div class="founder-credential">
+              <div class="founder-credential-dot"></div>
+              <span>Absolwent ekonomii na Wharton School w Filadelfii</span>
+            </div>
+            <div class="founder-credential">
+              <div class="founder-credential-dot"></div>
+              <span>Dyrektor ds. europejskich na Uniwersytecie Yale, gdzie prowadził badania dot. energetyki i sztucznej inteligencji</span>
+            </div>
+            <div class="founder-credential">
+              <div class="founder-credential-dot"></div>
+              <span>Współtwórca podcastu This is the World, gdzie prowadzi rozmowy dot. geopolityki i ekonomii</span>
+            </div>
+            <div class="founder-credential">
+              <div class="founder-credential-dot"></div>
+              <span>Najlepszy maturzysta w Polsce (8 matur na 100%)</span>
+            </div>
+          </div>
+        </div>
+        <!-- dr Maciej Kawecki -->
+        <div class="founder-card highlight animate animate-delay-3">
+          <div class="founder-header">
+            <img src="../../assets/Maciej%20Kawecki.png" alt="dr Maciej Kawecki" class="founder-avatar">
+            <div>
+              <div class="founder-name">dr Maciej Kawecki</div>
+              <div class="founder-role">CEO</div>
+            </div>
+          </div>
+          <div class="founder-credentials">
+            <div class="founder-credential">
+              <div class="founder-credential-dot"></div>
+              <span>Top 3 największy profil na LinkedIn w Polsce (&gt;310 tys. obserwujących)</span>
+            </div>
+            <div class="founder-credential">
+              <div class="founder-credential-dot"></div>
+              <span>CEO This is IT — największego kanału popularyzującego naukę w Polsce, który gościł już 11 laureatów nagrody Nobla</span>
+            </div>
+            <div class="founder-credential">
+              <div class="founder-credential-dot"></div>
+              <span>Laureat Nagrody EKG 2024 i Fintech Awards 2022</span>
+            </div>
+            <div class="founder-credential">
+              <div class="founder-credential-dot"></div>
+              <span>Ambasador Cyfrowy Unii Europejskiej</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════
+       SLIDE 3: WHAT IS BISON FELLOWSHIP
+       ══════════════════════════════════════════ -->
+  <section class="slide slide-bison" id="slide-3">
+    <div class="slide-inner">
+      <span class="section-tag animate">Program</span>
+      <h2 class="slide-heading animate animate-delay-1">Czym jest Bison Fellowship?</h2>
+      <div class="bison-content">
+        <div class="bison-text-block animate animate-delay-2">
+          <p><strong>Bison Fellowship</strong> to 8-tygodniowy program mentoringowy dla wybitnej polskiej młodzieży (18–26 lat) z pasją do AI i jej praktycznego zastosowania w <strong>biznesie</strong> i <strong>nauce</strong>.</p>
+          <p>W programie bierze udział <strong>15–20 uczestników</strong> wyłonionych w procesie rekrutacyjnym — olimpijczycy, zwycięzcy hackathonów i najlepsi studenci kierunków technicznych.</p>
+          <div class="bison-quote">
+            <p>Żubr — symbol dumy i odwagi. Chcemy zatrzymać najlepszy technologiczny talent w Polsce i dać mu odwagę budować samodzielnie przełomowe rozwiązania naszych największych problemów z wykorzystaniem AI.</p>
+          </div>
+        </div>
+        <div class="bison-visual animate animate-delay-3">
+          <img src="../../assets/zubr-2.png" alt="Bison" class="bison-shield">
+          <div class="bison-stats-row">
+            <div class="bison-stat-pill">
+              <span class="value">8</span>
+              <span class="label">Tygodni</span>
+            </div>
+            <div class="bison-stat-pill">
+              <span class="value">15–20</span>
+              <span class="label">Uczestników</span>
+            </div>
+            <div class="bison-stat-pill">
+              <span class="value">18–26</span>
+              <span class="label">Lat</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════
+       SLIDE 4: ORIGIN — Being Human in the Age of AI
+       ══════════════════════════════════════════ -->
+  <section class="slide slide-origin" id="slide-4">
+    <div class="slide-inner">
+      <div class="origin-video-fadeout" id="videoFadeout"></div>
+      <div class="origin-video-wrap">
+        <iframe
+          id="origin-yt"
+          src="https://www.youtube.com/embed/yPZMNXqNdvc?start=0&end=37&autoplay=0&mute=1&controls=0&modestbranding=1&rel=0&showinfo=0&iv_load_policy=3&disablekb=1&playsinline=1&enablejsapi=1"
+          allow="autoplay; encrypted-media"
+          allowfullscreen
+        ></iframe>
+      </div>
+      <div class="origin-video-overlay">
+        <span class="section-tag section-tag-light animate">Geneza</span>
+        <div class="origin-video-title animate animate-delay-1">Being Human in the Age of AI</div>
+        <p class="origin-video-subtitle animate animate-delay-2">Cykl spotkań z najwybitniejszymi naukowcami świata — inspiracja do stworzenia Bison Fellowship.</p>
+        <div class="origin-video-stats animate animate-delay-3">
+          <div class="origin-video-stat">
+            <span class="origin-video-stat-value">400+</span>
+            <span class="origin-video-stat-label">uczestników</span>
+          </div>
+          <div class="origin-video-stat-divider"></div>
+          <div class="origin-video-stat">
+            <span class="origin-video-stat-value">200+</span>
+            <span class="origin-video-stat-label">olimpijczyków</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════
+       SLIDE 5: MENTORS
+       ══════════════════════════════════════════ -->
+  <section class="slide slide-mentors" id="slide-5">
+    <div class="slide-inner">
+      <span class="section-tag animate">Mentorzy</span>
+      <h2 class="slide-heading animate animate-delay-1">Nasi mentorzy</h2>
+      <p class="slide-subheading animate animate-delay-2">Polacy z sukcesem na skalę światową, którzy osobiście prowadzą uczestników</p>
+      <div class="mentors-grid">
+        <div class="mentor-card animate animate-delay-2">
+          <div class="mentor-icon"><img src="../../assets/maciej-dunajski.png" alt="prof. Maciej Dunajski"></div>
+          <div class="mentor-name">prof. Maciej Dunajski</div>
+          <div class="mentor-affiliation">Profesor matematyki, Uniwersytet Cambridge</div>
+        </div>
+        <div class="mentor-card animate animate-delay-2">
+          <div class="mentor-icon"><img src="../../assets/dawid-kielak.png" alt="prof. Dawid Kielak"></div>
+          <div class="mentor-name">prof. Dawid Kielak</div>
+          <div class="mentor-affiliation">Profesor matematyki, Uniwersytet Oksfordzki</div>
+        </div>
+        <div class="mentor-card animate animate-delay-3">
+          <div class="mentor-icon"><img src="../../assets/wlodzislaw-duch.png" alt="prof. Włodzisław Duch"></div>
+          <div class="mentor-name">prof. Włodzisław Duch</div>
+          <div class="mentor-affiliation">Profesor neuronauk, Uniwersytet Mikołaja Kopernika w Toruniu</div>
+        </div>
+        <div class="mentor-card animate animate-delay-3">
+          <div class="mentor-icon"><img src="../../assets/krzysztof-geras.png" alt="dr Krzysztof Geras"></div>
+          <div class="mentor-name">dr Krzysztof Geras</div>
+          <div class="mentor-affiliation">Współzałożyciel Ataraxis AI, Uniwersytet Nowojorski</div>
+        </div>
+        <div class="mentor-card animate animate-delay-4">
+          <div class="mentor-icon"><img src="../../assets/artur-dubrawski.png" alt="prof. Artur Dubrawski"></div>
+          <div class="mentor-name">prof. Artur Dubrawski</div>
+          <div class="mentor-affiliation">Badacz AI, Carnegie Mellon University</div>
+        </div>
+        <div class="mentor-card animate animate-delay-4">
+          <div class="mentor-icon"><img src="../../assets/janusz-petkowski.png" alt="dr Janusz Pętkowski"></div>
+          <div class="mentor-name">dr Janusz Pętkowski</div>
+          <div class="mentor-affiliation">Ekspert ds. AI i astrobiolog, MIT</div>
+        </div>
+        <div class="mentor-card animate animate-delay-5">
+          <div class="mentor-icon"><img src="../../assets/marek-cygan.png" alt="prof. Marek Cygan"></div>
+          <div class="mentor-name">prof. Marek Cygan</div>
+          <div class="mentor-affiliation">Badacz AI, Uniwersytet Warszawski</div>
+        </div>
+        <div class="mentor-card animate animate-delay-5">
+          <div class="mentor-icon"><img src="../../assets/luke-kowalski.jpeg" alt="Luke Kowalski"></div>
+          <div class="mentor-name">Luke Kowalski</div>
+          <div class="mentor-affiliation">Wiceprezes, Oracle</div>
+        </div>
+      </div>
+      <p class="mentors-note animate animate-delay-5">…i kolejni — lista mentorów rośnie</p>
+      <div class="mentors-universities animate animate-delay-5">
+        <p class="mentors-universities-label">W programie biorą udział mentorzy afiliowani przy:</p>
+        <div class="mentors-universities-logos">
+          <img src="../../assets/cambridge-university-logo.png" alt="Uniwersytet Cambridge">
+          <img src="../../assets/university-oxford-logo.png" alt="Uniwersytet Oksfordzki">
+          <img src="../../assets/uniwersytet-mik-kopernika-logo.png" alt="Uniwersytet Mikołaja Kopernika">
+          <img src="../../assets/nyu-logo.png" alt="Uniwersytet Nowojorski">
+          <img src="../../assets/carnegie-mellon-university-logo.png" alt="Carnegie Mellon University">
+          <img src="../../assets/mit-logo.png" alt="MIT">
+          <img src="../../assets/uw-logo.png" alt="Uniwersytet Warszawski">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════
+       SLIDE 6: HOW IT WORKS
+       ══════════════════════════════════════════ -->
+  <section class="slide slide-how" id="slide-6">
+    <div class="slide-inner">
+      <span class="section-tag animate" style="text-align:center;display:block;">Struktura</span>
+      <h2 class="slide-heading animate animate-delay-1" style="text-align:center;">Jak działa program?</h2>
+      <div class="how-pillars">
+        <div class="how-pillar animate animate-delay-2">
+          <div class="how-pillar-illustration">
+            <img src="../../assets/mentoring.png" alt="Mentoring">
+          </div>
+          <div class="how-pillar-body">
+            <h3 class="how-pillar-title">Mentoring</h3>
+            <p class="how-pillar-desc">Każdy uczestnik otrzymuje dedykowanego mentora: Polaka z sukcesem na skalę światową, który wspiera go na ścieżce badawczej, biznesowej i życiowej.</p>
+          </div>
+        </div>
+        <div class="how-pillar highlight-pillar animate animate-delay-3">
+          <div class="how-pillar-illustration">
+            <img src="../../assets/wyzwanie-od-partnera.png" alt="Wyzwanie od Partnera">
+          </div>
+          <div class="how-pillar-body">
+            <h3 class="how-pillar-title">Wyzwanie od Partnera</h3>
+            <p class="how-pillar-desc">3-osobowe zespoły przez 8 tygodni pracują nad realnym wyzwaniem technologicznym wyznaczonym przez partnera, z opiekunem technicznym spotykającym się co dwa tygodnie.</p>
+          </div>
+        </div>
+        <div class="how-pillar animate animate-delay-4">
+          <div class="how-pillar-illustration">
+            <img src="../../assets/wyjazd-do-doliny.png" alt="Wyjazd do Doliny Krzemowej">
+          </div>
+          <div class="how-pillar-body">
+            <h3 class="how-pillar-title">Wyjazd do Doliny Krzemowej</h3>
+            <p class="how-pillar-desc">Najlepsze zespoły zapraszamy na 2-tygodniowy pobyt w San Francisco, na granicy nauki i technologii.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════
+       SLIDE 7: ROLE OF XTB — CHALLENGE
+       ══════════════════════════════════════════ -->
+  <section class="slide slide-pse" id="slide-7">
+    <div class="slide-inner">
+      <img src="../../assets/xtb-background.png" alt="" class="pse-header-illustration animate animate-delay-2">
+      <span class="section-tag animate">Rola Partnera</span>
+      <h2 class="slide-heading animate animate-delay-1">XTB × Bison Fellowship</h2>
+      <p class="slide-subheading animate animate-delay-2">XTB stawia wyzwanie technologiczne — nasi uczestnicy je rozwiązują</p>
+      <div class="pse-content">
+        <div class="pse-challenge animate animate-delay-3">
+          <div class="pse-challenge-title">Jak to działa?</div>
+          <div class="pse-challenge-items">
+            <div class="pse-challenge-item">
+              <div class="pse-item-num">1</div>
+              <span>XTB definiuje wyzwania technologiczne — np. onboarding, equity research z pomocą AI, analiza sentymentu rynkowego</span>
+            </div>
+            <div class="pse-challenge-item">
+              <div class="pse-item-num">2</div>
+              <span>Dedykowany 3-osobowy zespół najzdolniejszych polskich olimpijczyków i studentów pracuje nad rozwiązaniem przez 8 tygodni</span>
+            </div>
+            <div class="pse-challenge-item">
+              <div class="pse-item-num">3</div>
+              <span>Opiekun techniczny ze strony XTB spotyka się z zespołem co 2 tygodnie</span>
+            </div>
+            <div class="pse-challenge-item">
+              <div class="pse-item-num">4</div>
+              <span>Zespół prezentuje gotowe rozwiązanie na wydarzeniu Demo Day przed jury, gośćmi i innymi zespołami</span>
+            </div>
+          </div>
+        </div>
+        <div class="pse-timeline animate animate-delay-4">
+          <div class="pse-timeline-title">Harmonogram</div>
+          <div class="pse-timeline-items">
+            <div class="pse-timeline-item">
+              <span class="pse-timeline-week">Marzec</span>
+              <span class="pse-timeline-text">Kick-off — inauguracja programu, poznanie uczestników</span>
+            </div>
+            <div class="pse-timeline-item">
+              <span class="pse-timeline-week">Tyg. 1–2</span>
+              <span class="pse-timeline-text">Briefing wyzwania XTB, formowanie zespołów</span>
+            </div>
+            <div class="pse-timeline-item">
+              <span class="pse-timeline-week">Tyg. 3–6</span>
+              <span class="pse-timeline-text">Praca nad rozwiązaniem z mentorem i opiekunem technicznym</span>
+            </div>
+            <div class="pse-timeline-item">
+              <span class="pse-timeline-week">Tyg. 7–8</span>
+              <span class="pse-timeline-text">Finalizacja i przygotowanie prezentacji</span>
+            </div>
+            <div class="pse-timeline-item">
+              <span class="pse-timeline-week">Czerwiec</span>
+              <span class="pse-timeline-text">Demo Day — prezentacja wyników przed jury</span>
+            </div>
+            <div class="pse-timeline-item">
+              <span class="pse-timeline-week">Sierpień</span>
+              <span class="pse-timeline-text">Najlepsze zespoły zostaną wybrane na 2-tygodniowy wyjazd studyjny do Doliny Krzemowej</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════
+       SLIDE 8: WHAT THE PARTNER GETS
+       ══════════════════════════════════════════ -->
+  <section class="slide slide-partner-offer" id="slide-8">
+    <div class="slide-inner">
+      <span class="section-tag animate">Oferta</span>
+      <h2 class="slide-heading animate animate-delay-1">Propozycja współpracy</h2>
+      <p class="slide-subheading animate animate-delay-2">Sponsorując udział w programie, XTB otrzymuje:</p>
+      <div class="offer-grid">
+        <div class="offer-card animate animate-delay-2">
+          <h3 class="offer-card-title">Dedykowany zespół AI i możliwość wdrożenia rozwiązania</h3>
+          <p class="offer-card-desc">3-osobowy team buduje dla XTB rozwiązanie AI przez 8 tygodni, pod opieką mentora.</p>
+        </div>
+        <div class="offer-card animate animate-delay-3">
+          <h3 class="offer-card-title">Prezentacja na Demo Day</h3>
+          <p class="offer-card-desc">Wyniki zaprezentowane przed m.in. wicepremierem Krzysztofem Gawkowskim, Rafałem Brzoską i liderami polskiego sektora technologicznego.</p>
+        </div>
+        <div class="offer-card animate animate-delay-3">
+          <h3 class="offer-card-title">Partnerstwo medialne</h3>
+          <p class="offer-card-desc">Logo i obecność XTB na kanałach z łącznym zasięgiem ~800 tys. obserwujących.</p>
+        </div>
+        <div class="offer-card animate animate-delay-4">
+          <h3 class="offer-card-title">Dostęp do talentów</h3>
+          <p class="offer-card-desc">Bezpośredni kontakt z najzdolniejszymi polskimi studentami i możliwość rekrutacji.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════
+       SLIDE 9: WARUNKI WSPÓŁPRACY
+       ══════════════════════════════════════════ -->
+  <!-- ══════════════════════════════════════════
+       SLIDE 9: MEDIA PROMOTION
+       ══════════════════════════════════════════ -->
+  <section class="slide slide-promo" id="slide-9">
+    <div class="slide-inner">
+      <span class="section-tag section-tag-light animate">Promocja</span>
+      <h2 class="slide-heading slide-heading-light animate animate-delay-1">Promocja Partnera w&nbsp;mediach</h2>
+      <p class="slide-subheading slide-subheading-light animate animate-delay-2">XTB zyska widoczność w naszych programach i kanałach społecznościowych</p>
+      <div class="promo-grid">
+        <div class="promo-card animate animate-delay-3">
+          <div class="promo-card-number">4</div>
+          <div class="promo-card-unit">odcinki</div>
+          <div class="promo-card-title">Wstawki sponsorskie</div>
+          <ul class="promo-items">
+            <li>2 odcinki na kanale <strong>This is IT</strong></li>
+            <li>2 odcinki na kanale <strong>This is the World</strong></li>
+          </ul>
+        </div>
+        <div class="promo-card animate animate-delay-4">
+          <div class="promo-card-number">4</div>
+          <div class="promo-card-unit">posty</div>
+          <div class="promo-card-title">Obecność w social media</div>
+          <ul class="promo-items">
+            <li>1 dedykowany post o rozpoczęciu współpracy</li>
+            <li>Wzmianki w 3 postach relacjonujących etapy programu</li>
+          </ul>
+        </div>
+        <div class="promo-card animate animate-delay-5">
+          <div class="promo-card-number">1</div>
+          <div class="promo-card-unit">materiał wideo</div>
+          <div class="promo-card-title">Film z prac zespołu</div>
+          <ul class="promo-items">
+            <li>Publikacja na Facebooku lub LinkedIn</li>
+            <li>Do wykorzystania przez XTB w employer brandingu</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════
+       SLIDE 10: REACH / STATS
+       ══════════════════════════════════════════ -->
+  <section class="slide slide-reach" id="slide-10">
+    <div class="slide-inner">
+      <span class="section-tag animate">Zasięgi</span>
+      <h2 class="slide-heading animate animate-delay-1">Nasze zasięgi</h2>
+      <table class="reach-table animate animate-delay-2">
+        <thead>
+          <tr>
+            <th>Platforma</th>
+            <th>Obserwujący</th>
+            <th>Wyświetlenia / miesiąc</th>
+            <th>Śr. na post</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Dr Maciej Kawecki — LinkedIn</td>
+            <td>175 tys.</td>
+            <td>1M</td>
+            <td>100 tys.</td>
+          </tr>
+          <tr>
+            <td>Maciej Kawecki — Facebook</td>
+            <td>310 tys.</td>
+            <td>&gt;29M</td>
+            <td>&gt;1M</td>
+          </tr>
+          <tr>
+            <td>This is IT</td>
+            <td>315 tys.</td>
+            <td>&gt;1.5M</td>
+            <td>100 tys.</td>
+          </tr>
+          <tr>
+            <td>This is the World — YouTube</td>
+            <td>40 tys.</td>
+            <td>&gt;1M</td>
+            <td>150 tys.</td>
+          </tr>
+          <tr>
+            <td>Maciej Kawecki — Twitter</td>
+            <td>55 tys.</td>
+            <td>&gt;500 tys.</td>
+            <td>&gt;100 tys.</td>
+          </tr>
+          <tr>
+            <td>Maciej Kawecki — TikTok</td>
+            <td>190 tys.</td>
+            <td>&gt;600 tys.</td>
+            <td>80 tys.</td>
+          </tr>
+        </tbody>
+      </table>
+      <p class="reach-note animate animate-delay-3">Stan na Luty 2026</p>
+      <div class="reach-audience-row animate animate-delay-4">
+        <div class="reach-audience-pill">
+          <div class="reach-audience-pill-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+          </div>
+          <div>
+            <div class="reach-audience-pill-text">Pracujące osoby 30+</div>
+            <div class="reach-audience-pill-sub">Główna grupa docelowa</div>
+          </div>
+        </div>
+        <div class="reach-audience-pill">
+          <div class="reach-audience-pill-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+          </div>
+          <div>
+            <div class="reach-audience-pill-text">Technologia & AI</div>
+            <div class="reach-audience-pill-sub">Software, innowacje, startupy</div>
+          </div>
+        </div>
+        <div class="reach-audience-pill">
+          <div class="reach-audience-pill-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+          </div>
+          <div>
+            <div class="reach-audience-pill-text">Biznes & nauka</div>
+            <div class="reach-audience-pill-sub">Inwestycje, badania, przedsiębiorczość</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════
+       SLIDE 11: WARUNKI WSPÓŁPRACY
+       ══════════════════════════════════════════ -->
+  <section class="slide slide-terms" id="slide-11">
+    <div class="slide-inner">
+      <span class="section-tag animate">Podsumowanie</span>
+      <h2 class="slide-heading animate animate-delay-1">Warunki współpracy</h2>
+      <div style="margin-top: 64px;" class="animate animate-delay-2">
+        <p class="terms-amount">180 000 PLN <span class="terms-vat">+ 23% VAT</span></p>
+        <div class="terms-separator"></div>
+        <p class="terms-desc">Pokrywa koszty organizacji programu stypendialnego oraz wyjazdu wybranych zespołów do Doliny Krzemowej.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════
+       SLIDE 12: DEMO DAY
+       ══════════════════════════════════════════ -->
+  <section class="slide slide-demoday" id="slide-12">
+    <div class="slide-inner">
+      <span class="section-tag animate">Wydarzenie</span>
+      <h2 class="slide-heading animate animate-delay-1">Gala Bison Fellowship</h2>
+      <p class="slide-subheading animate animate-delay-2">24 marca — Rotunda PKO BP</p>
+      <div class="demoday-content">
+        <div class="demoday-quote animate animate-delay-2">
+          Partnerstwo w ramach Bison Fellowship to nie tylko CSR i wsparcie najzdolniejszych młodych Polaków, ale również bezpośredni dostęp do nich w celu rekrutacji i gotowe rozwiązanie AI dla zaproponowanego wyzwania.
+        </div>
+        <div class="demoday-details">
+          <div class="demoday-program animate animate-delay-3">
+            <h3>Program</h3>
+            <div class="demoday-program-item">
+              <span class="demoday-program-time">1.5h</span>
+              <span class="demoday-program-text">Rozmowy panelowe z partnerami programu</span>
+            </div>
+            <div class="demoday-program-item">
+              <span class="demoday-program-time">1h</span>
+              <span class="demoday-program-text">Rozdanie nagród uczestnikom</span>
+            </div>
+            <div class="demoday-program-item">
+              <span class="demoday-program-time">2h</span>
+              <span class="demoday-program-text">Networking</span>
+            </div>
+          </div>
+          <div class="demoday-guests animate animate-delay-4">
+            <h3>Wśród gości</h3>
+            <div class="demoday-guest-item">
+              <img class="demoday-guest-photo" src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/9a/Krzysztof_Gawkowski_2022_v2_%28cropped2%29.jpg/500px-Krzysztof_Gawkowski_2022_v2_%28cropped2%29.jpg" alt="Krzysztof Gawkowski">
+              <div>
+                <div class="demoday-guest-name">Wicepremier Krzysztof Gawkowski</div>
+                <div class="demoday-guest-title">Ministerstwo Cyfryzacji</div>
+              </div>
+            </div>
+            <div class="demoday-guest-item">
+              <img class="demoday-guest-photo" src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a2/Rafa%C5%82_Brzoska.png/500px-Rafa%C5%82_Brzoska.png" alt="Rafał Brzoska">
+              <div>
+                <div class="demoday-guest-name">Rafał Brzoska</div>
+                <div class="demoday-guest-title">Founder &amp; CEO, InPost</div>
+              </div>
+            </div>
+            <div class="demoday-guest-item">
+              <div class="demoday-guest-avatar">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--text-faint)" stroke-width="1.5"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+              </div>
+              <div>
+                <div class="demoday-guest-name">Mentorzy programu</div>
+                <div class="demoday-guest-title">Przedstawiciele firm partnerskich</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════
+       SLIDE 12: CLOSING
+       ══════════════════════════════════════════ -->
+  <section class="slide slide-closing" id="slide-13">
+    <div class="slide-inner" style="display:flex;flex-direction:column;align-items:center;">
+      <img src="../../assets/zubr-2.png" alt="Bison Fellowship" class="closing-logo animate">
+      <h2 class="closing-title animate animate-delay-1">Bison Fellowship × XTB</h2>
+      <p class="closing-subtitle animate animate-delay-2">Razem kształtujemy przyszłość polskiej technologii</p>
+      <img src="../../assets/kreska-dluga-niebieska.png" alt="" class="closing-kreska animate animate-delay-3">
+      <p class="closing-footer animate animate-delay-4">Luty 2026</p>
+    </div>
+  </section>
+  </div><!-- /.slides-wrapper -->
+
+  <!-- Click hint -->
+  <div class="slide-click-hint" id="clickHint">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+    <span>Kliknij aby przejść dalej</span>
+  </div>
+
+  <script>
+    (function() {
+      var allSlides = document.querySelectorAll('.slide');
+      var nav = document.getElementById('slideNav');
+      var clickHint = document.getElementById('clickHint');
+      var darkSlides = ['slide-4', 'slide-9', 'slide-13'];
+      var currentSlideIdx = 0;
+      var isAnimating = false;
+
+      /* ── GO TO SLIDE ── */
+      function goToSlide(targetIdx) {
+        if (targetIdx < 0 || targetIdx >= allSlides.length) return;
+        if (targetIdx === currentSlideIdx) return;
+        if (isAnimating) return;
+        isAnimating = true;
+
+        var oldSlide = allSlides[currentSlideIdx];
+        var newSlide = allSlides[targetIdx];
+        var goingDown = targetIdx > currentSlideIdx;
+
+        // Leaving video slide — pure fade, no vertical motion
+        var fromVideo = currentSlideIdx === videoSlideIdx && videoEnding;
+
+        oldSlide.classList.remove('active-slide');
+        if (!fromVideo) {
+          oldSlide.classList.add(goingDown ? 'exit-up' : 'exit-down');
+        }
+
+        newSlide.classList.remove('exit-up', 'exit-down', 'fade-enter');
+
+        if (fromVideo) {
+          // Pure fade-in: no vertical movement
+          newSlide.classList.add('fade-enter');
+          newSlide.style.opacity = '0';
+          void newSlide.offsetWidth;
+          newSlide.classList.add('active-slide');
+          newSlide.style.opacity = '';
+        } else {
+          newSlide.style.transition = 'none';
+          newSlide.style.transform = goingDown ? 'translateY(40px)' : 'translateY(-40px)';
+          newSlide.style.opacity = '0';
+          void newSlide.offsetWidth;
+          newSlide.style.transition = '';
+          newSlide.classList.add('active-slide');
+          newSlide.style.transform = '';
+          newSlide.style.opacity = '';
+        }
+
+        currentSlideIdx = targetIdx;
+        updateNav();
+        handleVideoSlide(targetIdx);
+
+        setTimeout(function() {
+          activateSlide(newSlide);
+        }, 100);
+
+        setTimeout(function() {
+          oldSlide.classList.remove('exit-up', 'exit-down');
+          newSlide.classList.remove('fade-enter');
+          isAnimating = false;
+        }, fromVideo ? 1000 : 700);
+      }
+
+      /* ── ACTIVATE SLIDE ANIMATIONS ── */
+      function activateSlide(slide) {
+        slide.classList.add('slide-active');
+        slide.querySelectorAll('.animate').forEach(function(el) {
+          el.classList.add('visible');
+        });
+      }
+
+      /* ── CLICK TO NAVIGATE ── */
+      allSlides.forEach(function(slide, i) {
+        slide.addEventListener('click', function(e) {
+          if (e.target.closest('a, button')) return;
+          var nextIdx = currentSlideIdx + 1;
+          if (nextIdx >= allSlides.length) nextIdx = 0;
+          goToSlide(nextIdx);
+        });
+      });
+
+      /* ── KEYBOARD NAVIGATION ── */
+      document.addEventListener('keydown', function(e) {
+        if (isAnimating) return;
+        var direction = 0;
+        if (e.key === 'ArrowDown' || e.key === 'ArrowRight' || e.key === ' ' || e.key === 'PageDown') {
+          direction = 1;
+          e.preventDefault();
+        } else if (e.key === 'ArrowUp' || e.key === 'ArrowLeft' || e.key === 'PageUp') {
+          direction = -1;
+          e.preventDefault();
+        }
+        if (direction === 0) return;
+
+        var nextIdx = currentSlideIdx + direction;
+        if (nextIdx < 0) nextIdx = 0;
+        if (nextIdx >= allSlides.length) nextIdx = allSlides.length - 1;
+        goToSlide(nextIdx);
+      });
+
+      /* ── MOUSE WHEEL NAVIGATION ── */
+      var wheelTimeout = null;
+      document.addEventListener('wheel', function(e) {
+        e.preventDefault();
+        if (wheelTimeout) return;
+        wheelTimeout = setTimeout(function() { wheelTimeout = null; }, 1000);
+        if (e.deltaY > 0) {
+          goToSlide(currentSlideIdx + 1);
+        } else if (e.deltaY < 0) {
+          goToSlide(currentSlideIdx - 1);
+        }
+      }, { passive: false });
+
+      /* ── NAVIGATION DOTS ── */
+      allSlides.forEach(function(slide, i) {
+        var dot = document.createElement('a');
+        dot.href = '#' + slide.id;
+        dot.setAttribute('aria-label', 'Slide ' + (i + 1));
+        dot.addEventListener('click', function(e) {
+          e.preventDefault();
+          goToSlide(i);
+        });
+        nav.appendChild(dot);
+      });
+
+      var dots = nav.querySelectorAll('a');
+
+      function updateNav() {
+        var isDark = darkSlides.indexOf(allSlides[currentSlideIdx].id) !== -1;
+        dots.forEach(function(dot, i) {
+          dot.classList.toggle('active', i === currentSlideIdx);
+          dot.classList.toggle('light', isDark);
+        });
+
+        if (clickHint) {
+          clickHint.classList.toggle('on-dark', isDark);
+          clickHint.style.opacity = currentSlideIdx >= allSlides.length - 1 ? '0' : '0.6';
+        }
+      }
+
+      /* ── YOUTUBE VIDEO CONTROL (Slide 4) ── */
+      var ytPlayer = null;
+      var ytReady = false;
+      var videoSlideIdx = 3; // slide-4 is index 3
+      var videoFadeout = document.getElementById('videoFadeout');
+      var videoEnding = false;
+
+      function fadeOutAndAdvance() {
+        if (videoEnding) return;
+        videoEnding = true;
+        // Activate fade-to-black overlay
+        videoFadeout.classList.add('active');
+        // Wait for fade to complete, then advance
+        setTimeout(function() {
+          goToSlide(videoSlideIdx + 1);
+        }, 1300);
+      }
+
+      function handleVideoSlide(targetIdx) {
+        if (targetIdx === videoSlideIdx) {
+          // Reset fade overlay and state when entering slide
+          videoFadeout.classList.remove('active');
+          videoEnding = false;
+          if (ytReady && ytPlayer) {
+            ytPlayer.seekTo(0, true);
+            ytPlayer.playVideo();
+          }
+        } else {
+          if (ytReady && ytPlayer) {
+            ytPlayer.pauseVideo();
+          }
+        }
+      }
+
+      // Load YouTube IFrame API
+      var tag = document.createElement('script');
+      tag.src = 'https://www.youtube.com/iframe_api';
+      document.head.appendChild(tag);
+
+      window.onYouTubeIframeAPIReady = function() {
+        ytPlayer = new YT.Player('origin-yt', {
+          events: {
+            onReady: function() {
+              ytReady = true;
+              ytPlayer.mute();
+              if (currentSlideIdx === videoSlideIdx) {
+                ytPlayer.seekTo(0, true);
+                ytPlayer.playVideo();
+              }
+            },
+            onStateChange: function(event) {
+              if (event.data === YT.PlayerState.ENDED && currentSlideIdx === videoSlideIdx) {
+                fadeOutAndAdvance();
+              }
+            }
+          }
+        });
+
+        // Start fade ~2s before 37s mark for smooth exit
+        setInterval(function() {
+          if (ytReady && ytPlayer && ytPlayer.getCurrentTime && currentSlideIdx === videoSlideIdx) {
+            var t = ytPlayer.getCurrentTime();
+            if (t >= 35 && !videoEnding) {
+              fadeOutAndAdvance();
+            }
+          }
+        }, 400);
+      };
+
+      /* ── INITIAL STATE ── */
+      activateSlide(allSlides[0]);
+      updateNav();
+    })();
+  </script>
+</body>
+</html>

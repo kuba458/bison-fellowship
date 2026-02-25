@@ -1,5 +1,6 @@
 node_modules/
 .DS_Store
 .claude/
+!.claude/commands/
 *.pdf
 bison_video.mp4

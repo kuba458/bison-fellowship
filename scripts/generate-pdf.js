@@ -64,6 +64,10 @@ const clients = {
     url: 'http://localhost:5173/clients/pkn-orlen/',
     output: 'Bison_Fellowship_PKN_Orlen.pdf',
   },
+  xtb: {
+    url: 'http://localhost:5173/clients/xtb/',
+    output: 'Bison_Fellowship_XTB.pdf',
+  },
 };
 
 const clientName = process.argv[2];
