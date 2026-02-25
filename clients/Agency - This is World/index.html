@@ -1,0 +1,997 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>This Is World — Partnership Deck</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&family=Instrument+Serif:ital@0;1&family=Geist+Mono:wght@100..900&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --bg-primary:#F9F6F0;
+  --bg-warm:#F2EEE6;
+  --bg-dark:#1a2456;
+  --bg-dark-deep:#0d1229;
+  --text-primary:#212C33;
+  --text-secondary:#333334;
+  --text-muted:rgba(51,51,52,0.5);
+  --text-on-dark:#f0ede7;
+  --border-light:rgba(51,51,52,0.1);
+  --accent-navy:#1a2456;
+  --accent-blue:#2d4a8a;
+  --accent-amber:#c8956c;
+  --accent-gold:#d4a853;
+  --radius-card:24px;
+  --radius-pill:999px;
+  --font-serif:"Instrument Serif",Georgia,serif;
+  --font-sans:"Geist",system-ui,-apple-system,sans-serif;
+  --font-mono:"Geist Mono",monospace;
+}
+html,body{height:100%;overflow:hidden;font-family:var(--font-sans);-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
+
+/* SLIDE SYSTEM */
+.slides-wrapper{height:100vh;width:100vw;position:relative;overflow:hidden}
+.slide{position:absolute!important;inset:0;width:100%;height:100%;display:flex;align-items:center;justify-content:center;padding:44px 48px;opacity:0;pointer-events:none;transition:opacity 0.45s cubic-bezier(0.4,0,0.2,1);overflow-y:auto;-webkit-overflow-scrolling:touch}
+.slide.active{opacity:1;pointer-events:auto;z-index:2}
+.slide-inner{max-width:1200px;width:100%;margin:0 auto}
+
+/* ANIMATION SYSTEM */
+.anim{opacity:0;transform:translateY(24px);transition:opacity 0.6s cubic-bezier(0.4,0,0.2,1),transform 0.6s cubic-bezier(0.4,0,0.2,1)}
+.slide.active .anim{opacity:1;transform:translateY(0)}
+.d1{transition-delay:.07s}.d2{transition-delay:.14s}.d3{transition-delay:.21s}.d4{transition-delay:.28s}.d5{transition-delay:.35s}.d6{transition-delay:.42s}.d7{transition-delay:.49s}.d8{transition-delay:.56s}
+.slide:not(.active) .anim{opacity:0;transform:translateY(24px);transition:none}
+
+/* GLOBAL TYPOGRAPHIC TOKENS */
+.stag{font-family:var(--font-mono);font-size:14px;letter-spacing:0.14em;text-transform:uppercase;font-weight:500}
+.stag-l{color:rgba(255,255,255,0.3)}
+.stag-d{color:var(--text-muted)}
+.sh{font-family:var(--font-serif);font-size:clamp(42px,5.5vw,74px);line-height:1.08;font-weight:400;letter-spacing:-0.01em}
+.ss{font-family:var(--font-sans);font-size:clamp(18px,1.8vw,22px);line-height:1.5;font-weight:400}
+
+/* NAVIGATION */
+.slide-counter{position:fixed;bottom:24px;left:32px;font-family:var(--font-mono);font-size:13px;letter-spacing:0.08em;z-index:100;transition:color 0.3s}
+.slide-counter.light{color:rgba(255,255,255,0.35)}
+.slide-counter.dark{color:var(--text-muted)}
+.click-hint{position:fixed;bottom:24px;right:32px;font-family:var(--font-mono);font-size:12px;letter-spacing:0.06em;z-index:100;transition:color 0.3s}
+.click-hint.light{color:rgba(255,255,255,0.25)}
+.click-hint.dark{color:rgba(51,51,52,0.3)}
+.nav-dots{position:fixed;right:24px;top:50%;transform:translateY(-50%);display:flex;flex-direction:column;gap:8px;z-index:100}
+.nav-dot{width:9px;height:9px;border-radius:50%;border:1.5px solid rgba(255,255,255,0.25);background:transparent;cursor:pointer;transition:all 0.3s;padding:0}
+.nav-dot.active{background:rgba(255,255,255,0.7);border-color:rgba(255,255,255,0.7)}
+.nav-dots.dark .nav-dot{border-color:rgba(51,51,52,0.2)}
+.nav-dots.dark .nav-dot.active{background:var(--accent-navy);border-color:var(--accent-navy)}
+
+/* ===== SLIDE 1: HERO ===== */
+.s-hero{background:var(--bg-dark)}
+.s-hero .slide-inner{display:flex;flex-direction:column;align-items:center;text-align:center;gap:28px;position:relative}
+.hero-glow{position:absolute;top:-30%;left:50%;transform:translateX(-50%);width:140%;height:100%;background:radial-gradient(ellipse at center,rgba(212,168,83,0.08) 0%,transparent 65%);pointer-events:none}
+.hero-brand{font-family:var(--font-mono);font-size:16px;letter-spacing:0.18em;text-transform:uppercase;color:rgba(255,255,255,0.35);font-weight:500}
+.hero-title{font-family:var(--font-serif);font-size:clamp(52px,8vw,104px);line-height:1.02;color:var(--text-on-dark);font-weight:400;letter-spacing:-0.02em;max-width:900px}
+.hero-title em{font-style:italic;color:var(--accent-gold)}
+.hero-sub{font-family:var(--font-sans);font-size:clamp(18px,2vw,23px);color:rgba(240,237,231,0.45);line-height:1.55;max-width:660px;font-weight:400}
+.hero-stats{display:flex;gap:48px;margin-top:12px}
+.hero-stat{display:flex;flex-direction:column;align-items:center;gap:6px}
+.hero-stat-val{font-family:var(--font-serif);font-size:40px;color:var(--accent-gold);font-weight:400}
+.hero-stat-lbl{font-family:var(--font-mono);font-size:13px;color:rgba(255,255,255,0.3);letter-spacing:0.08em;text-transform:uppercase}
+
+/* ===== SLIDE 2: THE SHOW ===== */
+.s-show{background:var(--bg-warm)}
+.show-grid{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:start}
+.show-desc{font-size:18px;color:var(--text-secondary);line-height:1.65;margin-top:20px}
+.show-pills{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:8px}
+.show-pill{background:#fff;border:1px solid var(--border-light);border-radius:var(--radius-card);padding:22px 24px;transition:box-shadow 0.3s}
+.show-pill:hover{box-shadow:0 8px 30px rgba(0,0,0,0.06)}
+.show-pill-t{font-family:var(--font-serif);font-size:22px;color:var(--text-primary);margin-bottom:6px}
+.show-pill-d{font-size:17px;color:var(--text-muted);line-height:1.5}
+.show-quote{margin-top:28px;padding:22px 26px;border-left:3px solid var(--accent-gold);background:rgba(212,168,83,0.06);border-radius:0 16px 16px 0}
+.show-quote p{font-family:var(--font-serif);font-style:italic;font-size:18px;color:var(--text-secondary);line-height:1.55}
+
+/* ===== SLIDE 3: HOST & TEAM ===== */
+.s-host{background:var(--bg-primary)}
+.host-duo{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:28px}
+.host-card{background:#fff;border:1px solid var(--border-light);border-radius:var(--radius-card);padding:0;overflow:hidden;display:flex;flex-direction:column}
+.hc-bar{height:3px;width:100%;background:var(--accent-navy)}
+.hc-bar.gold{background:var(--accent-gold)}
+.hc-inner{padding:28px;display:flex;gap:22px}
+.host-img{width:100px;height:130px;border-radius:16px;object-fit:cover;flex-shrink:0}
+.host-info{display:flex;flex-direction:column;gap:6px}
+.host-info h3{font-family:var(--font-serif);font-size:30px;color:var(--text-primary);font-weight:400}
+.host-role{font-family:var(--font-mono);font-size:13px;color:var(--accent-amber);letter-spacing:0.1em;text-transform:uppercase}
+.cred-list{list-style:none;margin-top:10px;display:flex;flex-direction:column;gap:5px}
+.cred{font-size:16px;color:var(--text-secondary);line-height:1.4;padding-left:16px;position:relative}
+.cred .cred-dot{position:absolute;left:0;top:8px;width:5px;height:5px;border-radius:50%;background:var(--accent-gold);display:block}
+.social-pills{display:flex;gap:8px;margin-top:12px;flex-wrap:wrap}
+.spill{font-family:var(--font-mono);font-size:13px;color:var(--text-muted);background:rgba(51,51,52,0.05);padding:5px 12px;border-radius:var(--radius-pill);letter-spacing:0.04em}
+
+/* ===== SLIDE 4: REACH VIDEO ===== */
+.s-reach-vid{background:var(--bg-dark)}
+.reach-vid-glow{position:absolute;top:-20%;left:50%;transform:translateX(-50%);width:120%;height:80%;background:radial-gradient(ellipse at center,rgba(212,168,83,0.06) 0%,transparent 60%);pointer-events:none}
+.reach-vid-inner{display:flex;flex-direction:column;align-items:center;text-align:center;position:relative}
+.reach-big{font-family:var(--font-serif);font-size:clamp(44px,5.5vw,72px);color:var(--accent-gold);font-weight:400;line-height:1.1}
+.reach-big-suffix{font-family:var(--font-sans);font-size:clamp(18px,1.8vw,22px);color:rgba(255,255,255,0.35);font-weight:400;margin-left:8px}
+.reach-subline{font-family:var(--font-mono);font-size:13px;color:rgba(255,255,255,0.3);letter-spacing:0.06em;margin-top:8px}
+.yt-duo{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:28px;width:100%}
+.yt-card{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:var(--radius-card);overflow:hidden;text-align:left}
+.yt-bar{height:3px;width:100%;background:#ff0000}
+.yt-card-inner{padding:22px 24px}
+.yt-label{display:flex;align-items:center;gap:8px;margin-bottom:10px}
+.yt-label svg{width:18px;height:18px;fill:#ff0000}
+.yt-label span{font-family:var(--font-mono);font-size:12px;color:rgba(255,255,255,0.4);letter-spacing:0.1em;text-transform:uppercase}
+.yt-card-title{font-family:var(--font-serif);font-size:26px;color:var(--text-on-dark);font-weight:400;margin-bottom:4px}
+.yt-card-sub{font-size:14px;color:rgba(255,255,255,0.35);margin-bottom:16px}
+/* Stats row */
+.yt-stats-row{display:flex;gap:20px;margin-bottom:16px}
+.yt-stat-block{flex:1}
+.yt-stat-val{font-family:var(--font-serif);font-size:22px;color:var(--text-on-dark);font-weight:400;line-height:1.2}
+.yt-stat-val.gold{color:var(--accent-gold)}
+.yt-stat-lbl{font-family:var(--font-mono);font-size:11px;color:rgba(255,255,255,0.3);letter-spacing:0.06em;text-transform:uppercase;margin-top:2px}
+/* Horizontal bar chart */
+.bar-chart{display:flex;flex-direction:column;gap:8px}
+.bar-row{display:flex;align-items:center;gap:10px}
+.bar-label{font-family:var(--font-mono);font-size:11px;color:rgba(255,255,255,0.4);letter-spacing:0.04em;width:50px;text-align:right;flex-shrink:0}
+.bar-track{flex:1;height:22px;background:rgba(255,255,255,0.04);border-radius:6px;overflow:hidden;position:relative}
+.bar-fill{height:100%;border-radius:6px;display:flex;align-items:center;justify-content:flex-end;padding-right:8px;transition:width 1.2s cubic-bezier(0.4,0,0.2,1)}
+.bar-fill-val{font-family:var(--font-mono);font-size:10px;color:#fff;letter-spacing:0.04em;font-weight:500;white-space:nowrap}
+.bar-fill.views-it{background:linear-gradient(90deg,rgba(255,0,0,0.5),rgba(255,0,0,0.8))}
+.bar-fill.views-world{background:linear-gradient(90deg,rgba(212,168,83,0.5),rgba(212,168,83,0.9))}
+/* Geo section */
+.geo-section{margin-top:14px;padding-top:14px;border-top:1px solid rgba(255,255,255,0.06)}
+.geo-title{font-family:var(--font-mono);font-size:11px;color:rgba(255,255,255,0.3);letter-spacing:0.08em;text-transform:uppercase;margin-bottom:8px}
+.geo-bar-wrap{display:flex;align-items:center;gap:8px;margin-bottom:4px}
+.geo-flag{font-size:16px;flex-shrink:0}
+.geo-bar-track{flex:1;height:18px;background:rgba(255,255,255,0.04);border-radius:5px;overflow:hidden}
+.geo-bar-fill{height:100%;border-radius:5px;display:flex;align-items:center;justify-content:flex-end;padding-right:8px}
+.geo-bar-fill.pl{background:linear-gradient(90deg,rgba(220,38,38,0.25),rgba(220,38,38,0.6))}
+.geo-bar-fill.us{background:linear-gradient(90deg,rgba(59,130,246,0.25),rgba(59,130,246,0.6))}
+.geo-pct{font-family:var(--font-mono);font-size:10px;color:#fff;font-weight:600;letter-spacing:0.03em}
+.geo-country{font-family:var(--font-mono);font-size:10px;color:rgba(255,255,255,0.3);letter-spacing:0.04em}
+.yt-gold-badge{display:inline-flex;align-items:center;margin-top:14px;padding:6px 16px;border-radius:var(--radius-pill);background:rgba(212,168,83,0.12);border:1px solid rgba(212,168,83,0.25)}
+.yt-gold-badge span{font-family:var(--font-mono);font-size:11px;color:var(--accent-gold);letter-spacing:0.06em}
+.reach-vid-bottom{font-family:var(--font-serif);font-style:italic;font-size:16px;color:rgba(255,255,255,0.25);text-align:center;margin-top:24px;max-width:700px}
+/* Views comparison bar */
+.views-compare{margin-top:24px;width:100%;text-align:left}
+.views-compare-title{font-family:var(--font-mono);font-size:12px;color:rgba(255,255,255,0.3);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:12px;text-align:center}
+.vc-row{display:flex;align-items:center;gap:12px;margin-bottom:8px}
+.vc-name{font-family:var(--font-sans);font-size:13px;color:rgba(255,255,255,0.5);width:100px;text-align:right;flex-shrink:0}
+.vc-track{flex:1;height:28px;background:rgba(255,255,255,0.03);border-radius:8px;overflow:hidden}
+.vc-fill{height:100%;border-radius:8px;display:flex;align-items:center;padding-left:12px;transition:width 1.4s cubic-bezier(0.4,0,0.2,1)}
+.vc-fill.it{background:linear-gradient(90deg,rgba(255,0,0,0.35),rgba(255,0,0,0.7))}
+.vc-fill.world{background:linear-gradient(90deg,rgba(212,168,83,0.35),rgba(212,168,83,0.85))}
+.vc-val{font-family:var(--font-serif);font-size:15px;color:#fff;font-weight:400;white-space:nowrap}
+
+/* ===== SLIDE 5: REACH SOCIAL ===== */
+.s-reach-soc{background:var(--bg-warm)}
+.reach-soc-inner{display:flex;flex-direction:column;align-items:center;text-align:center}
+.reach-big-dark{font-family:var(--font-serif);font-size:clamp(44px,5.5vw,72px);color:var(--accent-navy);font-weight:400;line-height:1.1}
+.reach-soc-sub{font-family:var(--font-mono);font-size:13px;color:var(--text-muted);letter-spacing:0.08em;text-transform:uppercase;margin-top:8px}
+.platform-grid-social{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;margin-top:32px;width:100%;text-align:left}
+.plat-card{background:#fff;border:1px solid var(--border-light);border-radius:20px;overflow:hidden;box-shadow:0 2px 12px rgba(0,0,0,0.04)}
+.plat-bar{height:3px;width:100%}
+.plat-bar.fb{background:#1877f2}
+.plat-bar.ig{background:linear-gradient(90deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888)}
+.plat-bar.tt{background:linear-gradient(90deg,#25f4ee,#fe2c55)}
+.plat-inner{padding:24px}
+.plat-label{display:flex;align-items:center;gap:8px;margin-bottom:12px}
+.plat-label svg{width:16px;height:16px}
+.plat-label span{font-family:var(--font-mono);font-size:12px;color:var(--text-muted);letter-spacing:0.1em;text-transform:uppercase}
+.plat-name{font-family:var(--font-serif);font-size:22px;color:var(--text-primary);font-weight:400;margin-bottom:14px}
+.plat-stat{margin-bottom:10px}
+.plat-stat-val{font-family:var(--font-serif);font-size:28px;color:var(--text-primary);font-weight:400}
+.plat-stat-val.normal{font-size:21px}
+.plat-stat-lbl{font-family:var(--font-mono);font-size:12px;color:var(--text-muted);letter-spacing:0.05em;text-transform:uppercase;margin-top:1px}
+.plat-note{font-family:var(--font-mono);font-size:11px;color:var(--text-muted);margin-top:12px;padding-top:10px;border-top:1px solid var(--border-light)}
+.growth-badge{display:inline-flex;align-items:center;padding:2px 8px;border-radius:var(--radius-pill);background:rgba(34,197,94,0.08);font-family:var(--font-mono);font-size:11px;color:#16a34a;margin-left:8px;letter-spacing:0.03em}
+
+/* ===== SLIDE 6: REACH TOTAL ===== */
+.s-reach-total{background:var(--bg-dark-deep)}
+.reach-total-glow{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:100%;height:100%;background:radial-gradient(ellipse at center,rgba(212,168,83,0.07) 0%,transparent 55%);pointer-events:none}
+.reach-total-inner{display:flex;flex-direction:column;align-items:center;text-align:center;position:relative}
+.total-number{font-family:var(--font-serif);font-size:clamp(80px,12vw,140px);color:var(--accent-gold);font-weight:400;line-height:1}
+.total-label{font-family:var(--font-mono);font-size:16px;letter-spacing:0.2em;color:rgba(255,255,255,0.3);text-transform:uppercase;margin-top:12px}
+.total-pills{display:flex;gap:10px;margin-top:32px;flex-wrap:wrap;justify-content:center}
+.total-pill{display:inline-flex;align-items:center;padding:8px 18px;border-radius:var(--radius-pill);background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);font-family:var(--font-mono);font-size:13px;color:rgba(255,255,255,0.5)}
+.total-pill.gold{border-color:var(--accent-gold);color:var(--accent-gold)}
+.total-stats{font-family:var(--font-mono);font-size:14px;color:rgba(255,255,255,0.25);margin-top:24px;letter-spacing:0.03em}
+.total-quote{font-family:var(--font-serif);font-style:italic;font-size:18px;color:rgba(255,255,255,0.2);max-width:700px;line-height:1.55;margin-top:32px}
+
+/* ===== SLIDE 7: VIRAL ===== */
+.s-viral{background:var(--bg-dark-deep)}
+.viral-layout{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center;margin-top:24px}
+.viral-embed{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:var(--radius-card);overflow:hidden;aspect-ratio:16/9;display:flex;align-items:center;justify-content:center;position:relative}
+.viral-play{width:64px;height:64px;background:rgba(255,0,0,0.9);border-radius:16px;display:flex;align-items:center;justify-content:center}
+.viral-play svg{width:28px;height:28px;fill:#fff;margin-left:3px}
+.viral-embed-info{position:absolute;bottom:0;left:0;right:0;padding:14px 18px;background:linear-gradient(transparent,rgba(0,0,0,0.7))}
+.viral-embed-title{font-size:15px;color:#fff;font-weight:500}
+.viral-embed-ch{font-size:15px;color:rgba(255,255,255,0.5);margin-top:3px}
+.viral-right{display:flex;flex-direction:column;gap:20px}
+.viral-stat-row{display:flex;flex-direction:column;gap:4px}
+.vsr-v{font-family:var(--font-serif);font-size:30px;color:var(--text-on-dark);font-weight:400}
+.vsr-d{font-family:var(--font-mono);font-size:14px;color:rgba(255,255,255,0.3);letter-spacing:0.06em;text-transform:uppercase}
+.viral-mult{margin-top:8px;padding:20px 24px;background:rgba(212,168,83,0.08);border:1px solid rgba(212,168,83,0.15);border-radius:20px}
+.viral-mult-t{font-family:var(--font-serif);font-size:23px;color:var(--accent-gold)}
+.viral-mult-s{font-family:var(--font-mono);font-size:14px;color:rgba(255,255,255,0.3);margin-top:4px}
+
+/* ===== SLIDE 8: GUESTS ===== */
+.s-guests{background:var(--bg-dark-deep)}
+.guests-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:28px}
+.g-card{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:var(--radius-card);overflow:hidden;text-align:center;padding:0;display:flex;flex-direction:column}
+.g-card.feat{border-color:rgba(212,168,83,0.2)}
+.g-img-wrap{width:100%;aspect-ratio:1;background:rgba(255,255,255,0.03);display:flex;align-items:center;justify-content:center;overflow:hidden;position:relative}
+.g-img-wrap span.g-init{font-family:var(--font-serif);font-size:48px;color:rgba(255,255,255,0.08)}
+.g-badge{position:absolute;top:10px;right:10px;padding:3px 10px;border-radius:var(--radius-pill);font-family:var(--font-mono);font-size:11px;letter-spacing:0.06em;text-transform:uppercase}
+.g-badge.nobel{background:rgba(212,168,83,0.15);color:var(--accent-gold)}
+.g-badge.turing{background:rgba(45,74,138,0.2);color:#6b8fd4}
+.g-info{padding:18px}
+.g-name{font-family:var(--font-serif);font-size:21px;color:var(--text-on-dark);font-weight:400}
+.g-title{font-family:var(--font-mono);font-size:13px;color:rgba(255,255,255,0.35);margin-top:4px;letter-spacing:0.04em;line-height:1.4}
+.g-share{font-family:var(--font-mono);font-size:12px;color:rgba(255,255,255,0.2);margin-top:8px}
+.g-note{font-family:var(--font-serif);font-style:italic;font-size:18px;color:rgba(255,255,255,0.2);margin-top:24px;text-align:center;max-width:700px;margin-left:auto;margin-right:auto;line-height:1.5}
+
+/* ===== SLIDE 9: AUDIENCE ===== */
+.s-aud{background:var(--bg-primary)}
+.aud-grid{display:grid;grid-template-columns:1fr 1fr;gap:32px;margin-top:28px;align-items:start}
+.aud-profile h3{font-family:var(--font-serif);font-size:28px;color:var(--text-primary);margin-bottom:18px;font-weight:400}
+.aud-traits{display:flex;flex-direction:column;gap:10px}
+.aud-trait{display:flex;align-items:center;gap:12px;padding:12px 16px;background:rgba(51,51,52,0.03);border-radius:14px}
+.aud-trait-icon{width:36px;height:36px;border-radius:10px;background:rgba(26,36,86,0.06);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:17px}
+.aud-trait-text{font-size:17px;color:var(--text-secondary);line-height:1.4}
+.aud-why{background:var(--accent-navy);border-radius:var(--radius-card);padding:32px;color:var(--text-on-dark)}
+.aud-why h3{font-family:var(--font-serif);font-size:28px;font-weight:400;margin-bottom:16px;color:var(--text-on-dark)}
+.aud-why-list{display:flex;flex-direction:column;gap:12px}
+.aud-why-item{font-size:17px;color:rgba(240,237,231,0.7);line-height:1.5;padding-left:18px;position:relative}
+.aud-why-item .aw-dot{position:absolute;left:0;top:9px;width:6px;height:6px;border-radius:50%;background:var(--accent-gold);display:block}
+
+/* ===== SLIDE 10: WHY PARTNER ===== */
+.s-why{background:var(--bg-warm)}
+.why-pillars{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:28px}
+.why-card{background:#fff;border:1px solid var(--border-light);border-radius:var(--radius-card);padding:28px;transition:box-shadow 0.3s}
+.why-card:hover{box-shadow:0 8px 30px rgba(0,0,0,0.06)}
+.why-num{font-family:var(--font-mono);font-size:14px;color:var(--accent-gold);letter-spacing:0.1em}
+.why-t{font-family:var(--font-serif);font-size:28px;color:var(--text-primary);margin-top:8px;margin-bottom:10px;font-weight:400}
+.why-d{font-size:17px;color:var(--text-muted);line-height:1.55}
+
+/* ===== SLIDE 11: DEALS ===== */
+.s-deals{background:var(--bg-dark)}
+.deals-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:28px}
+.deal-card{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:var(--radius-card);padding:24px;transition:border-color 0.3s}
+.deal-card:hover{border-color:rgba(255,255,255,0.15)}
+.deal-icon{width:40px;height:40px;border-radius:12px;background:rgba(212,168,83,0.1);display:flex;align-items:center;justify-content:center;margin-bottom:14px;font-size:18px}
+.deal-t{font-family:var(--font-serif);font-size:22px;color:var(--text-on-dark);font-weight:400;margin-bottom:8px}
+.deal-d{font-size:16px;color:rgba(255,255,255,0.35);line-height:1.5}
+
+/* ===== SLIDE 12: THE ASK ===== */
+.s-ask{background:var(--bg-primary)}
+.ask-grid{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:start;margin-top:28px}
+.ask-desc{font-size:18px;color:var(--text-secondary);line-height:1.65;margin-bottom:24px}
+.ask-needs{display:flex;flex-direction:column;gap:10px}
+.ask-need{display:flex;align-items:center;gap:12px;font-size:17px;color:var(--text-secondary)}
+.ask-check{width:22px;height:22px;border-radius:7px;background:rgba(26,36,86,0.08);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.ask-check svg{width:13px;height:13px;stroke:var(--accent-navy);fill:none;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round}
+.ask-contact{background:#fff;border:1px solid var(--border-light);border-radius:var(--radius-card);padding:32px}
+.ask-contact h3{font-family:var(--font-serif);font-size:28px;color:var(--text-primary);font-weight:400;margin-bottom:18px}
+.ask-contact-sub{font-family:var(--font-mono);font-size:16px;color:var(--text-muted);margin-bottom:16px;letter-spacing:0.04em}
+.ask-links{display:flex;flex-direction:column;gap:8px;margin-bottom:20px}
+.ask-link{font-size:15px;color:var(--accent-blue);text-decoration:none;display:flex;align-items:center;gap:8px;transition:color 0.2s}
+.ask-link:hover{color:var(--accent-navy)}
+.ask-link svg{width:16px;height:16px;flex-shrink:0}
+.ask-cta{display:inline-flex;align-items:center;gap:8px;padding:14px 28px;background:var(--accent-navy);color:#fff;border:none;border-radius:var(--radius-pill);font-family:var(--font-sans);font-size:16px;font-weight:500;cursor:pointer;transition:background 0.3s,transform 0.2s;letter-spacing:0.02em}
+.ask-cta:hover{background:var(--accent-blue);transform:translateY(-1px)}
+.ask-cta svg{width:16px;height:16px;fill:none;stroke:#fff;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+
+/* ===== RESPONSIVE ===== */
+@media(max-width:1024px){
+  .yt-duo,.platform-grid-social{grid-template-columns:1fr}
+  .guests-grid{grid-template-columns:repeat(2,1fr)}
+  .deals-grid{grid-template-columns:repeat(2,1fr)}
+  .why-pillars{grid-template-columns:1fr}
+  .viral-layout{grid-template-columns:1fr}
+}
+@media(max-width:900px){
+  .slide{padding:36px 24px!important}
+  .show-grid,.host-duo,.aud-grid,.ask-grid{grid-template-columns:1fr}
+  .show-pills{grid-template-columns:1fr 1fr}
+  .host-card{flex-direction:column;align-items:center;text-align:center}
+  .host-img{width:90px;height:120px}
+  .nav-dots{display:none}
+}
+@media(max-width:600px){
+  .slide{padding:28px 16px!important}
+  .platform-grid-social,.guests-grid,.deals-grid{grid-template-columns:1fr}
+  .show-pills,.yt-duo{grid-template-columns:1fr}
+  .hero-stats{flex-direction:column;gap:14px;align-items:center}
+  .total-pills{flex-wrap:wrap;justify-content:center}
+  .vc-name{width:70px;font-size:11px}
+  .yt-stats-row{flex-wrap:wrap;gap:12px}
+}
+</style>
+</head>
+<body>
+
+<div class="slides-wrapper">
+
+<!-- ============ SLIDE 1: HERO ============ -->
+<section class="slide s-hero active" data-theme="dark">
+  <div class="hero-glow"></div>
+  <div class="slide-inner">
+    <div class="hero-brand anim d1">THIS IS WORLD</div>
+    <h1 class="hero-title anim d2">Where <em>Science</em> Meets Story</h1>
+    <p class="hero-sub anim d3">Nobel laureates on camera. Two continents. One host who goes everywhere the biggest minds are.</p>
+    <div class="hero-stats anim d4">
+      <div class="hero-stat">
+        <span class="hero-stat-val"><span class="counter" data-target="16.6" data-suffix="M+" data-decimals="1">0</span></span>
+        <span class="hero-stat-lbl">Monthly Views</span>
+      </div>
+      <div class="hero-stat">
+        <span class="hero-stat-val">Nobel + Turing</span>
+        <span class="hero-stat-lbl">Laureate Guests</span>
+      </div>
+      <div class="hero-stat">
+        <span class="hero-stat-val">Warsaw + Palo Alto</span>
+        <span class="hero-stat-lbl">Two Continents</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SLIDE 2: THE SHOW ============ -->
+<section class="slide s-show" data-theme="light">
+  <div class="slide-inner">
+    <span class="stag stag-d anim d1">THE SHOW</span>
+    <h2 class="sh anim d2" style="color:var(--text-primary);margin-top:10px">Science storytelling<br>at scale</h2>
+    <div class="show-grid anim d3">
+      <div>
+        <p class="show-desc">This Is World is a media brand built around long-form interviews, documentary-style films, and viral short content — all anchored by Dr. Maciej Kawecki, one of the most recognizable science communicators in Europe.</p>
+        <p class="show-desc" style="margin-top:14px">We produce across two languages, two continents, and five platforms — reaching audiences that traditional media can no longer touch.</p>
+        <div class="show-quote" style="margin-top:24px">
+          <p>"Think Lex Fridman meets Veritasium — but from Europe, and growing faster."</p>
+        </div>
+      </div>
+      <div class="show-pills">
+        <div class="show-pill">
+          <div class="show-pill-t">Long-Form Interviews</div>
+          <div class="show-pill-d">60-120 minute deep dives with world-class minds</div>
+        </div>
+        <div class="show-pill">
+          <div class="show-pill-t">Branded Docs</div>
+          <div class="show-pill-d">Cinematic mini-documentaries built around partner themes</div>
+        </div>
+        <div class="show-pill">
+          <div class="show-pill-t">Viral Shorts</div>
+          <div class="show-pill-d">Clip-first strategy for TikTok, Reels, and YouTube Shorts</div>
+        </div>
+        <div class="show-pill">
+          <div class="show-pill-t">Bilingual Reach</div>
+          <div class="show-pill-d">Native content in Polish and English markets</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SLIDE 3: HOST & TEAM ============ -->
+<section class="slide s-host" data-theme="light">
+  <div class="slide-inner">
+    <span class="stag stag-d anim d1">HOST &amp; TEAM</span>
+    <h2 class="sh anim d2" style="color:var(--text-primary);margin-top:10px">The people behind<br>the camera</h2>
+    <div class="host-duo">
+      <div class="host-card anim d3">
+        <div class="hc-bar gold"></div>
+        <div class="hc-inner">
+          <img class="host-img" src="Maciej%20Kawecki.png" alt="Dr. Maciej Kawecki">
+          <div class="host-info">
+            <h3>Dr. Maciej Kawecki</h3>
+            <span class="host-role">Founder &amp; Host</span>
+            <ul class="cred-list">
+              <li class="cred"><span class="cred-dot"></span>PhD in Law &amp; AI Ethics</li>
+              <li class="cred"><span class="cred-dot"></span>Former Deputy Minister of Digitization, Poland</li>
+              <li class="cred"><span class="cred-dot"></span>Lecturer at top European universities</li>
+              <li class="cred"><span class="cred-dot"></span>World Economic Forum contributor</li>
+              <li class="cred"><span class="cred-dot"></span>Interviewed +10 Nobel &amp; Turing laureates</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="host-card anim d4">
+        <div class="hc-bar"></div>
+        <div class="hc-inner">
+          <img class="host-img" src="michalwyrebkowski_kolor.jpeg" alt="Michal Wyrebkowski">
+          <div class="host-info">
+            <h3>Michal Wyrebkowski</h3>
+            <span class="host-role">Co-Founder &amp; CEO</span>
+            <ul class="cred-list">
+              <li class="cred"><span class="cred-dot"></span>Decade of experience in media production</li>
+              <li class="cred"><span class="cred-dot"></span>Built and scaled YouTube channels from zero</li>
+              <li class="cred"><span class="cred-dot"></span>Expert in audience growth &amp; content strategy</li>
+              <li class="cred"><span class="cred-dot"></span>Operations &amp; partnerships lead</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SLIDE 4: REACH VIDEO ============ -->
+<section class="slide s-reach-vid" data-theme="dark">
+  <div class="reach-vid-glow"></div>
+  <div class="slide-inner reach-vid-inner">
+    <span class="stag stag-l anim d1">THE REACH &mdash; VIDEO</span>
+    <div class="anim d2" style="margin-top:12px">
+      <span class="reach-big"><span class="counter" data-target="2.09" data-suffix="M" data-decimals="2">0</span></span>
+      <span class="reach-big-suffix">views / month</span>
+    </div>
+    <div class="reach-subline anim d3">379,400 watch hours &middot; That's 43 years of content watched every month</div>
+
+    <!-- VISUAL BAR COMPARISON -->
+    <div class="views-compare anim d4">
+      <div class="views-compare-title">Monthly Views by Channel</div>
+      <div class="vc-row">
+        <span class="vc-name">This Is IT</span>
+        <div class="vc-track">
+          <div class="vc-fill it" style="width:53%"><span class="vc-val">1.1M views</span></div>
+        </div>
+      </div>
+      <div class="vc-row">
+        <span class="vc-name">This Is World</span>
+        <div class="vc-track">
+          <div class="vc-fill world" style="width:47%"><span class="vc-val">990K views</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TWO CHANNEL CARDS -->
+    <div class="yt-duo">
+      <!-- LEFT: This Is IT -->
+      <div class="yt-card anim d5">
+        <div class="yt-bar"></div>
+        <div class="yt-card-inner">
+          <div class="yt-label">
+            <svg viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 00-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 00.502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 002.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 002.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+            <span>YouTube</span>
+          </div>
+          <div class="yt-card-title">This Is IT</div>
+          <div class="yt-card-sub">Polish-language &middot; 315,708 subscribers</div>
+          <div class="yt-stats-row">
+            <div class="yt-stat-block">
+              <div class="yt-stat-val"><span class="counter" data-target="1.1" data-suffix="M" data-decimals="1">0</span></div>
+              <div class="yt-stat-lbl">Views / mo</div>
+            </div>
+            <div class="yt-stat-block">
+              <div class="yt-stat-val"><span class="counter" data-target="199" data-suffix="K">0</span></div>
+              <div class="yt-stat-lbl">Watch Hrs</div>
+            </div>
+            <div class="yt-stat-block">
+              <div class="yt-stat-val">+<span class="counter" data-target="4100" data-separator="true">0</span></div>
+              <div class="yt-stat-lbl">New Subs</div>
+            </div>
+          </div>
+          <!-- GEO -->
+          <div class="geo-section">
+            <div class="geo-title">Audience Geography</div>
+            <div class="geo-bar-wrap">
+              <span class="geo-flag">&#127477;&#127473;</span>
+              <div class="geo-bar-track">
+                <div class="geo-bar-fill pl" style="width:80%"><span class="geo-pct">80%</span></div>
+              </div>
+              <span class="geo-country">Poland</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- RIGHT: This Is World -->
+      <div class="yt-card anim d6">
+        <div class="yt-bar"></div>
+        <div class="yt-card-inner">
+          <div class="yt-label">
+            <svg viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 00-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 00.502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 002.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 002.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+            <span>YouTube</span>
+          </div>
+          <div class="yt-card-title">This Is World</div>
+          <div class="yt-card-sub">English-language &middot; fastest growing</div>
+          <div class="yt-stats-row">
+            <div class="yt-stat-block">
+              <div class="yt-stat-val"><span class="counter" data-target="990" data-suffix="K">0</span></div>
+              <div class="yt-stat-lbl">Views / mo</div>
+            </div>
+            <div class="yt-stat-block">
+              <div class="yt-stat-val"><span class="counter" data-target="180" data-suffix="K">0</span></div>
+              <div class="yt-stat-lbl">Watch Hrs</div>
+            </div>
+            <div class="yt-stat-block">
+              <div class="yt-stat-val gold"><span class="counter" data-target="40.8" data-suffix="K" data-decimals="1">0</span></div>
+              <div class="yt-stat-lbl">Subscribers</div>
+            </div>
+          </div>
+          <!-- GEO -->
+          <div class="geo-section">
+            <div class="geo-title">Audience Geography</div>
+            <div class="geo-bar-wrap">
+              <span class="geo-flag">&#127482;&#127480;</span>
+              <div class="geo-bar-track">
+                <div class="geo-bar-fill us" style="width:90%"><span class="geo-pct">90%</span></div>
+              </div>
+              <span class="geo-country">United States</span>
+            </div>
+          </div>
+          <div class="yt-gold-badge"><span>+8K new subs in 28 days</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SLIDE 5: REACH SOCIAL ============ -->
+<section class="slide s-reach-soc" data-theme="light">
+  <div class="slide-inner reach-soc-inner">
+    <span class="stag stag-d anim d1">THE REACH &mdash; SOCIAL</span>
+    <div class="anim d2" style="margin-top:12px">
+      <span class="reach-big-dark"><span class="counter" data-target="14.9" data-suffix="M+" data-decimals="1">0</span></span>
+    </div>
+    <div class="reach-soc-sub anim d3">Social Impressions Per Month</div>
+    <div class="platform-grid-social">
+      <!-- FACEBOOK -->
+      <div class="plat-card anim d4">
+        <div class="plat-bar fb"></div>
+        <div class="plat-inner">
+          <div class="plat-label">
+            <svg viewBox="0 0 24 24" fill="#1877f2"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+            <span>Facebook</span>
+          </div>
+          <div class="plat-name">Maciej Kawecki</div>
+          <div class="plat-stat">
+            <div class="plat-stat-val"><span class="counter" data-target="13" data-suffix="M" data-decimals="0">0</span></div>
+            <div class="plat-stat-lbl">Views</div>
+          </div>
+          <div class="plat-stat">
+            <div class="plat-stat-val normal"><span class="counter" data-target="810262" data-separator="true">0</span></div>
+            <div class="plat-stat-lbl">Reach</div>
+          </div>
+          <div class="plat-stat">
+            <div class="plat-stat-val normal">+<span class="counter" data-target="8641" data-separator="true">0</span></div>
+            <div class="plat-stat-lbl">Net Followers</div>
+          </div>
+          <div class="plat-note">Organic reach, zero paid promotion</div>
+        </div>
+      </div>
+      <!-- INSTAGRAM -->
+      <div class="plat-card anim d5">
+        <div class="plat-bar ig"></div>
+        <div class="plat-inner">
+          <div class="plat-label">
+            <svg viewBox="0 0 24 24" fill="#e1306c"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+            <span>Instagram</span>
+          </div>
+          <div class="plat-name">@maciejkawecki</div>
+          <div class="plat-stat">
+            <div class="plat-stat-val normal"><span class="counter" data-target="1198035" data-separator="true">0</span></div>
+            <div class="plat-stat-lbl">Content Views</div>
+          </div>
+          <div class="plat-stat">
+            <div class="plat-stat-val normal"><span class="counter" data-target="625800" data-separator="true">0</span></div>
+            <div class="plat-stat-lbl">Impressions</div>
+          </div>
+          <div class="plat-stat">
+            <div class="plat-stat-val normal"><span class="counter" data-target="22200" data-separator="true">0</span></div>
+            <div class="plat-stat-lbl">Interactions</div>
+          </div>
+          <div class="plat-stat">
+            <div class="plat-stat-val normal">+<span class="counter" data-target="2300" data-separator="true">0</span></div>
+            <div class="plat-stat-lbl">Followers</div>
+          </div>
+        </div>
+      </div>
+      <!-- TIKTOK -->
+      <div class="plat-card anim d6">
+        <div class="plat-bar tt"></div>
+        <div class="plat-inner">
+          <div class="plat-label">
+            <svg viewBox="0 0 24 24" fill="#000"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/></svg>
+            <span>TikTok</span>
+          </div>
+          <div class="plat-name">@thisisworld</div>
+          <div class="plat-stat">
+            <div class="plat-stat-val normal"><span class="counter" data-target="735" data-suffix="K">0</span><span class="growth-badge">+23.7%</span></div>
+            <div class="plat-stat-lbl">Views</div>
+          </div>
+          <div class="plat-stat">
+            <div class="plat-stat-val normal"><span class="counter" data-target="20" data-suffix="K">0</span><span class="growth-badge">+38.9%</span></div>
+            <div class="plat-stat-lbl">Likes</div>
+          </div>
+          <div class="plat-stat">
+            <div class="plat-stat-val normal"><span class="counter" data-target="3107" data-separator="true">0</span><span class="growth-badge">+12.5%</span></div>
+            <div class="plat-stat-lbl">Shares</div>
+          </div>
+          <div class="plat-stat">
+            <div class="plat-stat-val normal"><span class="counter" data-target="3644" data-separator="true">0</span><span class="growth-badge">+45.1%</span></div>
+            <div class="plat-stat-lbl">Profile Views</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SLIDE 6: REACH TOTAL ============ -->
+<section class="slide s-reach-total" data-theme="dark">
+  <div class="reach-total-glow"></div>
+  <div class="slide-inner reach-total-inner">
+    <div class="total-number anim d1"><span class="counter" data-target="16.6" data-suffix="M+" data-decimals="1">0</span></div>
+    <div class="total-label anim d2">Combined Views Per Month</div>
+    <div class="total-pills anim d3">
+      <span class="total-pill">YouTube 2.1M</span>
+      <span class="total-pill">Facebook 13M</span>
+      <span class="total-pill">Instagram 1.2M</span>
+      <span class="total-pill">TikTok 735K</span>
+      <span class="total-pill gold">Growing &#8593;</span>
+    </div>
+    <div class="total-stats anim d4">379,400 hrs watched &middot; +12,100 new subscribers &middot; 5 platforms &middot; 2 languages</div>
+    <p class="total-quote anim d5">An audience of decision-makers. Engineers, academics, tech executives — the people who don't watch traditional media.</p>
+  </div>
+</section>
+
+<!-- ============ SLIDE 7: VIRAL MOMENT ============ -->
+<section class="slide s-viral" data-theme="dark">
+  <div class="slide-inner">
+    <span class="stag stag-l anim d1">VIRAL MOMENT</span>
+    <h2 class="sh anim d2" style="color:var(--text-on-dark);margin-top:10px">When one clip<br>breaks through</h2>
+    <div class="viral-layout">
+      <div class="viral-embed anim d3" style="padding:0;background:transparent;border:none">
+        <iframe width="100%" height="100%" src="https://www.youtube.com/embed/Fwkjn2OL36U?rel=0" title="This Is World — Viral Moment" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen style="position:absolute;inset:0;width:100%;height:100%;border-radius:var(--radius-card)"></iframe>
+      </div>
+      <div class="viral-right">
+        <div class="viral-stat-row anim d4">
+          <span class="vsr-v"><span class="counter" data-target="345" data-suffix="K">0</span></span>
+          <span class="vsr-d">Views</span>
+        </div>
+        <div class="viral-stat-row anim d5">
+          <span class="vsr-v"><span class="counter" data-target="13" data-suffix="K">0</span></span>
+          <span class="vsr-d">Likes</span>
+        </div>
+        <div class="viral-stat-row anim d6">
+          <span class="vsr-v"><span class="counter" data-target="3056" data-separator="true">0</span></span>
+          <span class="vsr-d">Comments</span>
+        </div>
+        <div class="viral-mult anim d7">
+          <div class="viral-mult-t">8.5x engagement multiplier</div>
+          <div class="viral-mult-s">vs. channel average per video</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SLIDE 8: GUESTS ============ -->
+<section class="slide s-guests" data-theme="dark">
+  <div class="slide-inner">
+    <span class="stag stag-l anim d1">GUESTS</span>
+    <h2 class="sh anim d2" style="color:var(--text-on-dark);margin-top:10px">The caliber of<br>conversation</h2>
+    <div class="guests-grid">
+      <div class="g-card feat anim d3">
+        <div class="g-img-wrap">
+          <img src="yann_lecun.jpg" alt="Yann LeCun" style="width:100%;height:100%;object-fit:cover">
+          <span class="g-badge turing">Turing Award</span>
+        </div>
+        <div class="g-info">
+          <div class="g-name">Yann LeCun</div>
+          <div class="g-title">Chief AI Scientist, Meta. Pioneer of deep learning.</div>
+          <div class="g-share">Shared the episode to 500K+ followers</div>
+        </div>
+      </div>
+      <div class="g-card feat anim d4">
+        <div class="g-img-wrap">
+          <img src="geoffrey_hinton.jpg" alt="Geoffrey Hinton" style="width:100%;height:100%;object-fit:cover">
+          <span class="g-badge nobel">Nobel Prize</span>
+        </div>
+        <div class="g-info">
+          <div class="g-name">Geoffrey Hinton</div>
+          <div class="g-title">Godfather of AI. Nobel laureate in Physics 2024.</div>
+          <div class="g-share">First long-form interview in Polish media</div>
+        </div>
+      </div>
+      <div class="g-card anim d5">
+        <div class="g-img-wrap">
+          <img src="sarah_paine.jpg" alt="Sarah Paine" style="width:100%;height:100%;object-fit:cover">
+        </div>
+        <div class="g-info">
+          <div class="g-name">Sarah Paine</div>
+          <div class="g-title">Naval War College strategist &amp; geopolitics author</div>
+        </div>
+      </div>
+      <div class="g-card anim d6">
+        <div class="g-img-wrap">
+          <img src="esther_wojcicki.jpg" alt="Esther Wojcicki" style="width:100%;height:100%;object-fit:cover">
+        </div>
+        <div class="g-info">
+          <div class="g-name">Esther Wojcicki</div>
+          <div class="g-title">Educator, journalist &amp; mother of a CEO and two CEOs</div>
+        </div>
+      </div>
+    </div>
+    <p class="g-note anim d7">Each guest brings their own audience — and their own credibility. Our guest list is our moat.</p>
+  </div>
+</section>
+
+<!-- ============ SLIDE 9: AUDIENCE ============ -->
+<section class="slide s-aud" data-theme="light">
+  <div class="slide-inner">
+    <span class="stag stag-d anim d1">AUDIENCE</span>
+    <h2 class="sh anim d2" style="color:var(--text-primary);margin-top:10px">Who's watching</h2>
+    <div class="aud-grid">
+      <div class="aud-profile anim d3">
+        <h3>Audience Profile</h3>
+        <div class="aud-traits">
+          <div class="aud-trait">
+            <div class="aud-trait-icon">&#127891;</div>
+            <span class="aud-trait-text">70% hold a university degree or higher</span>
+          </div>
+          <div class="aud-trait">
+            <div class="aud-trait-icon">&#128188;</div>
+            <span class="aud-trait-text">Core demo: 25-44, mid-to-senior career professionals</span>
+          </div>
+          <div class="aud-trait">
+            <div class="aud-trait-icon">&#127758;</div>
+            <span class="aud-trait-text">Split between Poland, EU, and English-speaking markets</span>
+          </div>
+          <div class="aud-trait">
+            <div class="aud-trait-icon">&#128640;</div>
+            <span class="aud-trait-text">Tech, engineering, academia, and startup founders</span>
+          </div>
+          <div class="aud-trait">
+            <div class="aud-trait-icon">&#9201;</div>
+            <span class="aud-trait-text">Avg. watch time: 22+ minutes per long-form session</span>
+          </div>
+        </div>
+      </div>
+      <div class="aud-why anim d4">
+        <h3>Why This Matters</h3>
+        <div class="aud-why-list">
+          <div class="aud-why-item"><span class="aw-dot"></span>This audience doesn't respond to banner ads — they respond to intellectual credibility and depth.</div>
+          <div class="aud-why-item"><span class="aw-dot"></span>They are high-income, high-influence decision-makers: the CTO who picks the next vendor, the professor who sets curriculum.</div>
+          <div class="aud-why-item"><span class="aw-dot"></span>Reaching them through This Is World means speaking their language, on their terms, in their medium.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SLIDE 10: WHY PARTNER ============ -->
+<section class="slide s-why" data-theme="light">
+  <div class="slide-inner">
+    <span class="stag stag-d anim d1">WHY PARTNER</span>
+    <h2 class="sh anim d2" style="color:var(--text-primary);margin-top:10px">Three reasons this<br>is different</h2>
+    <div class="why-pillars">
+      <div class="why-card anim d3">
+        <div class="why-num">01</div>
+        <div class="why-t">Unmatched Access</div>
+        <div class="why-d">We get guests that no other channel in Central Europe — and very few globally — can book. Nobel laureates, Turing winners, and heads of AI labs sit down with us for hours.</div>
+      </div>
+      <div class="why-card anim d4">
+        <div class="why-num">02</div>
+        <div class="why-t">Cross-Atlantic Reach</div>
+        <div class="why-d">Native content in two languages. Studios in Warsaw and Palo Alto. A growing English channel that already outpaces most newcomers in the science media space.</div>
+      </div>
+      <div class="why-card anim d5">
+        <div class="why-num">03</div>
+        <div class="why-t">Credibility-First</div>
+        <div class="why-d">Our audience trusts us because we don't sell out. Partner integrations are woven into content naturally — never forced, always aligned with the intellectual tone.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SLIDE 11: DEALS ============ -->
+<section class="slide s-deals" data-theme="dark">
+  <div class="slide-inner">
+    <span class="stag stag-l anim d1">PARTNERSHIP FORMATS</span>
+    <h2 class="sh anim d2" style="color:var(--text-on-dark);margin-top:10px">Ways to work<br>together</h2>
+    <div class="deals-grid" style="grid-template-columns:1fr 1fr;max-width:900px;margin:28px auto 0;gap:24px">
+      <div class="deal-card anim d3" style="padding:32px">
+        <div class="deal-icon" style="width:52px;height:52px;border-radius:14px;font-size:24px;margin-bottom:18px">&#127908;</div>
+        <div class="deal-t" style="font-size:26px;margin-bottom:12px">Sponsored Segments</div>
+        <div class="deal-d" style="font-size:17px;line-height:1.6">60-90 second native reads inside long-form episodes, delivered by Maciej with personal credibility. Authentically woven into the conversation — never forced, always aligned with the intellectual tone of the show.</div>
+      </div>
+      <div class="deal-card anim d4" style="padding:32px">
+        <div class="deal-icon" style="width:52px;height:52px;border-radius:14px;font-size:24px;margin-bottom:18px">&#127909;</div>
+        <div class="deal-t" style="font-size:26px;margin-bottom:12px">Branded Documentaries</div>
+        <div class="deal-d" style="font-size:17px;line-height:1.6">Full cinematic mini-docs built around your brand story, distributed across all platforms. From concept to final cut — we handle production, storytelling, and multi-platform distribution.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SLIDE 12: THE ASK ============ -->
+<section class="slide s-ask" data-theme="light">
+  <div class="slide-inner">
+    <span class="stag stag-d anim d1">THE ASK</span>
+    <h2 class="sh anim d2" style="color:var(--text-primary);margin-top:10px">Let's build<br>something together</h2>
+    <div class="ask-grid">
+      <div class="anim d3">
+        <p class="ask-desc">We're not looking for advertisers. We're looking for partners who believe that the best way to reach smart people is to make smart content — and who want to be part of the story.</p>
+        <div class="ask-needs">
+          <div class="ask-need">
+            <div class="ask-check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+            <span>Brand-safe, intellectually credible placement</span>
+          </div>
+          <div class="ask-need">
+            <div class="ask-check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+            <span>Access to 16.6M+ monthly views across platforms</span>
+          </div>
+          <div class="ask-need">
+            <div class="ask-check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+            <span>Creative collaboration with a world-class production team</span>
+          </div>
+        </div>
+      </div>
+      <div class="ask-contact anim d4">
+        <h3>Get in Touch</h3>
+        <div class="ask-contact-sub">Partnership inquiries</div>
+        <div class="ask-links">
+          <a class="ask-link" href="mailto:thisisworld2026@gmail.com">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+            thisisworld2026@gmail.com
+          </a>
+          <a class="ask-link" href="https://thisisworld.org" target="_blank">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+            thisisworld.org
+          </a>
+          <a class="ask-link" href="https://youtube.com/@ThisIsWorldOfficial" target="_blank">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 17a24.12 24.12 0 0 1 0-10 2 2 0 0 1 1.4-1.4 49.56 49.56 0 0 1 16.2 0A2 2 0 0 1 21.5 7a24.12 24.12 0 0 1 0 10 2 2 0 0 1-1.4 1.4 49.55 49.55 0 0 1-16.2 0A2 2 0 0 1 2.5 17"/><path d="m10 15 5-3-5-3z"/></svg>
+            @ThisIsWorldOfficial
+          </a>
+        </div>
+        <button class="ask-cta" onclick="window.location.href='mailto:thisisworld2026@gmail.com'">
+          Start a Conversation
+          <svg viewBox="0 0 24 24"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+
+</div><!-- .slides-wrapper -->
+
+<!-- NAVIGATION -->
+<div class="slide-counter dark">1 / 12</div>
+<div class="click-hint dark">Click to advance &rarr;</div>
+<div class="nav-dots dark"></div>
+
+<script>
+(function(){
+  var slides = document.querySelectorAll('.slide');
+  var total = slides.length;
+  var current = 0;
+  var locked = false;
+
+  var counter = document.querySelector('.slide-counter');
+  var hint = document.querySelector('.click-hint');
+  var dotsWrap = document.querySelector('.nav-dots');
+
+  // Build dots
+  for(var i=0;i<total;i++){
+    var dot = document.createElement('button');
+    dot.className = 'nav-dot' + (i===0?' active':'');
+    dot.setAttribute('data-idx', i);
+    dot.addEventListener('click', function(e){
+      e.stopPropagation();
+      var idx = parseInt(this.getAttribute('data-idx'));
+      if(idx !== current) goTo(idx);
+    });
+    dotsWrap.appendChild(dot);
+  }
+  var dots = dotsWrap.querySelectorAll('.nav-dot');
+
+  function updateUI(){
+    counter.textContent = (current+1) + ' / ' + total;
+    var theme = slides[current].getAttribute('data-theme');
+    var isDark = theme === 'dark';
+    counter.className = 'slide-counter ' + (isDark?'light':'dark');
+    hint.className = 'click-hint ' + (isDark?'light':'dark');
+    dotsWrap.className = 'nav-dots ' + (isDark?'light':'dark');
+    for(var i=0;i<dots.length;i++){
+      dots[i].classList.toggle('active', i===current);
+    }
+  }
+
+  function resetCounters(slide){
+    var counters = slide.querySelectorAll('.counter');
+    for(var i=0;i<counters.length;i++){
+      counters[i].textContent = '0';
+      counters[i].removeAttribute('data-animated');
+    }
+  }
+
+  function animateCounters(slide){
+    var counters = slide.querySelectorAll('.counter');
+    counters.forEach(function(el){
+      if(el.getAttribute('data-animated')) return;
+      el.setAttribute('data-animated','1');
+      var target = parseFloat(el.getAttribute('data-target'));
+      var suffix = el.getAttribute('data-suffix') || '';
+      var decimals = parseInt(el.getAttribute('data-decimals')) || 0;
+      var useSep = el.getAttribute('data-separator') === 'true';
+      var duration = 1800;
+      var start = performance.now();
+
+      function ease(t){
+        return t<0.5?4*t*t*t:1-Math.pow(-2*t+2,3)/2;
+      }
+
+      function tick(now){
+        var elapsed = now - start;
+        var progress = Math.min(elapsed/duration,1);
+        var val = target * ease(progress);
+        if(decimals > 0){
+          el.textContent = val.toFixed(decimals) + suffix;
+        } else {
+          var rounded = Math.round(val);
+          if(useSep){
+            el.textContent = rounded.toLocaleString('en-US') + suffix;
+          } else {
+            el.textContent = rounded + suffix;
+          }
+        }
+        if(progress<1) requestAnimationFrame(tick);
+      }
+      requestAnimationFrame(tick);
+    });
+  }
+
+  function goTo(idx){
+    if(idx<0||idx>=total||idx===current||locked) return;
+    locked = true;
+    slides[current].classList.remove('active');
+    resetCounters(slides[current]);
+    slides[idx].scrollTop = 0;
+    current = idx;
+    slides[current].classList.add('active');
+    updateUI();
+    setTimeout(function(){ animateCounters(slides[current]); }, 300);
+    setTimeout(function(){ locked = false; }, 500);
+  }
+
+  // Keyboard
+  document.addEventListener('keydown', function(e){
+    if(e.key==='ArrowRight'||e.key===' '){
+      e.preventDefault();
+      goTo(current+1);
+    } else if(e.key==='ArrowLeft'){
+      e.preventDefault();
+      goTo(current-1);
+    }
+  });
+
+  // Click
+  document.addEventListener('click', function(e){
+    if(e.target.closest('.nav-dots')||e.target.closest('a')||e.target.closest('button')) return;
+    var x = e.clientX / window.innerWidth;
+    if(x < 0.15){
+      goTo(current-1);
+    } else {
+      goTo(current+1);
+    }
+  });
+
+  // Touch swipe
+  var touchStartX=0, touchStartY=0;
+  document.addEventListener('touchstart', function(e){
+    touchStartX = e.changedTouches[0].screenX;
+    touchStartY = e.changedTouches[0].screenY;
+  });
+  document.addEventListener('touchend', function(e){
+    var dx = e.changedTouches[0].screenX - touchStartX;
+    var dy = e.changedTouches[0].screenY - touchStartY;
+    if(Math.abs(dx)>50 && Math.abs(dx)>Math.abs(dy)){
+      if(dx<0) goTo(current+1);
+      else goTo(current-1);
+    }
+  });
+
+  // Init
+  updateUI();
+  setTimeout(function(){ animateCounters(slides[0]); }, 600);
+})();
+</script>
+</body>
+</html>
