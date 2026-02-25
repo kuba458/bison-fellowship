@@ -12,21 +12,86 @@ const clients = {
     url: 'http://localhost:5173/clients/pkp-intercity/',
     output: 'Bison_Fellowship_PKP_Intercity.pdf',
   },
+  loreal: {
+    url: 'http://localhost:5173/clients/loreal/',
+    output: 'Bison_Fellowship_LOreal.pdf',
+  },
+  santander: {
+    url: 'http://localhost:5173/clients/santander/',
+    output: 'Bison_Fellowship_Santander.pdf',
+  },
+  mbank: {
+    url: 'http://localhost:5173/clients/mbank/',
+    output: 'Bison_Fellowship_mBank.pdf',
+  },
+  'benefit-systems': {
+    url: 'http://localhost:5173/clients/benefit-systems/',
+    output: 'Bison_Fellowship_Benefit_Systems.pdf',
+  },
+  bgk: {
+    url: 'http://localhost:5173/clients/bgk/',
+    output: 'Bison_Fellowship_BGK.pdf',
+  },
+  'alior-bank': {
+    url: 'http://localhost:5173/clients/alior-bank/',
+    output: 'Bison_Fellowship_Alior_Bank.pdf',
+  },
+  'bank-pekao': {
+    url: 'http://localhost:5173/clients/bank-pekao/',
+    output: 'Bison_Fellowship_Bank_Pekao.pdf',
+  },
+  kghm: {
+    url: 'http://localhost:5173/clients/kghm/',
+    output: 'Bison_Fellowship_KGHM.pdf',
+  },
+  'pko-bp': {
+    url: 'http://localhost:5173/clients/pko-bp/',
+    output: 'Bison_Fellowship_PKO_Bank_Polski.pdf',
+  },
+  lot: {
+    url: 'http://localhost:5173/clients/lot/',
+    output: 'Bison_Fellowship_LOT.pdf',
+  },
+  pge: {
+    url: 'http://localhost:5173/clients/pge/',
+    output: 'Bison_Fellowship_PGE.pdf',
+  },
+  pzu: {
+    url: 'http://localhost:5173/clients/pzu/',
+    output: 'Bison_Fellowship_PZU.pdf',
+  },
+  'pkn-orlen': {
+    url: 'http://localhost:5173/clients/pkn-orlen/',
+    output: 'Bison_Fellowship_PKN_Orlen.pdf',
+  },
 };
 
 const clientName = process.argv[2];
 
-if (!clientName || !clients[clientName]) {
-  console.error(`Usage: node generate-pdf.js <${Object.keys(clients).join('|')}>`);
-  process.exit(1);
+// Support "all" to generate PDFs for every client sequentially
+if (clientName === 'all') {
+  (async () => {
+    for (const [name, config] of Object.entries(clients)) {
+      console.log(`\n=== Generating PDF for: ${name} ===`);
+      try {
+        await generatePdf(config);
+      } catch (err) {
+        console.error(`  ERROR generating ${name}:`, err.message);
+      }
+    }
+  })();
+} else {
+  if (!clientName || !clients[clientName]) {
+    console.error(`Usage: node generate-pdf.js <${Object.keys(clients).join('|')}|all>`);
+    process.exit(1);
+  }
+  generatePdf(clients[clientName]);
 }
-
-const config = clients[clientName];
 
 const WIDTH = 1440;
 const HEIGHT = 810;
 
-(async () => {
+async function generatePdf(config) {
   const browser = await puppeteer.launch({
     headless: 'new',
     args: ['--no-sandbox', '--disable-setuid-sandbox']
@@ -124,4 +189,4 @@ const HEIGHT = 810;
   console.log('PDF generated: ' + outputPath);
 
   await browser.close();
-})();
+}
