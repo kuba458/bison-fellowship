@@ -1,6 +1,8 @@
 node_modules/
 .DS_Store
-.claude/
+.claude/*
 !.claude/commands/
 *.pdf
+!clients/**/deck.pdf
 bison_video.mp4
+.env
