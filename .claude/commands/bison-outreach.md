@@ -79,19 +79,21 @@ curl -s -X POST http://localhost:3000/api/drafts \
 
 ### FORMAT HTML:
 - Używaj `<p>` dla akapitów
-- Zachowaj podpis z sygnaturką Macieja:
+- Zachowaj podpis z sygnaturką Macieja (Gmail-style):
 ```html
 <p style="margin-top:24px;">Pozdrawiam serdecznie,</p>
-<table cellpadding="0" cellspacing="0" border="0" style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; font-size: 13px; color: #1a1a1a; margin-top: 4px;">
+<p style="margin:0;">--</p>
+<table cellpadding="0" cellspacing="0" border="0" style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; font-size: 13px; color: #1a1a1a; margin-top: 8px;">
   <tr>
-    <td style="padding-right: 16px; border-right: 2px solid #1a1a1a;">
-      <strong style="font-size: 14px;">dr Maciej Kawecki</strong><br>
-      <span style="color: #666;">CEO &amp; Founder</span>
+    <td style="padding-right: 18px; vertical-align: middle;">
+      <strong style="font-size: 18px; font-weight: 900; letter-spacing: -0.5px; line-height: 1.1;">THIS IS<br>WORLD</strong>
     </td>
-    <td style="padding-left: 16px;">
-      <strong>This is IT</strong> | This is the World<br>
-      <a href="mailto:maciej.kawecki@thisisit.edu.pl" style="color: #666; text-decoration: none;">maciej.kawecki@thisisit.edu.pl</a><br>
-      <a href="https://thisisit.edu.pl" style="color: #666; text-decoration: none;">thisisit.edu.pl</a>
+    <td style="padding-left: 18px; border-left: 1px solid #ccc; vertical-align: top; line-height: 1.5;">
+      <strong style="font-size: 14px;">Dr Maciej Kawecki</strong><br>
+      <span style="color: #555;">CEO, Co-Founder | <a href="https://thisisit.edu.pl" style="color: #1a73e8; text-decoration: none;">This is World LLC</a></span><br>
+      <span style="color: #555;">M: <a href="tel:+48505656554" style="color: #1a73e8; text-decoration: none;">+48 505 656 554</a></span><br>
+      <span style="color: #555;">E: <a href="mailto:maciej.kawecki@thisisit.edu.pl" style="color: #1a73e8; text-decoration: none;">maciej.kawecki@thisisit.edu.pl</a></span><br>
+      <span style="color: #555;">2479 E Bayshore Rd, Palo Alto, CA 94303</span>
     </td>
   </tr>
 </table>
