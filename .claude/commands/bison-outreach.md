@@ -17,7 +17,7 @@ Potrzebujesz:
 ## KROK 2: SZABLON WIADOMOŚCI
 
 Bazuj na tym wzorcu stylistycznym Macieja. To jest jego autentyczny głos — zachowaj:
-- Bezpośredniość (per "ty", zwrot po imieniu)
+- Formalny, ale ciepły zwrot: "Szanowny Panie [Imię]," / "Szanowna Pani [Imię],"
 - Pasję i osobiste zaangażowanie ("mój najważniejszy projekt", "chcę dać")
 - Konkretne nazwiska i instytucje (OpenAI, Harvard, Cambridge, Oxford, Oracle)
 - Strukturę: wizja → co robimy → kto jest → co partner zyskuje → zaproszenie
@@ -26,7 +26,7 @@ Bazuj na tym wzorcu stylistycznym Macieja. To jest jego autentyczny głos — za
 ### WZORZEC (adaptuj, nie kopiuj 1:1 — każdy mail powinien brzmieć naturalnie):
 
 ```
-[Imię],
+Szanowny Panie [Imię] / Szanowna Pani [Imię],
 
 wykorzystując zgromadzoną latami sieć naszych kontaktów na całym świecie, chcemy dać polskiej uzdolnionej młodzieży największy istniejący do tej pory program mentoringowy. Damy go. To dziś mój najważniejszy projekt.
 
@@ -50,7 +50,7 @@ Maciej Kawecki
 
 ### ZASADY PERSONALIZACJI:
 
-1. **Imię** — zawsze w wołaczu (Zuzanno, Piotrze, Anno, Michale, Tomaszu, Ewo, Marku, etc.)
+1. **Zwrot grzecznościowy** — zawsze formalny: "Szanowny Panie [Imię w wołaczu]," dla mężczyzn, "Szanowna Pani [Imię w wołaczu]," dla kobiet (np. "Szanowny Panie Piotrze,", "Szanowna Pani Anno,")
 2. **Opcjonalnie** — jeśli znasz firmę kontaktu, dodaj 1-2 zdania dlaczego akurat ta firma pasuje do programu (np. "Wierzę, że [Firma] z jej doświadczeniem w [obszar] byłaby idealnym partnerem do zdefiniowania wyzwania dla naszych stypendystów.")
 3. **Temat maila**: `Bison Fellowship — zaproszenie do współpracy` lub wariant z nazwą firmy: `Bison Fellowship × [Firma] — zaproszenie`
 4. **Nie zmieniaj** tonu, struktury ani kluczowych faktów (mentorzy, daty, format programu)
@@ -127,5 +127,5 @@ Następne kroki:
 - Klaudiusz API: `http://localhost:3000/api/drafts` (POST)
 - Decks: `clients/[slug]/index.html` — sprawdź `ls clients/` przed ustawieniem deck_url
 - PDF załącznik: system Klaudiusz automatycznie dołącza `clients/[slug]/deck.pdf` przy wysyłce jeśli `deck_url` jest ustawiony
-- Wołacz polski — ważne! "Piotrze" nie "Piotr", "Anno" nie "Anna". Użyj standardowych form wołacza.
+- Zwrot grzecznościowy — zawsze formalny: "Szanowny Panie Piotrze," / "Szanowna Pani Anno,". Imię w wołaczu.
 - Jeśli CSV nie ma kolumny "firma", ustaw company na "Outreach" i nie personalizuj pod firmę
