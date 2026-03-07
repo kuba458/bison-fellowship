@@ -33,17 +33,16 @@ const REDIRECT_URI = 'http://localhost:3000/auth/google/callback';
 // Auth — Service Account (preferred) > ADC > OAuth2
 // ---------------------------------------------------------------------------
 
-let _cachedSaClient = null;
+const _saCache = new Map(); // email -> client
 let _cachedAdcAuth = null;
 
 /**
- * Service Account z Domain-Wide Delegation.
- * Wymaga: service-account.json + GMAIL_SENDER env var.
- * W Admin Console: Security > API Controls > Domain-Wide Delegation > dodaj Client ID SA.
+ * Service Account z Domain-Wide Delegation (cached per email).
  */
 async function getServiceAccountClient(impersonateEmail) {
   const sender = impersonateEmail || process.env.GMAIL_SENDER;
   if (!fs.existsSync(SA_PATH) || !sender) return null;
+  if (_saCache.has(sender)) return _saCache.get(sender);
 
   try {
     const auth = new google.auth.GoogleAuth({
@@ -53,6 +52,7 @@ async function getServiceAccountClient(impersonateEmail) {
     });
     const client = await auth.getClient();
     await client.getAccessToken();
+    _saCache.set(sender, client);
     return client;
   } catch (e) {
     console.error('[SA] Service account auth failed:', e.message);

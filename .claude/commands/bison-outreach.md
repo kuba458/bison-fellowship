@@ -38,7 +38,7 @@ Naszą misją jest wspieranie młodych polskich talentów, również z myślą o
 
 Najważniejszym elementem programu jest rozwiązywanie przez olimpijczyków z wykorzystaniem AI wyzwań technologicznych zaproponowanych przez partnerów. Spośród setek zgłoszeń w pierwszym etapie wytypujemy 15 najzdolniejszych. Następnie pięć grup po 3 osoby każda, pod nadzorem najlepszych mentorów, będą pracować nad rozwiązaniem problemu partnera. Każdy z partnerów będzie mógł wykorzystać rozwiązanie w swojej działalności biznesowej. Jestem przekonany, że ten zespół pod nadzorem takich mentorów ten problem po prostu rozwiąże.
 
-W Radzie Programowej znajdzie się Rafał Brzoska, Jolanta Kwaśniewska i wiele innych nazwisk. Pierwsze wydarzenie w ramach programu organizujemy 23 marca 2026 w Rotundzie PKO z udziałem powyższych osób. Po trzech miesiącach spośród 5 drużyn wyłonimy 2 najlepsze, których uczestników zabieram na summer school do Doliny Krzemowej, dzieląc się z nimi wszystkimi swoimi kontaktami tutaj.
+W Radzie Programowej znajdzie się Rafał Brzoska, Jolanta Kwaśniewska i wiele innych nazwisk. Pierwsze wydarzenie w ramach programu organizujemy 24 marca 2026 w Rotundzie PKO z udziałem powyższych osób. Po trzech miesiącach spośród 5 drużyn wyłonimy 2 najlepsze, których uczestników zabieram na summer school do Doliny Krzemowej, dzieląc się z nimi wszystkimi swoimi kontaktami tutaj.
 
 Mając już wszystko -zespół, stronę, mentorów, Radę Programową, pierwszych partnerów -każdy partner zostanie włączony w cały ogromny pakiet komunikacyjny, wykorzystując też moje osobiste, obserwowane przez kilka milionów Polaków kanały komunikacji.
 

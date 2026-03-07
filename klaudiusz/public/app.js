@@ -18,7 +18,7 @@
   let pdfViewer = null;
   let currentPdfUrl = null;
   let activeIndex = -1; // For keyboard navigation
-  let selectedSender = SENDERS[0];
+  let selectedSender = localStorage.getItem('klaudiusz_sender') || SENDERS[0];
 
   // ---------------------------------------------------------------------------
   // DOM
@@ -414,18 +414,32 @@
   async function send(id) {
     // Auto-save before sending
     if (editingId === id) await save(id);
-    if (!confirm(`Create draft in ${selectedSender}?`)) return;
+    // Remove from local list and auto-expand next pending
+    const idx = drafts.findIndex(d => d.id === id);
+    drafts = drafts.filter(d => d.id !== id);
+    const next = drafts[Math.min(idx, drafts.length - 1)];
+    if (next) {
+      expandedId = next.id;
+      editingId = next.id;
+      activeIndex = Math.min(idx, drafts.length - 1);
+    } else {
+      expandedId = null;
+      editingId = null;
+    }
+    render();
+    toast(`Creating draft in ${selectedSender}...`);
     try {
       await fetch(`/api/drafts/${id}/send`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ from_email: selectedSender }),
       });
-      expandedId = null;
-      editingId = null;
-      toast(`Draft created in ${selectedSender}`);
-      await Promise.all([loadDrafts(), loadStats()]);
-    } catch (e) { toast('Error creating draft', 'error'); }
+      toast(`Draft created`);
+      loadStats();
+    } catch (e) {
+      toast('Error creating draft', 'error');
+      loadDrafts();
+    }
   }
 
   async function reject(id) {
@@ -457,7 +471,7 @@
     location.reload();
   }
 
-  function setSender(val) { selectedSender = val; }
+  function setSender(val) { selectedSender = val; localStorage.setItem('klaudiusz_sender', val); }
 
   window.K = {
     toggle, edit, cancelEdit, save, send, reject, closeDeck, logout, setSender,
