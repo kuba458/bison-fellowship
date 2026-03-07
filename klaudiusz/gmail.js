@@ -1,11 +1,13 @@
 /**
  * gmail.js — Integracja z Gmail API
  *
- * Dwa tryby autoryzacji (probuje w kolejnosci):
- *   1. gcloud ADC — `gcloud auth application-default login --scopes=...gmail...`
- *   2. OAuth2 client_secret.json + tokens.json (fallback)
+ * Trzy tryby autoryzacji (probuje w kolejnosci):
+ *   1. Service Account z Domain-Wide Delegation (impersonacja dowolnego usera w domenie)
+ *   2. gcloud ADC — `gcloud auth application-default login --scopes=...gmail...`
+ *   3. OAuth2 client_secret.json + tokens.json (fallback, wymaga logowania w przegladarce)
  *
- * Dziala na kontach @thisisit.edu.pl (Maciej i Jarek).
+ * Env vars:
+ *   GMAIL_SENDER — email usera do impersonacji przez service account (np. maciej@bisongroup.pl)
  */
 
 const { google } = require('googleapis');
@@ -14,6 +16,7 @@ const path = require('path');
 
 const CREDENTIALS_PATH = path.join(__dirname, 'client_secret.json');
 const TOKENS_PATH = path.join(__dirname, 'tokens.json');
+const SA_PATH = path.join(__dirname, 'service-account.json');
 const ADC_PATH = path.join(
   process.env.HOME || process.env.USERPROFILE,
   '.config', 'gcloud', 'application_default_credentials.json'
@@ -27,10 +30,35 @@ const SCOPES = [
 const REDIRECT_URI = 'http://localhost:3000/auth/google/callback';
 
 // ---------------------------------------------------------------------------
-// Auth — ADC (preferred) or OAuth2 client
+// Auth — Service Account (preferred) > ADC > OAuth2
 // ---------------------------------------------------------------------------
 
+let _cachedSaClient = null;
 let _cachedAdcAuth = null;
+
+/**
+ * Service Account z Domain-Wide Delegation.
+ * Wymaga: service-account.json + GMAIL_SENDER env var.
+ * W Admin Console: Security > API Controls > Domain-Wide Delegation > dodaj Client ID SA.
+ */
+async function getServiceAccountClient(impersonateEmail) {
+  const sender = impersonateEmail || process.env.GMAIL_SENDER;
+  if (!fs.existsSync(SA_PATH) || !sender) return null;
+
+  try {
+    const auth = new google.auth.GoogleAuth({
+      keyFile: SA_PATH,
+      scopes: SCOPES,
+      clientOptions: { subject: sender },
+    });
+    const client = await auth.getClient();
+    await client.getAccessToken();
+    return client;
+  } catch (e) {
+    console.error('[SA] Service account auth failed:', e.message);
+    return null;
+  }
+}
 
 async function getAdcClient() {
   if (_cachedAdcAuth) return _cachedAdcAuth;
@@ -39,7 +67,6 @@ async function getAdcClient() {
   try {
     const auth = new google.auth.GoogleAuth({ scopes: SCOPES });
     const client = await auth.getClient();
-    // Verify it actually works by requesting a token
     await client.getAccessToken();
     _cachedAdcAuth = client;
     return client;
@@ -92,20 +119,23 @@ function getOAuth2Client() {
 
 /**
  * Zwraca najlepszy dostepny klient auth.
- * Priorytet: ADC > OAuth2 client_secret.json
+ * Priorytet: Service Account > ADC > OAuth2
  */
-async function getAuthenticatedClient() {
+async function getAuthenticatedClient(impersonateEmail) {
+  const sa = await getServiceAccountClient(impersonateEmail);
+  if (sa) return { client: sa, method: 'service-account' };
   const adc = await getAdcClient();
-  if (adc) return adc;
-  return getOAuth2Client();
+  if (adc) return { client: adc, method: 'adc' };
+  const oauth = getOAuth2Client();
+  if (oauth) return { client: oauth, method: 'oauth2' };
+  return null;
 }
 
-async function getAuthenticatedEmail() {
-  const auth = await getAuthenticatedClient();
+async function getAuthenticatedEmail(auth) {
   if (!auth) return null;
   try {
-    const gmail = google.gmail({ version: 'v1', auth });
-    const profile = await gmail.users.getProfile({ userId: 'me' });
+    const gm = google.gmail({ version: 'v1', auth: auth.client || auth });
+    const profile = await gm.users.getProfile({ userId: 'me' });
     return profile.data.emailAddress;
   } catch {
     return null;
@@ -113,44 +143,49 @@ async function getAuthenticatedEmail() {
 }
 
 async function getAuthStatus() {
-  // Check ADC first
+  // 1. Service Account
+  const sender = process.env.GMAIL_SENDER;
+  if (fs.existsSync(SA_PATH) && sender) {
+    const sa = await getServiceAccountClient(sender);
+    if (sa) {
+      return {
+        status: 'connected',
+        method: 'service-account',
+        email: sender,
+        message: `Gmail polaczony (Service Account → ${sender})`,
+      };
+    }
+  }
+
+  // 2. ADC
   if (fs.existsSync(ADC_PATH)) {
     try {
       const adc = await getAdcClient();
       if (adc) {
-        const email = await getAuthenticatedEmail();
+        const email = await getAuthenticatedEmail({ client: adc });
         return { status: 'connected', method: 'adc', email, message: 'Gmail polaczony (gcloud ADC)' };
       }
     } catch {}
   }
 
-  // Check OAuth2 fallback
+  // 3. OAuth2
   const creds = loadCredentials();
   const hasTokens = fs.existsSync(TOKENS_PATH);
   if (creds && hasTokens) {
-    const email = await getAuthenticatedEmail();
+    const oauth = getOAuth2Client();
+    const email = await getAuthenticatedEmail({ client: oauth });
     return { status: 'connected', method: 'oauth2', email, message: 'Gmail polaczony (OAuth2)' };
   }
   if (creds && !hasTokens) return { status: 'not_authenticated', message: 'Wymaga autoryzacji Google' };
 
-  return {
-    status: 'disconnected',
-    message: 'Brak konfiguracji Gmail',
-  };
+  return { status: 'disconnected', message: 'Brak konfiguracji Gmail' };
 }
 
 // ---------------------------------------------------------------------------
-// Wyslij maila HTML
+// Build MIME message (shared between send and draft)
 // ---------------------------------------------------------------------------
 
-async function sendEmail({ to, subject, bodyHtml, attachmentPath }) {
-  const auth = await getAuthenticatedClient();
-  if (!auth) throw new Error('Gmail nie podlaczony. Zaloguj sie przez /auth/google');
-
-  const gmail = google.gmail({ version: 'v1', auth });
-  const profile = await gmail.users.getProfile({ userId: 'me' });
-  const from = profile.data.emailAddress;
-
+function buildRawMime({ from, to, subject, bodyHtml, attachmentPath }) {
   const boundary = '----=_Part_' + Date.now().toString(36);
 
   const mimeLines = [
@@ -183,17 +218,55 @@ async function sendEmail({ to, subject, bodyHtml, attachmentPath }) {
 
   mimeLines.push('', `--${boundary}--`);
 
-  const raw = Buffer.from(mimeLines.join('\r\n'))
+  return Buffer.from(mimeLines.join('\r\n'))
     .toString('base64')
     .replace(/\+/g, '-')
     .replace(/\//g, '_')
     .replace(/=+$/, '');
+}
 
-  const result = await gmail.users.messages.send({
+async function resolveAuth(fromEmail) {
+  const authResult = await getAuthenticatedClient(fromEmail);
+  if (!authResult) throw new Error('Gmail nie podlaczony. Zaloguj sie przez /auth/google');
+  const { client: auth, method } = authResult;
+  const gm = google.gmail({ version: 'v1', auth });
+  let from;
+  if (method === 'service-account' && fromEmail) {
+    from = fromEmail;
+  } else {
+    const profile = await gm.users.getProfile({ userId: 'me' });
+    from = profile.data.emailAddress;
+  }
+  return { gm, from };
+}
+
+// ---------------------------------------------------------------------------
+// Wyslij maila HTML
+// ---------------------------------------------------------------------------
+
+async function sendEmail({ to, subject, bodyHtml, attachmentPath, fromEmail }) {
+  const { gm, from } = await resolveAuth(fromEmail);
+  const raw = buildRawMime({ from, to, subject, bodyHtml, attachmentPath });
+  const result = await gm.users.messages.send({
     userId: 'me',
     requestBody: { raw },
   });
+  return result.data;
+}
 
+// ---------------------------------------------------------------------------
+// Utworz draft w Gmail (pojawia sie w Drafts nadawcy)
+// ---------------------------------------------------------------------------
+
+async function createGmailDraft({ to, subject, bodyHtml, attachmentPath, fromEmail }) {
+  const { gm, from } = await resolveAuth(fromEmail);
+  const raw = buildRawMime({ from, to, subject, bodyHtml, attachmentPath });
+  const result = await gm.users.drafts.create({
+    userId: 'me',
+    requestBody: {
+      message: { raw },
+    },
+  });
   return result.data;
 }
 
@@ -209,5 +282,6 @@ module.exports = {
   getAuthStatus,
   getAuthenticatedClient,
   sendEmail,
+  createGmailDraft,
   logout,
 };

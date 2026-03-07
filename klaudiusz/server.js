@@ -132,7 +132,8 @@ app.patch('/api/drafts/:id', (req, res) => {
 
 /**
  * POST /api/drafts/:id/send
- * Wysyla maila przez Gmail API, potem oznacza jako wyslany w DB.
+ * Tworzy draft w Gmail nadawcy (z zalacznikiem PDF), potem oznacza jako wyslany w DB.
+ * Body: { from_email?: string } — opcjonalny override nadawcy (domyslnie z DB)
  */
 app.post('/api/drafts/:id/send', async (req, res) => {
   try {
@@ -146,7 +147,6 @@ app.post('/api/drafts/:id/send', async (req, res) => {
     // Resolve PDF attachment from deck_url if present
     let attachmentPath = null;
     if (existing.deck_url) {
-      // deck_url: "/decks/ing/index.html" → clients/ing/deck.pdf
       const pdfFile = existing.deck_url.replace(/^\/decks\//, '').replace(/\/index\.html$/, '/deck.pdf');
       const pdfPath = path.join(bisonRoot, 'clients', pdfFile);
       if (require('fs').existsSync(pdfPath)) {
@@ -154,19 +154,22 @@ app.post('/api/drafts/:id/send', async (req, res) => {
       }
     }
 
-    // Wyslij przez Gmail API (from = konto OAuth)
-    const gmailResult = await gmail.sendEmail({
+    const fromEmail = req.body.from_email || existing.from_email;
+
+    // Utworz draft w skrzynce nadawcy
+    const gmailResult = await gmail.createGmailDraft({
       to: existing.contact_email,
       subject: existing.subject,
       bodyHtml: existing.body_html,
       attachmentPath,
+      fromEmail,
     });
 
     const updated = markAsSent(id);
-    console.log(`[SEND] Szkic #${id} wyslany do ${existing.contact_email} (Gmail ID: ${gmailResult.id})`);
+    console.log(`[DRAFT] Szkic #${id} → Gmail draft w skrzynce ${fromEmail} (Draft ID: ${gmailResult.id})`);
     res.json(updated);
   } catch (err) {
-    console.error('[API] Blad wysylania:', err);
+    console.error('[API] Blad tworzenia draftu:', err);
     const msg = err.message || 'Blad serwera';
     res.status(500).json({ error: msg });
   }

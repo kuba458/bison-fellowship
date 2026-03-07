@@ -5,6 +5,11 @@
   // State
   // ---------------------------------------------------------------------------
 
+  const SENDERS = [
+    'michal.wyrebkowski@thisisit.edu.pl',
+    'maciej.kawecki@thisisit.edu.pl',
+  ];
+
   let drafts = [];
   let filter = 'pending';
   let expandedId = null;
@@ -13,6 +18,7 @@
   let pdfViewer = null;
   let currentPdfUrl = null;
   let activeIndex = -1; // For keyboard navigation
+  let selectedSender = SENDERS[0];
 
   // ---------------------------------------------------------------------------
   // DOM
@@ -212,6 +218,14 @@
 
           <div class="card-body">
             <div class="email-header">
+              ${pending ? `
+              <div class="email-line">
+                <span class="email-label">From</span>
+                <select class="sender-select" onchange="K.setSender(this.value)">
+                  ${SENDERS.map(s => `<option value="${attr(s)}" ${s === selectedSender ? 'selected' : ''}>${esc(s)}</option>`).join('')}
+                </select>
+              </div>
+              ` : ''}
               <div class="email-line">
                 <span class="email-label">To</span>
                 ${editing
@@ -236,7 +250,7 @@
               <div class="actions-footer">
                 <div style="flex:1"></div>
                 <button class="btn btn-danger" onclick="K.reject(${d.id})">Reject (X)</button>
-                <button class="btn btn-primary" onclick="K.send(${d.id})">Send (⌘↵)</button>
+                <button class="btn btn-primary" onclick="K.send(${d.id})">Draft (⌘↵)</button>
               </div>
             ` : `
               <div class="actions-footer">
@@ -399,14 +413,18 @@
   async function send(id) {
     // Auto-save before sending
     if (editingId === id) await save(id);
-    if (!confirm('Send this message?')) return;
+    if (!confirm(`Create draft in ${selectedSender}?`)) return;
     try {
-      await fetch(`/api/drafts/${id}/send`, { method: 'POST' });
+      await fetch(`/api/drafts/${id}/send`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ from_email: selectedSender }),
+      });
       expandedId = null;
       editingId = null;
-      toast('Sent');
+      toast(`Draft created in ${selectedSender}`);
       await Promise.all([loadDrafts(), loadStats()]);
-    } catch (e) { toast('Error sending', 'error'); }
+    } catch (e) { toast('Error creating draft', 'error'); }
   }
 
   async function reject(id) {
@@ -438,8 +456,10 @@
     location.reload();
   }
 
+  function setSender(val) { selectedSender = val; }
+
   window.K = {
-    toggle, edit, cancelEdit, save, send, reject, closeDeck, logout,
+    toggle, edit, cancelEdit, save, send, reject, closeDeck, logout, setSender,
     pdfPrev: () => pdfViewer && pdfViewer.prev(),
     pdfNext: () => pdfViewer && pdfViewer.next(),
   };
