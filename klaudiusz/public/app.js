@@ -212,6 +212,7 @@
               <span class="card-subject">${esc(d.subject)}</span>
             </div>
             <div class="card-meta-right">
+              ${d.tag ? `<span class="card-tag">${esc(d.tag)}</span>` : ''}
               <span class="card-status">${d.status}</span>
             </div>
           </div>

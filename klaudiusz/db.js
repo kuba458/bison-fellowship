@@ -34,6 +34,7 @@ db.exec(`
     linkedin_message TEXT,
     deck_url TEXT,
     status TEXT DEFAULT 'pending' CHECK(status IN ('pending', 'sent', 'rejected')),
+    tag TEXT,
     notion_crm_url TEXT,
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
     sent_at DATETIME,
@@ -96,8 +97,8 @@ const stmts = {
   getById: db.prepare('SELECT * FROM drafts WHERE id = ?'),
 
   insert: db.prepare(`
-    INSERT INTO drafts (company, contact_name, contact_email, from_email, subject, body_html, channel, linkedin_message, deck_url, notion_crm_url)
-    VALUES (@company, @contact_name, @contact_email, @from_email, @subject, @body_html, @channel, @linkedin_message, @deck_url, @notion_crm_url)
+    INSERT INTO drafts (company, contact_name, contact_email, from_email, subject, body_html, channel, linkedin_message, deck_url, tag, notion_crm_url)
+    VALUES (@company, @contact_name, @contact_email, @from_email, @subject, @body_html, @channel, @linkedin_message, @deck_url, @tag, @notion_crm_url)
   `),
 
   updateDraft: db.prepare(`
@@ -161,6 +162,7 @@ function createDraft(data) {
     channel: data.channel || 'email',
     linkedin_message: data.linkedin_message || null,
     deck_url: data.deck_url || null,
+    tag: data.tag || null,
     notion_crm_url: data.notion_crm_url || null,
   });
   return getDraftById(result.lastInsertRowid);
