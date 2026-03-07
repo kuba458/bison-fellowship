@@ -86,7 +86,7 @@ curl -s -X POST http://localhost:3000/api/drafts \
 <table cellpadding="0" cellspacing="0" border="0" style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; font-size: 13px; color: #1a1a1a; margin-top: 8px;">
   <tr>
     <td style="padding-right: 18px; vertical-align: middle;">
-      <strong style="font-size: 18px; font-weight: 900; letter-spacing: -0.5px; line-height: 1.1;">THIS IS<br>WORLD</strong>
+      <img src="https://ci3.googleusercontent.com/mail-sig/AIorK4y6empd9rohQvDgVdqA7HVEvDjNMZAXYDhUb97HS5YTJbwdGAuz3bZBLvmNorDlTZtlrUUh_chE7ty1" alt="This is World" width="100" style="display:block;">
     </td>
     <td style="padding-left: 18px; border-left: 1px solid #ccc; vertical-align: top; line-height: 1.5;">
       <strong style="font-size: 14px;">Dr Maciej Kawecki</strong><br>
