@@ -1,0 +1,8 @@
+node_modules/
+klaudiusz.db
+klaudiusz.db-wal
+klaudiusz.db-shm
+client_secret.json
+client_secret_*.json
+tokens.json
+service-account.json

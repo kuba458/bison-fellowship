@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8">
+  <title>Klaudiusz</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+
+  <div class="app-container">
+    <!-- Main Stage: Feed and Filters -->
+    <main class="main-stage">
+      <header class="site-header">
+        <div class="brand">
+          <h1 class="brand-name">Klaudiusz</h1>
+        </div>
+        <div class="header-stats" id="header-stats">
+          <div class="hstat">
+            <span class="hstat-n" id="hs-pending">—</span>
+            <span class="hstat-l">pending</span>
+          </div>
+          <div class="hstat">
+            <span class="hstat-n" id="hs-sent">—</span>
+            <span class="hstat-l">sent today</span>
+          </div>
+          <div class="hstat" id="gmail-status">
+            <span class="hstat-n" id="gmail-label">Gmail</span>
+          </div>
+        </div>
+      </header>
+
+      <div class="filter-bar">
+        <button class="pill" data-status="">All</button>
+        <button class="pill active" data-status="pending">Pending</button>
+        <button class="pill" data-status="sent">Sent</button>
+        <button class="pill" data-status="rejected">Rejected</button>
+        <span class="filter-count" id="filter-count"></span>
+      </div>
+
+      <div class="feed-container" id="feed-container">
+        <div class="feed" id="feed">
+          <!-- Cards rendered by app.js -->
+        </div>
+        <div class="empty" id="empty" style="display:none; padding: 48px; text-align: center; color: #999;">
+          <p>No messages to display</p>
+        </div>
+      </div>
+    </main>
+
+    <!-- Side Panel: PDF Preview -->
+    <aside class="side-panel" id="side-panel">
+      <!-- Content rendered by app.js -->
+    </aside>
+  </div>
+
+  <!-- Toast -->
+  <div class="toasts" id="toasts"></div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+  <script>
+    if (window.pdfjsLib) {
+      pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+    }
+  </script>
+  <script src="/app.js"></script>
+</body>
+</html>
