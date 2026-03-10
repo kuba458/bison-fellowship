@@ -163,7 +163,7 @@ Zacznij od `gemini-3-pro-image-preview` z `--max-time 120`. Jeśli timeout lub b
 ```bash
 # Próba 1: gemini-3-pro-image-preview (Nano Banana Pro)
 curl -s --max-time 120 -X POST \
-  "https://generativelanguage.googleapis.com/v1beta/models/gemini-3-pro-image-preview:generateContent?key=AIzaSyC2Cvpllamm06WTBOXW6M3xSyBobvAr4tg" \
+  "https://generativelanguage.googleapis.com/v1beta/models/gemini-3-pro-image-preview:generateContent?key=$GEMINI_API_KEY" \
   -H "Content-Type: application/json" \
   -d '{
     "contents": [{"parts": [{"text": "Generate this image: [FULL_PROMPT_HERE]"}]}],
@@ -175,7 +175,7 @@ Jeśli timeout (exit code 28) lub plik < 1KB lub zawiera `IMAGE_RECITATION`:
 ```bash
 # Fallback: gemini-2.5-flash-image (szybszy, stabilniejszy)
 curl -s --max-time 120 -X POST \
-  "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-image:generateContent?key=AIzaSyC2Cvpllamm06WTBOXW6M3xSyBobvAr4tg" \
+  "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-image:generateContent?key=$GEMINI_API_KEY" \
   -H "Content-Type: application/json" \
   -d '{
     "contents": [{"parts": [{"text": "Generate this image: [FULL_PROMPT_HERE]"}]}],
