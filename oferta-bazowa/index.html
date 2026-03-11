@@ -1,0 +1,1628 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>This is IT — Oferta Bazowa</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&family=Instrument+Serif:ital@0;1&family=Geist+Mono:wght@100..900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-primary: #F9F6F0;
+      --bg-warm: #F2EEE6;
+      --bg-muted: #E5E2DA;
+      --bg-dark: #111111;
+      --bg-dark-deep: #0a0a0a;
+      --text-primary: #212C33;
+      --text-secondary: #333334;
+      --text-muted: rgba(51, 51, 52, 0.5);
+      --text-faint: #9e9e9e;
+      --text-on-dark: #f0ede7;
+      --border-light: rgba(51, 51, 52, 0.08);
+      --border-mid: rgba(51, 51, 52, 0.15);
+      --accent-navy: #1a1a1a;
+      --accent-red: #e63946;
+      --accent-amber: #c8956c;
+      --accent-gold: #d4a853;
+      --radius-card: 20px;
+      --radius-pill: 999px;
+      --font-serif: "Instrument Serif", Georgia, serif;
+      --font-sans: "Geist", system-ui, -apple-system, sans-serif;
+      --font-mono: "Geist Mono", monospace;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: auto; background: var(--bg-primary); overflow: hidden; }
+    body {
+      font-family: var(--font-sans);
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      text-rendering: optimizeLegibility;
+      -webkit-font-smoothing: antialiased;
+      overflow: hidden;
+      height: 100vh;
+    }
+
+    /* ── SLIDE SYSTEM ── */
+    .slides-wrapper { height: 100vh; overflow: hidden; position: relative; }
+    .slide {
+      min-height: 100vh; height: 100vh;
+      display: flex; align-items: center; justify-content: center;
+      position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+      padding: 60px 48px;
+      cursor: pointer;
+      opacity: 0; transform: translateY(40px);
+      transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1), transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+      pointer-events: none;
+      overflow-y: auto;
+    }
+    .slide.active-slide {
+      opacity: 1; transform: translateY(0);
+      pointer-events: auto; z-index: 2;
+    }
+    .slide.exit-up { opacity: 0; transform: translateY(-40px); z-index: 1; }
+    .slide.exit-down { opacity: 0; transform: translateY(40px); z-index: 1; }
+    .slide-inner { max-width: 1100px; width: 100%; margin: 0 auto; }
+
+    /* ── NAV DOTS ── */
+    .slide-nav {
+      position: fixed; right: 24px; top: 50%; transform: translateY(-50%);
+      z-index: 100; display: flex; flex-direction: column; gap: 8px;
+    }
+    .slide-nav a {
+      width: 8px; height: 8px; border-radius: 50%;
+      background: rgba(0,0,0,0.12); transition: all 0.3s ease; display: block;
+    }
+    .slide-nav a.active, .slide-nav a:hover {
+      background: var(--accent-navy); transform: scale(1.4);
+    }
+    .slide-nav a.light { background: rgba(255,255,255,0.2); }
+    .slide-nav a.light.active, .slide-nav a.light:hover { background: #fff; }
+
+    /* ── TYPOGRAPHY ── */
+    .section-tag {
+      display: inline-block; font-family: var(--font-mono);
+      font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase;
+      color: rgba(0,0,0,0.35); margin-bottom: 14px; font-weight: 500;
+    }
+    .section-tag-light { color: rgba(255,255,255,0.35); }
+    .slide-heading {
+      font-family: var(--font-serif);
+      font-size: clamp(40px, 5vw, 68px);
+      font-weight: 400; line-height: 1.08; letter-spacing: -0.025em;
+      color: var(--text-primary);
+    }
+    .slide-heading-light { color: var(--text-on-dark); }
+    .slide-subheading {
+      font-size: clamp(16px, 1.6vw, 20px); line-height: 1.6;
+      color: rgba(33, 44, 51, 0.65); max-width: 640px;
+    }
+    .slide-subheading-light { color: rgba(240, 237, 231, 0.55); }
+
+    /* ── ANIMATIONS ── */
+    .animate {
+      opacity: 0; transform: translateY(24px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .animate.visible { opacity: 1; transform: translateY(0); }
+    .animate-delay-1 { transition-delay: 0.1s; }
+    .animate-delay-2 { transition-delay: 0.2s; }
+    .animate-delay-3 { transition-delay: 0.3s; }
+    .animate-delay-4 { transition-delay: 0.4s; }
+    .animate-delay-5 { transition-delay: 0.5s; }
+    .animate-delay-6 { transition-delay: 0.6s; }
+
+    /* ── SLIDE HINT ── */
+    .slide-click-hint {
+      position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%);
+      z-index: 99; display: flex; align-items: center; gap: 8px;
+      font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.06em;
+      color: var(--text-faint); opacity: 0.5; pointer-events: none;
+    }
+    .slide-click-hint.on-dark { color: rgba(240,237,231,0.3); }
+    @keyframes bounceArrow { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(4px); } }
+    .slide-click-hint svg { animation: bounceArrow 1.5s ease-in-out infinite; }
+
+    /* ══════════════════════════════════════════
+       SLIDE 1: COVER
+       ══════════════════════════════════════════ */
+    .slide-cover {
+      background: var(--bg-dark); text-align: center;
+      position: relative; overflow: hidden;
+    }
+    .slide-cover::before {
+      content: ''; position: absolute; top: -300px; left: -200px;
+      width: 800px; height: 800px;
+      background: radial-gradient(circle, rgba(230,57,70,0.06) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .slide-cover::after {
+      content: ''; position: absolute; bottom: -400px; right: -300px;
+      width: 1000px; height: 1000px;
+      background: radial-gradient(circle, rgba(200,149,108,0.05) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .cover-logo-img {
+      height: 48px; width: auto; margin-bottom: 48px;
+      filter: invert(1) brightness(2);
+      opacity: 0.9;
+    }
+    .cover-title {
+      font-family: var(--font-serif);
+      font-size: clamp(52px, 7vw, 96px); font-weight: 400;
+      line-height: 1.05; letter-spacing: -0.03em;
+      color: var(--text-on-dark); margin-bottom: 16px;
+    }
+    .cover-subtitle {
+      font-family: var(--font-sans); font-size: 18px; font-weight: 300;
+      color: rgba(240,237,231,0.45); letter-spacing: 0.04em;
+      margin-bottom: 56px;
+    }
+    .cover-meta {
+      font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.1em;
+      text-transform: uppercase; color: rgba(240,237,231,0.25);
+    }
+    .cover-line {
+      width: 60px; height: 1px; background: rgba(240,237,231,0.15);
+      margin: 32px auto 0;
+    }
+
+    /* ══════════════════════════════════════════
+       SLIDE 2: STATS OVERVIEW
+       ══════════════════════════════════════════ */
+    .slide-stats { background: var(--bg-primary); }
+    .stats-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 24px; margin-top: 48px;
+    }
+    .stat-card {
+      background: #fff; border: 1px solid var(--border-light);
+      border-radius: var(--radius-card); padding: 36px 32px;
+      text-align: center; position: relative; overflow: hidden;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.03);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .stat-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 40px rgba(0,0,0,0.06);
+    }
+    .stat-card::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0;
+      height: 3px; background: linear-gradient(90deg, var(--accent-navy), #333);
+    }
+    .stat-card.accent::before {
+      background: linear-gradient(90deg, var(--accent-red), #ff6b6b);
+    }
+    .stat-icon {
+      font-size: 28px; margin-bottom: 12px; display: block;
+    }
+    .stat-value {
+      font-family: var(--font-serif); font-size: 48px;
+      color: var(--text-primary); line-height: 1; margin-bottom: 6px;
+    }
+    .stat-label {
+      font-family: var(--font-mono); font-size: 11px;
+      letter-spacing: 0.08em; text-transform: uppercase;
+      color: var(--text-faint);
+    }
+    .stat-sublabel {
+      font-size: 13px; color: var(--text-muted); margin-top: 8px;
+    }
+
+    /* ══════════════════════════════════════════
+       SLIDE 3: YOUTUBE DEEP DIVE
+       ══════════════════════════════════════════ */
+    .slide-youtube { background: var(--bg-warm); }
+    .yt-content {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 48px; margin-top: 40px; align-items: start;
+    }
+    .yt-stats-col { display: flex; flex-direction: column; gap: 20px; }
+    .yt-stat-row {
+      display: flex; align-items: center; gap: 20px;
+      padding: 20px 24px; background: #fff;
+      border-radius: 16px; border: 1px solid var(--border-light);
+      box-shadow: 0 2px 12px rgba(0,0,0,0.02);
+    }
+    .yt-stat-num {
+      font-family: var(--font-serif); font-size: 36px;
+      color: var(--text-primary); min-width: 140px; line-height: 1;
+    }
+    .yt-stat-desc {
+      font-size: 14px; color: var(--text-muted); line-height: 1.4;
+    }
+    .yt-highlights {
+      background: #fff; border-radius: var(--radius-card);
+      border: 1px solid var(--border-light); padding: 32px;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.03);
+    }
+    .yt-highlights h3 {
+      font-family: var(--font-serif); font-size: 22px;
+      margin-bottom: 20px; color: var(--text-primary);
+    }
+    .yt-highlight-item {
+      display: flex; align-items: flex-start; gap: 12px;
+      padding: 12px 0; border-bottom: 1px solid var(--border-light);
+      font-size: 14px; line-height: 1.55; color: var(--text-secondary);
+    }
+    .yt-highlight-item:last-child { border-bottom: none; }
+    .yt-highlight-dot {
+      width: 6px; height: 6px; border-radius: 50%;
+      background: var(--accent-red); flex-shrink: 0; margin-top: 7px;
+    }
+
+    /* ══════════════════════════════════════════
+       SLIDE 4: AUDIENCE
+       ══════════════════════════════════════════ */
+    .slide-audience { background: var(--bg-primary); }
+    .audience-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 40px; margin-top: 40px;
+    }
+    .audience-card {
+      background: #fff; border-radius: var(--radius-card);
+      border: 1px solid var(--border-light); padding: 36px;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.03);
+    }
+    .audience-card h3 {
+      font-family: var(--font-serif); font-size: 22px;
+      margin-bottom: 24px; color: var(--text-primary);
+    }
+    .interest-bar {
+      display: flex; align-items: center; gap: 14px;
+      margin-bottom: 14px;
+    }
+    .interest-label {
+      font-size: 13px; color: var(--text-secondary);
+      min-width: 120px; font-weight: 500;
+    }
+    .interest-track {
+      flex: 1; height: 8px; background: var(--bg-muted);
+      border-radius: 4px; overflow: hidden;
+    }
+    .interest-fill {
+      height: 100%; border-radius: 4px;
+      background: linear-gradient(90deg, var(--accent-navy), #444);
+      transition: width 1s ease;
+    }
+    .interest-fill.red {
+      background: linear-gradient(90deg, var(--accent-red), #ff6b6b);
+    }
+    .demo-item {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 10px 0; border-bottom: 1px solid var(--border-light);
+      font-size: 14px; color: var(--text-secondary);
+    }
+    .demo-item:last-child { border-bottom: none; }
+    .demo-value {
+      font-family: var(--font-mono); font-size: 13px;
+      color: var(--text-primary); font-weight: 600;
+    }
+
+    /* ══════════════════════════════════════════
+       SLIDE 5: AWARDS
+       ══════════════════════════════════════════ */
+    .slide-awards { background: var(--bg-dark); overflow: hidden; }
+    .awards-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 28px; margin-top: 48px;
+    }
+    .award-card {
+      background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08);
+      border-radius: var(--radius-card); padding: 36px 28px;
+      text-align: center; position: relative; overflow: hidden;
+      transition: transform 0.2s, border-color 0.3s;
+    }
+    .award-card:hover {
+      transform: translateY(-3px);
+      border-color: rgba(255,255,255,0.15);
+    }
+    .award-badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 6px 16px; border-radius: var(--radius-pill);
+      font-family: var(--font-mono); font-size: 11px;
+      letter-spacing: 0.08em; text-transform: uppercase;
+      margin-bottom: 20px;
+    }
+    .award-badge.gold {
+      background: rgba(212,168,83,0.15); color: var(--accent-gold);
+    }
+    .award-badge.silver {
+      background: rgba(255,255,255,0.08); color: rgba(255,255,255,0.6);
+    }
+    .award-title {
+      font-family: var(--font-serif); font-size: 20px;
+      color: var(--text-on-dark); margin-bottom: 12px; line-height: 1.3;
+    }
+    .award-desc {
+      font-size: 13px; color: rgba(240,237,231,0.45); line-height: 1.6;
+    }
+    .award-year {
+      font-family: var(--font-mono); font-size: 12px;
+      color: rgba(240,237,231,0.3); margin-top: 16px; display: block;
+    }
+
+    /* ══════════════════════════════════════════
+       SLIDE 6: HOST
+       ══════════════════════════════════════════ */
+    .slide-host { background: var(--bg-warm); }
+    .host-content {
+      display: grid; grid-template-columns: auto 1fr;
+      gap: 56px; margin-top: 40px; align-items: center;
+    }
+    .host-photo {
+      width: 280px; height: 340px; border-radius: 24px;
+      object-fit: cover; box-shadow: 0 16px 48px rgba(0,0,0,0.12);
+    }
+    .host-info h3 {
+      font-family: var(--font-serif); font-size: 38px;
+      margin-bottom: 8px; color: var(--text-primary);
+    }
+    .host-role {
+      font-family: var(--font-mono); font-size: 12px;
+      letter-spacing: 0.08em; text-transform: uppercase;
+      color: var(--accent-red); margin-bottom: 24px; display: block;
+    }
+    .host-credentials {
+      display: flex; flex-direction: column; gap: 14px;
+    }
+    .host-credential {
+      display: flex; align-items: flex-start; gap: 14px;
+      font-size: 15px; line-height: 1.55; color: var(--text-secondary);
+    }
+    .host-credential-dot {
+      width: 8px; height: 8px; border-radius: 50%;
+      background: var(--accent-navy); opacity: 0.2;
+      flex-shrink: 0; margin-top: 7px;
+    }
+
+    /* ══════════════════════════════════════════
+       SLIDE 7: SOCIAL REACH
+       ══════════════════════════════════════════ */
+    .slide-social { background: var(--bg-primary); }
+    .social-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 32px; margin-top: 48px;
+    }
+    .social-card {
+      background: #fff; border-radius: var(--radius-card);
+      border: 1px solid var(--border-light); padding: 40px;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.03);
+      position: relative; overflow: hidden;
+    }
+    .social-card::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0;
+      height: 3px;
+    }
+    .social-card.fb::before { background: linear-gradient(90deg, #1877F2, #42A5F5); }
+    .social-card.li::before { background: linear-gradient(90deg, #0A66C2, #2196F3); }
+    .social-card-icon {
+      font-size: 32px; margin-bottom: 20px; display: block;
+    }
+    .social-card h3 {
+      font-family: var(--font-serif); font-size: 24px;
+      margin-bottom: 28px; color: var(--text-primary);
+    }
+    .social-stat {
+      display: flex; justify-content: space-between; align-items: baseline;
+      padding: 14px 0; border-bottom: 1px solid var(--border-light);
+    }
+    .social-stat:last-child { border-bottom: none; }
+    .social-stat-label { font-size: 14px; color: var(--text-muted); }
+    .social-stat-value {
+      font-family: var(--font-serif); font-size: 32px;
+      color: var(--text-primary);
+    }
+
+    /* ══════════════════════════════════════════
+       SLIDE 8: LINKEDIN DETAILS
+       ══════════════════════════════════════════ */
+    .slide-linkedin { background: var(--bg-warm); }
+    .linkedin-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 40px; margin-top: 40px;
+    }
+    .linkedin-card {
+      background: #fff; border-radius: var(--radius-card);
+      border: 1px solid var(--border-light); padding: 36px;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.03);
+    }
+    .linkedin-card h3 {
+      font-family: var(--font-serif); font-size: 22px;
+      margin-bottom: 24px; color: var(--text-primary);
+    }
+    .li-bar-row {
+      display: flex; align-items: center; gap: 14px;
+      margin-bottom: 16px;
+    }
+    .li-bar-label {
+      font-size: 12px; color: var(--text-secondary);
+      min-width: 170px; font-weight: 500;
+    }
+    .li-bar-track {
+      flex: 1; height: 8px; background: var(--bg-muted);
+      border-radius: 4px; overflow: hidden;
+    }
+    .li-bar-fill {
+      height: 100%; border-radius: 4px;
+      background: linear-gradient(90deg, #0A66C2, #2196F3);
+    }
+
+    /* ══════════════════════════════════════════
+       SLIDE 9: UPCOMING INTERVIEWS HEADER
+       ══════════════════════════════════════════ */
+    .slide-upcoming {
+      background: var(--bg-dark); text-align: center;
+      position: relative; overflow: hidden;
+    }
+    .slide-upcoming::before {
+      content: ''; position: absolute; inset: 0;
+      background: radial-gradient(ellipse at 50% 50%, rgba(230,57,70,0.05) 0%, transparent 60%);
+      pointer-events: none;
+    }
+
+    /* ══════════════════════════════════════════
+       SLIDE 10-15: GUEST CARDS
+       ══════════════════════════════════════════ */
+    .slide-guest { background: var(--bg-primary); }
+    .slide-guest.alt { background: var(--bg-warm); }
+    .guest-content {
+      display: grid; grid-template-columns: 320px 1fr;
+      gap: 56px; align-items: center;
+    }
+    .guest-photo-wrap {
+      position: relative;
+    }
+    .guest-photo-main {
+      width: 320px; height: 400px; border-radius: 24px;
+      object-fit: cover; box-shadow: 0 16px 56px rgba(0,0,0,0.12);
+      display: block;
+    }
+    .guest-name {
+      font-family: var(--font-serif); font-size: 42px;
+      color: var(--text-primary); margin-bottom: 12px; line-height: 1.1;
+    }
+    .guest-title {
+      font-size: 15px; color: var(--text-muted); line-height: 1.6;
+      margin-bottom: 28px; max-width: 560px;
+    }
+    .guest-topics { display: flex; flex-direction: column; gap: 14px; }
+    .guest-topic {
+      display: flex; align-items: flex-start; gap: 14px;
+      padding: 16px 20px; background: #fff;
+      border-radius: 16px; border: 1px solid var(--border-light);
+      box-shadow: 0 2px 12px rgba(0,0,0,0.02);
+    }
+    .slide-guest.alt .guest-topic { background: rgba(255,255,255,0.7); }
+    .guest-topic-num {
+      width: 28px; height: 28px; border-radius: 8px;
+      background: var(--accent-navy); display: flex;
+      align-items: center; justify-content: center;
+      flex-shrink: 0; font-family: var(--font-mono);
+      font-size: 12px; font-weight: 700; color: #fff;
+    }
+    .guest-topic-text {
+      font-size: 14px; line-height: 1.55; color: var(--text-secondary);
+    }
+
+    /* ══════════════════════════════════════════
+       GUEST GRID (2 per slide)
+       ══════════════════════════════════════════ */
+    .guests-duo {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 40px; margin-top: 40px;
+    }
+    .guest-mini-card {
+      background: #fff; border-radius: var(--radius-card);
+      border: 1px solid var(--border-light); padding: 32px;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.03);
+      display: flex; flex-direction: column;
+    }
+    .slide-guest.alt .guest-mini-card { background: rgba(255,255,255,0.7); }
+    .guest-mini-header {
+      display: flex; align-items: center; gap: 20px; margin-bottom: 16px;
+    }
+    .guest-mini-photo {
+      width: 72px; height: 72px; border-radius: 16px;
+      object-fit: cover; box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+      flex-shrink: 0;
+    }
+    .guest-mini-name {
+      font-family: var(--font-serif); font-size: 24px;
+      color: var(--text-primary); line-height: 1.15;
+    }
+    .guest-mini-desc {
+      font-size: 13px; color: var(--text-muted); line-height: 1.6;
+      margin-bottom: 18px; flex: 1;
+    }
+    .guest-mini-topics { display: flex; flex-direction: column; gap: 8px; }
+    .guest-mini-topic {
+      font-size: 13px; line-height: 1.5; color: var(--text-secondary);
+      padding: 10px 14px; background: var(--bg-warm);
+      border-radius: 10px; border-left: 3px solid var(--accent-navy);
+    }
+    .slide-guest.alt .guest-mini-topic { background: var(--bg-primary); }
+
+    /* ══════════════════════════════════════════
+       SLIDE: OFFER
+       ══════════════════════════════════════════ */
+    .slide-offer { background: var(--bg-primary); }
+    .offer-hero {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 48px; margin-top: 40px; align-items: center;
+    }
+    .offer-value {
+      font-family: var(--font-serif); font-size: 64px;
+      color: var(--text-primary); line-height: 1; margin-bottom: 8px;
+    }
+    .offer-value-label {
+      font-family: var(--font-mono); font-size: 12px;
+      letter-spacing: 0.08em; text-transform: uppercase;
+      color: var(--text-faint); margin-bottom: 24px;
+    }
+    .offer-items { display: flex; flex-direction: column; gap: 14px; }
+    .offer-item {
+      display: flex; align-items: center; gap: 14px;
+      font-size: 15px; color: var(--text-secondary); line-height: 1.5;
+    }
+    .offer-check {
+      width: 28px; height: 28px; border-radius: 8px;
+      background: rgba(230,57,70,0.08); display: flex;
+      align-items: center; justify-content: center; flex-shrink: 0;
+      color: var(--accent-red); font-size: 14px; font-weight: 700;
+    }
+    .offer-reach-card {
+      background: #fff; border-radius: var(--radius-card);
+      border: 1px solid var(--border-light); padding: 40px;
+      text-align: center; box-shadow: 0 8px 40px rgba(0,0,0,0.04);
+    }
+    .offer-reach-value {
+      font-family: var(--font-serif); font-size: 72px;
+      color: var(--accent-red); line-height: 1; margin-bottom: 8px;
+    }
+    .offer-reach-label {
+      font-family: var(--font-mono); font-size: 12px;
+      letter-spacing: 0.08em; text-transform: uppercase;
+      color: var(--text-faint);
+    }
+    .offer-reach-sublabel {
+      font-size: 13px; color: var(--text-muted); margin-top: 12px;
+    }
+
+    /* ══════════════════════════════════════════
+       SLIDE: OFFER DETAILS
+       ══════════════════════════════════════════ */
+    .slide-details { background: var(--bg-warm); }
+    .details-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 32px; margin-top: 40px;
+    }
+    .detail-card {
+      background: #fff; border-radius: var(--radius-card);
+      border: 1px solid var(--border-light); padding: 32px;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.03);
+    }
+    .detail-card h3 {
+      font-family: var(--font-serif); font-size: 22px;
+      margin-bottom: 20px; color: var(--text-primary);
+    }
+    .detail-item {
+      display: flex; align-items: flex-start; gap: 12px;
+      padding: 10px 0; border-bottom: 1px solid var(--border-light);
+      font-size: 14px; line-height: 1.55; color: var(--text-secondary);
+    }
+    .detail-item:last-child { border-bottom: none; }
+    .detail-bullet {
+      width: 6px; height: 6px; border-radius: 50%;
+      background: var(--accent-navy); opacity: 0.3;
+      flex-shrink: 0; margin-top: 7px;
+    }
+
+    /* ══════════════════════════════════════════
+       SLIDE: PRICING
+       ══════════════════════════════════════════ */
+    .slide-pricing { background: var(--bg-primary); }
+    .pricing-card {
+      max-width: 700px; margin: 48px auto 0;
+      background: #fff; border-radius: var(--radius-card);
+      border: 1px solid var(--border-light); padding: 48px;
+      text-align: center; box-shadow: 0 8px 40px rgba(0,0,0,0.04);
+      position: relative; overflow: hidden;
+    }
+    .pricing-card::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0;
+      height: 4px; background: linear-gradient(90deg, var(--accent-red), #ff6b6b, var(--accent-gold));
+    }
+    .pricing-name {
+      font-family: var(--font-serif); font-size: 32px;
+      color: var(--text-primary); margin-bottom: 24px;
+    }
+    .pricing-bonus {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 10px 20px; border-radius: var(--radius-pill);
+      background: rgba(230,57,70,0.06); color: var(--accent-red);
+      font-family: var(--font-mono); font-size: 13px;
+      letter-spacing: 0.04em; font-weight: 600;
+      margin-bottom: 12px;
+    }
+    .pricing-bonus-desc {
+      font-size: 14px; color: var(--text-muted); margin-bottom: 8px;
+    }
+
+    /* ══════════════════════════════════════════
+       SLIDE: CUSTOM OFFER
+       ══════════════════════════════════════════ */
+    .slide-custom { background: var(--bg-dark); position: relative; overflow: hidden; }
+    .slide-custom::before {
+      content: ''; position: absolute; inset: 0;
+      background: radial-gradient(ellipse at 30% 70%, rgba(200,149,108,0.06) 0%, transparent 60%);
+      pointer-events: none;
+    }
+    .custom-grid {
+      display: grid; grid-template-columns: repeat(2, 1fr);
+      gap: 24px; margin-top: 40px;
+    }
+    .custom-card {
+      background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08);
+      border-radius: var(--radius-card); padding: 32px;
+      transition: border-color 0.3s;
+    }
+    .custom-card:hover { border-color: rgba(255,255,255,0.15); }
+    .custom-card h3 {
+      font-family: var(--font-serif); font-size: 20px;
+      color: var(--text-on-dark); margin-bottom: 12px;
+    }
+    .custom-card p {
+      font-size: 14px; line-height: 1.6;
+      color: rgba(240,237,231,0.5);
+    }
+
+    /* ══════════════════════════════════════════
+       SLIDE: CONTACT
+       ══════════════════════════════════════════ */
+    .slide-contact {
+      background: var(--bg-dark); text-align: center;
+      position: relative; overflow: hidden;
+    }
+    .slide-contact::before {
+      content: ''; position: absolute; inset: 0;
+      background: radial-gradient(ellipse at 50% 50%, rgba(230,57,70,0.04) 0%, transparent 50%);
+      pointer-events: none;
+    }
+    .contact-emails {
+      display: flex; flex-direction: column; gap: 12px;
+      align-items: center; margin-top: 40px;
+    }
+    .contact-email {
+      font-family: var(--font-mono); font-size: 15px;
+      color: rgba(240,237,231,0.5); letter-spacing: 0.02em;
+      transition: color 0.3s;
+    }
+    .contact-email:hover { color: var(--text-on-dark); }
+    .contact-company {
+      font-family: var(--font-mono); font-size: 12px;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      color: rgba(240,237,231,0.2); margin-top: 40px;
+    }
+  </style>
+</head>
+<body>
+
+<div class="slides-wrapper" id="slidesWrapper">
+
+  <!-- ═══════ SLIDE 1: COVER ═══════ -->
+  <div class="slide slide-cover active-slide" data-theme="dark">
+    <div class="slide-inner" style="text-align:center;">
+      <img src="images/cover-logo.png" alt="This is IT" class="cover-logo-img animate animate-delay-1">
+      <div class="cover-title animate animate-delay-2">Oferta Bazowa</div>
+      <div class="cover-subtitle animate animate-delay-3">Współpraca z kanałem This is IT</div>
+      <div class="cover-meta animate animate-delay-4">Marzec 2026</div>
+      <div class="cover-line animate animate-delay-5"></div>
+    </div>
+  </div>
+
+  <!-- ═══════ SLIDE 2: STATS OVERVIEW ═══════ -->
+  <div class="slide slide-stats" data-theme="light">
+    <div class="slide-inner">
+      <div class="section-tag animate">Statystyki</div>
+      <div class="slide-heading animate animate-delay-1">Jakie mamy zasięgi?</div>
+      <div class="stats-grid">
+        <div class="stat-card animate animate-delay-2">
+          <span class="stat-icon">▶</span>
+          <div class="stat-value">40M</div>
+          <div class="stat-label">Wyświetleń łącznie</div>
+          <div class="stat-sublabel">Od początku kanału YouTube</div>
+        </div>
+        <div class="stat-card accent animate animate-delay-3">
+          <span class="stat-icon">📈</span>
+          <div class="stat-value">18.1M</div>
+          <div class="stat-label">Wyświetleń w 2025</div>
+          <div class="stat-sublabel">Dynamiczny wzrost rok do roku</div>
+        </div>
+        <div class="stat-card animate animate-delay-4">
+          <span class="stat-icon">👥</span>
+          <div class="stat-value">317K</div>
+          <div class="stat-label">Subskrypcji YouTube</div>
+          <div class="stat-sublabel">+25K w ostatnie 90 dni</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════ SLIDE 3: YOUTUBE DEEP DIVE ═══════ -->
+  <div class="slide slide-youtube" data-theme="light">
+    <div class="slide-inner">
+      <div class="section-tag animate">YouTube</div>
+      <div class="slide-heading animate animate-delay-1">Kanał w liczbach</div>
+      <div class="yt-content">
+        <div class="yt-stats-col">
+          <div class="yt-stat-row animate animate-delay-2">
+            <div class="yt-stat-num">190K</div>
+            <div class="yt-stat-desc">Średnia liczba wyświetleń na film</div>
+          </div>
+          <div class="yt-stat-row animate animate-delay-3">
+            <div class="yt-stat-num">40M</div>
+            <div class="yt-stat-desc">Wyświetleń od początku kanału</div>
+          </div>
+          <div class="yt-stat-row animate animate-delay-4">
+            <div class="yt-stat-num">18.1M</div>
+            <div class="yt-stat-desc">Wyświetleń w roku 2025</div>
+          </div>
+          <div class="yt-stat-row animate animate-delay-5">
+            <div class="yt-stat-num">25K</div>
+            <div class="yt-stat-desc">Nowych subskrypcji w 90 dni</div>
+          </div>
+          <div class="yt-stat-row animate animate-delay-6">
+            <div class="yt-stat-num">317K</div>
+            <div class="yt-stat-desc">Wszystkich subskrypcji</div>
+          </div>
+        </div>
+        <div class="yt-highlights animate animate-delay-3">
+          <h3>Największe realizacje</h3>
+          <div class="yt-highlight-item">
+            <div class="yt-highlight-dot"></div>
+            <span>Seria filmów dokumentalnych z Sir Rogerem Penrosem na Oxfordzie</span>
+          </div>
+          <div class="yt-highlight-item">
+            <div class="yt-highlight-dot"></div>
+            <span>Film dokumentalny i wywiad z Wojciechem Zarembą w San Francisco</span>
+          </div>
+          <div class="yt-highlight-item">
+            <div class="yt-highlight-dot"></div>
+            <span>Seria filmów dokumentalnych z Michio Kaku w Nowym Jorku</span>
+          </div>
+          <div class="yt-highlight-item">
+            <div class="yt-highlight-dot"></div>
+            <span>Film dokumentalny WorldCoin — Sam Altman i Alex Blania</span>
+          </div>
+          <div class="yt-highlight-item">
+            <div class="yt-highlight-dot"></div>
+            <span>Wywiad z Wojciechem Żurkiem w Los Alamos</span>
+          </div>
+          <div class="yt-highlight-item">
+            <div class="yt-highlight-dot"></div>
+            <span>Reportaż we współpracy z nVidią w Dolinie Krzemowej</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════ SLIDE 4: AUDIENCE ═══════ -->
+  <div class="slide slide-audience" data-theme="light">
+    <div class="slide-inner">
+      <div class="section-tag animate">YouTube</div>
+      <div class="slide-heading animate animate-delay-1">Profil widzów</div>
+      <div class="audience-grid">
+        <div class="audience-card animate animate-delay-2">
+          <h3>Zainteresowania widzów</h3>
+          <div class="interest-bar">
+            <span class="interest-label">Biznes</span>
+            <div class="interest-track"><div class="interest-fill red" style="width:85%"></div></div>
+          </div>
+          <div class="interest-bar">
+            <span class="interest-label">Technologia</span>
+            <div class="interest-track"><div class="interest-fill red" style="width:80%"></div></div>
+          </div>
+          <div class="interest-bar">
+            <span class="interest-label">Geopolityka</span>
+            <div class="interest-track"><div class="interest-fill" style="width:65%"></div></div>
+          </div>
+          <div class="interest-bar">
+            <span class="interest-label">Nauka</span>
+            <div class="interest-track"><div class="interest-fill" style="width:70%"></div></div>
+          </div>
+          <div class="interest-bar">
+            <span class="interest-label">Historia</span>
+            <div class="interest-track"><div class="interest-fill" style="width:50%"></div></div>
+          </div>
+          <div class="interest-bar">
+            <span class="interest-label">Newsy i polityka</span>
+            <div class="interest-track"><div class="interest-fill" style="width:45%"></div></div>
+          </div>
+        </div>
+        <div class="audience-card animate animate-delay-3">
+          <h3>Wiek / Płeć widzów</h3>
+          <!-- SVG bar chart based on actual YouTube Analytics data -->
+          <svg viewBox="0 0 400 240" style="width:100%; margin-bottom:8px;">
+            <style>
+              .chart-label { font-family: var(--font-mono); font-size: 10px; fill: #9e9e9e; }
+              .chart-value { font-family: var(--font-mono); font-size: 9px; fill: #666; }
+              .bar-m { fill: #e63946; opacity: 0.85; rx: 3; }
+              .bar-f { fill: #e63946; opacity: 0.25; rx: 3; }
+            </style>
+            <!-- Y axis labels -->
+            <text x="30" y="28" class="chart-label" text-anchor="end">30%</text>
+            <text x="30" y="72" class="chart-label" text-anchor="end">20%</text>
+            <text x="30" y="116" class="chart-label" text-anchor="end">10%</text>
+            <text x="30" y="160" class="chart-label" text-anchor="end">0%</text>
+            <!-- Grid lines -->
+            <line x1="36" y1="24" x2="390" y2="24" stroke="#e5e2da" stroke-width="0.5"/>
+            <line x1="36" y1="68" x2="390" y2="68" stroke="#e5e2da" stroke-width="0.5"/>
+            <line x1="36" y1="112" x2="390" y2="112" stroke="#e5e2da" stroke-width="0.5"/>
+            <line x1="36" y1="156" x2="390" y2="156" stroke="#e5e2da" stroke-width="0.5"/>
+            <!-- 18-24: M=2.5%, F=0.5% -->
+            <rect class="bar-m" x="50" y="145" width="22" height="11"/>
+            <rect class="bar-f" x="74" y="154" width="22" height="2"/>
+            <text x="73" y="175" class="chart-label" text-anchor="middle">18–24</text>
+            <!-- 25-34: M=17%, F=3% -->
+            <rect class="bar-m" x="110" y="83" width="22" height="73"/>
+            <rect class="bar-f" x="134" y="143" width="22" height="13"/>
+            <text x="133" y="175" class="chart-label" text-anchor="middle">25–34</text>
+            <!-- 35-44: M=27%, F=5% -->
+            <rect class="bar-m" x="170" y="37" width="22" height="119"/>
+            <rect class="bar-f" x="194" y="134" width="22" height="22"/>
+            <text x="193" y="175" class="chart-label" text-anchor="middle">35–44</text>
+            <!-- 45-54: M=19%, F=5% -->
+            <rect class="bar-m" x="230" y="74" width="22" height="82"/>
+            <rect class="bar-f" x="254" y="134" width="22" height="22"/>
+            <text x="253" y="175" class="chart-label" text-anchor="middle">45–54</text>
+            <!-- 55-64: M=8%, F=3.5% -->
+            <rect class="bar-m" x="290" y="121" width="22" height="35"/>
+            <rect class="bar-f" x="314" y="141" width="22" height="15"/>
+            <text x="313" y="175" class="chart-label" text-anchor="middle">55–64</text>
+            <!-- 65+: M=6.5%, F=3.5% -->
+            <rect class="bar-m" x="350" y="128" width="22" height="28"/>
+            <rect class="bar-f" x="374" y="141" width="16" height="15"/>
+            <text x="371" y="175" class="chart-label" text-anchor="middle">65+</text>
+            <!-- Legend -->
+            <rect x="130" y="195" width="12" height="12" rx="2" class="bar-m"/>
+            <text x="146" y="205" class="chart-label">Mężczyźni</text>
+            <rect x="210" y="195" width="12" height="12" rx="2" class="bar-f"/>
+            <text x="226" y="205" class="chart-label">Kobiety</text>
+          </svg>
+          <div style="padding:12px 16px; background: var(--bg-warm); border-radius:12px; font-size:13px; color:var(--text-muted); line-height:1.5;">
+            Dominująca grupa: mężczyźni 35–44 (~27%). Łącznie mężczyźni stanowią ~80% widowni.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════ SLIDE 5: AWARDS ═══════ -->
+  <div class="slide slide-awards" data-theme="dark">
+    <div class="slide-inner">
+      <div class="section-tag section-tag-light animate">Nagrody i nominacje</div>
+      <div class="slide-heading slide-heading-light animate animate-delay-1">Docenieni przez branżę</div>
+      <div class="awards-grid">
+        <div class="award-card animate animate-delay-2">
+          <div class="award-badge gold">★ Laureat</div>
+          <div class="award-title">Grand Video Awards</div>
+          <div class="award-desc">Kategoria Wideorozmowa — nagrodzony film: „Odkrywa włókna czasu naszej przestrzeni! prof. Dawid Kielak"</div>
+          <span class="award-year">GVA</span>
+        </div>
+        <div class="award-card animate animate-delay-3">
+          <div class="award-badge silver">◆ Nominacja</div>
+          <div class="award-title">Grand Press 2024</div>
+          <div class="award-desc">Kategoria Wywiad — nominowany film: „Wojciech Zaremba: Tak będzie wyglądała Nowa Era ludzkości"</div>
+          <span class="award-year">2024</span>
+        </div>
+        <div class="award-card animate animate-delay-4">
+          <div class="award-badge silver">◆ Nominacja</div>
+          <div class="award-title">Grand Press 2025</div>
+          <div class="award-desc">Kategoria Wywiad — nominowany film: „Odkrył język ludzkiego mózgu | Thomas Sudhof (NOBEL)"</div>
+          <span class="award-year">2025</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════ SLIDE 6: HOST ═══════ -->
+  <div class="slide slide-host" data-theme="light">
+    <div class="slide-inner">
+      <div class="section-tag animate">Prowadzący</div>
+      <div class="host-content">
+        <img src="images/kawecki.png" alt="Dr Maciej Kawecki" class="host-photo animate animate-delay-1">
+        <div class="host-info">
+          <h3 class="animate animate-delay-2">Dr Maciej Kawecki</h3>
+          <span class="host-role animate animate-delay-2">Prowadzący This is IT</span>
+          <div class="host-credentials">
+            <div class="host-credential animate animate-delay-3">
+              <div class="host-credential-dot"></div>
+              <span>Dyrektor Centrum Innowacji Uniwersytetu WSB Merito</span>
+            </div>
+            <div class="host-credential animate animate-delay-3">
+              <div class="host-credential-dot"></div>
+              <span>Prezes Instytutu Lema</span>
+            </div>
+            <div class="host-credential animate animate-delay-4">
+              <div class="host-credential-dot"></div>
+              <span>Dziennikarz technologiczny i popularyzator nauki</span>
+            </div>
+            <div class="host-credential animate animate-delay-4">
+              <div class="host-credential-dot"></div>
+              <span>Laureat nagrody Grand Video Awards Magazynu PRESS</span>
+            </div>
+            <div class="host-credential animate animate-delay-5">
+              <div class="host-credential-dot"></div>
+              <span>Dyrektor dep. zarządzania danymi w Ministerstwie Cyfryzacji (2018–2019)</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════ SLIDE 7: SOCIAL REACH ═══════ -->
+  <div class="slide slide-social" data-theme="light">
+    <div class="slide-inner">
+      <div class="section-tag animate">Media społecznościowe</div>
+      <div class="slide-heading animate animate-delay-1">Zasięgi poza YouTube</div>
+      <div class="social-grid">
+        <div class="social-card fb animate animate-delay-2">
+          <span class="social-card-icon">📘</span>
+          <h3>Facebook</h3>
+          <div class="social-stat">
+            <span class="social-stat-label">Zasięgi ostatnie 3 mies.</span>
+            <span class="social-stat-value">46M</span>
+          </div>
+          <div class="social-stat">
+            <span class="social-stat-label">Obserwujących</span>
+            <span class="social-stat-value">315K</span>
+          </div>
+        </div>
+        <div class="social-card li animate animate-delay-3">
+          <span class="social-card-icon">💼</span>
+          <h3>LinkedIn</h3>
+          <div class="social-stat">
+            <span class="social-stat-label">Zasięgi ostatnie 3 mies.</span>
+            <span class="social-stat-value">4.3M</span>
+          </div>
+          <div class="social-stat">
+            <span class="social-stat-label">Obserwujących</span>
+            <span class="social-stat-value">176K</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════ SLIDE 8: LINKEDIN DETAILS ═══════ -->
+  <div class="slide slide-linkedin" data-theme="light">
+    <div class="slide-inner">
+      <div class="section-tag animate">LinkedIn — szczegóły</div>
+      <div class="slide-heading animate animate-delay-1">Profil obserwujących</div>
+      <div class="linkedin-grid">
+        <div class="linkedin-card animate animate-delay-2">
+          <h3>Branże</h3>
+          <div class="li-bar-row">
+            <span class="li-bar-label">Usługi i doradztwo IT</span>
+            <div class="li-bar-track"><div class="li-bar-fill" style="width:100%"></div></div>
+            <span style="font-family:var(--font-mono); font-size:12px; color:var(--text-primary); font-weight:600; min-width:40px; text-align:right;">11%</span>
+          </div>
+          <div class="li-bar-row">
+            <span class="li-bar-label">Tworzenie oprogramowania</span>
+            <div class="li-bar-track"><div class="li-bar-fill" style="width:55%"></div></div>
+            <span style="font-family:var(--font-mono); font-size:12px; color:var(--text-primary); font-weight:600; min-width:40px; text-align:right;">6%</span>
+          </div>
+          <div class="li-bar-row">
+            <span class="li-bar-label">Usługi reklamowe</span>
+            <div class="li-bar-track"><div class="li-bar-fill" style="width:36%"></div></div>
+            <span style="font-family:var(--font-mono); font-size:12px; color:var(--text-primary); font-weight:600; min-width:40px; text-align:right;">4%</span>
+          </div>
+          <div class="li-bar-row">
+            <span class="li-bar-label">Usługi finansowe</span>
+            <div class="li-bar-track"><div class="li-bar-fill" style="width:36%"></div></div>
+            <span style="font-family:var(--font-mono); font-size:12px; color:var(--text-primary); font-weight:600; min-width:40px; text-align:right;">4%</span>
+          </div>
+          <div class="li-bar-row">
+            <span class="li-bar-label">Bankowość</span>
+            <div class="li-bar-track"><div class="li-bar-fill" style="width:27%"></div></div>
+            <span style="font-family:var(--font-mono); font-size:12px; color:var(--text-primary); font-weight:600; min-width:40px; text-align:right;">3%</span>
+          </div>
+        </div>
+        <div class="linkedin-card animate animate-delay-3">
+          <h3>Stanowiska</h3>
+          <div class="li-bar-row">
+            <span class="li-bar-label">Właściciel</span>
+            <div class="li-bar-track"><div class="li-bar-fill" style="width:100%"></div></div>
+            <span style="font-family:var(--font-mono); font-size:12px; color:var(--text-primary); font-weight:600; min-width:40px; text-align:right;">3.0%</span>
+          </div>
+          <div class="li-bar-row">
+            <span class="li-bar-label">Kierownik projektu</span>
+            <div class="li-bar-track"><div class="li-bar-fill" style="width:67%"></div></div>
+            <span style="font-family:var(--font-mono); font-size:12px; color:var(--text-primary); font-weight:600; min-width:40px; text-align:right;">2.0%</span>
+          </div>
+          <div class="li-bar-row">
+            <span class="li-bar-label">Dyrektor generalny</span>
+            <div class="li-bar-track"><div class="li-bar-fill" style="width:67%"></div></div>
+            <span style="font-family:var(--font-mono); font-size:12px; color:var(--text-primary); font-weight:600; min-width:40px; text-align:right;">2.0%</span>
+          </div>
+          <div class="li-bar-row">
+            <span class="li-bar-label">Inżynier oprogramowania</span>
+            <div class="li-bar-track"><div class="li-bar-fill" style="width:37%"></div></div>
+            <span style="font-family:var(--font-mono); font-size:12px; color:var(--text-primary); font-weight:600; min-width:40px; text-align:right;">1.1%</span>
+          </div>
+          <div style="margin-top:20px; padding:14px 18px; background: var(--bg-primary); border-radius:12px; font-size:13px; color:var(--text-muted); line-height:1.5;">
+            Decydenci i kadra zarządzająca stanowią dominującą grupę obserwujących.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════ SLIDE 8b: LINKEDIN RANKING ═══════ -->
+  <div class="slide" data-theme="dark" style="background: var(--bg-dark);">
+    <div class="slide-inner">
+      <div class="section-tag section-tag-light animate">LinkedIn — ranking</div>
+      <div class="slide-heading slide-heading-light animate animate-delay-1" style="font-size:clamp(32px,4vw,52px);">TOP 5 twórców LinkedIn</div>
+      <div class="slide-subheading slide-subheading-light animate animate-delay-2" style="margin-bottom:40px;">Z największą liczbą wszystkich reakcji (dane: Widoczni, kwiecień 2025)</div>
+      <div style="display:flex; flex-direction:column; gap:18px; max-width:800px;">
+        <!-- Kawecki -->
+        <div class="animate animate-delay-2">
+          <div style="display:flex; justify-content:space-between; align-items:baseline; margin-bottom:6px;">
+            <span style="font-family:var(--font-sans); font-size:16px; color:#fff; font-weight:600;"><span style="font-family:var(--font-mono); color:rgba(240,237,231,0.35); margin-right:12px;">#1</span>Maciej Kawecki</span>
+            <span style="font-family:var(--font-mono); font-size:15px; color:rgba(255,255,255,0.85); font-weight:600;">1 792 015</span>
+          </div>
+          <div style="width:100%; height:12px; background:rgba(255,255,255,0.06); border-radius:6px; overflow:hidden;">
+            <div style="width:100%; height:100%; background: linear-gradient(90deg, var(--accent-red), #ff6b6b); border-radius:6px;"></div>
+          </div>
+        </div>
+        <!-- Brzoska -->
+        <div class="animate animate-delay-3">
+          <div style="display:flex; justify-content:space-between; align-items:baseline; margin-bottom:6px;">
+            <span style="font-family:var(--font-sans); font-size:16px; color:var(--text-on-dark);"><span style="font-family:var(--font-mono); color:rgba(240,237,231,0.35); margin-right:12px;">#2</span>Rafał Brzoska</span>
+            <span style="font-family:var(--font-mono); font-size:15px; color:rgba(240,237,231,0.55);">1 275 182</span>
+          </div>
+          <div style="width:100%; height:12px; background:rgba(255,255,255,0.06); border-radius:6px; overflow:hidden;">
+            <div style="width:71%; height:100%; background:rgba(255,255,255,0.15); border-radius:6px;"></div>
+          </div>
+        </div>
+        <!-- Bączkowski -->
+        <div class="animate animate-delay-3">
+          <div style="display:flex; justify-content:space-between; align-items:baseline; margin-bottom:6px;">
+            <span style="font-family:var(--font-sans); font-size:16px; color:var(--text-on-dark);"><span style="font-family:var(--font-mono); color:rgba(240,237,231,0.35); margin-right:12px;">#3</span>Karol Bączkowski</span>
+            <span style="font-family:var(--font-mono); font-size:15px; color:rgba(240,237,231,0.55);">707 021</span>
+          </div>
+          <div style="width:100%; height:12px; background:rgba(255,255,255,0.06); border-radius:6px; overflow:hidden;">
+            <div style="width:39%; height:100%; background:rgba(255,255,255,0.15); border-radius:6px;"></div>
+          </div>
+        </div>
+        <!-- Szczesniak -->
+        <div class="animate animate-delay-4">
+          <div style="display:flex; justify-content:space-between; align-items:baseline; margin-bottom:6px;">
+            <span style="font-family:var(--font-sans); font-size:16px; color:var(--text-on-dark);"><span style="font-family:var(--font-mono); color:rgba(240,237,231,0.35); margin-right:12px;">#4</span>Szymon Szczesniak</span>
+            <span style="font-family:var(--font-mono); font-size:15px; color:rgba(240,237,231,0.55);">493 593</span>
+          </div>
+          <div style="width:100%; height:12px; background:rgba(255,255,255,0.06); border-radius:6px; overflow:hidden;">
+            <div style="width:28%; height:100%; background:rgba(255,255,255,0.15); border-radius:6px;"></div>
+          </div>
+        </div>
+        <!-- Sadowski -->
+        <div class="animate animate-delay-4">
+          <div style="display:flex; justify-content:space-between; align-items:baseline; margin-bottom:6px;">
+            <span style="font-family:var(--font-sans); font-size:16px; color:var(--text-on-dark);"><span style="font-family:var(--font-mono); color:rgba(240,237,231,0.35); margin-right:12px;">#5</span>Michał Sadowski</span>
+            <span style="font-family:var(--font-mono); font-size:15px; color:rgba(240,237,231,0.55);">447 413</span>
+          </div>
+          <div style="width:100%; height:12px; background:rgba(255,255,255,0.06); border-radius:6px; overflow:hidden;">
+            <div style="width:25%; height:100%; background:rgba(255,255,255,0.15); border-radius:6px;"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════ SLIDE 10: AVI LOEB ═══════ -->
+  <div class="slide slide-guest" data-theme="light">
+    <div class="slide-inner">
+      <div class="guest-content">
+        <div class="guest-photo-wrap animate animate-delay-1">
+          <img src="images/avi-loeb.png" alt="Avi Loeb" class="guest-photo-main">
+        </div>
+        <div>
+          <div class="section-tag animate">Nadchodzący wywiad</div>
+          <div class="guest-name animate animate-delay-1">Avi Loeb</div>
+          <div class="guest-title animate animate-delay-2">Teoretyk i astrofizyk z Harvardu, były szef tamtejszej astronomii i założyciel Black Hole Initiative. Znany z odważnych hipotez o pochodzeniu obiektów międzygwiazdowych.</div>
+          <div class="guest-topics">
+            <div class="guest-topic animate animate-delay-3">
+              <div class="guest-topic-num">1</div>
+              <div class="guest-topic-text">CIA vs Tajne akta o UFO, Obce cywilizacje, 3I/Atlas, ʻOumuamua</div>
+            </div>
+            <div class="guest-topic animate animate-delay-4">
+              <div class="guest-topic-num">2</div>
+              <div class="guest-topic-text">Bóg vs Nauka</div>
+            </div>
+            <div class="guest-topic animate animate-delay-5">
+              <div class="guest-topic-num">3</div>
+              <div class="guest-topic-text">Interstellar Expedition</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════ SLIDE 11: SARAH PAINE ═══════ -->
+  <div class="slide slide-guest alt" data-theme="light">
+    <div class="slide-inner">
+      <div class="guest-content">
+        <div class="guest-photo-wrap animate animate-delay-1">
+          <img src="images/sarah-paine.png" alt="Sarah Paine" class="guest-photo-main">
+        </div>
+        <div>
+          <div class="section-tag animate">Nadchodzący wywiad</div>
+          <div class="guest-name animate animate-delay-1">Sarah Paine</div>
+          <div class="guest-title animate animate-delay-2">Historyczka i strateg z U.S. Naval War College, specjalistka od wojen morskich i historii imperiów w Azji Wschodniej.</div>
+          <div class="guest-topics">
+            <div class="guest-topic animate animate-delay-3">
+              <div class="guest-topic-num">1</div>
+              <div class="guest-topic-text">Omówienie najważniejszych wątków historycznych z obszaru geopolityki</div>
+            </div>
+            <div class="guest-topic animate animate-delay-4">
+              <div class="guest-topic-num">2</div>
+              <div class="guest-topic-text">Omówienie współczesnej sceny geopolitycznej na świecie</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════ SLIDE 12: RAHUL JANDIAL & BRIAN KEATLING ═══════ -->
+  <div class="slide slide-guest" data-theme="light">
+    <div class="slide-inner">
+      <div class="section-tag animate">Nadchodzące wywiady</div>
+      <div class="slide-heading animate animate-delay-1" style="font-size:clamp(32px,4vw,48px);">Nauka i medycyna</div>
+      <div class="guests-duo">
+        <div class="guest-mini-card animate animate-delay-2">
+          <div class="guest-mini-header">
+            <img src="images/rahul-jandial.png" alt="Rahul Jandial" class="guest-mini-photo">
+            <div class="guest-mini-name">Rahul Jandial</div>
+          </div>
+          <div class="guest-mini-desc">Neurochirurg z Los Angeles — naukowiec i autor bestsellerów o mózgu tłumaczonych na dziesiątki języków.</div>
+          <div class="guest-mini-topics">
+            <div class="guest-mini-topic">Ostatnie minuty życia — co się dzieje z mózgiem chwilę po śmierci</div>
+            <div class="guest-mini-topic">Sny prorocze i największe tajemnice snu</div>
+          </div>
+        </div>
+        <div class="guest-mini-card animate animate-delay-3">
+          <div class="guest-mini-header">
+            <img src="images/brian-keatling.png" alt="Brian Keatling" class="guest-mini-photo">
+            <div class="guest-mini-name">Brian Keatling</div>
+          </div>
+          <div class="guest-mini-desc">Kosmolog z UC San Diego, twórca eksperymentu BICEP i główny architekt teleskopów badających echo Wielkiego Wybuchu.</div>
+          <div class="guest-mini-topics">
+            <div class="guest-mini-topic">Czy fizyka dostarczy nam dowodów na istnienie Boga?</div>
+            <div class="guest-mini-topic">Przełomowe badania w obserwatorium w Chile</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════ SLIDE 13: JARON LANIER & NICK BOSTROM ═══════ -->
+  <div class="slide slide-guest alt" data-theme="light">
+    <div class="slide-inner">
+      <div class="section-tag animate">Nadchodzące wywiady</div>
+      <div class="slide-heading animate animate-delay-1" style="font-size:clamp(32px,4vw,48px);">Technologia i przyszłość</div>
+      <div class="guests-duo">
+        <div class="guest-mini-card animate animate-delay-2">
+          <div class="guest-mini-header">
+            <img src="images/jaron-lanier.png" alt="Jaron Lanier" class="guest-mini-photo">
+            <div class="guest-mini-name">Jaron Lanier</div>
+          </div>
+          <div class="guest-mini-desc">Legenda Doliny Krzemowej, pionier wirtualnej rzeczywistości, jeden z najostrzejszych krytyków social mediów i AI.</div>
+          <div class="guest-mini-topics">
+            <div class="guest-mini-topic">META jako niszczyciel technologii VR, przyszłość Doliny Krzemowej</div>
+          </div>
+        </div>
+        <div class="guest-mini-card animate animate-delay-3">
+          <div class="guest-mini-header">
+            <img src="images/nick-bostrom.jpg" alt="Nick Bostrom" class="guest-mini-photo">
+            <div class="guest-mini-name">Nick Bostrom</div>
+          </div>
+          <div class="guest-mini-desc">Szwedzki filozof i futurolog, autor „Superintelligence", były profesor Oksfordu i założyciel Future of Humanity Institute.</div>
+          <div class="guest-mini-topics">
+            <div class="guest-mini-topic">Zagrożenia AI, bezpieczeństwo sztucznej inteligencji</div>
+            <div class="guest-mini-topic">Dowody na istnienie multiwersum</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════ SLIDE 14: DUNAJSKI, GRYGIEL, GADACZ ═══════ -->
+  <div class="slide slide-guest" data-theme="light">
+    <div class="slide-inner">
+      <div class="section-tag animate">Nadchodzące wywiady</div>
+      <div class="slide-heading animate animate-delay-1" style="font-size:clamp(32px,4vw,48px);">Filozofia i duchowość</div>
+      <div class="guests-duo" style="grid-template-columns: repeat(3, 1fr); gap: 24px;">
+        <div class="guest-mini-card animate animate-delay-2">
+          <div class="guest-mini-header">
+            <img src="images/maciej-dunajski.jpg" alt="Maciej Dunajski" class="guest-mini-photo">
+            <div class="guest-mini-name">Maciej Dunajski</div>
+          </div>
+          <div class="guest-mini-desc">Matematyk i fizyk teoretyczny, profesor Cambridge, współpracownik Penrose'a i Hawkinga.</div>
+          <div class="guest-mini-topics">
+            <div class="guest-mini-topic">Problem metryzowalności — wytłumaczony na poziomie liceum</div>
+          </div>
+        </div>
+        <div class="guest-mini-card animate animate-delay-3">
+          <div class="guest-mini-header">
+            <img src="images/wojciech-grygiel.jpg" alt="Ks. Wojciech Grygiel" class="guest-mini-photo">
+            <div class="guest-mini-name">Ks. W. Grygiel</div>
+          </div>
+          <div class="guest-mini-desc">Filozof i teolog, specjalista od relacji wiary i rozumu, kosmologii i filozofii współczesnej fizyki.</div>
+          <div class="guest-mini-topics">
+            <div class="guest-mini-topic">Czy nauka przeczy religii? Dowody na istnienie Boga w nauce</div>
+          </div>
+        </div>
+        <div class="guest-mini-card animate animate-delay-4">
+          <div class="guest-mini-header">
+            <img src="images/tadeusz-gadacz.jpg" alt="Tadeusz Gadacz" class="guest-mini-photo">
+            <div class="guest-mini-name">Tadeusz Gadacz</div>
+          </div>
+          <div class="guest-mini-desc">Filozof religii, jeden z najbardziej rozpoznawalnych polskich komentatorów filozofii egzystencjalnej.</div>
+          <div class="guest-mini-topics">
+            <div class="guest-mini-topic">Kryzys sensu w cywilizacji Zachodu, duchowość w świecie technologii</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════ SLIDE 15: CARHART-HARRIS & CRAWFORD ═══════ -->
+  <div class="slide slide-guest alt" data-theme="light">
+    <div class="slide-inner">
+      <div class="section-tag animate">Nadchodzące wywiady</div>
+      <div class="slide-heading animate animate-delay-1" style="font-size:clamp(32px,4vw,48px);">Mózg i matematyka</div>
+      <div class="guests-duo">
+        <div class="guest-mini-card animate animate-delay-2">
+          <div class="guest-mini-header">
+            <img src="images/robin-carhart-harris.jpg" alt="Robin Carhart-Harris" class="guest-mini-photo">
+            <div class="guest-mini-name">Robin Carhart-Harris</div>
+          </div>
+          <div class="guest-mini-desc">Neurobiolog, jeden z najważniejszych badaczy wpływu psychodelików na ludzki mózg. Twórca teorii entropic brain.</div>
+          <div class="guest-mini-topics">
+            <div class="guest-mini-topic">Psychodeliki a leczenie depresji i traumy</div>
+            <div class="guest-mini-topic">Czym jest świadomość?</div>
+          </div>
+        </div>
+        <div class="guest-mini-card animate animate-delay-3">
+          <div class="guest-mini-header">
+            <img src="images/tom-crawford.jpg" alt="Tom Crawford" class="guest-mini-photo">
+            <div class="guest-mini-name">Tom Crawford</div>
+          </div>
+          <div class="guest-mini-desc">Matematyk i wykładowca Uniwersytetu Oksfordzkiego, popularyzator nauki i twórca Tom Rocks Maths.</div>
+          <div class="guest-mini-topics">
+            <div class="guest-mini-topic">Czy matematyka jest ukrytym językiem wszechświata?</div>
+            <div class="guest-mini-topic">Największe przełomy technologiczne XXI w. mają źródło w matematyce</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════ SLIDE 16: OFFER — PARTNER ODCINKA ═══════ -->
+  <div class="slide slide-offer" data-theme="light">
+    <div class="slide-inner">
+      <div class="section-tag animate">Oferta</div>
+      <div class="slide-heading animate animate-delay-1">Pakiet „Partner Odcinka"</div>
+      <div class="offer-hero">
+        <div>
+          <div class="offer-items">
+            <div class="offer-item animate animate-delay-2">
+              <div class="offer-check">✓</div>
+              <span>Placement w jednym odcinku YouTube</span>
+            </div>
+            <div class="offer-item animate animate-delay-2">
+              <div class="offer-check">✓</div>
+              <span>Przedstawienie Partnera w opisie materiału</span>
+            </div>
+            <div class="offer-item animate animate-delay-3">
+              <div class="offer-check">✓</div>
+              <span>Post na karcie Społeczności YouTube</span>
+            </div>
+            <div class="offer-item animate animate-delay-3">
+              <div class="offer-check">✓</div>
+              <span>Post promujący odcinek i Partnera</span>
+            </div>
+            <div class="offer-item animate animate-delay-4">
+              <div class="offer-check">✓</div>
+              <span>Skonsolidowany zakres działań promujących</span>
+            </div>
+          </div>
+        </div>
+        <div class="offer-reach-card animate animate-delay-3">
+          <div class="offer-reach-value">940K</div>
+          <div class="offer-reach-label">Średni zasięg pakietu</div>
+          <div class="offer-reach-sublabel">Dane z ostatnich 90 dni</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════ SLIDE 17: OFFER DETAILS ═══════ -->
+  <div class="slide slide-details" data-theme="light">
+    <div class="slide-inner">
+      <div class="section-tag animate">Szczegóły</div>
+      <div class="slide-heading animate animate-delay-1" style="font-size:clamp(32px,4vw,48px);">Placement w odcinku</div>
+      <div class="details-grid">
+        <div class="detail-card animate animate-delay-2">
+          <h3>Zapowiedź Partnera</h3>
+          <div class="detail-item">
+            <div class="detail-bullet"></div>
+            <span>Po zakończonym trailerze (2–3 minuta filmu) — słowna informacja o Partnerze</span>
+          </div>
+          <div class="detail-item">
+            <div class="detail-bullet"></div>
+            <span>Segment nagrany przez Dr. Kaweckiego — max. 15 sekund</span>
+          </div>
+          <div class="detail-item">
+            <div class="detail-bullet"></div>
+            <span>Możliwość wyświetlenia planszy, logotypu lub krótkiego video</span>
+          </div>
+          <div class="detail-item">
+            <div class="detail-bullet"></div>
+            <span>Szerszy opis Partnera w opisie filmu + link</span>
+          </div>
+        </div>
+        <div class="detail-card animate animate-delay-3">
+          <h3>Ekspozycja w trakcie i na końcu</h3>
+          <div class="detail-item">
+            <div class="detail-bullet"></div>
+            <span>W połowie odcinka — belka lub L-screen z informacją o Partnerze (max. 10 sek.)</span>
+          </div>
+          <div class="detail-item">
+            <div class="detail-bullet"></div>
+            <span>Na koniec filmu — plansza końcowa lub krótkie video (max. 15 sek.)</span>
+          </div>
+          <div class="detail-item">
+            <div class="detail-bullet"></div>
+            <span>Materiały dostarczone przez Partnera</span>
+          </div>
+          <div class="detail-item">
+            <div class="detail-bullet"></div>
+            <span>Brak konkurencji — dedykowane partnerstwa wyceniane osobno</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════ SLIDE 18: POSTS ═══════ -->
+  <div class="slide slide-details" data-theme="light" style="background: var(--bg-primary);">
+    <div class="slide-inner">
+      <div class="section-tag animate">Szczegóły</div>
+      <div class="slide-heading animate animate-delay-1" style="font-size:clamp(32px,4vw,48px);">Posty promocyjne</div>
+      <div class="slide-subheading animate animate-delay-2" style="margin-bottom:32px;">Razem z każdym partnerstwem odcinka, sponsor otrzyma 3 posty promujące odcinek</div>
+      <div class="details-grid" style="grid-template-columns: repeat(3, 1fr);">
+        <div class="detail-card animate animate-delay-3" style="text-align:center;">
+          <div style="font-size:32px; margin-bottom:12px;">💼</div>
+          <h3>LinkedIn</h3>
+          <p style="font-size:14px; color:var(--text-muted); line-height:1.6;">Post na profilu Dr. Macieja Kaweckiego z informacją o odcinku i wzmianką o Partnerze + link</p>
+        </div>
+        <div class="detail-card animate animate-delay-4" style="text-align:center;">
+          <div style="font-size:32px; margin-bottom:12px;">📘</div>
+          <h3>Facebook</h3>
+          <p style="font-size:14px; color:var(--text-muted); line-height:1.6;">Post na profilu Dr. Macieja Kaweckiego z informacją o odcinku i wzmianką o Partnerze + link</p>
+        </div>
+        <div class="detail-card animate animate-delay-5" style="text-align:center;">
+          <div style="font-size:32px; margin-bottom:12px;">▶</div>
+          <h3>YouTube Community</h3>
+          <p style="font-size:14px; color:var(--text-muted); line-height:1.6;">Post na karcie Społeczności YouTube kanału This is IT z wzmianką o Partnerze</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════ SLIDE 19: PRICING ═══════ -->
+  <div class="slide slide-pricing" data-theme="light">
+    <div class="slide-inner" style="text-align:center;">
+      <div class="section-tag animate">Cennik</div>
+      <div class="slide-heading animate animate-delay-1">Partner Odcinka</div>
+      <div class="pricing-card animate animate-delay-2">
+        <div class="pricing-name">Pakiet Partner Odcinka</div>
+        <div style="margin-bottom:32px;">
+          <div class="pricing-bonus">GRATIS</div>
+          <div class="pricing-bonus-desc">Dodatkowy post dedykowany partnerstwu na LinkedIn, Facebook i YouTube</div>
+          <div style="font-size:13px; color:var(--text-faint);">Prognozowany zasięg: <strong style="color:var(--text-primary);">0,7 MLN</strong></div>
+        </div>
+        <div style="margin-bottom:0;">
+          <div class="pricing-bonus">GRATIS</div>
+          <div class="pricing-bonus-desc">Drugi dodatkowy post dedykowany partnerstwu na LinkedIn, Facebook i YouTube</div>
+          <div style="font-size:13px; color:var(--text-faint);">Prognozowany zasięg: <strong style="color:var(--text-primary);">0,7 MLN</strong></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════ SLIDE 20: CUSTOM OFFER ═══════ -->
+  <div class="slide slide-custom" data-theme="dark">
+    <div class="slide-inner" style="position:relative; z-index:1;">
+      <div class="section-tag section-tag-light animate">Oferta niestandardowa</div>
+      <div class="slide-heading slide-heading-light animate animate-delay-1" style="font-size:clamp(32px,4vw,52px);">Co jeszcze możemy zrobić?</div>
+      <div class="slide-subheading slide-subheading-light animate animate-delay-2" style="margin-bottom:8px;">
+        Kompleksowe i kreatywne działania promocyjne dla firm i instytucji
+      </div>
+      <div class="custom-grid">
+        <div class="custom-card animate animate-delay-3">
+          <h3>Produkcja filmów dokumentalnych</h3>
+          <p>Profesjonalne filmy dokumentalne przygotowane na zlecenie. Od koncepcji i scenariusza, przez realizację zdjęć, aż po montaż i dystrybucję na naszych kanałach.</p>
+        </div>
+        <div class="custom-card animate animate-delay-3">
+          <h3>Organizacja wydarzeń i eventów</h3>
+          <p>Kompleksowa organizacja eventów — od opracowania koncepcji i programu, przez logistykę i oprawę medialną, aż po promocję wydarzenia.</p>
+        </div>
+        <div class="custom-card animate animate-delay-4">
+          <h3>Panele dyskusyjne i debaty</h3>
+          <p>Organizujemy panele z udziałem ekspertów i przedstawicieli branży. Budowanie wizerunku firmy jako lidera opinii.</p>
+        </div>
+        <div class="custom-card animate animate-delay-4">
+          <h3>Promocja w materiałach backstage</h3>
+          <p>Promocja marek w materiałach backstage z realizacji naszych produkcji filmowych — naturalny i autentyczny kontekst.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════ SLIDE 21: CONTACT ═══════ -->
+  <div class="slide slide-contact" data-theme="dark">
+    <div class="slide-inner" style="position:relative; z-index:1;">
+      <img src="images/cover-logo.png" alt="This is IT" class="cover-logo-img animate" style="margin-bottom:40px; height:40px; filter: invert(1) brightness(2); opacity:0.7;">
+      <div class="slide-heading slide-heading-light animate animate-delay-1" style="font-size:clamp(36px,5vw,56px);">Porozmawiajmy</div>
+      <div class="slide-subheading slide-subheading-light animate animate-delay-2" style="margin: 16px auto 0; text-align:center;">
+        Skontaktuj się z nami, aby omówić szczegóły współpracy
+      </div>
+      <div class="contact-emails animate animate-delay-3">
+        <span class="contact-email">maciej.kawecki@thisisit.edu.pl</span>
+        <span class="contact-email">wojciech.magdziarz@thisisit.edu.pl</span>
+        <span class="contact-email">jarek.bielski@thisisit.edu.pl</span>
+      </div>
+      <div class="contact-company animate animate-delay-4">ThisIsIT sp. z o.o.</div>
+    </div>
+  </div>
+
+</div>
+
+<!-- NAV DOTS -->
+<nav class="slide-nav" id="slideNav"></nav>
+
+<!-- HINT -->
+<div class="slide-click-hint" id="slideHint">
+  <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 3v10M5 10l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  Kliknij lub użyj strzałek
+</div>
+
+<script>
+(function() {
+  const wrapper = document.getElementById('slidesWrapper');
+  const slides = Array.from(wrapper.querySelectorAll('.slide'));
+  const nav = document.getElementById('slideNav');
+  const hint = document.getElementById('slideHint');
+  let current = 0;
+  let transitioning = false;
+
+  // Build nav dots
+  slides.forEach((_, i) => {
+    const a = document.createElement('a');
+    a.href = '#';
+    a.dataset.index = i;
+    if (i === 0) a.classList.add('active');
+    if (slides[i].dataset.theme === 'dark') a.classList.add('light');
+    nav.appendChild(a);
+  });
+
+  function updateHint() {
+    const dark = slides[current].dataset.theme === 'dark';
+    hint.classList.toggle('on-dark', dark);
+  }
+
+  function animateSlideElements(slide) {
+    const els = slide.querySelectorAll('.animate');
+    els.forEach(el => el.classList.add('visible'));
+  }
+
+  function resetSlideElements(slide) {
+    const els = slide.querySelectorAll('.animate');
+    els.forEach(el => el.classList.remove('visible'));
+  }
+
+  function goTo(idx) {
+    if (idx === current || idx < 0 || idx >= slides.length || transitioning) return;
+    transitioning = true;
+    const dir = idx > current ? 'up' : 'down';
+    const prev = slides[current];
+    const next = slides[idx];
+
+    prev.classList.remove('active-slide');
+    prev.classList.add(dir === 'up' ? 'exit-up' : 'exit-down');
+
+    next.classList.remove('exit-up', 'exit-down');
+    next.style.transform = dir === 'up' ? 'translateY(40px)' : 'translateY(-40px)';
+    next.style.opacity = '0';
+    next.offsetHeight; // force reflow
+    next.classList.add('active-slide');
+    next.style.transform = '';
+    next.style.opacity = '';
+
+    animateSlideElements(next);
+
+    // Update nav
+    nav.querySelectorAll('a').forEach((a, i) => {
+      a.classList.toggle('active', i === idx);
+      a.classList.toggle('light', slides[idx].dataset.theme === 'dark');
+    });
+
+    current = idx;
+    updateHint();
+
+    setTimeout(() => {
+      prev.classList.remove('exit-up', 'exit-down');
+      resetSlideElements(prev);
+      transitioning = false;
+    }, 700);
+  }
+
+  // Init first slide
+  animateSlideElements(slides[0]);
+  updateHint();
+
+  // Click to advance
+  wrapper.addEventListener('click', (e) => {
+    if (e.target.closest('.slide-nav')) return;
+    goTo(current + 1);
+  });
+
+  // Keyboard
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowDown' || e.key === 'ArrowRight' || e.key === ' ') {
+      e.preventDefault(); goTo(current + 1);
+    } else if (e.key === 'ArrowUp' || e.key === 'ArrowLeft') {
+      e.preventDefault(); goTo(current - 1);
+    }
+  });
+
+  // Scroll/wheel
+  let lastWheel = 0;
+  wrapper.addEventListener('wheel', (e) => {
+    e.preventDefault();
+    const now = Date.now();
+    if (now - lastWheel < 800) return;
+    lastWheel = now;
+    if (e.deltaY > 0) goTo(current + 1);
+    else if (e.deltaY < 0) goTo(current - 1);
+  }, { passive: false });
+
+  // Touch
+  let touchStartY = 0;
+  wrapper.addEventListener('touchstart', (e) => { touchStartY = e.touches[0].clientY; });
+  wrapper.addEventListener('touchend', (e) => {
+    const diff = touchStartY - e.changedTouches[0].clientY;
+    if (Math.abs(diff) > 50) {
+      diff > 0 ? goTo(current + 1) : goTo(current - 1);
+    }
+  });
+
+  // Nav dots click
+  nav.addEventListener('click', (e) => {
+    e.preventDefault();
+    const a = e.target.closest('a');
+    if (a) goTo(parseInt(a.dataset.index));
+  });
+})();
+</script>
+
+</body>
+</html>
