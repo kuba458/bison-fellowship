@@ -540,24 +540,24 @@
      ══════════════════════════════════════════ */
   .slide-pipeline { background: var(--bg-warm); }
   .pipeline-table {
-    width: 100%; margin-top: 48px;
+    width: 100%; margin-top: 24px;
     border-collapse: separate; border-spacing: 0;
-    border-radius: 20px; overflow: hidden;
+    border-radius: 16px; overflow: hidden;
     box-shadow: 0 8px 40px rgba(26,36,86,0.06);
   }
   .pipeline-table thead th {
     background: var(--accent-navy);
     color: rgba(255,255,255,0.9);
-    font-family: var(--font-mono); font-size: 11px;
+    font-family: var(--font-mono); font-size: 10px;
     letter-spacing: 0.1em; text-transform: uppercase;
-    padding: 16px 24px; text-align: left; font-weight: 500;
+    padding: 12px 18px; text-align: left; font-weight: 500;
   }
   .pipeline-table tbody td {
-    padding: 18px 24px; background: #fff;
+    padding: 11px 18px; background: #fff;
     border-bottom: 1px solid var(--border-light);
-    font-size: 15px; color: var(--text-secondary);
+    font-size: 14px; color: var(--text-secondary);
   }
-  .pipeline-table tbody td:first-child { font-weight: 600; font-size: 17px; color: var(--text-primary); font-family: var(--font-serif); }
+  .pipeline-table tbody td:first-child { font-weight: 600; font-size: 15px; color: var(--text-primary); font-family: var(--font-serif); }
   .pipeline-table tbody tr:last-child td { border-bottom: none; }
   .status-pill {
     display: inline-flex; align-items: center;
@@ -568,9 +568,9 @@
   .status-pill.confirmed { background: rgba(34,197,94,0.08); color: #16a34a; }
   .status-pill.talks { background: rgba(212,168,83,0.12); color: #9a7b3a; }
   .pipeline-note {
-    font-family: var(--font-mono); font-size: 13px;
+    font-family: var(--font-mono); font-size: 12px;
     color: var(--text-muted); text-align: center;
-    margin-top: 18px; letter-spacing: 0.03em;
+    margin-top: 12px; letter-spacing: 0.03em;
   }
 
   /* ══════════════════════════════════════════
@@ -657,7 +657,19 @@
     transition: transform 0.2s, box-shadow 0.2s;
   }
   .partner-card:hover { transform: translateY(-3px); box-shadow: 0 12px 32px rgba(26,36,86,0.08); }
-  .partner-logo { font-family: var(--font-serif); font-size: 28px; font-weight: 400; color: var(--text-primary); }
+  .partner-logo {
+    height: 38px; display: flex; align-items: center; justify-content: center;
+  }
+  .partner-logo img,
+  .partner-logo svg {
+    max-height: 36px; max-width: 140px; object-fit: contain;
+    filter: grayscale(100%) opacity(0.6);
+    transition: filter 0.3s ease;
+  }
+  .partner-card:hover .partner-logo img,
+  .partner-card:hover .partner-logo svg {
+    filter: grayscale(0%) opacity(1);
+  }
   .partner-name {
     font-family: var(--font-mono); font-size: 11px;
     color: var(--text-muted); letter-spacing: 0.08em;
@@ -1030,7 +1042,7 @@
 <section class="slide slide-pipeline" id="slide-7">
   <div class="slide-inner">
     <span class="section-tag animate">UPCOMING GUEST PIPELINE</span>
-    <h2 class="slide-heading animate animate-delay-1" style="font-size:clamp(32px,4vw,52px);line-height:1.15;max-width:820px">Ten English-language interviews accelerating global expansion</h2>
+    <h2 class="slide-heading animate animate-delay-1" style="font-size:clamp(26px,3.2vw,42px);line-height:1.15;max-width:820px;margin-bottom:0">Ten English-language interviews accelerating global expansion</h2>
     <table class="pipeline-table animate animate-delay-2">
       <thead>
         <tr>
@@ -1043,56 +1055,56 @@
       <tbody>
         <tr>
           <td>Erik Brynjolfsson</td>
-          <td style="font-size:14px">MIT &middot; Stanford Digital Economy Lab</td>
-          <td style="font-size:14px">AI &amp; Economy, Future of Work</td>
+          <td style="font-size:13px">MIT &middot; Stanford Digital Economy Lab</td>
+          <td style="font-size:13px">AI &amp; Economy, Future of Work</td>
           <td><span class="status-pill confirmed">Confirmed</span></td>
         </tr>
         <tr>
           <td>Anthony Aguirre</td>
-          <td style="font-size:14px">UC Santa Cruz &middot; Future of Life Institute</td>
-          <td style="font-size:14px">Cosmology, Existential Risk</td>
+          <td style="font-size:13px">UC Santa Cruz &middot; Future of Life Institute</td>
+          <td style="font-size:13px">Cosmology, Existential Risk</td>
           <td><span class="status-pill confirmed">Confirmed</span></td>
         </tr>
         <tr>
           <td>Avi Loeb</td>
-          <td style="font-size:14px">Harvard University</td>
-          <td style="font-size:14px">Astrophysics, Interstellar Objects</td>
+          <td style="font-size:13px">Harvard University</td>
+          <td style="font-size:13px">Astrophysics, Interstellar Objects</td>
           <td><span class="status-pill confirmed">Confirmed</span></td>
         </tr>
         <tr>
           <td>Rahul Jandial</td>
-          <td style="font-size:14px">City of Hope &middot; Los Angeles</td>
-          <td style="font-size:14px">Neurosurgery, Brain Science</td>
+          <td style="font-size:13px">City of Hope &middot; Los Angeles</td>
+          <td style="font-size:13px">Neurosurgery, Brain Science</td>
           <td><span class="status-pill confirmed">Confirmed</span></td>
         </tr>
         <tr>
           <td>Brian Keating</td>
-          <td style="font-size:14px">UC San Diego &middot; BICEP Experiment</td>
-          <td style="font-size:14px">Cosmology, God &amp; Physics</td>
+          <td style="font-size:13px">UC San Diego &middot; BICEP Experiment</td>
+          <td style="font-size:13px">Cosmology, God &amp; Physics</td>
           <td><span class="status-pill confirmed">Confirmed</span></td>
         </tr>
         <tr>
           <td>Jaron Lanier</td>
-          <td style="font-size:14px">VR Pioneer &middot; Silicon Valley</td>
-          <td style="font-size:14px">VR, Social Media, AI Critique</td>
+          <td style="font-size:13px">VR Pioneer &middot; Silicon Valley</td>
+          <td style="font-size:13px">VR, Social Media, AI Critique</td>
           <td><span class="status-pill talks">In Talks</span></td>
         </tr>
         <tr>
           <td>Nick Bostrom</td>
-          <td style="font-size:14px">Oxford &middot; Future of Humanity Institute</td>
-          <td style="font-size:14px">Superintelligence, AI Safety</td>
+          <td style="font-size:13px">Oxford &middot; Future of Humanity Institute</td>
+          <td style="font-size:13px">Superintelligence, AI Safety</td>
           <td><span class="status-pill talks">In Talks</span></td>
         </tr>
         <tr>
           <td>Tom Crawford</td>
-          <td style="font-size:14px">University of Oxford</td>
-          <td style="font-size:14px">Mathematics, AI Foundations</td>
+          <td style="font-size:13px">University of Oxford</td>
+          <td style="font-size:13px">Mathematics, AI Foundations</td>
           <td><span class="status-pill confirmed">Confirmed</span></td>
         </tr>
         <tr>
           <td>Robin Carhart-Harris</td>
-          <td style="font-size:14px">UC San Francisco</td>
-          <td style="font-size:14px">Neurobiology, Psychedelics</td>
+          <td style="font-size:13px">UC San Francisco</td>
+          <td style="font-size:13px">Neurobiology, Psychedelics</td>
           <td><span class="status-pill confirmed">Confirmed</span></td>
         </tr>
       </tbody>
@@ -1111,23 +1123,23 @@
         <h3>Audience Profile</h3>
         <div class="aud-traits">
           <div class="aud-trait">
-            <div class="aud-trait-icon">&#128188;</div>
+            <div class="aud-trait-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 7V5a4 4 0 0 0-8 0v2"/></svg></div>
             <span class="aud-trait-text">CTOs, VPs of Engineering, tech leads &mdash; the people who approve vendor budgets</span>
           </div>
           <div class="aud-trait">
-            <div class="aud-trait-icon">&#127891;</div>
+            <div class="aud-trait-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c0 2 4 3 6 3s6-1 6-3v-5"/></svg></div>
             <span class="aud-trait-text">70% hold a university degree or higher; 25&ndash;44 core demographic</span>
           </div>
           <div class="aud-trait">
-            <div class="aud-trait-icon">&#127758;</div>
+            <div class="aud-trait-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></div>
             <span class="aud-trait-text">40%+ US, 8% Canada, 7% UK &mdash; key English-speaking markets</span>
           </div>
           <div class="aud-trait">
-            <div class="aud-trait-icon">&#128640;</div>
+            <div class="aud-trait-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg></div>
             <span class="aud-trait-text">Technology, engineering, AI/ML, academia, and startup founders</span>
           </div>
           <div class="aud-trait">
-            <div class="aud-trait-icon">&#9201;</div>
+            <div class="aud-trait-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
             <span class="aud-trait-text">22+ min avg. watch time &mdash; deep engagement, not scroll-past impressions</span>
           </div>
         </div>
@@ -1176,14 +1188,38 @@
     <span class="section-tag animate">TRUSTED BY</span>
     <h2 class="slide-heading animate animate-delay-1" style="font-size:clamp(32px,4vw,52px);line-height:1.15;max-width:820px">Meta, Google, NVIDIA, and Dell already trust us as a partner</h2>
     <div class="partners-grid">
-      <div class="partner-card animate animate-delay-2"><div class="partner-logo">Meta</div><div class="partner-name">Meta</div></div>
-      <div class="partner-card animate animate-delay-2"><div class="partner-logo">Google</div><div class="partner-name">Google</div></div>
-      <div class="partner-card animate animate-delay-3"><div class="partner-logo">NVIDIA</div><div class="partner-name">NVIDIA</div></div>
-      <div class="partner-card animate animate-delay-3"><div class="partner-logo">Dell</div><div class="partner-name">Dell Technologies</div></div>
-      <div class="partner-card animate animate-delay-4"><div class="partner-logo">Mitsubishi</div><div class="partner-name">Mitsubishi</div></div>
-      <div class="partner-card animate animate-delay-4"><div class="partner-logo">Worldcoin</div><div class="partner-name">Worldcoin</div></div>
-      <div class="partner-card animate animate-delay-5"><div class="partner-logo" style="font-style:italic;font-size:24px">Nature</div><div class="partner-name">Nature Magazine</div></div>
-      <div class="partner-card animate animate-delay-5"><div class="partner-logo" style="font-family:var(--font-mono);font-size:16px;font-weight:500">GITEX Global</div><div class="partner-name">GITEX Global</div></div>
+      <div class="partner-card animate animate-delay-2">
+        <div class="partner-logo"><img src="logos/Meta-Logo.png" alt="Meta"></div>
+        <div class="partner-name">Meta</div>
+      </div>
+      <div class="partner-card animate animate-delay-2">
+        <div class="partner-logo"><svg viewBox="0 0 272 92" height="30" xmlns="http://www.w3.org/2000/svg"><path d="M115.75 47.18c0 12.77-9.99 22.18-22.25 22.18s-22.25-9.41-22.25-22.18C71.25 34.32 81.24 25 93.5 25s22.25 9.32 22.25 22.18zm-9.74 0c0-7.98-5.79-13.44-12.51-13.44S80.99 39.2 80.99 47.18c0 7.9 5.79 13.44 12.51 13.44s12.51-5.55 12.51-13.44z" fill="#EA4335"/><path d="M163.75 47.18c0 12.77-9.99 22.18-22.25 22.18s-22.25-9.41-22.25-22.18c0-12.85 9.99-22.18 22.25-22.18s22.25 9.32 22.25 22.18zm-9.74 0c0-7.98-5.79-13.44-12.51-13.44s-12.51 5.46-12.51 13.44c0 7.9 5.79 13.44 12.51 13.44s12.51-5.55 12.51-13.44z" fill="#FBBC05"/><path d="M209.75 26.34v39.82c0 16.38-9.66 23.07-21.08 23.07-10.75 0-17.22-7.19-19.66-13.07l8.48-3.53c1.51 3.61 5.21 7.87 11.17 7.87 7.31 0 11.84-4.51 11.84-13v-3.19h-.34c-2.18 2.69-6.38 5.04-11.68 5.04-11.09 0-21.25-9.66-21.25-22.09 0-12.52 10.16-22.26 21.25-22.26 5.29 0 9.49 2.35 11.68 4.96h.34v-3.61h9.25zm-8.56 20.92c0-7.81-5.21-13.52-11.84-13.52-6.72 0-12.35 5.71-12.35 13.52 0 7.73 5.63 13.36 12.35 13.36 6.63 0 11.84-5.63 11.84-13.36z" fill="#4285F4"/><path d="M225 3v65h-9.5V3h9.5z" fill="#34A853"/><path d="M262.02 54.48l7.56 5.04c-2.44 3.61-8.32 9.83-18.48 9.83-12.6 0-22.01-9.74-22.01-22.18 0-13.19 9.49-22.18 20.92-22.18 11.51 0 17.14 9.16 18.98 14.11l1.01 2.52-29.65 12.28c2.27 4.45 5.8 6.72 10.75 6.72 4.96 0 8.4-2.44 10.92-6.14zm-23.27-7.98l19.82-8.23c-1.09-2.77-4.37-4.7-8.23-4.7-4.95 0-11.84 4.37-11.59 12.93z" fill="#EA4335"/><path d="M35.29 41.19V32H67c.31 1.64.47 3.58.47 5.68 0 7.06-1.93 15.79-8.15 22.01-6.05 6.3-13.78 9.66-24.02 9.66C16.32 69.35.36 53.89.36 34.91.36 15.93 16.32.47 35.3.47c10.5 0 17.98 4.12 23.6 9.49l-6.64 6.64c-4.03-3.78-9.49-6.72-16.97-6.72-13.86 0-24.7 11.17-24.7 25.03 0 13.86 10.84 25.03 24.7 25.03 8.99 0 14.11-3.61 17.39-6.89 2.66-2.66 4.41-6.46 5.1-11.65l-22.49-.21z" fill="#4285F4"/></svg></div>
+        <div class="partner-name">Google</div>
+      </div>
+      <div class="partner-card animate animate-delay-3">
+        <div class="partner-logo"><img src="logos/NVIDIA_logo.svg.png" alt="NVIDIA"></div>
+        <div class="partner-name">NVIDIA</div>
+      </div>
+      <div class="partner-card animate animate-delay-3">
+        <div class="partner-logo"><img src="logos/Dell_Logo.svg.png" alt="Dell Technologies"></div>
+        <div class="partner-name">Dell Technologies</div>
+      </div>
+      <div class="partner-card animate animate-delay-4">
+        <div class="partner-logo"><img src="logos/Mitsubishi_logo.svg.png" alt="Mitsubishi"></div>
+        <div class="partner-name">Mitsubishi</div>
+      </div>
+      <div class="partner-card animate animate-delay-4">
+        <div class="partner-logo"><img src="logos/Worldcoin_Logo.png" alt="Worldcoin"></div>
+        <div class="partner-name">Worldcoin</div>
+      </div>
+      <div class="partner-card animate animate-delay-5">
+        <div class="partner-logo"><img src="logos/Nature_journal_logo.svg.png" alt="Nature"></div>
+        <div class="partner-name">Nature Magazine</div>
+      </div>
+      <div class="partner-card animate animate-delay-5">
+        <div class="partner-logo"><img src="logos/gitex_global_logo.avif" alt="GITEX Global"></div>
+        <div class="partner-name">GITEX Global</div>
+      </div>
     </div>
     <p style="font-family:var(--font-serif);font-style:italic;font-size:16px;color:var(--text-muted);margin-top:24px;text-align:center;max-width:600px;margin-left:auto;margin-right:auto;line-height:1.5" class="animate animate-delay-6">We collaborate with leading global brands on content partnerships, sponsored productions, and co-created intellectual programming.</p>
   </div>
@@ -1196,7 +1232,7 @@
     <h2 class="slide-heading slide-heading-light animate animate-delay-1" style="font-size:clamp(32px,4vw,52px);line-height:1.15;max-width:820px">Two formats let agencies choose the right fit for every client brief</h2>
     <div class="formats-cols">
       <div class="format-col animate animate-delay-2">
-        <div class="format-icon">&#127908;</div>
+        <div class="format-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--accent-gold)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="22"/></svg></div>
         <div class="format-t">Sponsored Segments</div>
         <div class="format-d">Native reads inside long-form episodes, delivered by Dr. Kawecki with personal credibility.</div>
         <ul class="format-list">
@@ -1207,7 +1243,7 @@
         </ul>
       </div>
       <div class="format-col animate animate-delay-3">
-        <div class="format-icon">&#127909;</div>
+        <div class="format-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--accent-gold)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 7l-7 5 7 5V7z"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></svg></div>
         <div class="format-t">Branded Documentaries</div>
         <div class="format-d">Full cinematic mini-docs built around your client's brand story.</div>
         <ul class="format-list">
