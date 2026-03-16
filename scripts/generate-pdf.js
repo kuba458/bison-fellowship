@@ -68,6 +68,10 @@ const clients = {
     url: 'http://localhost:5173/clients/xtb/',
     output: 'Bison_Fellowship_XTB.pdf',
   },
+  'agency-deck': {
+    url: 'http://localhost:5173/clients/agency-deck/',
+    output: 'This_Is_World_Agency_Deck.pdf',
+  },
 };
 
 const clientName = process.argv[2];
