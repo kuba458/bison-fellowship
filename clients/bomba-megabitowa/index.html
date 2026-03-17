@@ -100,7 +100,6 @@
 
     /* ── CLICK HINT ── */
     .click-hint { display: none; }
-    }
 
     /* ══════════════════════════════════════
        SLIDE 1: COVER
@@ -356,7 +355,7 @@
        ══════════════════════════════════════ */
     .slide-forms { background: var(--bg-warm); }
     .forms-grid {
-      display: grid; grid-template-columns: repeat(3, 1fr);
+      display: grid; grid-template-columns: repeat(2, 1fr);
       gap: 16px; margin-top: clamp(16px, 2vh, 32px);
     }
     .form-card {
@@ -495,7 +494,7 @@
             <span class="what-tag">Cyberbezpieczeństwo</span>
           </div>
         </div>
-        <img src="photos/image6.jpg" alt="Scena główna Bomba Megabitowa" class="what-photo animate animate-delay-3">
+        <img src="photos/image2.jpg" alt="Scena główna Bomba Megabitowa" class="what-photo animate animate-delay-3">
       </div>
     </div>
   </div>
@@ -507,15 +506,15 @@
       <div class="action-title on-dark animate animate-delay-1">Projekt o ugruntowanej pozycji, realizowany od kilku lat w największych ośrodkach kulturalnych i akademickich w Polsce.</div>
       <div class="track-grid">
         <div class="track-card animate animate-delay-2">
-          <div class="track-year">2023</div>
-          <div class="track-venue">ICE Kraków · Centrum Kongresowe</div>
-          <div class="track-desc">Trzecia edycja poświęcona sztucznej inteligencji oraz jej konsekwencjom cywilizacyjnym. 50 prelegentów ze świata nauki, kultury i technologii.</div>
-          <div class="track-stat">~4 500 uczestników</div>
-        </div>
-        <div class="track-card animate animate-delay-3">
           <div class="track-year">2024</div>
           <div class="track-venue">EC1 Łódź · Pod hasłem „Człowiek"</div>
           <div class="track-desc">Pierwszy raz w Łodzi. Potwierdziła rosnące znaczenie wydarzenia jako platformy dialogu o przyszłości technologii i społeczeństwa.</div>
+          <div class="track-stat">~5 000 uczestników</div>
+        </div>
+        <div class="track-card animate animate-delay-3">
+          <div class="track-year">2025</div>
+          <div class="track-venue">Teatr Wielki · EC1 Łódź · NCKF · 7–8 października 2025</div>
+          <div class="track-desc">Festiwal Lema jako rozmowa o algorytmach mających dziś dwa wymiary — są solą rozwoju Sztucznej Inteligencji, ale też algorytmy kwantowe stanowią jeden z najważniejszych obszarów rozwoju współczesnej mechaniki kwantowej.</div>
           <div class="track-stat">~5 000 uczestników</div>
         </div>
       </div>
@@ -529,17 +528,17 @@
       <div class="action-title on-light animate animate-delay-1">Festiwal gromadzi każdego roku kilka tysięcy uczestników oraz najwybitniejszych gości ze świata nauki, technologii, biznesu i kultury.</div>
       <div class="scale-stats">
         <div class="scale-stat-card animate animate-delay-2">
-          <div class="scale-number" data-target="5000">0</div>
+          <div class="scale-number">5 000</div>
           <div class="scale-label">Uczestników na żywo</div>
           <div class="scale-detail">2 dni wydarzeń, debat i warsztatów w prestiżowych lokalizacjach</div>
         </div>
         <div class="scale-stat-card animate animate-delay-3">
-          <div class="scale-number" data-target="50" data-suffix="+">0</div>
+          <div class="scale-number">50+</div>
           <div class="scale-label">Prelegentów</div>
           <div class="scale-detail">Eksperci, naukowcy, przedstawiciele biznesu i administracji</div>
         </div>
         <div class="scale-stat-card animate animate-delay-4">
-          <div class="scale-number" data-target="6">0</div>
+          <div class="scale-number">6</div>
           <div class="scale-label">Edycji</div>
           <div class="scale-detail">Ciągłość projektu buduje wiarygodność i markę wydarzenia</div>
         </div>
@@ -716,20 +715,6 @@
           <div class="form-title">Komunikacja i promocja</div>
           <div class="form-desc">Logo i obecność w materiałach festiwalowych, social media, komunikacji PR i mediach.</div>
         </div>
-        <div class="form-card animate animate-delay-5">
-          <div class="form-icon">
-            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M16 8l-8 8"/><path d="M8 8l8 8"/></svg>
-          </div>
-          <div class="form-title">Projekty specjalne</div>
-          <div class="form-desc">Wspólnie tworzone formaty: hackathony, konkursy, inicjatywy edukacyjne dopasowane do marki.</div>
-        </div>
-        <div class="form-card animate animate-delay-6">
-          <div class="form-icon">
-            <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-          </div>
-          <div class="form-title">Patronat tematyczny</div>
-          <div class="form-desc">Partnerstwo nad wybranym blokiem programowym — wyłączność i silne powiązanie z tematyką.</div>
-        </div>
       </div>
     </div>
   </div>
@@ -785,125 +770,7 @@
 </div>
 
 
-<script>
-  // ── SLIDE ENGINE ──
-  let current = 0;
-  const slides = document.querySelectorAll('.slide');
-  const total = slides.length;
-  const nav = document.getElementById('slideNav');
-  const lightSlides = new Set([1, 3, 5, 7]); // 0-indexed: which slides are light bg
-
-  // Build nav dots
-  for (let i = 0; i < total; i++) {
-    const dot = document.createElement('a');
-    dot.href = '#';
-    dot.addEventListener('click', e => { e.preventDefault(); goTo(i); });
-    nav.appendChild(dot);
-  }
-
-  function goTo(n) {
-    if (n === current && slides[current].classList.contains('active')) return;
-    const prev = current;
-    slides[prev].classList.remove('active');
-    slides[prev].classList.add(n > prev ? 'exit-up' : 'exit-down');
-    setTimeout(() => { slides[prev].classList.remove('exit-up', 'exit-down'); }, 600);
-
-    current = Math.max(0, Math.min(n, total - 1));
-    slides[current].classList.add('active');
-
-    // Trigger animations
-    slides[current].querySelectorAll('.animate').forEach(el => {
-      el.classList.remove('visible');
-      void el.offsetHeight;
-      el.classList.add('visible');
-    });
-
-    // Animate stat counters
-    slides[current].querySelectorAll('[data-target]').forEach(el => {
-      const target = parseInt(el.dataset.target);
-      const suffix = el.dataset.suffix || '';
-      animateCounter(el, target, suffix);
-    });
-
-    updateUI();
-  }
-
-  function updateUI() {
-    // Counter
-    const counter = document.getElementById('counter');
-    counter.textContent = `${current + 1} / ${total}`;
-    counter.className = lightSlides.has(current) ? 'light' : '';
-
-    // Progress
-    document.getElementById('progress').style.width = `${((current + 1) / total) * 100}%`;
-
-    // Nav dots
-    const dots = nav.querySelectorAll('a');
-    dots.forEach((d, i) => {
-      d.className = '';
-      if (lightSlides.has(current)) d.classList.add('light-dot');
-      if (i === current) d.classList.add('active');
-    });
-
-    // Click hint
-    const hint = document.getElementById('clickHint');
-    hint.style.color = lightSlides.has(current) ? 'rgba(0,0,0,0.2)' : 'rgba(255,255,255,0.25)';
-    if (current > 0) hint.style.opacity = '0';
-  }
-
-  // Keyboard nav
-  document.addEventListener('keydown', e => {
-    if (['ArrowRight', 'ArrowDown', ' '].includes(e.key)) { e.preventDefault(); goTo(current + 1); }
-    if (['ArrowLeft', 'ArrowUp'].includes(e.key)) { e.preventDefault(); goTo(current - 1); }
-  });
-
-  // Click nav
-  document.querySelector('.presentation').addEventListener('click', e => {
-    if (e.target.closest('.slide-nav') || e.target.closest('a')) return;
-    if (e.clientX > window.innerWidth * 0.2) goTo(current + 1);
-    else goTo(current - 1);
-  });
-
-  // Stat counter animation
-  function animateCounter(el, target, suffix, duration = 1500) {
-    const start = performance.now();
-    const update = (time) => {
-      const p = Math.min((time - start) / duration, 1);
-      const eased = 1 - Math.pow(1 - p, 3);
-      el.textContent = Math.round(eased * target).toLocaleString('pl-PL') + suffix;
-      if (p < 1) requestAnimationFrame(update);
-    };
-    requestAnimationFrame(update);
-  }
-
-  // PDF mode
-  if (new URLSearchParams(window.location.search).get('pdf') === 'true') {
-    document.documentElement.style.overflow = 'visible';
-    document.documentElement.style.height = 'auto';
-    document.body.style.overflow = 'visible';
-    document.body.style.height = 'auto';
-    document.querySelector('.presentation').style.overflow = 'visible';
-    document.querySelector('.presentation').style.height = 'auto';
-    document.querySelectorAll('.slide').forEach(s => {
-      s.style.position = 'relative';
-      s.style.opacity = '1';
-      s.style.transform = 'none';
-      s.style.pointerEvents = 'all';
-      s.style.height = '100vh';
-      s.style.minHeight = '100vh';
-      s.style.pageBreakAfter = 'always';
-      s.classList.add('active');
-      s.querySelectorAll('.animate').forEach(el => el.classList.add('visible'));
-    });
-    nav.remove();
-    document.getElementById('progress')?.remove();
-    document.getElementById('counter')?.remove();
-    document.getElementById('clickHint')?.remove();
-  }
-
-  // Init
-  goTo(0);
-</script>
+<!-- Static PDF mode — no JavaScript needed -->
 
 </body>
 </html>
