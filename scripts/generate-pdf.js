@@ -72,6 +72,10 @@ const clients = {
     url: 'http://localhost:5173/clients/agency-deck/',
     output: 'This_Is_World_Agency_Deck.pdf',
   },
+  'bomba-megabitowa': {
+    url: 'http://localhost:5173/clients/bomba-megabitowa/',
+    output: 'Bomba_Megabitowa_Festiwal_Lema_2026.pdf',
+  },
 };
 
 const clientName = process.argv[2];
