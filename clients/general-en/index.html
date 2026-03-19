@@ -1,0 +1,1763 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Documentary Premiere "Esther Wojcicki" - Partnership Offer</title>
+  <link rel="icon" type="image/png" sizes="32x32" href="../../assets/favicon-32.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&family=Instrument+Serif:ital@0;1&family=Geist+Mono:wght@100..900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-primary: #F9F6F0;
+      --bg-warm: #F2EEE6;
+      --bg-muted: #E5E2DA;
+      --bg-dark: #1a2456;
+      --bg-dark-deep: #111a3a;
+      --text-primary: #212C33;
+      --text-secondary: #333334;
+      --text-muted: rgba(51, 51, 52, 0.5);
+      --text-faint: #9e9e9e;
+      --text-on-dark: #f0ede7;
+      --border-light: rgba(51, 51, 52, 0.1);
+      --border-mid: rgba(51, 51, 52, 0.15);
+      --accent-navy: #1a2456;
+      --accent-blue: #2d4a8a;
+      --accent-amber: #c8956c;
+      --accent-gold: #d4a853;
+      --radius-card: 24px;
+      --radius-pill: 999px;
+      --font-serif: "Instrument Serif", Georgia, serif;
+      --font-sans: "Geist", system-ui, -apple-system, sans-serif;
+      --font-mono: "Geist Mono", monospace;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html {
+      scroll-behavior: auto;
+      background: var(--bg-primary);
+      overflow: hidden;
+    }
+    body {
+      font-family: var(--font-sans);
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      text-rendering: optimizeLegibility;
+      -webkit-font-smoothing: antialiased;
+      overflow: hidden;
+      height: 100vh;
+    }
+
+    /* -- SLIDE SYSTEM -- */
+    .slides-wrapper {
+      height: 100vh;
+      overflow: hidden;
+      position: relative;
+    }
+    .slide {
+      min-height: 100vh;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      padding: 80px 48px;
+      cursor: pointer;
+      opacity: 0;
+      transform: translateY(40px);
+      transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1), transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+      pointer-events: none;
+      overflow-y: auto;
+    }
+    .slide.active-slide {
+      opacity: 1;
+      transform: translateY(0);
+      pointer-events: auto;
+      z-index: 2;
+    }
+    .slide.exit-up {
+      opacity: 0;
+      transform: translateY(-40px);
+      z-index: 1;
+    }
+    .slide.exit-down {
+      opacity: 0;
+      transform: translateY(40px);
+      z-index: 1;
+    }
+    .slide-inner {
+      max-width: 1100px;
+      width: 100%;
+      margin: 0 auto;
+    }
+
+    /* -- NAVIGATION DOTS -- */
+    .slide-nav {
+      position: fixed;
+      right: 24px;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 100;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .slide-nav a {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: rgba(26, 36, 86, 0.15);
+      transition: all 0.3s ease;
+      display: block;
+    }
+    .slide-nav a.active,
+    .slide-nav a:hover {
+      background: var(--accent-navy);
+      transform: scale(1.3);
+    }
+    .slide-nav a.light {
+      background: rgba(255,255,255,0.25);
+    }
+    .slide-nav a.light.active,
+    .slide-nav a.light:hover {
+      background: #fff;
+    }
+
+    /* -- COMMON TYPOGRAPHY -- */
+    .section-tag {
+      display: inline-block;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: rgba(26, 36, 86, 0.5);
+      margin-bottom: 16px;
+      font-weight: 500;
+    }
+    .section-tag-light {
+      color: rgba(240, 237, 231, 0.45);
+    }
+    .slide-heading {
+      font-family: var(--font-serif);
+      font-size: clamp(42px, 5.5vw, 72px);
+      font-weight: 400;
+      line-height: 1.08;
+      letter-spacing: -0.025em;
+      color: var(--text-primary);
+    }
+    .slide-heading-light {
+      color: var(--text-on-dark);
+    }
+    .slide-subheading {
+      font-size: clamp(17px, 1.8vw, 21px);
+      line-height: 1.55;
+      color: rgba(33, 44, 51, 0.7);
+      max-width: 680px;
+    }
+    .slide-subheading-light {
+      color: rgba(240, 237, 231, 0.6);
+    }
+
+    /* -- ANIMATIONS -- */
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+    @keyframes scaleIn {
+      from { opacity: 0; transform: scale(0.9); }
+      to { opacity: 1; transform: scale(1); }
+    }
+    .animate {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .animate.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .animate-delay-1 { transition-delay: 0.1s; }
+    .animate-delay-2 { transition-delay: 0.2s; }
+    .animate-delay-3 { transition-delay: 0.3s; }
+    .animate-delay-4 { transition-delay: 0.4s; }
+    .animate-delay-5 { transition-delay: 0.5s; }
+
+    /* -- SLIDE CLICK HINT -- */
+    .slide-click-hint {
+      position: fixed;
+      bottom: 28px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 99;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: 0.06em;
+      color: var(--text-faint);
+      opacity: 0.6;
+      transition: opacity 0.3s;
+      pointer-events: none;
+    }
+    .slide-click-hint.on-dark {
+      color: rgba(240,237,231,0.35);
+    }
+    @keyframes bounceArrow {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(4px); }
+    }
+    .slide-click-hint svg {
+      animation: bounceArrow 1.5s ease-in-out infinite;
+    }
+
+    /* ======================================
+       SLIDE 1: COVER
+       ====================================== */
+    .slide-cover {
+      background: var(--bg-warm);
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .slide-cover::before {
+      content: '';
+      position: absolute;
+      top: -200px;
+      left: -200px;
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, rgba(26,36,86,0.04) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .slide-cover::after {
+      content: '';
+      position: absolute;
+      bottom: -300px;
+      right: -200px;
+      width: 800px;
+      height: 800px;
+      background: radial-gradient(circle, rgba(200,149,108,0.06) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .cover-logos-row {
+      display: flex;
+      align-items: center;
+      gap: 32px;
+      margin-bottom: 40px;
+    }
+    .cover-logo {
+      width: 180px;
+      height: auto;
+      filter: drop-shadow(0 4px 12px rgba(26,36,86,0.08));
+    }
+    .cover-logo-tiw {
+      max-height: 50px;
+      width: auto;
+      filter: drop-shadow(0 4px 12px rgba(26,36,86,0.08));
+      object-fit: contain;
+    }
+    .cover-title {
+      font-family: var(--font-serif);
+      font-size: clamp(36px, 5.5vw, 64px);
+      font-weight: 400;
+      line-height: 1.1;
+      letter-spacing: -0.025em;
+      color: var(--text-primary);
+      margin-bottom: 16px;
+      max-width: 900px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .cover-title em {
+      font-style: italic;
+      color: var(--accent-navy);
+    }
+    .cover-subtitle {
+      font-family: var(--font-serif);
+      font-size: clamp(20px, 2.5vw, 30px);
+      font-weight: 400;
+      line-height: 1.3;
+      color: var(--accent-navy);
+      opacity: 0.7;
+      margin-bottom: 48px;
+    }
+    .cover-meta {
+      font-family: var(--font-mono);
+      font-size: 13px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
+    .cover-kreska {
+      width: 160px;
+      height: auto;
+      margin: 32px auto 0;
+      display: block;
+      opacity: 0.5;
+    }
+
+    /* ======================================
+       SLIDE 2: KIM JESTEŚMY - THIS IS WORLD
+       ====================================== */
+    .slide-about-tiw {
+      background: var(--bg-warm);
+      padding: 48px;
+    }
+    .about-intro {
+      font-size: 15px;
+      line-height: 1.6;
+      color: var(--text-secondary);
+      max-width: 850px;
+      margin-top: 8px;
+      margin-bottom: 28px;
+    }
+    .about-layout {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 28px;
+    }
+    .about-company-card {
+      background: #fff;
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius-card);
+      padding: 32px 30px;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 8px 40px rgba(26, 36, 86, 0.04);
+    }
+    .about-company-card::after {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--accent-gold), var(--accent-amber));
+    }
+    .about-company-header {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      margin-bottom: 20px;
+    }
+    .about-company-logo {
+      height: 36px;
+      width: auto;
+      object-fit: contain;
+    }
+    .about-company-meta {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .about-company-name {
+      font-family: var(--font-serif);
+      font-size: 24px;
+      color: var(--text-primary);
+    }
+    .about-company-tagline {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--accent-navy);
+    }
+    .about-company-desc {
+      font-size: 14px;
+      line-height: 1.6;
+      color: var(--text-secondary);
+      margin-bottom: 20px;
+    }
+    .about-stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+    .about-stat {
+      text-align: center;
+      padding: 12px 8px;
+      background: rgba(26, 36, 86, 0.03);
+      border-radius: 12px;
+    }
+    .about-stat-value {
+      font-family: var(--font-serif);
+      font-size: 22px;
+      color: var(--accent-navy);
+      line-height: 1.2;
+    }
+    .about-stat-label {
+      font-size: 10px;
+      font-family: var(--font-mono);
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-top: 2px;
+    }
+    .about-locations {
+      display: flex;
+      gap: 16px;
+    }
+    .about-location {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 12px;
+      color: var(--text-muted);
+      font-family: var(--font-mono);
+      letter-spacing: 0.03em;
+    }
+    .about-location svg {
+      width: 14px;
+      height: 14px;
+      color: var(--accent-gold);
+    }
+    .about-highlights {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+    .about-highlight-card {
+      padding: 20px 22px;
+      border-radius: 16px;
+      background: #fff;
+      border: 1px solid var(--border-light);
+      box-shadow: 0 4px 24px rgba(0,0,0,0.04);
+      position: relative;
+      overflow: hidden;
+    }
+    .about-highlight-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--accent-navy), var(--accent-blue));
+    }
+    .about-highlight-card.accent-card::before {
+      background: linear-gradient(90deg, var(--accent-gold), var(--accent-amber));
+    }
+    .about-highlight-card-icon {
+      width: 36px;
+      height: 36px;
+      border-radius: 10px;
+      background: linear-gradient(135deg, var(--accent-navy), var(--accent-blue));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 10px;
+    }
+    .about-highlight-card.accent-card .about-highlight-card-icon {
+      background: linear-gradient(135deg, var(--accent-gold), var(--accent-amber));
+    }
+    .about-highlight-card-icon svg {
+      width: 18px;
+      height: 18px;
+      color: #fff;
+    }
+    .about-highlight-card-title {
+      font-family: var(--font-serif);
+      font-size: 17px;
+      color: var(--text-primary);
+      margin-bottom: 6px;
+    }
+    .about-highlight-card-desc {
+      font-size: 13px;
+      line-height: 1.5;
+      color: var(--text-secondary);
+    }
+
+    /* ======================================
+       SLIDE 3: FOUNDERS / TEAM
+       ====================================== */
+    .slide-founders {
+      background: var(--bg-primary);
+    }
+    .founders-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+      margin-top: 48px;
+    }
+    .founder-card {
+      background: #fff;
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius-card);
+      padding: 40px 36px;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 8px 40px rgba(26, 36, 86, 0.04);
+      display: flex;
+      flex-direction: column;
+    }
+    .founder-card::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--accent-navy), var(--accent-blue));
+    }
+    .founder-card.highlight::after {
+      background: linear-gradient(90deg, var(--accent-gold), var(--accent-amber));
+    }
+    .founder-header {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      margin-bottom: 28px;
+    }
+    .founder-avatar {
+      width: 110px;
+      height: 110px;
+      border-radius: 22px;
+      object-fit: cover;
+      box-shadow: 0 8px 28px rgba(26,36,86,0.14);
+      flex-shrink: 0;
+    }
+    .founder-name {
+      font-family: var(--font-serif);
+      font-size: 32px;
+      font-weight: 400;
+      color: var(--text-primary);
+      line-height: 1.15;
+    }
+    .founder-role {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--accent-navy);
+      margin-top: 5px;
+    }
+    .founder-credentials {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      flex: 1;
+    }
+    .founder-credential {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      font-size: 15.5px;
+      line-height: 1.55;
+      color: var(--text-secondary);
+    }
+    .founder-credential-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--accent-navy);
+      opacity: 0.25;
+      flex-shrink: 0;
+      margin-top: 7px;
+    }
+    .founder-card.highlight .founder-credential-dot {
+      background: var(--accent-gold);
+      opacity: 0.5;
+    }
+
+    /* ======================================
+       SLIDE 4: O PROJEKCIE
+       ====================================== */
+    .slide-project {
+      background: var(--bg-warm);
+    }
+    .project-content {
+      display: grid;
+      grid-template-columns: 1.1fr 1fr;
+      gap: 64px;
+      margin-top: 40px;
+      align-items: center;
+    }
+    .project-text-block p {
+      font-size: 17px;
+      line-height: 1.7;
+      color: var(--text-secondary);
+      margin-bottom: 20px;
+    }
+    .project-text-block p strong {
+      color: var(--text-primary);
+      font-weight: 600;
+    }
+    .project-quote {
+      margin-top: 24px;
+      padding: 24px 28px;
+      border-left: 3px solid var(--accent-gold);
+      background: rgba(212,168,83,0.06);
+      border-radius: 0 16px 16px 0;
+    }
+    .project-quote p {
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-size: 17px;
+      line-height: 1.5;
+      color: var(--accent-navy);
+      margin: 0 !important;
+    }
+    .project-visual {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 24px;
+    }
+    .project-photo {
+      width: 320px;
+      height: auto;
+      border-radius: 20px;
+      object-fit: cover;
+      box-shadow: 0 12px 40px rgba(26,36,86,0.15);
+    }
+    .project-photo-caption {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      letter-spacing: 0.06em;
+      color: var(--text-faint);
+      text-align: center;
+    }
+    .project-daughters {
+      display: flex;
+      gap: 16px;
+      margin-top: 8px;
+    }
+    .daughter-pill {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 14px 18px;
+      background: #fff;
+      border-radius: 16px;
+      border: 1px solid var(--border-light);
+      box-shadow: 0 4px 16px rgba(26,36,86,0.04);
+    }
+    .daughter-pill .name {
+      font-family: var(--font-serif);
+      font-size: 15px;
+      color: var(--text-primary);
+      white-space: nowrap;
+    }
+    .daughter-pill .role {
+      font-family: var(--font-mono);
+      font-size: 9px;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--text-faint);
+      margin-top: 3px;
+      white-space: nowrap;
+    }
+
+    /* ======================================
+       SLIDE 5: PREMIERA
+       ====================================== */
+    .slide-premiere {
+      background: var(--bg-primary);
+    }
+    .premiere-content {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 48px;
+      margin-top: 48px;
+      align-items: start;
+    }
+    .premiere-details {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+    .premiere-detail-card {
+      padding: 28px 32px;
+      border-radius: var(--radius-card);
+      background: #fff;
+      border: 1px solid var(--border-light);
+      box-shadow: 0 8px 32px rgba(26,36,86,0.04);
+    }
+    .premiere-detail-card h3 {
+      font-family: var(--font-serif);
+      font-size: 22px;
+      color: var(--text-primary);
+      margin-bottom: 16px;
+    }
+    .premiere-detail-item {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 10px 0;
+      border-bottom: 1px solid var(--border-light);
+    }
+    .premiere-detail-item:last-child {
+      border-bottom: none;
+    }
+    .premiere-detail-icon {
+      width: 36px;
+      height: 36px;
+      border-radius: 10px;
+      background: linear-gradient(135deg, var(--accent-navy), var(--accent-blue));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .premiere-detail-icon svg {
+      width: 18px;
+      height: 18px;
+      color: #fff;
+    }
+    .premiere-detail-label {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--text-faint);
+    }
+    .premiere-detail-value {
+      font-size: 16px;
+      font-weight: 500;
+      color: var(--text-primary);
+    }
+    .premiere-image-wrap {
+      border-radius: var(--radius-card);
+      overflow: hidden;
+      box-shadow: 0 12px 48px rgba(26,36,86,0.1);
+      border: 1px solid var(--border-light);
+    }
+    .premiere-image-wrap img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+    .premiere-guests-note {
+      margin-top: 20px;
+      padding: 20px 24px;
+      background: rgba(26,36,86,0.04);
+      border-radius: 16px;
+      border-left: 3px solid var(--accent-navy);
+    }
+    .premiere-guests-note p {
+      font-size: 15px;
+      line-height: 1.55;
+      color: var(--text-secondary);
+    }
+    .premiere-guests-note strong {
+      color: var(--text-primary);
+    }
+
+    /* ======================================
+       SLIDE: DLACZEGO ŁÓDŹ? (kept for reuse)
+       ====================================== */
+    .slide-why-lodz {
+      background: var(--bg-warm);
+      padding: 56px 48px;
+    }
+    .slide-why-lodz .slide-heading {
+      font-size: clamp(34px, 4.5vw, 56px);
+      margin-bottom: 6px;
+    }
+    .slide-why-lodz .section-tag {
+      margin-bottom: 10px;
+    }
+    .why-lodz-intro {
+      font-size: 16px;
+      line-height: 1.6;
+      color: var(--text-secondary);
+      max-width: 800px;
+      margin-top: 8px;
+      margin-bottom: 28px;
+    }
+    .why-lodz-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 18px;
+    }
+    .why-lodz-card {
+      padding: 24px 26px;
+      border-radius: 16px;
+      background: #fff;
+      border: 1px solid var(--border-light);
+      box-shadow: 0 4px 24px rgba(0,0,0,0.06);
+      position: relative;
+      overflow: hidden;
+    }
+    .why-lodz-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--accent-navy), var(--accent-blue));
+    }
+    .why-lodz-card.accent-card::before {
+      background: linear-gradient(90deg, var(--accent-gold), var(--accent-amber));
+    }
+    .why-lodz-card-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      background: linear-gradient(135deg, var(--accent-navy), var(--accent-blue));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 12px;
+    }
+    .why-lodz-card.accent-card .why-lodz-card-icon {
+      background: linear-gradient(135deg, var(--accent-gold), var(--accent-amber));
+    }
+    .why-lodz-card-icon svg {
+      width: 20px;
+      height: 20px;
+      color: #fff;
+    }
+    .why-lodz-card-title {
+      font-family: var(--font-serif);
+      font-size: 19px;
+      color: var(--text-primary);
+      margin-bottom: 8px;
+    }
+    .why-lodz-card-desc {
+      font-size: 14px;
+      line-height: 1.55;
+      color: var(--text-secondary);
+    }
+
+    /* ======================================
+       SLIDE: ACOUSTIC CONCERT
+       ====================================== */
+    .slide-concert {
+      background: var(--bg-dark);
+      position: relative;
+      overflow: hidden;
+    }
+    .slide-concert::before {
+      content: '';
+      position: absolute;
+      top: -100px;
+      right: -200px;
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, rgba(200,149,108,0.12) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .concert-layout {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 64px;
+      margin-top: 40px;
+      align-items: center;
+    }
+    .concert-text h3 {
+      font-family: var(--font-serif);
+      font-size: 28px;
+      color: var(--text-on-dark);
+      margin-bottom: 16px;
+    }
+    .concert-text p {
+      font-size: 17px;
+      line-height: 1.7;
+      color: rgba(240,237,231,0.6);
+      margin-bottom: 16px;
+    }
+    .concert-text p strong {
+      color: var(--text-on-dark);
+    }
+    .concert-detail-pills {
+      display: flex;
+      gap: 12px;
+      margin-top: 24px;
+      flex-wrap: wrap;
+    }
+    .concert-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 18px;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: var(--radius-pill);
+      font-family: var(--font-mono);
+      font-size: 12px;
+      letter-spacing: 0.04em;
+      color: rgba(240,237,231,0.7);
+    }
+    .concert-pill svg {
+      width: 14px;
+      height: 14px;
+      color: var(--accent-gold);
+    }
+    .concert-photo-wrap {
+      border-radius: var(--radius-card);
+      overflow: hidden;
+      box-shadow: 0 16px 48px rgba(0,0,0,0.4);
+    }
+    .concert-photo-wrap img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+    .concert-quote {
+      margin-top: 24px;
+      padding: 20px 24px;
+      border-left: 3px solid var(--accent-gold);
+      background: rgba(212,168,83,0.08);
+      border-radius: 0 16px 16px 0;
+    }
+    .concert-quote p {
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-size: 16px;
+      line-height: 1.5;
+      color: var(--accent-gold);
+      margin: 0;
+    }
+
+    /* ======================================
+       SLIDE 6: NOTABLE GUESTS
+       ====================================== */
+    .slide-guests {
+      background: var(--bg-warm);
+      padding: 48px 48px;
+    }
+    .slide-guests .slide-heading {
+      font-size: clamp(32px, 4.5vw, 52px);
+      margin-bottom: 4px;
+    }
+    .slide-guests .section-tag {
+      margin-bottom: 10px;
+    }
+    .guests-intro {
+      font-size: 15px;
+      line-height: 1.55;
+      color: var(--text-secondary);
+      max-width: 800px;
+      margin-top: 8px;
+      margin-bottom: 32px;
+    }
+    .guests-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 28px;
+    }
+    .guest-card {
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .guest-photo-wrap {
+      width: 140px;
+      height: 140px;
+      border-radius: 50%;
+      overflow: hidden;
+      margin-bottom: 16px;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.10);
+      border: 3px solid #fff;
+    }
+    .guest-photo-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .guest-name {
+      font-family: var(--font-heading);
+      font-size: 20px;
+      color: var(--text-primary);
+      margin-bottom: 4px;
+    }
+    .guest-role {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--amber);
+      margin-bottom: 8px;
+    }
+    .guest-bio {
+      font-size: 13px;
+      line-height: 1.5;
+      color: var(--text-secondary);
+      max-width: 220px;
+    }
+    .guests-logos {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 56px;
+      position: absolute;
+      bottom: 36px;
+      left: 0;
+      right: 0;
+    }
+    .guests-logos img {
+      height: 48px;
+      width: auto;
+      filter: grayscale(100%);
+      opacity: 0.3;
+    }
+
+    /* ======================================
+       SLIDE 7: OFERTA PARTNERSKA
+       ====================================== */
+    .slide-offer {
+      background: var(--bg-warm);
+      padding: 48px 48px;
+    }
+    .slide-offer .slide-heading {
+      font-size: clamp(32px, 4.5vw, 52px);
+      margin-bottom: 4px;
+    }
+    .slide-offer .section-tag {
+      margin-bottom: 10px;
+    }
+    .offer-intro {
+      font-size: 15px;
+      line-height: 1.55;
+      color: var(--text-secondary);
+      max-width: 800px;
+      margin-top: 8px;
+      margin-bottom: 24px;
+    }
+    .offer-intro strong {
+      color: var(--text-primary);
+    }
+    .offer-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+    }
+    .offer-card {
+      padding: 20px 22px;
+      border-radius: 16px;
+      background: #fff;
+      border: 1px solid var(--border-light);
+      box-shadow: 0 4px 24px rgba(0,0,0,0.06);
+      position: relative;
+      overflow: hidden;
+    }
+    .offer-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--accent-navy), var(--accent-blue));
+    }
+    .offer-card.highlight-card::before {
+      background: linear-gradient(90deg, var(--accent-gold), var(--accent-amber));
+    }
+    .offer-card-icon {
+      width: 36px;
+      height: 36px;
+      border-radius: 10px;
+      background: linear-gradient(135deg, var(--accent-navy), var(--accent-blue));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 10px;
+    }
+    .offer-card.highlight-card .offer-card-icon {
+      background: linear-gradient(135deg, var(--accent-gold), var(--accent-amber));
+    }
+    .offer-card-icon svg {
+      width: 18px;
+      height: 18px;
+      color: #fff;
+    }
+    .offer-card-title {
+      font-family: var(--font-serif);
+      font-size: 17px;
+      color: var(--text-primary);
+      margin-bottom: 6px;
+    }
+    .offer-card-desc {
+      font-size: 13px;
+      line-height: 1.5;
+      color: var(--text-secondary);
+    }
+    .offer-price-bar {
+      margin-top: 20px;
+      padding: 18px 28px;
+      background: #fff;
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius-card);
+      box-shadow: 0 8px 32px rgba(26,36,86,0.04);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .offer-price-label {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
+    .offer-price-value {
+      font-family: var(--font-serif);
+      font-size: 30px;
+      color: var(--accent-navy);
+      letter-spacing: -0.02em;
+    }
+
+    /* ======================================
+       SLIDE 8: CLOSING / CONTACT
+       ====================================== */
+    .slide-closing {
+      background: var(--bg-dark);
+      text-align: center;
+    }
+    .closing-logo {
+      width: 160px;
+      height: auto;
+      margin-bottom: 32px;
+      filter: brightness(0) invert(1) drop-shadow(0 4px 16px rgba(255,255,255,0.1));
+    }
+    .closing-title {
+      font-family: var(--font-serif);
+      font-size: clamp(36px, 5vw, 64px);
+      color: var(--text-on-dark);
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+      margin-bottom: 16px;
+    }
+    .closing-subtitle {
+      font-size: 18px;
+      color: rgba(240,237,231,0.5);
+      margin-bottom: 40px;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+      line-height: 1.5;
+    }
+    .closing-kreska {
+      width: 120px;
+      height: auto;
+      margin: 48px auto 0;
+      display: block;
+      opacity: 0.2;
+      filter: brightness(0) invert(1);
+    }
+    .closing-footer {
+      margin-top: 40px;
+      font-size: 12px;
+      color: rgba(240,237,231,0.25);
+      font-family: var(--font-mono);
+      letter-spacing: 0.06em;
+    }
+
+    /* ======================================
+       RESPONSIVE
+       ====================================== */
+    @media (max-width: 900px) {
+      .slide { padding: 60px 24px; }
+      .founders-grid { grid-template-columns: 1fr; gap: 32px; }
+      .project-content { grid-template-columns: 1fr; }
+      .premiere-content { grid-template-columns: 1fr; }
+      .offer-grid { grid-template-columns: 1fr; }
+      .slide-nav { display: none; }
+      .project-daughters { flex-direction: column; }
+    }
+    @media (max-width: 480px) {
+      .slide { padding: 48px 16px; }
+    }
+
+    /* -- PRINT / PDF -- */
+    @media print {
+      html, body { background: #fff !important; }
+      .slide {
+        page-break-after: always;
+        page-break-inside: avoid;
+        min-height: 100vh;
+        height: 100vh;
+        overflow: hidden;
+      }
+      .slide:last-child { page-break-after: auto; }
+      .slide-nav { display: none !important; }
+      .animate, .animate.visible {
+        opacity: 1 !important;
+        transform: none !important;
+        transition: none !important;
+      }
+    }
+
+    /* Force-show all for PDF rendering mode */
+    body.pdf-mode {
+      overflow: visible !important;
+      height: auto !important;
+    }
+    body.pdf-mode .slides-wrapper {
+      overflow: visible !important;
+      height: auto !important;
+    }
+    body.pdf-mode .slide {
+      position: relative !important;
+      opacity: 1 !important;
+      transform: none !important;
+      pointer-events: auto !important;
+      page-break-after: always;
+      page-break-inside: avoid;
+    }
+    body.pdf-mode .slide:last-child {
+      page-break-after: auto;
+    }
+    body.pdf-mode .animate {
+      opacity: 1 !important;
+      transform: none !important;
+      transition: none !important;
+    }
+    body.pdf-mode .slide-nav {
+      display: none !important;
+    }
+    body.pdf-mode * {
+      box-shadow: none !important;
+      text-shadow: none !important;
+      -webkit-print-color-adjust: exact !important;
+      print-color-adjust: exact !important;
+    }
+    body.pdf-mode .slide-hint,
+    body.pdf-mode .slide-click-hint {
+      display: none !important;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAVIGATION DOTS -->
+  <nav class="slide-nav" id="slideNav" aria-label="Slide navigation"></nav>
+
+  <div class="slides-wrapper">
+  <!-- ======================================
+       SLIDE 1: COVER - Tytuł premiery
+       ====================================== -->
+  <section class="slide slide-cover active-slide" id="slide-1">
+    <div class="slide-inner" style="display:flex;flex-direction:column;align-items:center;">
+      <img src="../../assets/this-is-the-world-logo.png" alt="This is the World" class="cover-logo-tiw animate" style="max-height:100px;margin-bottom:40px;">
+      <h1 class="cover-title animate animate-delay-1">Documentary Premiere<br><em>"Esther Wojcicki - The Godmother of Silicon Valley"</em></h1>
+      <p class="cover-subtitle animate animate-delay-2">Partnership Offer</p>
+      <p class="cover-meta animate animate-delay-3">March 2026</p>
+      <img src="../../assets/kreska-dluga-niebieska.png" alt="" class="cover-kreska animate animate-delay-4">
+    </div>
+  </section>
+
+  <!-- ======================================
+       SLIDE 2: KIM JESTEŚMY - THIS IS WORLD LLC
+       ====================================== -->
+  <section class="slide slide-about-tiw" id="slide-2">
+    <div class="slide-inner">
+      <span class="section-tag animate">Who We Are</span>
+      <h2 class="slide-heading animate animate-delay-1">This is the World LLC</h2>
+      <p class="about-intro animate animate-delay-2">A science storytelling studio based in Warsaw and Palo Alto. We bridge the world of science with broad audiences — producing documentaries, organizing conferences, and creating content with the world's greatest minds.</p>
+
+      <div class="about-layout animate animate-delay-3">
+        <!-- Left: Company card -->
+        <div class="about-company-card">
+          <div class="about-company-header">
+            <img src="../../assets/this-is-the-world-logo.png" alt="This is the World" class="about-company-logo">
+            <div class="about-company-meta">
+              <span class="about-company-name">This is the World</span>
+              <span class="about-company-tagline">Science Storytelling Studio — est. 2024</span>
+            </div>
+          </div>
+          <p class="about-company-desc">A team of researchers, filmmakers, and digital strategists. We produce long-form, curiosity-driven interviews that bring breakthrough scientific ideas to broad audiences. Our founder, dr Maciej Kawecki, is President of the Lem Institute, Head of the WSB Innovation Center, and former EU Digital Ambassador (2022-24).</p>
+          <div class="about-stats">
+            <div class="about-stat">
+              <div class="about-stat-value">300+</div>
+              <div class="about-stat-label">Interviews</div>
+            </div>
+            <div class="about-stat">
+              <div class="about-stat-value">11</div>
+              <div class="about-stat-label">Nobel Laureates</div>
+            </div>
+            <div class="about-stat">
+              <div class="about-stat-value">20</div>
+              <div class="about-stat-label">Team</div>
+            </div>
+          </div>
+          <div class="about-locations" style="flex-direction:column;gap:8px;">
+            <div class="about-location">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+              16192 Coastal Highway, Lewes, DE 19958, USA
+            </div>
+            <div class="about-location">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 7h18M3 12h18M3 17h18"/></svg>
+              EIN: 39-2327354
+            </div>
+          </div>
+        </div>
+
+        <!-- Right: Experience highlights -->
+        <div class="about-highlights">
+          <div class="about-highlight-card accent-card">
+            <div class="about-highlight-card-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>
+            </div>
+            <h4 class="about-highlight-card-title">Interviews with Science Giants</h4>
+            <p class="about-highlight-card-desc">Sir Roger Penrose (Nobel), Prof. Yann LeCun (Turing Award, Meta AI), Prof. Brian Greene (Columbia), Prof. Michio Kaku, Shoshana Zuboff (Harvard).</p>
+          </div>
+          <div class="about-highlight-card">
+            <div class="about-highlight-card-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/></svg>
+            </div>
+            <h4 class="about-highlight-card-title">Event for 300+ STEM Olympiad Winners</h4>
+            <p class="about-highlight-card-desc">Organized an event for over 300 STEM Olympiad laureates at Jagiellonian University in Krakow — connecting young talent with leaders in science and technology.</p>
+          </div>
+          <div class="about-highlight-card accent-card">
+            <div class="about-highlight-card-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 4v16M17 4v16M3 8h4m10 0h4M3 12h18M3 16h4m10 0h4M4 20h16a1 1 0 001-1V5a1 1 0 00-1-1H4a1 1 0 00-1 1v14a1 1 0 001 1z"/></svg>
+            </div>
+            <h4 class="about-highlight-card-title">Documentary Production & Conferences</h4>
+            <p class="about-highlight-card-desc">Full documentary film production, hybrid conference organization, and thought-leadership events. Global distribution: YouTube, LinkedIn, TikTok, X.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======================================
+       SLIDE 3: FOUNDERS - Michał & Maciej
+       ====================================== -->
+  <section class="slide slide-founders" id="slide-3">
+    <div class="slide-inner">
+      <span class="section-tag animate">Project Team</span>
+      <h2 class="slide-heading animate animate-delay-1">Founders</h2>
+      <div class="founders-grid">
+        <!-- Michał Wyrębkowski -->
+        <div class="founder-card animate animate-delay-2">
+          <div class="founder-header">
+            <img src="../../assets/michalwyrebkowski_kolor.jpeg" alt="Michał Wyrębkowski" class="founder-avatar">
+            <div>
+              <div class="founder-name">Michał Wyrębkowski</div>
+              <div class="founder-role">Co-founder</div>
+            </div>
+          </div>
+          <div class="founder-credentials">
+            <div class="founder-credential">
+              <div class="founder-credential-dot"></div>
+              <span>Economics graduate from Wharton School, Philadelphia</span>
+            </div>
+            <div class="founder-credential">
+              <div class="founder-credential-dot"></div>
+              <span>Director of European Affairs at Yale University, where he conducted research on energy and artificial intelligence</span>
+            </div>
+            <div class="founder-credential">
+              <div class="founder-credential-dot"></div>
+              <span>Co-creator of the This is the World podcast, hosting conversations on geopolitics and economics</span>
+            </div>
+            <div class="founder-credential">
+              <div class="founder-credential-dot"></div>
+              <span>Top high school graduate in Poland (8 exams scored at 100%)</span>
+            </div>
+          </div>
+        </div>
+        <!-- dr Maciej Kawecki -->
+        <div class="founder-card highlight animate animate-delay-3">
+          <div class="founder-header">
+            <img src="../../assets/Maciej%20Kawecki.png" alt="dr Maciej Kawecki" class="founder-avatar">
+            <div>
+              <div class="founder-name">dr Maciej Kawecki</div>
+              <div class="founder-role">CEO</div>
+            </div>
+          </div>
+          <div class="founder-credentials">
+            <div class="founder-credential">
+              <div class="founder-credential-dot"></div>
+              <span>Top 3 largest LinkedIn profile in Poland (&gt;310K followers)</span>
+            </div>
+            <div class="founder-credential">
+              <div class="founder-credential-dot"></div>
+              <span>CEO of This is IT — Poland's largest science popularization channel, which has hosted 11 Nobel Prize laureates</span>
+            </div>
+            <div class="founder-credential">
+              <div class="founder-credential-dot"></div>
+              <span>EKG Award 2024 and Fintech Awards 2022 laureate</span>
+            </div>
+            <div class="founder-credential">
+              <div class="founder-credential-dot"></div>
+              <span>European Union Digital Ambassador</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======================================
+       SLIDE 4: O PROJEKCIE - Film dokumentalny
+       ====================================== -->
+  <section class="slide slide-project" id="slide-4">
+    <div class="slide-inner">
+      <span class="section-tag animate">About the Project</span>
+      <h2 class="slide-heading animate animate-delay-1">Documentary Film</h2>
+      <div class="project-content">
+        <div class="project-text-block animate animate-delay-2">
+          <p><strong>Esther Wojcicki</strong> is a legendary teacher and journalist from Palo Alto, known as <strong>"The Godmother of Silicon Valley"</strong>. Her educational philosophy <strong>TRICK</strong> (Trust, Respect, Independence, Collaboration, Kindness) has revolutionized approaches to teaching worldwide.</p>
+          <p>Her three daughters are tech icons: <strong>Susan Wojcicki</strong> — former CEO of YouTube, <strong>Anne Wojcicki</strong> — founder of 23andMe, and <strong>Janet Wojcicki</strong> — professor of epidemiology at UCSF. <strong>James Franco</strong> is involved in the production.</p>
+          <div class="project-quote">
+            <p>The documentary tells the story of a woman who raised three leaders of Silicon Valley and changed the way the world thinks about education.</p>
+          </div>
+        </div>
+        <div class="project-visual animate animate-delay-3">
+          <img src="../../assets/esther-wojcicki-new.jpg" alt="Esther Wojcicki" class="project-photo">
+          <p class="project-photo-caption">Esther Wojcicki</p>
+          <div class="project-daughters">
+            <div class="daughter-pill">
+              <span class="name">Susan Wojcicki</span>
+              <span class="role">Former CEO YouTube</span>
+            </div>
+            <div class="daughter-pill">
+              <span class="name">Anne Wojcicki</span>
+              <span class="role">Founder 23andMe</span>
+            </div>
+            <div class="daughter-pill">
+              <span class="name">Janet Wojcicki</span>
+              <span class="role">Professor UCSF</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======================================
+       SLIDE 5: PREMIERA - Presidio Theater
+       ====================================== -->
+  <section class="slide slide-premiere" id="slide-5">
+    <div class="slide-inner">
+      <span class="section-tag animate">Premiere</span>
+      <h2 class="slide-heading animate animate-delay-1">Premiere in San Francisco</h2>
+      <p class="slide-subheading animate animate-delay-2">Film screening at the legendary Presidio Theatre in the heart of San Francisco</p>
+      <div class="premiere-content">
+        <div class="premiere-details animate animate-delay-3">
+          <div class="premiere-detail-card">
+            <h3>Event Details</h3>
+            <div class="premiere-detail-item">
+              <div class="premiere-detail-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+              </div>
+              <div>
+                <div class="premiere-detail-label">Date</div>
+                <div class="premiere-detail-value">April 16, 2026</div>
+              </div>
+            </div>
+            <div class="premiere-detail-item">
+              <div class="premiere-detail-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+              </div>
+              <div>
+                <div class="premiere-detail-label">Venue</div>
+                <div class="premiere-detail-value">Presidio Theatre, San Francisco</div>
+              </div>
+            </div>
+            <div class="premiere-detail-item">
+              <div class="premiere-detail-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+              </div>
+              <div>
+                <div class="premiere-detail-label">Guests</div>
+                <div class="premiere-detail-value">~200 invited guests</div>
+              </div>
+            </div>
+            <div class="premiere-detail-item">
+              <div class="premiere-detail-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z"/><circle cx="12" cy="13" r="3"/></svg>
+              </div>
+              <div>
+                <div class="premiere-detail-label">Program</div>
+                <div class="premiere-detail-value">Film screening + afterparty</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="premiere-image-wrap animate animate-delay-4">
+          <img src="../../assets/presidio-theater.png" alt="Presidio Theatre, San Francisco">
+        </div>
+      </div>
+      <div class="premiere-guests-note animate animate-delay-5">
+        <p>Among the invited guests will be representatives of <strong>Apple</strong>, <strong>Google</strong>, <strong>Sequoia Capital</strong>, leading figures from the tech and education worlds of Silicon Valley, as well as members of the <strong>Polish diaspora</strong> in the Bay Area, representatives of <strong>San Francisco local government</strong>, CEOs of <strong>Polish startups</strong> operating in the US, and personalities from the world of <strong>film and production</strong>.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======================================
+       SLIDE 6: ACOUSTIC CONCERT
+       ====================================== -->
+  <section class="slide slide-concert" id="slide-6">
+    <div class="slide-inner">
+      <span class="section-tag section-tag-light animate">After the Screening</span>
+      <h2 class="slide-heading slide-heading-light animate animate-delay-1">Acoustic Concert</h2>
+      <div class="concert-layout">
+        <div class="concert-text animate animate-delay-2">
+          <h3>Olivia Dean — Live & Intimate</h3>
+          <p>Following the film screening, guests will enjoy an exclusive <strong>acoustic concert by Olivia Dean</strong> — one of the most exciting voices in contemporary soul and pop music.</p>
+          <p><strong>Grammy Award winner for Best New Artist (2026)</strong>, Olivia Dean has captivated audiences worldwide with her warm, soulful sound. Her sophomore album <strong>"The Art of Loving"</strong> debuted at #1 on the UK Albums chart.</p>
+          <div class="concert-quote">
+            <p>An intimate performance for ~200 guests in the heart of San Francisco's Presidio Theatre.</p>
+          </div>
+          <div class="concert-detail-pills">
+            <div class="concert-pill">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
+              Acoustic Set
+            </div>
+            <div class="concert-pill">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+              ~200 Guests
+            </div>
+            <div class="concert-pill">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              Grammy Winner 2026
+            </div>
+          </div>
+        </div>
+        <div class="concert-photo-wrap animate animate-delay-3">
+          <img src="../../assets/olivia-dean.jpg" alt="Olivia Dean">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======================================
+       SLIDE 7: NOTABLE GUESTS
+       ====================================== -->
+  <section class="slide slide-guests" id="slide-7">
+    <div class="slide-inner">
+      <span class="section-tag animate">Premiere Guests</span>
+      <h2 class="slide-heading animate animate-delay-1">Among the Invited Guests</h2>
+      <p class="guests-intro animate animate-delay-2">The premiere will feature prominent figures from the worlds of technology, science, politics, and culture.</p>
+      <div class="guests-grid">
+        <div class="guest-card animate animate-delay-2">
+          <div class="guest-photo-wrap">
+            <img src="../../assets/james-franco.jpg" alt="James Franco">
+          </div>
+          <div class="guest-name">James Franco</div>
+          <div class="guest-role">Actor / Producer</div>
+          <p class="guest-bio">Academy Award nominee, Golden Globe winner. Co-producer of the Esther Wojcicki documentary.</p>
+        </div>
+        <div class="guest-card animate animate-delay-3">
+          <div class="guest-photo-wrap">
+            <img src="../../assets/mayor-lurie.jpg" alt="Mayor Daniel Lurie">
+          </div>
+          <div class="guest-name">Daniel Lurie</div>
+          <div class="guest-role">Mayor of San Francisco</div>
+          <p class="guest-bio">Philanthropist and Bay Area community leader, committed to advancing education and technology in the region.</p>
+        </div>
+        <div class="guest-card animate animate-delay-3">
+          <div class="guest-photo-wrap">
+            <img src="../../assets/janet-wojcicki.jpg" alt="Janet Wojcicki">
+          </div>
+          <div class="guest-name">Janet Wojcicki</div>
+          <div class="guest-role">Professor UCSF</div>
+          <p class="guest-bio">Daughter of Esther Wojcicki. Professor of epidemiology at the University of California San Francisco, acclaimed scientist.</p>
+        </div>
+        <div class="guest-card animate animate-delay-4">
+          <div class="guest-photo-wrap">
+            <img src="../../assets/anne-wojcicki.jpg" alt="Anne Wojcicki">
+          </div>
+          <div class="guest-name">Anne Wojcicki</div>
+          <div class="guest-role">CEO 23andMe</div>
+          <p class="guest-bio">Daughter of Esther Wojcicki. Founder and CEO of 23andMe, pioneer of consumer genetics and personalized medicine.</p>
+        </div>
+      </div>
+      <div class="guests-logos animate animate-delay-5">
+        <img src="../../assets/golden-globe-logo.svg" alt="Golden Globe Awards">
+        <img src="../../assets/sf-seal.svg" alt="City of San Francisco">
+        <img src="../../assets/ucsf-logo.png" alt="UCSF">
+        <img src="../../assets/23andme-logo.svg" alt="23andMe">
+      </div>
+    </div>
+  </section>
+
+  <!-- ======================================
+       SLIDE 7: OFERTA PARTNERSKA
+       ====================================== -->
+  <section class="slide slide-offer" id="slide-8">
+    <div class="slide-inner">
+      <span class="section-tag animate">Offer</span>
+      <h2 class="slide-heading animate animate-delay-1">Partnership Offer</h2>
+      <p class="offer-intro animate animate-delay-2">The premiere of the Esther Wojcicki documentary at Presidio Theatre in San Francisco is a unique opportunity to build relationships with leaders in the tech and investment world.</p>
+      <div class="offer-grid">
+        <div class="offer-card highlight-card animate animate-delay-2">
+          <div class="offer-card-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          </div>
+          <h3 class="offer-card-title">Premiere invitation & VIP networking</h3>
+          <p class="offer-card-desc">Invitation for 2 guests to the exclusive premiere in San Francisco. Participation in the afterparty with a dedicated networking program among tech leaders.</p>
+        </div>
+        <div class="offer-card animate animate-delay-3">
+          <div class="offer-card-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+          </div>
+          <h3 class="offer-card-title">Partner logo on the premiere backdrop</h3>
+          <p class="offer-card-desc">Partner logo displayed on the backdrop throughout the entire event.</p>
+        </div>
+        <div class="offer-card animate animate-delay-3">
+          <div class="offer-card-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></svg>
+          </div>
+          <h3 class="offer-card-title">Logo before and after the screening</h3>
+          <p class="offer-card-desc">Partner logo displayed on screen directly before and after the film screening — in front of ~200 tech leaders.</p>
+        </div>
+        <div class="offer-card highlight-card animate animate-delay-4">
+          <div class="offer-card-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg>
+          </div>
+          <h3 class="offer-card-title">Social media promotion</h3>
+          <p class="offer-card-desc">1x LinkedIn post (310K+ followers), 1x Facebook, 1x Instagram, 1x X (Twitter) — posts promoting the partner as a sponsor of the documentary premiere.</p>
+        </div>
+      </div>
+      <div class="offer-price-bar animate animate-delay-5">
+        <span class="offer-price-label">Partnership Amount</span>
+        <span class="offer-price-value">$10,000 USD</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======================================
+       SLIDE 8: CLOSING
+       ====================================== -->
+  <section class="slide slide-closing" id="slide-9">
+    <div class="slide-inner" style="display:flex;flex-direction:column;align-items:center;">
+      <h2 class="closing-title animate">Premiere in Silicon Valley</h2>
+      <p class="closing-subtitle animate animate-delay-1">Together we'll showcase innovation to the most important people in the world of technology and investment</p>
+      <img src="../../assets/kreska-dluga-niebieska.png" alt="" class="closing-kreska animate animate-delay-2">
+      <p class="closing-footer animate animate-delay-3">March 2026</p>
+    </div>
+  </section>
+  </div><!-- /.slides-wrapper -->
+
+  <!-- Click hint -->
+  <div class="slide-click-hint" id="clickHint">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+    <span>Click to continue</span>
+  </div>
+
+  <script>
+    (function() {
+      var allSlides = document.querySelectorAll('.slide');
+      var nav = document.getElementById('slideNav');
+      var clickHint = document.getElementById('clickHint');
+      var darkSlides = ['slide-6', 'slide-9'];
+      var currentSlideIdx = 0;
+      var isAnimating = false;
+
+      /* -- GO TO SLIDE -- */
+      function goToSlide(targetIdx) {
+        if (targetIdx < 0 || targetIdx >= allSlides.length) return;
+        if (targetIdx === currentSlideIdx) return;
+        if (isAnimating) return;
+        isAnimating = true;
+
+        var oldSlide = allSlides[currentSlideIdx];
+        var newSlide = allSlides[targetIdx];
+        var goingDown = targetIdx > currentSlideIdx;
+
+        oldSlide.classList.remove('active-slide');
+        oldSlide.classList.add(goingDown ? 'exit-up' : 'exit-down');
+
+        newSlide.classList.remove('exit-up', 'exit-down');
+        newSlide.style.transition = 'none';
+        newSlide.style.transform = goingDown ? 'translateY(40px)' : 'translateY(-40px)';
+        newSlide.style.opacity = '0';
+        void newSlide.offsetWidth;
+        newSlide.style.transition = '';
+        newSlide.classList.add('active-slide');
+        newSlide.style.transform = '';
+        newSlide.style.opacity = '';
+
+        currentSlideIdx = targetIdx;
+        updateNav();
+
+        setTimeout(function() {
+          activateSlide(newSlide);
+        }, 100);
+
+        setTimeout(function() {
+          oldSlide.classList.remove('exit-up', 'exit-down');
+          isAnimating = false;
+        }, 700);
+      }
+
+      /* -- ACTIVATE SLIDE ANIMATIONS -- */
+      function activateSlide(slide) {
+        slide.classList.add('slide-active');
+        slide.querySelectorAll('.animate').forEach(function(el) {
+          el.classList.add('visible');
+        });
+      }
+
+      /* -- CLICK TO NAVIGATE -- */
+      allSlides.forEach(function(slide, i) {
+        slide.addEventListener('click', function(e) {
+          if (e.target.closest('a, button')) return;
+          var nextIdx = currentSlideIdx + 1;
+          if (nextIdx >= allSlides.length) nextIdx = 0;
+          goToSlide(nextIdx);
+        });
+      });
+
+      /* -- KEYBOARD NAVIGATION -- */
+      document.addEventListener('keydown', function(e) {
+        if (isAnimating) return;
+        var direction = 0;
+        if (e.key === 'ArrowDown' || e.key === 'ArrowRight' || e.key === ' ' || e.key === 'PageDown') {
+          direction = 1;
+          e.preventDefault();
+        } else if (e.key === 'ArrowUp' || e.key === 'ArrowLeft' || e.key === 'PageUp') {
+          direction = -1;
+          e.preventDefault();
+        }
+        if (direction === 0) return;
+
+        var nextIdx = currentSlideIdx + direction;
+        if (nextIdx < 0) nextIdx = 0;
+        if (nextIdx >= allSlides.length) nextIdx = allSlides.length - 1;
+        goToSlide(nextIdx);
+      });
+
+      /* -- MOUSE WHEEL NAVIGATION -- */
+      var wheelTimeout = null;
+      document.addEventListener('wheel', function(e) {
+        e.preventDefault();
+        if (wheelTimeout) return;
+        wheelTimeout = setTimeout(function() { wheelTimeout = null; }, 1000);
+        if (e.deltaY > 0) {
+          goToSlide(currentSlideIdx + 1);
+        } else if (e.deltaY < 0) {
+          goToSlide(currentSlideIdx - 1);
+        }
+      }, { passive: false });
+
+      /* -- NAVIGATION DOTS -- */
+      allSlides.forEach(function(slide, i) {
+        var dot = document.createElement('a');
+        dot.href = '#' + slide.id;
+        dot.setAttribute('aria-label', 'Slide ' + (i + 1));
+        dot.addEventListener('click', function(e) {
+          e.preventDefault();
+          goToSlide(i);
+        });
+        nav.appendChild(dot);
+      });
+
+      var dots = nav.querySelectorAll('a');
+
+      function updateNav() {
+        var isDark = darkSlides.indexOf(allSlides[currentSlideIdx].id) !== -1;
+        dots.forEach(function(dot, i) {
+          dot.classList.toggle('active', i === currentSlideIdx);
+          dot.classList.toggle('light', isDark);
+        });
+
+        if (clickHint) {
+          clickHint.classList.toggle('on-dark', isDark);
+          clickHint.style.opacity = currentSlideIdx >= allSlides.length - 1 ? '0' : '0.6';
+        }
+      }
+
+      /* -- INITIAL STATE -- */
+      activateSlide(allSlides[0]);
+      updateNav();
+    })();
+  </script>
+</body>
+</html>
