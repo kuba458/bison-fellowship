@@ -76,6 +76,70 @@ const clients = {
     url: 'http://localhost:5173/clients/bomba-megabitowa/',
     output: 'Bomba_Megabitowa_Festiwal_Lema_2026.pdf',
   },
+  'miasto-lodz-esther': {
+    url: 'http://localhost:5173/clients/miasto-lodz-esther/',
+    output: 'Miasto_Lodz_Esther_Wojcicki_Premiera.pdf',
+  },
+  iceye: {
+    url: 'http://localhost:5173/clients/iceye/',
+    output: 'Bison_Fellowship_ICEYE.pdf',
+  },
+  'iceye-en': {
+    url: 'http://localhost:5173/clients/iceye-en/',
+    output: 'Bison_Fellowship_ICEYE_EN.pdf',
+  },
+  'forbes-polska': {
+    url: 'http://localhost:5173/clients/forbes-polska/',
+    output: 'Bison_Fellowship_Forbes_Polska.pdf',
+  },
+  'totalizator-sportowy': {
+    url: 'http://localhost:5173/clients/totalizator-sportowy/',
+    output: 'Bison_Fellowship_Totalizator_Sportowy.pdf',
+  },
+  xyz: {
+    url: 'http://localhost:5173/clients/xyz/',
+    output: 'Bison_Fellowship_XYZ.pdf',
+  },
+  gq: {
+    url: 'http://localhost:5173/clients/gq/',
+    output: 'Bison_Fellowship_GQ.pdf',
+  },
+  'port-polska': {
+    url: 'http://localhost:5173/clients/port-polska/',
+    output: 'Bison_Fellowship_Port_Polska.pdf',
+  },
+  paih: {
+    url: 'http://localhost:5173/clients/paih/',
+    output: 'Bison_Fellowship_PAIH.pdf',
+  },
+  'innovo-vc': {
+    url: 'http://localhost:5173/clients/innovo-vc/',
+    output: 'Bison_Fellowship_Innovo_VC.pdf',
+  },
+  andersen: {
+    url: 'http://localhost:5173/clients/andersen/',
+    output: 'This_Is_the_World_Andersen_Partnership.pdf',
+  },
+  'smok-vc': {
+    url: 'http://localhost:5173/clients/smok-vc/',
+    output: 'SMOK_Ventures_Esther_Wojcicki_Premiera.pdf',
+  },
+  'movens-capital': {
+    url: 'http://localhost:5173/clients/movens-capital/',
+    output: 'Movens_Capital_Esther_Wojcicki_Premiera.pdf',
+  },
+  general: {
+    url: 'http://localhost:5173/clients/general/',
+    output: 'This_Is_World_Oferta_Partnerska.pdf',
+  },
+  a12i: {
+    url: 'http://localhost:5173/clients/a12i/',
+    output: 'a12i_Esther_Wojcicki_Premiera.pdf',
+  },
+  'general-en': {
+    url: 'http://localhost:5173/clients/general-en/',
+    output: 'This_Is_World_Partnership_Offer.pdf',
+  },
 };
 
 const clientName = process.argv[2];
@@ -158,11 +222,14 @@ async function generatePdf(config) {
       slides.forEach((s, j) => {
         if (j === idx) {
           s.classList.add('active-slide');
+          s.classList.add('active');
           s.style.opacity = '1';
           s.style.transform = 'none';
           s.style.pointerEvents = 'auto';
           s.style.position = 'relative';
           s.style.display = 'flex';
+          s.style.minHeight = '100vh';
+          s.style.width = '100%';
         } else {
           s.classList.remove('active-slide');
           s.style.display = 'none';
