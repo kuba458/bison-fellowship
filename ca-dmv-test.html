@@ -2205,6 +2205,161 @@
     explanation: "Hazard lights (four-way flashers) should be used only when your vehicle is stopped or disabled and creating a hazard for other drivers. Do not use them while driving in rain as they can confuse other drivers about your intentions. (CA Driver Handbook: Vehicle Equipment)"
   },
 ];
+
+// Category metadata
+const CATEGORIES = [
+  { id: 'road-signs', name: 'Road Signs & Signals' },
+  { id: 'right-of-way', name: 'Right-of-Way' },
+  { id: 'speed-limits', name: 'Speed Limits & Safe Driving' },
+  { id: 'dui', name: 'DUI & Drug Laws' },
+  { id: 'parking', name: 'Parking Rules' },
+  { id: 'sharing-road', name: 'Sharing the Road' },
+  { id: 'special-situations', name: 'Special Situations' },
+  { id: 'lane-changes', name: 'Lane Changes & Highway' },
+  { id: 'vehicle-equipment', name: 'Vehicle & Equipment' }
+];
+
+// App state
+let state = {
+  screen: 'home',
+  // Study mode
+  studyCategory: 'all',
+  studyIndex: 0,
+  studyAnswered: null,
+  // Exam mode
+  examQuestions: [],
+  examIndex: 0,
+  examAnswers: {},
+  examFlagged: new Set(),
+  examTimeLeft: 1800,
+  examTimerId: null,
+  showGrid: false,
+  examResult: null
+};
+
+// localStorage helpers
+function loadProgress() {
+  try { return JSON.parse(localStorage.getItem('cadmv_study_progress')) || {}; }
+  catch { return {}; }
+}
+function saveProgress(p) {
+  localStorage.setItem('cadmv_study_progress', JSON.stringify(p));
+}
+function loadExamHistory() {
+  try { return JSON.parse(localStorage.getItem('cadmv_exam_history')) || []; }
+  catch { return []; }
+}
+function saveExamHistory(h) {
+  localStorage.setItem('cadmv_exam_history', JSON.stringify(h));
+}
+function getBestScore() {
+  const h = loadExamHistory();
+  return h.length ? Math.max(...h.map(x => x.score)) : null;
+}
+
+// Render dispatcher
+function render() {
+  const app = document.getElementById('app');
+  switch (state.screen) {
+    case 'home': app.innerHTML = renderHome(); break;
+    case 'study': app.innerHTML = renderStudy(); break;
+    case 'exam': app.innerHTML = renderExam(); break;
+    case 'results': app.innerHTML = renderResults(); break;
+  }
+  bindEvents();
+}
+
+// Event delegation
+function bindEvents() {
+  document.getElementById('app').onclick = function(e) {
+    const btn = e.target.closest('[data-action]');
+    if (!btn) return;
+    const action = btn.dataset.action;
+    handleAction(action, btn);
+  };
+}
+
+function handleAction(action, btn) {
+  if (action === 'start-study') {
+    state.screen = 'study';
+    state.studyCategory = 'all';
+    state.studyIndex = 0;
+    state.studyAnswered = null;
+    render();
+  }
+  else if (action === 'start-exam') {
+    startExam();
+  }
+  else if (action === 'go-home') {
+    if (state.examTimerId) {
+      clearInterval(state.examTimerId);
+      state.examTimerId = null;
+    }
+    state.screen = 'home';
+    render();
+  }
+  else if (action === 'reset-all') {
+    if (confirm('Reset all study progress and exam history?')) {
+      localStorage.removeItem('cadmv_study_progress');
+      localStorage.removeItem('cadmv_exam_history');
+      render();
+    }
+  }
+  // Study mode actions (Task 5 will use these)
+  // Exam mode actions (Task 6 will use these)
+}
+
+// Home screen
+function renderHome() {
+  const progress = loadProgress();
+  const totalAnswered = Object.keys(progress).length;
+  const totalCorrect = Object.values(progress).filter(v => v).length;
+  const bestScore = getBestScore();
+
+  return `
+    <div class="container">
+      <div style="text-align:center; padding:40px 0 24px;">
+        <h1 style="font-size:28px; margin:0 0 4px;">CA DMV Practice Test</h1>
+        <p style="color:#6b7280; margin:0; font-size:14px;">California Driver License Knowledge Test</p>
+      </div>
+      <button class="mode-btn btn-primary" data-action="start-study" style="margin-bottom:12px;">
+        Study Mode
+        <div style="font-size:13px; opacity:0.85; margin-top:4px;">Learn at your own pace</div>
+      </button>
+      <button class="mode-btn" data-action="start-exam" style="margin-bottom:24px; border:2px solid var(--accent); background:white; color:var(--accent);">
+        Practice Exam
+        <div style="font-size:13px; opacity:0.7; margin-top:4px;">46 questions, 30 minutes</div>
+      </button>
+      <div class="question-card" style="text-align:center;">
+        <div style="font-size:14px; color:#6b7280; margin-bottom:8px;">Your Progress</div>
+        <div style="display:flex; justify-content:space-around;">
+          <div>
+            <div style="font-size:24px; font-weight:700;">${totalAnswered}</div>
+            <div style="font-size:12px; color:#6b7280;">Questions Studied</div>
+          </div>
+          <div>
+            <div style="font-size:24px; font-weight:700;">${totalAnswered > 0 ? Math.round(totalCorrect / totalAnswered * 100) : 0}%</div>
+            <div style="font-size:12px; color:#6b7280;">Accuracy</div>
+          </div>
+          <div>
+            <div style="font-size:24px; font-weight:700;">${bestScore !== null ? bestScore + '/46' : '—'}</div>
+            <div style="font-size:12px; color:#6b7280;">Best Exam</div>
+          </div>
+        </div>
+      </div>
+      ${totalAnswered > 0 ? '<div style="text-align:center; margin-top:16px;"><button class="reset-link" data-action="reset-all">Reset All Progress</button></div>' : ''}
+    </div>
+  `;
+}
+
+// Placeholder renderers (will be implemented in Tasks 5 and 6)
+function renderStudy() { return '<div class="container"><p>Study mode coming soon...</p><button data-action="go-home">Back</button></div>'; }
+function renderExam() { return '<div class="container"><p>Exam mode coming soon...</p><button data-action="go-home">Back</button></div>'; }
+function renderResults() { return '<div class="container"><p>Results coming soon...</p><button data-action="go-home">Back</button></div>'; }
+function startExam() { state.screen = 'exam'; render(); }
+
+// Initialize
+render();
   </script>
 </body>
 </html>
