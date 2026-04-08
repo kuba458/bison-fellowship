@@ -379,7 +379,1025 @@
 <body>
   <div id="app"></div>
   <script>
-    // App JS will go here
+    const QUESTIONS = [
+
+  // === ROAD SIGNS & SIGNALS ===
+
+  {
+    id: 1,
+    category: "road-signs",
+    question: "What does a red traffic light mean?",
+    options: ["Slow down and proceed with caution", "Stop completely and wait until the light turns green", "Stop only if pedestrians are present", "Yield to cross traffic then proceed"],
+    correct: 1,
+    explanation: "A red traffic light means you must come to a complete stop and wait until the light turns green before proceeding. (CA Driver Handbook: Traffic Controls)"
+  },
+  {
+    id: 2,
+    category: "road-signs",
+    question: "What should you do when you approach a flashing red traffic light?",
+    options: ["Slow down and proceed if clear", "Stop completely, then proceed when safe — treat it like a stop sign", "Yield to oncoming traffic only", "Come to a complete stop and wait for the light to change"],
+    correct: 1,
+    explanation: "A flashing red light is treated exactly like a stop sign — come to a full stop, then proceed when it is safe to do so. (CA Driver Handbook: Traffic Controls)"
+  },
+  {
+    id: 3,
+    category: "road-signs",
+    question: "A flashing yellow traffic light means:",
+    options: ["Stop and wait for a green light", "Proceed through the intersection without slowing", "Slow down and proceed with caution", "Yield to all traffic coming from any direction"],
+    correct: 2,
+    explanation: "A flashing yellow light warns drivers to slow down and proceed with caution — it does not require a full stop. (CA Driver Handbook: Traffic Controls)"
+  },
+  {
+    id: 4,
+    category: "road-signs",
+    question: "What does a green arrow signal mean?",
+    options: ["Proceed with caution in the direction of the arrow", "You may move in the direction of the arrow; oncoming traffic is stopped", "Yield before moving in the direction shown", "Speed up to clear the intersection quickly"],
+    correct: 1,
+    explanation: "A green arrow (protected signal) means you may proceed in that direction; conflicting traffic is controlled by red signals. (CA Driver Handbook: Traffic Controls)"
+  },
+  {
+    id: 5,
+    category: "road-signs",
+    question: "A yellow traffic light means:",
+    options: ["Speed up to clear the intersection before it turns red", "The signal is about to change to red — stop if you can do so safely", "Proceed normally; the light will stay yellow for a long time", "Stop immediately regardless of your position"],
+    correct: 1,
+    explanation: "Yellow means the signal is about to turn red. Stop if you can do so safely; if you cannot stop safely, continue through the intersection carefully. (CA Driver Handbook: Traffic Controls)"
+  },
+  {
+    id: 6,
+    category: "road-signs",
+    question: "What shape is a STOP sign?",
+    options: ["Triangle", "Diamond", "Octagon", "Rectangle"],
+    correct: 2,
+    explanation: "Stop signs are octagonal (8-sided). This unique shape lets drivers recognize them even when covered in snow or seen from the back. (CA Driver Handbook: Traffic Signs)"
+  },
+  {
+    id: 7,
+    category: "road-signs",
+    question: "A triangular sign with the point facing down means:",
+    options: ["Stop completely", "Yield the right-of-way", "School zone ahead", "Railroad crossing ahead"],
+    correct: 1,
+    explanation: "A downward-pointing triangle is the shape used exclusively for Yield signs, instructing drivers to slow and give the right-of-way. (CA Driver Handbook: Traffic Signs)"
+  },
+  {
+    id: 8,
+    category: "road-signs",
+    question: "Diamond-shaped signs are used to indicate:",
+    options: ["Regulatory requirements such as speed limits", "Special warnings or hazards ahead", "Directions and distances to destinations", "School zones and pedestrian areas"],
+    correct: 1,
+    explanation: "Diamond-shaped signs are warning signs that alert drivers to special hazards or unusual conditions ahead on the road. (CA Driver Handbook: Traffic Signs)"
+  },
+  {
+    id: 9,
+    category: "road-signs",
+    question: "What does an orange sign typically indicate?",
+    options: ["Services such as gas stations or rest areas", "Recreational areas and parks", "Construction or work zone ahead", "Mandatory speed restrictions"],
+    correct: 2,
+    explanation: "Orange signs are used in construction and maintenance work zones to warn drivers of workers, equipment, and changed road conditions. (CA Driver Handbook: Traffic Signs)"
+  },
+  {
+    id: 10,
+    category: "road-signs",
+    question: "A blue highway sign typically provides information about:",
+    options: ["Recreational areas such as parks and campgrounds", "Road hazards and warnings", "Motorist services such as food, gas, and lodging", "Regulatory requirements like speed limits"],
+    correct: 2,
+    explanation: "Blue signs indicate motorist services — including gas stations, food, lodging, hospitals, and rest areas. (CA Driver Handbook: Traffic Signs)"
+  },
+  {
+    id: 11,
+    category: "road-signs",
+    question: "What does a green highway sign typically indicate?",
+    options: ["Mandatory traffic regulations", "Guide information such as distances and directions", "Warning of road hazards", "Recreational or cultural areas"],
+    correct: 1,
+    explanation: "Green signs provide guidance information — distances to cities, highway exits, and directional guidance. (CA Driver Handbook: Traffic Signs)"
+  },
+  {
+    id: 12,
+    category: "road-signs",
+    question: "A pentagon-shaped (five-sided) sign is used exclusively for:",
+    options: ["Railroad crossings", "Construction zones", "School zones", "Pedestrian crossings"],
+    correct: 2,
+    explanation: "The five-sided pentagon shape is reserved exclusively for school zone and school crossing warning signs. (CA Driver Handbook: Traffic Signs)"
+  },
+  {
+    id: 13,
+    category: "road-signs",
+    question: "What does a 'Do Not Enter' sign mean?",
+    options: ["Road is closed for construction only", "You are prohibited from entering that road or lane", "Enter only if no traffic is present", "One-way road; proceed with caution"],
+    correct: 1,
+    explanation: "A Do Not Enter sign means you must not enter that roadway — typically posted at exit ramps or one-way roads to prevent wrong-way travel. (CA Driver Handbook: Traffic Signs)"
+  },
+  {
+    id: 14,
+    category: "road-signs",
+    question: "A 'Wrong Way' sign means:",
+    options: ["The road ahead has a sharp curve", "You are traveling in the wrong direction on a one-way road", "U-turns are prohibited at this location", "The lane you are in is closed"],
+    correct: 1,
+    explanation: "A Wrong Way sign indicates you are driving against the flow of traffic on a one-way road. You must stop and reverse or turn around. (CA Driver Handbook: Traffic Signs)"
+  },
+  {
+    id: 15,
+    category: "road-signs",
+    question: "What does a circular railroad crossing sign (with an 'X' and 'RR') warn you about?",
+    options: ["A railroad museum is nearby", "A railroad crossing is ahead", "Trucks carrying rail equipment may be present", "The road parallels a railroad track"],
+    correct: 1,
+    explanation: "The round yellow sign with an 'X' and 'RR' marks a railroad crossing ahead. Drivers should slow down, look, and listen for trains. (CA Driver Handbook: Traffic Signs)"
+  },
+  {
+    id: 16,
+    category: "road-signs",
+    question: "What does a red sign color generally indicate?",
+    options: ["Warning of road hazards ahead", "Stop or prohibition — you must not do something", "Information about services nearby", "Directions and navigation guidance"],
+    correct: 1,
+    explanation: "Red on signs means stop or prohibition — such as Stop signs, Do Not Enter signs, No U-Turn signs, and Wrong Way signs. (CA Driver Handbook: Traffic Signs)"
+  },
+  {
+    id: 17,
+    category: "road-signs",
+    question: "What does a 'No U-Turn' sign mean?",
+    options: ["U-turns are permitted when no traffic is present", "U-turns are permitted only during daylight hours", "You may not make a U-turn at that location", "U-turns are only prohibited for trucks"],
+    correct: 2,
+    explanation: "A No U-Turn sign prohibits all drivers from making a U-turn at that location. (CA Driver Handbook: Traffic Signs)"
+  },
+  {
+    id: 18,
+    category: "road-signs",
+    question: "A 'One Way' sign with an arrow means:",
+    options: ["Traffic flows in both directions but one lane in each", "Traffic flows only in the direction of the arrow", "The road is a dead-end in the direction shown", "Only emergency vehicles may use that lane"],
+    correct: 1,
+    explanation: "A One Way sign indicates that traffic moves only in the direction shown by the arrow — entering from the opposite direction is prohibited. (CA Driver Handbook: Traffic Signs)"
+  },
+  {
+    id: 19,
+    category: "road-signs",
+    question: "What does a pedestrian signal showing a solid white walking figure mean?",
+    options: ["Pedestrians should hurry because the signal is about to change", "Pedestrians may begin crossing the street", "Pedestrians must not enter the crosswalk", "The signal applies only to cyclists"],
+    correct: 1,
+    explanation: "A solid white walking figure means pedestrians may begin crossing the street in that direction. (CA Driver Handbook: Traffic Controls)"
+  },
+  {
+    id: 20,
+    category: "road-signs",
+    question: "What does a flashing orange hand pedestrian signal mean?",
+    options: ["Pedestrians may begin crossing safely", "Pedestrians must not start crossing — finish crossing if already started", "All traffic must stop immediately", "Pedestrians have an extended crossing time"],
+    correct: 1,
+    explanation: "A flashing orange hand means pedestrians should not begin crossing. Those already crossing should move quickly to complete their crossing. (CA Driver Handbook: Traffic Controls)"
+  },
+  {
+    id: 21,
+    category: "road-signs",
+    question: "Brown highway signs are typically used to indicate:",
+    options: ["Motorist services like gas and food", "Mandatory traffic regulations", "Recreational areas, parks, and historic sites", "Construction or work zones"],
+    correct: 2,
+    explanation: "Brown signs indicate recreational areas, parks, campgrounds, and points of historical or cultural interest. (CA Driver Handbook: Traffic Signs)"
+  },
+  {
+    id: 22,
+    category: "road-signs",
+    question: "A sign that reads 'YIELD' means:",
+    options: ["Stop completely and wait for a green light", "Slow down and give the right-of-way to traffic or pedestrians", "Speed up to merge smoothly with traffic", "Stop only if cross traffic is heavy"],
+    correct: 1,
+    explanation: "A Yield sign requires you to slow down and give the right-of-way to pedestrians and vehicles in or approaching the intersection or road. (CA Driver Handbook: Traffic Signs)"
+  },
+  {
+    id: 23,
+    category: "road-signs",
+    question: "What does a yellow warning sign with a curved arrow mean?",
+    options: ["A U-turn is permitted ahead", "There is a curve in the road ahead", "A highway interchange is approaching", "You must turn in the direction of the arrow"],
+    correct: 1,
+    explanation: "A yellow diamond sign with a curved arrow warns drivers that the road curves in the direction shown. Slow down appropriately. (CA Driver Handbook: Traffic Signs)"
+  },
+  {
+    id: 24,
+    category: "road-signs",
+    question: "What does a solid red traffic arrow mean?",
+    options: ["You may turn in the direction of the arrow with caution", "You must stop and may not go in the direction of the arrow", "Yield before proceeding in the direction of the arrow", "The arrow indicates a preferred but not required turn direction"],
+    correct: 1,
+    explanation: "A solid red arrow means you must stop and may not move in the direction of the arrow. (CA Driver Handbook: Traffic Controls)"
+  },
+  {
+    id: 25,
+    category: "road-signs",
+    question: "A sign showing a truck on a downward slope warns:",
+    options: ["Heavy vehicles are prohibited on the upcoming road", "There is a steep downgrade ahead — use lower gears", "Road construction involves heavy equipment", "The road narrows ahead for large vehicles"],
+    correct: 1,
+    explanation: "A truck-on-slope warning sign indicates a steep downgrade ahead. Drivers of heavy vehicles should use a lower gear to control speed and prevent brake failure. (CA Driver Handbook: Traffic Signs)"
+  },
+
+  // === RIGHT-OF-WAY ===
+
+  {
+    id: 26,
+    category: "right-of-way",
+    question: "At a four-way stop, two cars arrive at exactly the same time on roads that cross each other. Who goes first?",
+    options: ["The car traveling on the larger road", "The car on the left yields to the car on the right", "The car that has been waiting longer goes first", "Both cars may proceed at the same time"],
+    correct: 1,
+    explanation: "When two vehicles arrive simultaneously at a four-way stop, the vehicle on the left must yield to the vehicle on the right. (CA Driver Handbook: Right-of-Way)"
+  },
+  {
+    id: 27,
+    category: "right-of-way",
+    question: "At an uncontrolled intersection, which vehicle has the right-of-way?",
+    options: ["The vehicle traveling at a higher speed", "The vehicle that arrives first", "The vehicle approaching from the left", "The larger vehicle"],
+    correct: 1,
+    explanation: "The first vehicle to arrive at an uncontrolled intersection has the right-of-way. (CA Driver Handbook: Right-of-Way)"
+  },
+  {
+    id: 28,
+    category: "right-of-way",
+    question: "When making a left turn at an intersection, you must:",
+    options: ["Proceed quickly before oncoming traffic arrives", "Yield to oncoming traffic and pedestrians", "Wait only if a traffic officer is present", "Flash your headlights to signal your intent"],
+    correct: 1,
+    explanation: "When turning left, you must yield to all oncoming vehicles and pedestrians before completing the turn. (CA Driver Handbook: Right-of-Way)"
+  },
+  {
+    id: 29,
+    category: "right-of-way",
+    question: "Pedestrians in a marked crosswalk have the right-of-way:",
+    options: ["Only when the pedestrian signal shows a walking figure", "Always — even if they cross against the signal", "Only when a traffic officer directs traffic to stop", "Only during daylight hours"],
+    correct: 0,
+    explanation: "Pedestrians have the right-of-way in marked crosswalks when the pedestrian signal permits crossing. However, drivers must also yield in unmarked crosswalks at intersections. (CA Driver Handbook: Right-of-Way)"
+  },
+  {
+    id: 30,
+    category: "right-of-way",
+    question: "A pedestrian using a white cane or guide dog at an intersection has the right-of-way:",
+    options: ["Only when the pedestrian signal is active", "Only at marked crosswalks", "At ALL times, regardless of signal or location", "Only during school hours"],
+    correct: 2,
+    explanation: "Blind pedestrians using a white cane or guide dog have the absolute right-of-way at all times and in all locations. (CA Driver Handbook: Right-of-Way)"
+  },
+  {
+    id: 31,
+    category: "right-of-way",
+    question: "If you see a blind pedestrian waiting at a corner, you should:",
+    options: ["Honk to let them know traffic is stopping for them", "Flash your headlights to signal it is safe to cross", "Wait quietly; do not honk, as it may confuse them", "Wave them across the intersection"],
+    correct: 2,
+    explanation: "Never honk at a blind pedestrian — the noise can be startling and confusing, making it harder for them to use sound to navigate safely. (CA Driver Handbook: Right-of-Way)"
+  },
+  {
+    id: 32,
+    category: "right-of-way",
+    question: "You are approaching a crosswalk and a vehicle in the adjacent lane has stopped. What should you do?",
+    options: ["Pass the stopped vehicle quickly to clear the crosswalk", "Stop as well — a pedestrian may be crossing in front of that vehicle", "Honk to alert the stopped driver", "Proceed carefully at slow speed"],
+    correct: 1,
+    explanation: "Never pass a vehicle stopped at a crosswalk — a pedestrian may be crossing in the path of your vehicle. (CA Driver Handbook: Right-of-Way)"
+  },
+  {
+    id: 33,
+    category: "right-of-way",
+    question: "When entering a roundabout, who has the right-of-way?",
+    options: ["Vehicles entering the roundabout from the main road", "Vehicles already circulating inside the roundabout", "The vehicle that signals first", "Larger vehicles always have priority"],
+    correct: 1,
+    explanation: "At a roundabout you must yield to traffic already inside the circle before entering. Travel counter-clockwise inside the roundabout. (CA Driver Handbook: Right-of-Way)"
+  },
+  {
+    id: 34,
+    category: "right-of-way",
+    question: "On a narrow mountain road where two vehicles cannot pass each other, which vehicle has the right-of-way?",
+    options: ["The vehicle traveling downhill", "The vehicle traveling uphill", "The smaller vehicle yields to the larger one", "The vehicle that arrived at the narrow section first"],
+    correct: 1,
+    explanation: "The vehicle going uphill has the right-of-way on narrow mountain roads. The downhill vehicle should pull over to let the uphill vehicle pass. (CA Driver Handbook: Right-of-Way)"
+  },
+  {
+    id: 35,
+    category: "right-of-way",
+    question: "An emergency vehicle with flashing lights and a siren is approaching. What must you do?",
+    options: ["Slow down and move to the center of the road", "Pull over to the right edge of the road and stop", "Speed up to clear the road quickly", "Maintain your current speed and stay in your lane"],
+    correct: 1,
+    explanation: "When an emergency vehicle approaches with lights and/or siren, pull to the right edge of the road and stop until it has passed. (CA Driver Handbook: Right-of-Way)"
+  },
+  {
+    id: 36,
+    category: "right-of-way",
+    question: "You are at a T-intersection where you must yield. Who has the right-of-way over you?",
+    options: ["Only vehicles approaching from your left", "Only vehicles approaching from your right", "All vehicles on the through road, and pedestrians", "Only emergency vehicles"],
+    correct: 2,
+    explanation: "At a T-intersection, the vehicle on the dead-end road must yield to all traffic on the through road and to any pedestrians. (CA Driver Handbook: Right-of-Way)"
+  },
+  {
+    id: 37,
+    category: "right-of-way",
+    question: "A vehicle is already in the intersection waiting to turn left when the light turns red. What should that driver do?",
+    options: ["Remain stopped in the intersection until the next green light", "Complete the left turn when oncoming traffic clears, even on red", "Back up out of the intersection immediately", "Honk to alert other drivers and complete the turn"],
+    correct: 1,
+    explanation: "A driver already in the intersection waiting to turn left may complete the turn when it is safe after the light turns red, as remaining in the intersection is dangerous. (CA Driver Handbook: Traffic Controls)"
+  },
+  {
+    id: 38,
+    category: "right-of-way",
+    question: "When merging onto a freeway, who has the right-of-way?",
+    options: ["The merging vehicle always has priority", "Traffic already on the freeway has the right-of-way", "The vehicle traveling at a higher speed has priority", "Both vehicles must stop and negotiate"],
+    correct: 1,
+    explanation: "Traffic already traveling on the freeway has the right-of-way. Merging drivers must adjust their speed and find a safe gap to enter. (CA Driver Handbook: Right-of-Way)"
+  },
+  {
+    id: 39,
+    category: "right-of-way",
+    question: "You want to turn right at a red light. A pedestrian is in the crosswalk on your right. You should:",
+    options: ["Turn right quickly before the pedestrian reaches your lane", "Wait for the pedestrian to completely cross before turning", "Honk to alert the pedestrian to hurry", "Turn right if the pedestrian is more than halfway across"],
+    correct: 1,
+    explanation: "You must yield to pedestrians in the crosswalk at all times. Wait until they have completely cleared the crossing before turning. (CA Driver Handbook: Right-of-Way)"
+  },
+  {
+    id: 40,
+    category: "right-of-way",
+    question: "A funeral procession is moving through an intersection. What should you do?",
+    options: ["Proceed through the intersection if you have a green light", "Yield to the procession and allow it to pass completely", "Join the procession in the same lane", "Use your horn to alert the procession to yield"],
+    correct: 1,
+    explanation: "In California, you should yield to a funeral procession. Vehicles in a procession have the right-of-way when following a lead vehicle with lights on. (CA Driver Handbook: Right-of-Way)"
+  },
+  {
+    id: 41,
+    category: "right-of-way",
+    question: "You are backing out of a driveway onto a public street. Who has the right-of-way?",
+    options: ["You do, because you arrived at the road first", "Pedestrians only — not other vehicles", "All vehicles and pedestrians on the public street", "Only vehicles traveling in the same direction you will go"],
+    correct: 2,
+    explanation: "When entering a public road from a driveway or alley, you must yield to all traffic and pedestrians on the public road. (CA Driver Handbook: Right-of-Way)"
+  },
+  {
+    id: 42,
+    category: "right-of-way",
+    question: "At a four-way stop, three cars arrive at different times. Who goes first?",
+    options: ["The car on the widest road goes first", "The car that arrived first goes first", "The car going straight always has priority", "The car on the right always goes first regardless of arrival"],
+    correct: 1,
+    explanation: "At a four-way stop, the first vehicle to arrive goes first. If there is a tie in arrival time, yield to the vehicle on your right. (CA Driver Handbook: Right-of-Way)"
+  },
+  {
+    id: 43,
+    category: "right-of-way",
+    question: "Which direction do vehicles travel inside a roundabout in California?",
+    options: ["Clockwise", "Counter-clockwise", "Either direction depending on lanes", "Straight through without turning"],
+    correct: 1,
+    explanation: "In the United States, vehicles travel counter-clockwise (to the right) inside a roundabout. (CA Driver Handbook: Roundabouts)"
+  },
+  {
+    id: 44,
+    category: "right-of-way",
+    question: "An unmarked crosswalk exists at every intersection where sidewalks meet, even if there are no painted lines. In these unmarked crosswalks, pedestrians:",
+    options: ["Have no legal right-of-way", "Have the right-of-way only during daylight", "Have the right-of-way, and drivers must yield to them", "Must wait for a gap in traffic before crossing"],
+    correct: 2,
+    explanation: "California law gives pedestrians the right-of-way in both marked and unmarked crosswalks at intersections. Drivers must yield. (CA Driver Handbook: Right-of-Way)"
+  },
+  {
+    id: 45,
+    category: "right-of-way",
+    question: "A school bus has stopped with its red lights flashing and its stop arm extended. You are approaching from behind on an undivided road. You must:",
+    options: ["Slow to 15 mph and pass with caution", "Stop and remain stopped until the lights stop flashing", "Stop only if children are visible outside the bus", "Pass quickly on the left side of the bus"],
+    correct: 1,
+    explanation: "When a school bus stops with flashing red lights and a stop arm, you must stop and wait until the lights stop flashing before proceeding. (CA Driver Handbook: Right-of-Way)"
+  },
+  {
+    id: 46,
+    category: "right-of-way",
+    question: "You are on a two-lane road and want to pass a slow-moving vehicle. Before passing, you must:",
+    options: ["Flash your lights to signal the other driver to pull over", "Make sure the left lane is clear for a safe distance ahead", "Honk to warn oncoming drivers", "Wait for the slow vehicle to signal you to pass"],
+    correct: 1,
+    explanation: "Before passing, ensure the passing lane is clear for a sufficient distance ahead and that it is legal to pass at that location. (CA Driver Handbook: Passing)"
+  },
+  {
+    id: 47,
+    category: "right-of-way",
+    question: "When two vehicles approach an uncontrolled intersection at the same time from different streets, the right-of-way rule is:",
+    options: ["Yield to the vehicle on your left", "Yield to the vehicle on your right", "The faster vehicle has priority", "Yield to the larger vehicle"],
+    correct: 1,
+    explanation: "When two vehicles reach an intersection simultaneously, yield to the vehicle on your right. (CA Driver Handbook: Right-of-Way)"
+  },
+  {
+    id: 48,
+    category: "right-of-way",
+    question: "You are driving and an emergency vehicle with lights and sirens approaches while you are in an intersection. What should you do?",
+    options: ["Stop immediately wherever you are in the intersection", "Clear the intersection first, then pull to the right and stop", "Speed through the intersection to clear it quickly", "Stay in place and let the emergency vehicle go around you"],
+    correct: 1,
+    explanation: "Do not stop in the intersection. Clear the intersection first, then pull to the right as soon as safely possible and stop. (CA Driver Handbook: Right-of-Way)"
+  },
+  {
+    id: 49,
+    category: "right-of-way",
+    question: "You are turning left from a two-way street into another two-way street. You should complete the turn into:",
+    options: ["The lane closest to the right-hand curb", "Any available lane on the new street", "The lane closest to the center line of the new street", "The right lane only if it is marked with arrows"],
+    correct: 2,
+    explanation: "When turning left, enter the lane closest to the center line (the left lane) of the road you are turning onto. (CA Driver Handbook: Turning)"
+  },
+  {
+    id: 50,
+    category: "right-of-way",
+    question: "Which of the following is TRUE about right-of-way laws in California?",
+    options: ["Having the right-of-way gives you absolute priority to proceed regardless of danger", "Right-of-way is something you take, not something given to you", "You must sometimes yield even when you have the right-of-way to prevent an accident", "Right-of-way rules only apply at intersections with traffic signals"],
+    correct: 2,
+    explanation: "Right-of-way laws tell you who must yield — but you must always be prepared to yield even when you have the right-of-way to prevent a collision. (CA Driver Handbook: Right-of-Way)"
+  },
+
+  // === SPEED LIMITS & SAFE DRIVING ===
+
+  {
+    id: 51,
+    category: "speed-limits",
+    question: "What is the maximum speed limit in a residential district in California unless otherwise posted?",
+    options: ["15 mph", "20 mph", "25 mph", "35 mph"],
+    correct: 2,
+    explanation: "The speed limit in residential and business districts is 25 mph unless otherwise posted. (CA Driver Handbook: Speed Laws)"
+  },
+  {
+    id: 52,
+    category: "speed-limits",
+    question: "What is the speed limit in a school zone when children are present?",
+    options: ["15 mph", "20 mph", "25 mph", "30 mph"],
+    correct: 2,
+    explanation: "The speed limit near schools is 25 mph when children are present within 500 to 1,000 feet of the school grounds. (CA Driver Handbook: Speed Laws)"
+  },
+  {
+    id: 53,
+    category: "speed-limits",
+    question: "What is the speed limit when approaching a blind intersection (no stop sign, signal, or clear view)?",
+    options: ["10 mph", "15 mph", "20 mph", "25 mph"],
+    correct: 1,
+    explanation: "At a blind intersection where you cannot see 100 feet in all directions, the speed limit is 15 mph. (CA Driver Handbook: Speed Laws)"
+  },
+  {
+    id: 54,
+    category: "speed-limits",
+    question: "What is the maximum speed limit in an alley?",
+    options: ["10 mph", "15 mph", "20 mph", "25 mph"],
+    correct: 1,
+    explanation: "The speed limit in any alley is 15 mph. (CA Driver Handbook: Speed Laws)"
+  },
+  {
+    id: 55,
+    category: "speed-limits",
+    question: "What is the maximum speed limit on most California freeways?",
+    options: ["55 mph", "60 mph", "65 mph", "70 mph"],
+    correct: 2,
+    explanation: "The maximum speed limit on most California freeways is 65 mph, unless posted otherwise. (CA Driver Handbook: Speed Laws)"
+  },
+  {
+    id: 56,
+    category: "speed-limits",
+    question: "What is the maximum speed limit on a two-lane undivided highway unless otherwise posted?",
+    options: ["45 mph", "50 mph", "55 mph", "65 mph"],
+    correct: 2,
+    explanation: "The maximum speed on a two-lane undivided highway is 55 mph unless otherwise posted. (CA Driver Handbook: Speed Laws)"
+  },
+  {
+    id: 57,
+    category: "speed-limits",
+    question: "How close to a railroad crossing (without gates or signals) must you be before reducing your speed to 15 mph?",
+    options: ["50 feet", "100 feet", "200 feet", "300 feet"],
+    correct: 1,
+    explanation: "Within 100 feet of a railroad crossing where you cannot see the tracks clearly in both directions, the speed limit is 15 mph. (CA Driver Handbook: Speed Laws)"
+  },
+  {
+    id: 58,
+    category: "speed-limits",
+    question: "When passing a streetcar or bus that is loading or unloading passengers, what is the maximum speed you may drive?",
+    options: ["5 mph", "10 mph", "15 mph", "25 mph"],
+    correct: 1,
+    explanation: "You must not exceed 10 mph when passing a streetcar or bus stopped to load or unload passengers where no safety zone is provided. (CA Driver Handbook: Speed Laws)"
+  },
+  {
+    id: 59,
+    category: "speed-limits",
+    question: "What is California's Basic Speed Law?",
+    options: ["Always drive at the posted speed limit, no faster and no slower", "You may exceed the posted limit by up to 10 mph if conditions are safe", "Never drive faster than is safe for current road, weather, and traffic conditions", "Speed limits apply only on roads with traffic signals"],
+    correct: 2,
+    explanation: "California's Basic Speed Law states you must never drive faster than is safe for current conditions, even if you are below the posted speed limit. (CA Driver Handbook: Speed Laws)"
+  },
+  {
+    id: 60,
+    category: "speed-limits",
+    question: "When driving on a wet road, how much should you generally reduce your speed?",
+    options: ["2 to 4 mph", "5 to 10 mph", "10 to 15 mph", "Reduce by one-quarter of the posted limit"],
+    correct: 1,
+    explanation: "On wet roads, you should reduce your speed by 5 to 10 mph from the posted limit to maintain safe stopping distance. (CA Driver Handbook: Driving in Rain)"
+  },
+  {
+    id: 61,
+    category: "speed-limits",
+    question: "When driving on packed snow, how should you adjust your speed?",
+    options: ["Reduce speed by 10 mph", "Reduce speed to half the normal speed", "Reduce speed to 15 mph regardless of the posted limit", "Maintain normal speed if you have snow tires"],
+    correct: 1,
+    explanation: "On packed snow, reduce your speed to half the normal speed for that road. Snow chains or snow tires help but do not eliminate the need to slow down. (CA Driver Handbook: Driving in Snow)"
+  },
+  {
+    id: 62,
+    category: "speed-limits",
+    question: "If you are driving on icy roads, what is a safe maximum speed?",
+    options: ["10 mph", "5 mph", "15 mph", "Matching the posted speed limit"],
+    correct: 1,
+    explanation: "On icy roads, drive no faster than 5 mph to maintain control. Ice dramatically reduces tire traction. (CA Driver Handbook: Driving in Ice)"
+  },
+  {
+    id: 63,
+    category: "speed-limits",
+    question: "In heavy fog or rain where visibility is less than 100 feet, what is the maximum legal speed?",
+    options: ["15 mph", "25 mph", "30 mph", "45 mph"],
+    correct: 2,
+    explanation: "When visibility is less than 100 feet due to fog, rain, or other conditions, you must not drive faster than 30 mph. (CA Driver Handbook: Driving in Fog)"
+  },
+  {
+    id: 64,
+    category: "speed-limits",
+    question: "What is the recommended following distance rule for most driving conditions?",
+    options: ["One second for every 10 feet of vehicle length", "Two seconds behind the vehicle ahead", "Three seconds behind the vehicle ahead", "Four seconds behind the vehicle ahead"],
+    correct: 2,
+    explanation: "Use the three-second rule: pick a fixed point and count three seconds after the vehicle ahead passes it before you reach that same point. (CA Driver Handbook: Safe Following Distance)"
+  },
+  {
+    id: 65,
+    category: "speed-limits",
+    question: "How far ahead should you scan the road when driving at highway speeds?",
+    options: ["3 seconds ahead", "5 seconds ahead", "10 seconds ahead", "15 seconds ahead"],
+    correct: 2,
+    explanation: "At highway speeds, you should scan the road approximately 10 seconds ahead to identify hazards and respond in time. (CA Driver Handbook: Scanning the Road)"
+  },
+  {
+    id: 66,
+    category: "speed-limits",
+    question: "At 55 mph, approximately how far does it take for a passenger car to stop (total stopping distance including reaction time)?",
+    options: ["150 feet", "200 feet", "300 feet", "450 feet"],
+    correct: 2,
+    explanation: "At 55 mph, a passenger car requires approximately 300 feet to stop — including the distance traveled during the driver's reaction time. (CA Driver Handbook: Stopping Distance)"
+  },
+  {
+    id: 67,
+    category: "speed-limits",
+    question: "At 55 mph, approximately how far does it take for a large truck or bus to stop?",
+    options: ["200 feet", "300 feet", "400 feet", "500 feet"],
+    correct: 2,
+    explanation: "A large vehicle such as a truck or bus requires approximately 400 feet to stop at 55 mph — significantly more than a passenger car. (CA Driver Handbook: Stopping Distance)"
+  },
+  {
+    id: 68,
+    category: "speed-limits",
+    question: "When is it legal to drive faster than the posted maximum speed limit in California?",
+    options: ["When passing another vehicle on a two-lane road", "When conditions are unusually clear and traffic is light", "When an officer directs you to speed up", "It is never legal to exceed the posted maximum speed limit"],
+    correct: 3,
+    explanation: "In California, it is never legal to exceed the posted maximum speed limit, regardless of conditions or justification. (CA Driver Handbook: Speed Laws)"
+  },
+  {
+    id: 69,
+    category: "speed-limits",
+    question: "You are driving below the posted speed limit because of heavy rain. The driver behind you is tailgating. What should you do?",
+    options: ["Speed up to the posted limit to relieve the pressure", "Move to a safer lane or pull over to let the tailgater pass", "Brake suddenly to teach the other driver a lesson", "Turn on your hazard lights and maintain your slow speed"],
+    correct: 1,
+    explanation: "If someone is tailgating, move to another lane or safely pull over and let them pass. Never brake suddenly — this is dangerous. (CA Driver Handbook: Defensive Driving)"
+  },
+  {
+    id: 70,
+    category: "speed-limits",
+    question: "Which of the following increases your following distance requirement?",
+    options: ["Driving a compact car", "Driving on a dry, paved road", "Towing a trailer or large load", "Driving in light traffic on a freeway"],
+    correct: 2,
+    explanation: "When towing a trailer or carrying a heavy load, increase your following distance because stopping distances are significantly greater. (CA Driver Handbook: Safe Following Distance)"
+  },
+  {
+    id: 71,
+    category: "speed-limits",
+    question: "You are driving at 60 mph. Approximately how far does your vehicle travel during your reaction time before you even apply the brakes?",
+    options: ["44 feet", "66 feet", "88 feet", "132 feet"],
+    correct: 2,
+    explanation: "At 60 mph, during the average reaction time of 1.5 seconds, a vehicle travels approximately 88 feet before the driver even presses the brakes. (CA Driver Handbook: Stopping Distance)"
+  },
+  {
+    id: 72,
+    category: "speed-limits",
+    question: "Which of these is an example of violating California's Basic Speed Law even though you are below the posted limit?",
+    options: ["Driving 25 mph in a 25 mph zone on a dry day", "Driving 50 mph in a 55 mph zone on a clear day", "Driving 40 mph in a 55 mph zone during heavy rain and poor visibility", "Driving 20 mph in a 25 mph school zone when children are present"],
+    correct: 2,
+    explanation: "The Basic Speed Law requires you to drive at a safe speed for conditions. Driving 40 mph in reduced-visibility rain may be unsafe even if it is below the 55 mph limit. (CA Driver Handbook: Speed Laws)"
+  },
+  {
+    id: 73,
+    category: "speed-limits",
+    question: "When is it safe to pass another vehicle on a two-lane road?",
+    options: ["Whenever you feel you have enough speed to get ahead quickly", "When the road ahead is clear, passing is legal, and you can return to your lane safely", "At any time if the other driver is going below the speed limit", "Only on freeways where lanes are clearly marked"],
+    correct: 1,
+    explanation: "You may pass only when the road ahead is clear for sufficient distance, it is legal to pass (no solid yellow line), and you can return safely to your lane. (CA Driver Handbook: Passing)"
+  },
+  {
+    id: 74,
+    category: "speed-limits",
+    question: "Driving too slowly on a highway can be dangerous because:",
+    options: ["It reduces fuel efficiency significantly", "It can cause other drivers to tailgate or make unsafe passes", "Slow drivers receive automatic citations in California", "It always violates the posted minimum speed"],
+    correct: 1,
+    explanation: "Driving too slowly can frustrate other drivers, lead to unsafe passing maneuvers, and disrupt traffic flow — creating hazardous conditions. (CA Driver Handbook: Speed Laws)"
+  },
+  {
+    id: 75,
+    category: "speed-limits",
+    question: "What must you do when approaching a school bus stopped with flashing red lights on a divided highway with a median?",
+    options: ["Stop regardless of which side of the road you are on", "Stop only if you are behind the bus", "Stop only if children are visible", "If you are on the opposite side of the divided highway, you may pass slowly"],
+    correct: 3,
+    explanation: "On a divided highway with a physical median, vehicles approaching from the opposite direction do not need to stop for a school bus. Those behind the bus must stop. (CA Driver Handbook: School Buses)"
+  },
+
+  // === DUI & DRUG LAWS ===
+
+  {
+    id: 76,
+    category: "dui",
+    question: "What blood alcohol concentration (BAC) is the legal limit for drivers 21 and older in California?",
+    options: ["0.04%", "0.06%", "0.08%", "0.10%"],
+    correct: 2,
+    explanation: "It is illegal to drive with a BAC of 0.08% or higher if you are 21 or older. (CA Driver Handbook: Alcohol and Drugs)"
+  },
+  {
+    id: 77,
+    category: "dui",
+    question: "What is the legal BAC limit for drivers under the age of 21 in California?",
+    options: ["0.01%", "0.04%", "0.06%", "0.08%"],
+    correct: 0,
+    explanation: "California has a zero-tolerance policy for underage drinking and driving. It is illegal to drive with a BAC of 0.01% or higher if you are under 21. (CA Driver Handbook: Alcohol and Drugs)"
+  },
+  {
+    id: 78,
+    category: "dui",
+    question: "What BAC limit applies to commercial vehicle drivers in California?",
+    options: ["0.01%", "0.04%", "0.06%", "0.08%"],
+    correct: 1,
+    explanation: "Commercial drivers are held to a stricter standard. It is illegal to operate a commercial vehicle with a BAC of 0.04% or higher. (CA Driver Handbook: Alcohol and Drugs)"
+  },
+  {
+    id: 79,
+    category: "dui",
+    question: "What does California's 'implied consent' law mean?",
+    options: ["You implicitly consent to DUI checkpoints by living in California", "By driving on California roads, you agree to take a chemical test if lawfully arrested for DUI", "Police may search your vehicle if they suspect DUI", "You must answer all questions from an officer without an attorney present"],
+    correct: 1,
+    explanation: "Implied consent means that by driving in California, you agree to take a chemical test (blood, breath, or urine) if lawfully arrested for DUI. Refusing has serious consequences. (CA Driver Handbook: Alcohol and Drugs)"
+  },
+  {
+    id: 80,
+    category: "dui",
+    question: "If your driver's license is taken by an officer after a DUI arrest, what document are you given to drive temporarily?",
+    options: ["A pink notice of intent to suspend", "A temporary 30-day driving permit", "A court-issued driving certificate", "A restricted license valid for 60 days"],
+    correct: 1,
+    explanation: "When your license is confiscated at a DUI arrest, you are given a temporary 30-day driving permit. (CA Driver Handbook: Alcohol and Drugs)"
+  },
+  {
+    id: 81,
+    category: "dui",
+    question: "After a DUI arrest, how many days do you have to request a DMV hearing to contest the license suspension?",
+    options: ["5 days", "7 days", "10 days", "30 days"],
+    correct: 2,
+    explanation: "You must request a DMV hearing within 10 days of your DUI arrest if you want to contest the automatic license suspension. (CA Driver Handbook: Alcohol and Drugs)"
+  },
+  {
+    id: 82,
+    category: "dui",
+    question: "For how many years does a DUI conviction remain on your California DMV record?",
+    options: ["3 years", "5 years", "7 years", "10 years"],
+    correct: 3,
+    explanation: "A DUI conviction remains on your California DMV driving record for 10 years. (CA Driver Handbook: Alcohol and Drugs)"
+  },
+  {
+    id: 83,
+    category: "dui",
+    question: "Which of the following is a possible penalty for a first-time DUI conviction in California?",
+    options: ["Mandatory 1-year prison sentence", "Up to 6 months in jail, fines, DUI program, and SR-22 insurance requirement", "Permanent loss of driving privileges", "Automatic vehicle confiscation for 6 months"],
+    correct: 1,
+    explanation: "A first DUI conviction can result in up to 6 months in county jail, fines, mandatory DUI program completion, and SR-22 insurance for 3 years. (CA Driver Handbook: Alcohol and Drugs)"
+  },
+  {
+    id: 84,
+    category: "dui",
+    question: "If you are under 21 and caught with alcohol in your vehicle, what can happen to your license?",
+    options: ["No penalty for a first offense", "Warning only with no license action", "1-year license suspension and possible 30-day vehicle impound", "3-month license suspension with mandatory community service"],
+    correct: 2,
+    explanation: "Under-21 drivers caught possessing alcohol face a 1-year license suspension and possible 30-day vehicle impound. (CA Driver Handbook: Alcohol and Drugs)"
+  },
+  {
+    id: 85,
+    category: "dui",
+    question: "An ignition interlock device (IID) may be required after a DUI conviction. What does this device do?",
+    options: ["Monitors your speed and reports it to the DMV", "Requires you to provide a breath sample before the engine will start", "Automatically limits your vehicle's speed to 25 mph", "Sends your location to law enforcement while you drive"],
+    correct: 1,
+    explanation: "An ignition interlock device requires the driver to provide a breath sample free of alcohol before the vehicle will start. (CA Driver Handbook: Alcohol and Drugs)"
+  },
+  {
+    id: 86,
+    category: "dui",
+    question: "Is it legal to drive in California while under the influence of a legally prescribed medication?",
+    options: ["Yes, as long as you have a valid prescription", "Yes, if your doctor says it is safe", "No — driving under the influence of any drug that impairs you is illegal", "No, only over-the-counter medications are permitted while driving"],
+    correct: 2,
+    explanation: "Driving under the influence of ANY drug — including legally prescribed medications — is illegal in California if that drug impairs your ability to drive safely. (CA Driver Handbook: Alcohol and Drugs)"
+  },
+  {
+    id: 87,
+    category: "dui",
+    question: "What is the open container law in California?",
+    options: ["Open containers of alcohol are only allowed in the cargo area of a truck", "It is illegal to have any open container of alcohol in the passenger area of a vehicle", "Passengers (not the driver) may drink in a vehicle legally in California", "Open containers are legal only if the vehicle is parked"],
+    correct: 1,
+    explanation: "California's open container law prohibits having any open container of alcohol in the passenger compartment of a vehicle on a public road. (CA Driver Handbook: Alcohol and Drugs)"
+  },
+  {
+    id: 88,
+    category: "dui",
+    question: "How does alcohol affect your driving ability?",
+    options: ["It improves reaction time by reducing anxiety", "It impairs judgment, coordination, vision, and reaction time", "It only affects driving ability at BAC levels above 0.10%", "It has no effect below 0.08% BAC"],
+    correct: 1,
+    explanation: "Alcohol impairs your ability to judge speed and distance, slows your reaction time, reduces coordination, and affects vision — even at relatively low BAC levels. (CA Driver Handbook: Alcohol and Drugs)"
+  },
+  {
+    id: 89,
+    category: "dui",
+    question: "What is the safest approach if you plan to drink at a social event?",
+    options: ["Limit yourself to one drink per hour", "Eat a large meal before drinking to absorb the alcohol", "Arrange a designated driver or alternative transportation before going", "Wait 30 minutes after your last drink before driving"],
+    correct: 2,
+    explanation: "The only safe approach is to plan ahead — designate a non-drinking driver or arrange alternative transportation such as a taxi or rideshare service. (CA Driver Handbook: Alcohol and Drugs)"
+  },
+  {
+    id: 90,
+    category: "dui",
+    question: "What is the BAC limit for a driver who is on DUI probation?",
+    options: ["0.04%", "0.02%", "0.01%", "0.00% — any alcohol is prohibited"],
+    correct: 2,
+    explanation: "Drivers on DUI probation face a 0.01% BAC limit — effectively zero tolerance for any alcohol consumption. (CA Driver Handbook: Alcohol and Drugs)"
+  },
+  {
+    id: 91,
+    category: "dui",
+    question: "Which of the following CANNOT effectively reduce your BAC before driving?",
+    options: ["Drinking coffee", "Eating a meal", "Taking a cold shower", "All of the above — only time reduces BAC"],
+    correct: 3,
+    explanation: "Only time reduces BAC. Coffee, food, and cold showers may make you feel more alert but do not reduce the amount of alcohol in your blood. (CA Driver Handbook: Alcohol and Drugs)"
+  },
+  {
+    id: 92,
+    category: "dui",
+    question: "What happens if you refuse to take a chemical test after a lawful DUI arrest in California?",
+    options: ["You cannot be convicted of DUI without a test", "Your license is automatically suspended and the refusal can be used against you in court", "You will receive only a warning for the first refusal", "There is no penalty for refusal if you are not convicted of DUI"],
+    correct: 1,
+    explanation: "Refusing a chemical test under the implied consent law results in an automatic license suspension, and the refusal can be used as evidence against you in court. (CA Driver Handbook: Alcohol and Drugs)"
+  },
+  {
+    id: 93,
+    category: "dui",
+    question: "Marijuana use and driving in California:",
+    options: ["Is legal as long as you are a medical marijuana patient", "Is legal since recreational marijuana is legal in California", "Is illegal — cannabis impairs driving ability just as alcohol does", "Is only illegal if your THC level exceeds a certain limit"],
+    correct: 2,
+    explanation: "Driving under the influence of marijuana is illegal in California even though recreational use is legal. Cannabis impairs reaction time, coordination, and judgment. (CA Driver Handbook: Alcohol and Drugs)"
+  },
+  {
+    id: 94,
+    category: "dui",
+    question: "SR-22 insurance is often required after a DUI conviction. What is it?",
+    options: ["A special insurance policy that covers DUI-related accident damage", "A certificate proving you carry the minimum required auto insurance", "A court-mandated savings account to cover potential accident costs", "A federally required blood-alcohol monitoring program"],
+    correct: 1,
+    explanation: "SR-22 is a certificate filed with the DMV by your insurance company proving that you carry at least the state minimum liability coverage. It is required for high-risk drivers after a DUI. (CA Driver Handbook: Alcohol and Drugs)"
+  },
+  {
+    id: 95,
+    category: "dui",
+    question: "Which factor most significantly increases the rate at which your body absorbs alcohol?",
+    options: ["Drinking on an empty stomach", "Drinking beer instead of spirits", "Drinking carbonated beverages", "Being physically fit"],
+    correct: 0,
+    explanation: "Drinking on an empty stomach causes alcohol to be absorbed into the bloodstream much faster, raising your BAC more quickly. (CA Driver Handbook: Alcohol and Drugs)"
+  },
+  {
+    id: 96,
+    category: "dui",
+    question: "At a DUI checkpoint, a police officer asks you to take a preliminary alcohol screening (PAS) test. As a driver over 21 not on DUI probation, you:",
+    options: ["Are required by law to take the test", "May refuse the roadside PAS test, though you must take a test if arrested", "Must take the PAS test or face immediate arrest", "Must take the test only if the officer has a warrant"],
+    correct: 1,
+    explanation: "The roadside PAS test is optional for drivers over 21 not on probation. However, once you are lawfully arrested, implied consent requires you to take a chemical test. (CA Driver Handbook: Alcohol and Drugs)"
+  },
+  {
+    id: 97,
+    category: "dui",
+    question: "Which of the following is TRUE about combining alcohol and prescription drugs?",
+    options: ["Prescription drugs neutralize the effects of alcohol", "Combining them may intensify impairment beyond what either would cause alone", "The legal BAC limit is higher if you are taking prescription drugs", "Only illegal drugs combined with alcohol create additional impairment"],
+    correct: 1,
+    explanation: "Combining alcohol with prescription or over-the-counter drugs can dangerously amplify impairment. Even a small amount of alcohol combined with certain medications can cause severe impairment. (CA Driver Handbook: Alcohol and Drugs)"
+  },
+  {
+    id: 98,
+    category: "dui",
+    question: "A first DUI conviction that results in injury to another person can be charged as:",
+    options: ["Only a misdemeanor in California", "A felony, resulting in longer prison sentences and larger fines", "A minor infraction with a fine only", "An administrative violation handled only by the DMV"],
+    correct: 1,
+    explanation: "DUI causing injury can be charged as a felony in California, which carries significantly longer incarceration, higher fines, and longer license suspension than a standard DUI. (CA Driver Handbook: Alcohol and Drugs)"
+  },
+  {
+    id: 99,
+    category: "dui",
+    question: "How does fatigue affect driving, compared to alcohol impairment?",
+    options: ["Fatigue has very little effect compared to alcohol", "Fatigue affects only older drivers, not young ones", "Severe fatigue can impair driving ability to a degree similar to being intoxicated", "Fatigue is only dangerous on highways, not in city driving"],
+    correct: 2,
+    explanation: "Studies show that being awake for 18 or more hours can impair driving to a degree similar to a 0.05% BAC. Drowsy driving is a serious safety hazard. (CA Driver Handbook: Drowsy Driving)"
+  },
+  {
+    id: 100,
+    category: "dui",
+    question: "Which of the following actions is legal in California regarding alcohol in a vehicle?",
+    options: ["Transporting a sealed, unopened bottle of wine in the passenger compartment", "Drinking alcohol as a passenger while the vehicle is moving", "Having an open bottle of beer in the center console", "Storing a partially consumed bottle of wine in the trunk or cargo area behind the last seat"],
+    correct: 3,
+    explanation: "Transporting a partially consumed container of alcohol is legal only if it is stored in the trunk or a locked compartment behind the passenger area. (CA Driver Handbook: Alcohol and Drugs)"
+  },
+
+  // === PARKING RULES ===
+
+  {
+    id: 101,
+    category: "parking",
+    question: "What does a red curb mean?",
+    options: ["Commercial vehicles may stop for up to 30 minutes", "No stopping, standing, or parking at any time", "Limited parking for up to 1 hour", "Parking is allowed only outside of rush hour"],
+    correct: 1,
+    explanation: "A red curb means no stopping, standing, or parking at any time for any vehicle. (CA Driver Handbook: Parking)"
+  },
+  {
+    id: 102,
+    category: "parking",
+    question: "What does a yellow curb mean?",
+    options: ["No stopping at any time", "Passenger loading and unloading only, with a 5-minute limit", "Commercial vehicle loading and unloading only, usually with a 30-minute limit", "Parking allowed for disabled vehicles with a placard"],
+    correct: 2,
+    explanation: "A yellow curb means commercial vehicle loading or unloading only, typically limited to 30 minutes during business hours. (CA Driver Handbook: Parking)"
+  },
+  {
+    id: 103,
+    category: "parking",
+    question: "What does a white curb indicate?",
+    options: ["No stopping or parking at any time", "Passenger loading or unloading only, typically with a 5-minute maximum", "Short-term parking for up to 30 minutes", "Parking for emergency vehicles only"],
+    correct: 1,
+    explanation: "A white curb means passenger loading and unloading only, usually with a maximum of 5 minutes. The driver must stay with the vehicle. (CA Driver Handbook: Parking)"
+  },
+  {
+    id: 104,
+    category: "parking",
+    question: "What does a green curb mean?",
+    options: ["No stopping or parking at any time", "Commercial vehicle loading only", "Limited-time parking, with the time limit posted on a nearby sign", "Parking for disabled persons only"],
+    correct: 2,
+    explanation: "A green curb indicates limited-time parking. The allowed time is posted on a nearby sign. (CA Driver Handbook: Parking)"
+  },
+  {
+    id: 105,
+    category: "parking",
+    question: "What does a blue curb mean?",
+    options: ["Parking for law enforcement vehicles only", "Commercial loading zone — blue indicates daytime hours only", "Parking for disabled persons only, with a required placard or special plates", "Loading zone for passenger vehicles"],
+    correct: 2,
+    explanation: "A blue curb designates parking for persons with disabilities only. A disabled person parking placard or special license plates must be displayed. (CA Driver Handbook: Parking)"
+  },
+  {
+    id: 106,
+    category: "parking",
+    question: "When parking uphill on a street with a curb, which direction should you turn your front wheels?",
+    options: ["Toward the curb (right)", "Away from the curb (left)", "Straight ahead — wheels should remain straight", "Depends on the steepness of the hill"],
+    correct: 1,
+    explanation: "When parking uphill with a curb, turn your wheels AWAY from the curb (to the left). If the car rolls, it will roll away from the curb and be stopped by the curb. (CA Driver Handbook: Parking on Hills)"
+  },
+  {
+    id: 107,
+    category: "parking",
+    question: "When parking downhill on a street with a curb, which way should your front wheels face?",
+    options: ["Away from the curb (left)", "Toward the curb (right)", "Straight ahead", "Toward the center of the road"],
+    correct: 1,
+    explanation: "When parking downhill with a curb, turn wheels TOWARD the curb (right). If the car rolls, the curb will stop it. (CA Driver Handbook: Parking on Hills)"
+  },
+  {
+    id: 108,
+    category: "parking",
+    question: "When parking uphill on a street WITHOUT a curb, which direction should you turn your wheels?",
+    options: ["Away from the edge of the road (left)", "Toward the right, toward the edge of the road", "Straight ahead", "It does not matter on roads without curbs"],
+    correct: 1,
+    explanation: "When parking uphill without a curb, turn wheels to the RIGHT (toward the edge of the road). If the car rolls, it will go off the road rather than into traffic. (CA Driver Handbook: Parking on Hills)"
+  },
+  {
+    id: 109,
+    category: "parking",
+    question: "How far from a fire hydrant must you park to avoid a violation?",
+    options: ["5 feet", "10 feet", "15 feet", "20 feet"],
+    correct: 2,
+    explanation: "You must not park within 15 feet of a fire hydrant. This space must remain clear for fire department access. (CA Driver Handbook: Parking)"
+  },
+  {
+    id: 110,
+    category: "parking",
+    question: "How close to a fire station driveway may you legally park?",
+    options: ["Within 5 feet on the same side of the street", "You may not park within 15 feet of a fire station driveway", "You may not park within 20 feet of a fire station", "Parking is prohibited on either side of the street near a fire station"],
+    correct: 1,
+    explanation: "You must not park within 15 feet of a fire station driveway on the same side of the street. On the opposite side, the limit is 75 feet in some jurisdictions. (CA Driver Handbook: Parking)"
+  },
+  {
+    id: 111,
+    category: "parking",
+    question: "Is it legal to park on a sidewalk in California?",
+    options: ["Yes, if the vehicle does not block pedestrian passage", "Yes, if it is only for a few minutes", "No — parking on a sidewalk is always illegal", "Yes, in residential areas only"],
+    correct: 2,
+    explanation: "Parking on a sidewalk is illegal in California — sidewalks must remain clear for pedestrians at all times. (CA Driver Handbook: Parking)"
+  },
+  {
+    id: 112,
+    category: "parking",
+    question: "May you park in an intersection?",
+    options: ["Yes, if no sign prohibits it", "Yes, if you are in the intersection for less than 5 minutes", "No — parking in an intersection is always illegal", "Yes, only if the intersection is not signalized"],
+    correct: 2,
+    explanation: "Parking in an intersection is always illegal. Intersections must remain clear for traffic flow and emergency vehicles. (CA Driver Handbook: Parking)"
+  },
+  {
+    id: 113,
+    category: "parking",
+    question: "How far from a crosswalk must you keep your vehicle when parking near an intersection?",
+    options: ["5 feet", "10 feet", "15 feet", "20 feet"],
+    correct: 2,
+    explanation: "You must not park within 15 feet of a crosswalk at an intersection, to ensure pedestrian safety and driver visibility. (CA Driver Handbook: Parking)"
+  },
+  {
+    id: 114,
+    category: "parking",
+    question: "How close to a wheelchair access ramp may you park?",
+    options: ["Within 1 foot if the ramp is not in use", "Within 3 feet on either side", "You may not park within 3 feet of a wheelchair ramp", "You may not park within 5 feet of a wheelchair ramp"],
+    correct: 2,
+    explanation: "Parking within 3 feet of a wheelchair access ramp is illegal — these spaces must remain accessible for persons with disabilities. (CA Driver Handbook: Parking)"
+  },
+  {
+    id: 115,
+    category: "parking",
+    question: "Is it legal to park in front of someone else's driveway?",
+    options: ["Yes, for a short time if you stay with the vehicle", "Yes, only if the homeowner gives verbal permission", "No — you may not block access to any driveway", "Yes, if it is between 10 PM and 6 AM"],
+    correct: 2,
+    explanation: "You may never park in front of a driveway — doing so blocks access for the residents and is always illegal. (CA Driver Handbook: Parking)"
+  },
+  {
+    id: 116,
+    category: "parking",
+    question: "What is 'double parking'?",
+    options: ["Parking in two adjacent spaces instead of one", "Parking parallel to a vehicle already parked at the curb, blocking traffic", "Parking on both sides of a two-way street simultaneously", "Parking in a loading zone and a regular spot at the same time"],
+    correct: 1,
+    explanation: "Double parking means stopping next to another vehicle parked at the curb, which blocks the traffic lane. This is illegal in California. (CA Driver Handbook: Parking)"
+  },
+  {
+    id: 117,
+    category: "parking",
+    question: "What is the maximum fine for illegally parking in a disabled parking space without a proper placard or plate in California?",
+    options: ["$100", "$250", "$500", "$1,000"],
+    correct: 3,
+    explanation: "Parking illegally in a disabled parking space can result in fines up to $1,000, plus additional court fees. (CA Driver Handbook: Parking)"
+  },
+  {
+    id: 118,
+    category: "parking",
+    question: "When parallel parking, how far from the curb should your vehicle be?",
+    options: ["Within 6 inches of the curb", "Within 12 inches of the curb", "No more than 18 inches from the curb", "No more than 24 inches from the curb"],
+    correct: 2,
+    explanation: "When parallel parking, your vehicle must be no more than 18 inches from the curb. (CA Driver Handbook: Parking)"
+  },
+  {
+    id: 119,
+    category: "parking",
+    question: "You park at a yellow curb and go into a shop for 45 minutes. Is this allowed?",
+    options: ["Yes, if your hazard lights are on", "Yes, as long as no sign limits the time", "No — yellow curbs are typically limited to 30 minutes for commercial loading", "Yes, yellow curbs have no time limit"],
+    correct: 2,
+    explanation: "Yellow curbs are commercial loading/unloading zones typically limited to 30 minutes. Leaving your vehicle parked at a yellow curb for 45 minutes is a violation. (CA Driver Handbook: Parking)"
+  },
+  {
+    id: 120,
+    category: "parking",
+    question: "Which vehicle may legally park at a blue curb without a placard?",
+    options: ["Any vehicle for 5 minutes or less", "Police vehicles on official business", "No vehicle — blue curbs require a disabled placard or special plates at all times", "Any vehicle between midnight and 6 AM"],
+    correct: 2,
+    explanation: "A disabled person parking placard or special license plates must be displayed at all times when parking at a blue curb. No exceptions are made for brief stops. (CA Driver Handbook: Parking)"
+  },
+  {
+    id: 121,
+    category: "parking",
+    question: "You park facing uphill. After shutting off the engine, you should always:",
+    options: ["Leave the vehicle in neutral so it can roll if needed", "Set the parking brake in addition to turning the wheels properly", "Only turn the wheels — the parking brake is optional on hills", "Leave the vehicle in gear but skip the parking brake"],
+    correct: 1,
+    explanation: "Always apply the parking brake when parking on a hill, in addition to properly turning your wheels. The parking brake provides an extra layer of security. (CA Driver Handbook: Parking on Hills)"
+  },
+  {
+    id: 122,
+    category: "parking",
+    question: "May you park in a bicycle lane?",
+    options: ["Yes, if you park for 5 minutes or less", "Yes, only during non-peak hours", "No — parking in a bicycle lane is illegal unless signs allow it", "Yes, on weekends when fewer cyclists are present"],
+    correct: 2,
+    explanation: "Parking in a designated bicycle lane is illegal unless signs specifically indicate that stopping or parking is permitted during certain hours. (CA Driver Handbook: Parking)"
+  },
+  {
+    id: 123,
+    category: "parking",
+    question: "How far from an intersection should you NOT park your vehicle?",
+    options: ["5 feet", "10 feet", "15 feet", "20 feet"],
+    correct: 2,
+    explanation: "You must not park within 15 feet of an intersection (or a crosswalk at an intersection) to maintain visibility and traffic flow. (CA Driver Handbook: Parking)"
+  },
+  {
+    id: 124,
+    category: "parking",
+    question: "You need to park overnight on a hill. You have a curb on your right side and are facing downhill. What is the correct procedure?",
+    options: ["Turn wheels left (away from curb), set parking brake, leave in neutral", "Turn wheels right (toward curb), set parking brake, leave in lowest gear or Park", "Turn wheels straight, set parking brake only", "Turn wheels left, do not use parking brake on gentle slopes"],
+    correct: 1,
+    explanation: "Facing downhill with a curb on the right: turn wheels toward the curb (right), set the parking brake, and leave the transmission in Park (or first/reverse gear for manuals). (CA Driver Handbook: Parking on Hills)"
+  },
+  {
+    id: 125,
+    category: "parking",
+    question: "Which of the following is ALWAYS illegal when it comes to parking in California?",
+    options: ["Parking in a white zone for 3 minutes to pick up a passenger", "Parking in a green zone with time remaining on the posted limit", "Parking in a crosswalk or blocking a fire hydrant", "Parking more than 12 inches from the curb on a street with no markings"],
+    correct: 2,
+    explanation: "Parking in a crosswalk or within 15 feet of a fire hydrant is always illegal in California. These spaces must remain clear for public safety. (CA Driver Handbook: Parking)"
+  },
+
+  // TASK 3: Categories 6-9 will be appended here
+];
   </script>
 </body>
 </html>
