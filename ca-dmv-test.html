@@ -2343,7 +2343,57 @@ function handleAction(action, btn) {
     state.studyAnswered = null;
     render();
   }
-  // Exam mode actions (Task 6 will use these)
+  // Exam mode actions
+  else if (action === 'exam-answer') {
+    const currentQ = state.examQuestions[state.examIndex];
+    if (currentQ) {
+      state.examAnswers[currentQ.id] = parseInt(btn.dataset.index);
+    }
+    render();
+  }
+  else if (action === 'exam-next') {
+    if (state.examIndex < 45) {
+      state.examIndex++;
+    }
+    render();
+  }
+  else if (action === 'exam-prev') {
+    if (state.examIndex > 0) {
+      state.examIndex--;
+    }
+    render();
+  }
+  else if (action === 'toggle-flag') {
+    const currentQ = state.examQuestions[state.examIndex];
+    if (currentQ) {
+      if (state.examFlagged.has(currentQ.id)) {
+        state.examFlagged.delete(currentQ.id);
+      } else {
+        state.examFlagged.add(currentQ.id);
+      }
+    }
+    render();
+  }
+  else if (action === 'toggle-grid') {
+    state.showGrid = !state.showGrid;
+    render();
+  }
+  else if (action === 'close-grid') {
+    state.showGrid = false;
+    render();
+  }
+  else if (action === 'exam-jump') {
+    state.examIndex = parseInt(btn.dataset.index);
+    state.showGrid = false;
+    render();
+  }
+  else if (action === 'submit-exam') {
+    const unanswered = state.examQuestions.filter(q => !(q.id in state.examAnswers)).length;
+    if (unanswered > 0) {
+      if (!confirm(unanswered + ' question(s) unanswered. Submit anyway?')) return;
+    }
+    submitExam();
+  }
 }
 
 // Home screen
@@ -2469,9 +2519,198 @@ function renderStudy() {
     </div>
   `;
 }
-function renderExam() { return '<div class="container"><p>Exam mode coming soon...</p><button data-action="go-home">Back</button></div>'; }
-function renderResults() { return '<div class="container"><p>Results coming soon...</p><button data-action="go-home">Back</button></div>'; }
-function startExam() { state.screen = 'exam'; render(); }
+function startExam() {
+  const shuffled = [...QUESTIONS].sort(() => Math.random() - 0.5);
+  state.examQuestions = shuffled.slice(0, 46);
+  state.examIndex = 0;
+  state.examAnswers = {};
+  state.examFlagged = new Set();
+  state.examTimeLeft = 1800;
+  state.showGrid = false;
+  state.screen = 'exam';
+
+  if (state.examTimerId) clearInterval(state.examTimerId);
+  state.examTimerId = setInterval(() => {
+    state.examTimeLeft--;
+    if (state.examTimeLeft <= 0) {
+      clearInterval(state.examTimerId);
+      state.examTimerId = null;
+      submitExam();
+      return;
+    }
+    const timerEl = document.querySelector('.timer');
+    if (timerEl) {
+      const min = Math.floor(state.examTimeLeft / 60);
+      const sec = state.examTimeLeft % 60;
+      timerEl.textContent = min + ':' + String(sec).padStart(2, '0');
+      timerEl.className = state.examTimeLeft <= 300 ? 'timer warning' : 'timer';
+    }
+  }, 1000);
+
+  render();
+}
+
+function renderExam() {
+  const q = state.examQuestions[state.examIndex];
+  if (!q) return '<div class="container"><p>No questions loaded.</p></div>';
+
+  const min = Math.floor(state.examTimeLeft / 60);
+  const sec = state.examTimeLeft % 60;
+  const timerStr = min + ':' + String(sec).padStart(2, '0');
+  const timerClass = state.examTimeLeft <= 300 ? 'timer warning' : 'timer';
+  const isFlagged = state.examFlagged.has(q.id);
+  const flagClass = isFlagged ? 'flag-btn flagged' : 'flag-btn';
+  const answeredCount = Object.keys(state.examAnswers).length;
+  const selectedAnswer = q.id in state.examAnswers ? state.examAnswers[q.id] : null;
+
+  const optionButtons = q.options.map((opt, i) => {
+    const cls = selectedAnswer === i ? 'option-btn selected' : 'option-btn';
+    return `<button class="${cls}" data-action="exam-answer" data-index="${i}">${opt}</button>`;
+  }).join('');
+
+  const isLast = state.examIndex === 45;
+  const nextBtn = isLast
+    ? `<button class="nav-btn btn-primary" data-action="submit-exam">Submit Exam</button>`
+    : `<button class="nav-btn btn-primary" data-action="exam-next">Next →</button>`;
+  const prevDisabled = state.examIndex === 0 ? 'disabled' : '';
+
+  let gridOverlay = '';
+  if (state.showGrid) {
+    const gridNums = state.examQuestions.map((gq, i) => {
+      let cls = 'grid-num';
+      if (gq.id in state.examAnswers) cls += ' answered';
+      if (i === state.examIndex) cls += ' current';
+      const dot = state.examFlagged.has(gq.id) ? '<span class="flagged-dot"></span>' : '';
+      return `<button class="${cls}" data-action="exam-jump" data-index="${i}">${i + 1}${dot}</button>`;
+    }).join('');
+
+    const flaggedCount = state.examFlagged.size;
+
+    gridOverlay = `
+      <div class="overlay" data-action="close-grid">
+        <div class="overlay-content" onclick="event.stopPropagation()">
+          <div style="font-weight:700; font-size:17px; margin-bottom:12px;">Question Navigator</div>
+          <div class="question-grid">${gridNums}</div>
+          <div style="margin-top:14px; font-size:14px; color:#6b7280;">
+            Answered: <strong>${answeredCount}/46</strong> &nbsp;·&nbsp; Flagged: <strong>${flaggedCount}</strong>
+          </div>
+        </div>
+      </div>`;
+  }
+
+  return `
+    <div class="exam-header">
+      <button class="nav-btn" data-action="go-home" style="font-size:20px; padding:4px 10px;">←</button>
+      <span class="${timerClass}">${timerStr}</span>
+      <button class="nav-btn" data-action="toggle-grid">${state.examIndex + 1}/46</button>
+      <button class="${flagClass}" data-action="toggle-flag">⚑</button>
+    </div>
+    <div class="container" style="padding-top:72px;">
+      <div class="question-card">
+        <p class="question-text">${q.question}</p>
+        ${optionButtons}
+      </div>
+      <div class="nav-buttons" style="margin-top:16px;">
+        <button class="nav-btn btn-secondary" data-action="exam-prev" ${prevDisabled}>← Prev</button>
+        ${nextBtn}
+      </div>
+    </div>
+    ${gridOverlay}
+  `;
+}
+
+function renderResults() {
+  const r = state.examResult;
+  if (!r) return '<div class="container"><p>No results yet.</p><button data-action="go-home">Home</button></div>';
+
+  const pct = Math.round(r.score / r.total * 100);
+  const passed = r.passed;
+  const timeTaken = r.timeTaken;
+  const timeMins = Math.floor(timeTaken / 60);
+  const timeSecs = timeTaken % 60;
+
+  // Category breakdown
+  const catMap = {};
+  r.questions.forEach((q, i) => {
+    if (!catMap[q.category]) catMap[q.category] = { correct: 0, total: 0 };
+    catMap[q.category].total++;
+    if (r.answers[q.id] === q.correct) catMap[q.category].correct++;
+  });
+
+  const catItems = Object.keys(catMap).map(catId => {
+    const catInfo = CATEGORIES.find(c => c.id === catId) || { name: catId };
+    const { correct, total } = catMap[catId];
+    let scoreColor = '';
+    if (correct === total) scoreColor = 'color:#16a34a;';
+    else if (correct / total < 0.5) scoreColor = 'color:#dc2626;';
+    return `<li><span>${catInfo.name}</span><span style="${scoreColor} font-weight:600;">${correct}/${total}</span></li>`;
+  }).join('');
+
+  // Wrong answers
+  const wrongItems = r.questions.filter(q => r.answers[q.id] !== q.correct).map(q => {
+    const yourAnswer = q.id in r.answers ? q.options[r.answers[q.id]] : 'No answer';
+    const correctAnswer = q.options[q.correct];
+    return `
+      <div class="review-item">
+        <p class="question-text" style="margin-bottom:8px;">${q.question}</p>
+        <p style="color:#dc2626; font-size:14px; margin:4px 0;">Your answer: ${yourAnswer}</p>
+        <p style="color:#16a34a; font-size:14px; margin:4px 0;">Correct: ${correctAnswer}</p>
+        <div class="explanation">${q.explanation}</div>
+      </div>`;
+  }).join('');
+
+  return `
+    <div class="container">
+      <div style="text-align:center; padding:32px 0 20px;">
+        <div class="${passed ? 'pass' : 'fail'}">${passed ? 'PASSED!' : 'FAILED'}</div>
+        <div class="score-text">${r.score} / ${r.total} (${pct}%)</div>
+        <div style="font-size:14px; color:#6b7280; margin-top:6px;">
+          Need 38/46 (83%) to pass &nbsp;·&nbsp; Time: ${timeMins}m ${timeSecs}s
+        </div>
+      </div>
+
+      <div class="question-card category-breakdown">
+        <div style="font-weight:700; margin-bottom:10px;">Category Breakdown</div>
+        <ul>${catItems}</ul>
+      </div>
+
+      ${wrongItems.length ? `
+        <div style="font-weight:700; font-size:16px; margin:20px 0 10px;">Review Wrong Answers (${wrongItems.length})</div>
+        ${wrongItems}
+      ` : '<div style="text-align:center; color:#16a34a; font-weight:600; margin:20px 0;">All answers correct!</div>'}
+
+      <div class="nav-buttons" style="margin:24px 0;">
+        <button class="nav-btn btn-secondary" data-action="go-home">Home</button>
+        <button class="nav-btn btn-primary" data-action="start-exam">Retake Exam</button>
+      </div>
+    </div>
+  `;
+}
+
+function submitExam() {
+  if (state.examTimerId) {
+    clearInterval(state.examTimerId);
+    state.examTimerId = null;
+  }
+  let correct = 0;
+  state.examQuestions.forEach(q => {
+    if (state.examAnswers[q.id] === q.correct) correct++;
+  });
+  const history = loadExamHistory();
+  state.examResult = {
+    score: correct,
+    total: 46,
+    passed: correct >= 38,
+    timeTaken: 1800 - state.examTimeLeft,
+    date: new Date().toISOString(),
+    questions: state.examQuestions,
+    answers: { ...state.examAnswers }
+  };
+  history.push(state.examResult);
+  saveExamHistory(history);
+  state.screen = 'results';
+  render();
+}
 
 // Initialize
 render();
