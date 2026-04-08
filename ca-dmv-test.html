@@ -2712,6 +2712,25 @@ function submitExam() {
   render();
 }
 
+// Keyboard navigation (desktop)
+document.addEventListener('keydown', function(e) {
+  if (state.screen === 'study' || state.screen === 'exam') {
+    if (e.key === 'ArrowRight') {
+      const btn = document.querySelector('[data-action="study-next"], [data-action="exam-next"]');
+      if (btn && !btn.disabled) btn.click();
+    }
+    if (e.key === 'ArrowLeft') {
+      const btn = document.querySelector('[data-action="study-prev"], [data-action="exam-prev"]');
+      if (btn && !btn.disabled) btn.click();
+    }
+    if (e.key >= '1' && e.key <= '4') {
+      const btns = document.querySelectorAll('.option-btn:not([disabled])');
+      const idx = parseInt(e.key) - 1;
+      if (btns[idx]) btns[idx].click();
+    }
+  }
+});
+
 // Initialize
 render();
   </script>
